@@ -1,0 +1,39 @@
+{
+    "MP-155 12.7x108mm 6-shell magazine": {
+        "Description": "A unique 6-shell magazine extension tube for MP-155 Unique variant shotguns",
+        "ShortName": "MP155x6U",
+        "ItemTplToClone": "6076c87f232e5a31c233d50e",
+        "Changes": {
+            "Cartridges": {
+                "Count": 6,
+                "Filter": [
+                    "5cde8864d7f00c0010373be1",
+                	"5d2f2ab648f03550091993ca"
+                ]
+            }
+        },
+        "HandbookPriceRoubles": 6677,
+        "VariantType": "MP-155 >Sniper AMR< Unique",
+        "Rarity": "Unique"
+    },
+    "PPSh-41 Unique 7.62x25 4999-round drum magazine": {
+        "Description": "A 4999-round 7.62x25 made from black hole(?) drum magazine for the Unique Variant of PPSh-41\n<color=#ff0000>WARNING:</color> If it's empty do not let it float away",
+        "ShortName": "4999-r",
+        "ItemTplToClone": "5ea034f65aad6446a939737e",
+        "Properties": {
+            "Width": 5,
+            "Height": 5,
+            "ExtraSizeDown": 3,
+            "Weight": -21
+        },
+        "Changes": {
+            "Cartridges": {
+                "Count": 4999,
+                "FromWeapons": [ "TT" ]
+            }
+        },
+        "HandbookPriceRoubles": 24999,
+        "VariantType": "PPSh-41 >Actually Endless< Unique",
+        "Rarity": "Unique"
+    }
+}

@@ -1,0 +1,238 @@
+{
+    "12.7x108 Anti-materiel rifle Variant 2-round magazine": {
+        "Description": "Special 2-round magazine for special Anti-materiel rifle needs. Includes small blackhole and smells like black magic",
+        "ShortName": "AMR mag",
+        "ItemTplToClone": "5ae0973a5acfc4001562206c",
+        "Changes": {
+            "Cartridges": {
+                "Count": 2, 
+                "Filter": [
+                    "5cde8864d7f00c0010373be1",
+                	"5d2f2ab648f03550091993ca"
+                ]
+            }
+        },
+        "HandbookPriceRoubles": 3000,
+        "VariantType": "Anti-materiel rifle",
+        "Rarity": "Ultimate"
+    },
+    "Pay to Win Variant 5-round magazine": {
+        "Description": "A standard 5-round magazine for Pay to Win Variant weapons. Not that much pay to win, but still costly!",
+        "ShortName": "P2W 5r",
+        "ItemTplToClone": "5d25a4a98abbc30b917421a4",
+        "Properties": {
+            "ExtraSizeDown": 1,
+			"Height": 2
+        },
+        "Changes": {
+            "Cartridges": {
+                "Count": 5, 
+                "FromWeapons": [ "AK-50" ]
+            }
+        },
+        "Barter": {
+            "TraderId": "PEACEKEEPER",
+            "LoyalLevel": 1,
+            "UnlimitedCount": true,
+            "StackObjectsCount": 99,
+            "Price": 50000,
+            "Barter": "MONEY_ROUBLES"
+        },
+        "HandbookPriceRoubles": 20000,
+        "VariantType": "Pay to Win",
+        "Rarity": "Ultimate"
+    },
+    "Pay to Win Variant 20-round magazine": {
+        "Description": "A special 20-round magazine for Pay to Win Variant weapons. Very much pay to win, check it's price!",
+        "ShortName": "P2W 20r",
+        "ItemTplToClone": "5d25af8f8abbc3055079fec5",
+        "Properties": {
+            "ExtraSizeDown": 1,
+            "Height": 2
+        },
+        "Changes": {
+            "Cartridges": {
+                "Count": 20,
+                "FromWeapons": [ "AK-50" ]
+            }
+        },
+        "Barter": {
+            "TraderId": "PEACEKEEPER",
+            "LoyalLevel": 2,
+            "UnlimitedCount": true,
+            "StackObjectsCount": 99,
+            "Price": 250000,
+            "Barter": "MONEY_ROUBLES"
+        },
+        "HandbookPriceRoubles": 100000,
+        "VariantType": "Pay to Win",
+        "Rarity": "Ultimate"
+    },
+    "Pay to Win Variant 30-round magazine": {
+        "Description": "A special 30-round magazine for Pay to Win Variant weapons. Insanely pricey!",
+        "ShortName": "P2W 30r",
+        "ItemTplToClone": "5d25a6a48abbc306c62e6310",
+        "Properties": {},
+        "Changes": {
+            "Cartridges": {
+                "Count": 30,
+                "FromWeapons": [ "AK-50" ]
+            }
+        },
+        "Barter": {
+            "TraderId": "PEACEKEEPER",
+            "LoyalLevel": 3,
+            "UnlimitedCount": true,
+            "StackObjectsCount": 99,
+            "Price": 500000,
+            "Barter": "MONEY_ROUBLES"
+        },
+        "HandbookPriceRoubles": 200000,
+        "VariantType": "Pay to Win",
+        "Rarity": "Ultimate"
+    },
+    "Pay to Win Variant 50-round magazine": {
+        "Description": "A special 50-round magazine for Pay to Win Variant weapons. Only for whales!",
+        "ShortName": "P2W 50r",
+        "ItemTplToClone": "5cf12a15d7f00c05464b293f",
+        "Properties": {
+            "ExtraSizeDown": 2
+        },
+        "Changes": {
+            "Cartridges": {
+                "Count": 50,
+                "FromWeapons": [ "AK-50" ]
+            }
+        },
+        "Barter": {
+            "TraderId": "PEACEKEEPER",
+            "LoyalLevel": 4,
+            "UnlimitedCount": true,
+            "StackObjectsCount": 99,
+            "Price": 1000000,
+            "Barter": "MONEY_ROUBLES"
+        },
+        "HandbookPriceRoubles": 500000,
+        "VariantType": "Pay to Win",
+        "Rarity": "Ultimate"
+    },
+    "The Unheard Edition Variant 5-round magazine": {
+        "Description": "A standard 5-round magazine for The Unheard Edition Variant weapons. Not that much pay to win, but still costly!",
+        "ShortName": "TUE 5r",
+        "ItemTplToClone": "64b9e2037fdfb81df81e3c25",
+        "Properties": {
+            "ExtraSizeDown": 1,
+            "Height": 2
+        },
+        "Changes": {
+            "Cartridges": {
+                "Count": 5,
+                "FromWeapons": [ "5cffa483d7ad1a049e54ef1c" ]
+            }
+        },
+        "Barter": {
+            "TraderId": "PEACEKEEPER",
+            "LoyalLevel": 1,
+            "UnlimitedCount": true,
+            "StackObjectsCount": 99,
+            "Price": 40000,
+            "Barter": "MONEY_ROUBLES"
+        },
+        "HandbookPriceRoubles": 20000,
+        "VariantType": "The Unheard Edition",
+        "Rarity": "Ultimate"
+    },
+    "The Unheard Edition Variant 10-round magazine": {
+        "Description": "A special 10-round magazine for The Unheard Edition Variant weapons. Very much pay to win, check it's price!",
+        "ShortName": "TUE 10r",
+        "ItemTplToClone": "5aaf8a0be5b5b00015693243",
+        "Properties": {
+            "ExtraSizeDown": 1,
+            "Height": 2
+        },
+        "Changes": {
+            "Cartridges": {
+                "Count": 10,
+                "FromWeapons": [ "5cffa483d7ad1a049e54ef1c" ]
+            }
+        },
+        "Barter": {
+            "TraderId": "PEACEKEEPER",
+            "LoyalLevel": 2,
+            "UnlimitedCount": true,
+            "StackObjectsCount": 99,
+            "Price": 200000,
+            "Barter": "MONEY_ROUBLES"
+        },
+        "HandbookPriceRoubles": 100000,
+        "VariantType": "The Unheard Edition",
+        "Rarity": "Ultimate"
+    },
+    "The Unheard Edition Variant 20-round magazine": {
+        "Description": "A special 20-round magazine for The Unheard Edition Variant weapons. Insanely pricey!",
+        "ShortName": "TUE 20r",
+        "ItemTplToClone": "5addcce35acfc4001a5fc635",
+        "Properties": {
+            "ExtraSizeDown": 1,
+            "Height": 2
+        },
+        "Changes": {
+            "Cartridges": {
+                "Count": 20,
+                "FromWeapons": [ "5cffa483d7ad1a049e54ef1c" ]
+            }
+        },
+        "Barter": {
+            "TraderId": "PEACEKEEPER",
+            "LoyalLevel": 3,
+            "UnlimitedCount": true,
+            "StackObjectsCount": 99,
+            "Price": 400000,
+            "Barter": "MONEY_ROUBLES"
+        },
+        "HandbookPriceRoubles": 200000,
+        "VariantType": "The Unheard Edition",
+        "Rarity": "Ultimate"
+    },
+    "The Unheard Edition Variant 30-round magazine": {
+        "Description": "A special 30-round magazine for The Unheard Edition Variant weapons. Only for whales!",
+        "ShortName": "TUE 30r",
+        "ItemTplToClone": "5addccf45acfc400185c2989",
+        "Properties": {
+            "ExtraSizeDown": 2,
+            "Height": 2
+        },
+        "Changes": {
+            "Cartridges": {
+                "Count": 30,
+                "FromWeapons": [ "5cffa483d7ad1a049e54ef1c" ]
+            }
+        },
+        "Barter": {
+            "TraderId": "PEACEKEEPER",
+            "LoyalLevel": 4,
+            "UnlimitedCount": true,
+            "StackObjectsCount": 99,
+            "Price": 1000000,
+            "Barter": "MONEY_ROUBLES"
+        },
+        "HandbookPriceRoubles": 500000,
+        "VariantType": "The Unheard Edition",
+        "Rarity": "Ultimate"
+    },
+    "M82A1 .50 BMG 5-round internal magazine": {
+        "Description": "A 5-round .50 BMG magazine for the M82A1 sniper rifle, manufactured by Barrett Firearms. Can be only inserted to 50Cal variant type weapons.",
+        "ShortName": "50Cal mag",
+        "ItemTplToClone": "67d418d0ffb910d21f04720e",
+        "Changes": {
+            "ReloadMagType": "InternalMagazine",
+            "Cartridges": {
+                "Count": 5,
+                "FromWeapons": [ "AK-50" ]
+            }
+        },
+        "HandbookPriceRoubles": 18888,
+        "VariantType": "50Cal",
+        "Rarity": "Ultimate"
+    }
+}

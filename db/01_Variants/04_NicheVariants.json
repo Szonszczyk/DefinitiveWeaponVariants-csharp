@@ -1,0 +1,133 @@
+{
+	"Pocket-size": {
+     	"Description": "Illegally small guns. Do not the gun",
+    	"Explanation": "This weapon fits in one hand and can be equiped in holster slot. With a boost to ergonomics and almost weightless!",
+    	"ShortName": "smol",
+    	"Properties": {
+    		"Ergonomics": "+20%",
+			"Weight": "-92%"
+    	},
+    	"Changes": {
+    		"AddtoInventorySlots": ["Holster"]
+    	},
+		"Weapons": [
+			"FN40GL", "MSGL", "AXMC", "AKMSN", "M60E6",
+			"Velociraptor .300 BLK"
+		],
+    	"Rarity": "Niche"
+    },
+	"Rifle Grenade Launcher": {
+		"Description": "- It's like an underbarrel grenade launcher, but instead, it's an in-barrel grenade launcher!\n- You mean a rifle grenade…?\n- Exactly what I have in mind!",
+    	"Explanation": "Weapon variant chambered in 40mm grenades, with no magazine. Just load grenade launcher rounds directly into the chamber. Now with increased grenade velocity!",
+    	"ShortName": "R.Grenade",
+    	"Properties": {
+			"Velocity": 50
+    	},
+    	"Changes": {
+			"Slots": {
+			    "mod_magazine": {
+					"Filter": [ "40mm Rifle Grenade single round magazine" ]
+				}
+			},
+			"Chambers": {
+				"FromWeapons": [
+					"FN40GL"
+				]
+			}
+    	},
+		"IndividualChanges": {
+			"Blicky": {
+				"Slots": {
+					"mod_magazine": {
+						"Filter": [ "Blicky Special Magical Unbelievable Magazine" ]
+					}
+				}
+			}
+		},
+		"Weapons": [
+			"MP-43-1C", "MP-18", "Blicky", "AXMC", "Mk-18 Mjölnir",
+			"OP-SKS", "SV-98", "Mosin Infantry", "AK-545 Short", "ADAR 2-15",
+			"TRG M10", "AK-50"
+		],
+        "Rarity": "Niche"
+	},
+	"Bombardier": {
+		"Description": "God has blessed this weapon with a very big... cylinder. And an absurd amount of firepower!",
+    	"Explanation": "A revolver that dreams of being a grenade launcher",
+    	"ShortName": "Bombardier",
+		"Properties": {
+			"AmmoCaliber": "Caliber40x46"
+		},
+		"Changes": {
+			"Chambers": {
+				"FromWeapons": [ "FN40GL" ]
+			},
+    		"Slots": {
+			    "mod_magazine": {
+					"Filter": [ "M32A1 40mm 6-round Bombardier cylinder" ]
+				}
+			}
+    	},
+		"IndividualChanges": {
+			"MTs-255-12": {
+				"Slots": {
+					"mod_magazine": {
+						"Filter": [ "M32A1 40mm 5-round Bombardier cylinder" ]
+					}
+				}
+			},
+			"RSh-12": {
+				"Slots": {
+					"mod_magazine": {
+						"Filter": [ "M32A1 40mm 5-round Bombardier cylinder" ]
+					}
+				}
+			}
+		},
+		"Weapons": [
+			"RSh-12", "CR 50DS", "CR 200DS", "MTs-255-12"
+		],
+        "Rarity": "Niche"
+	},
+	"Holster": {
+     	"Description": "\"R&D inflated your pocket-dimension\" ~ADA",
+    	"Explanation": "SMG variant that trades its fire rate for more ergonomics and ability to be held in holster slot",
+    	"ShortName": "Holster",
+    	"Properties": {
+    		"BFirerate": "-25%",
+			"Ergonomics": "+35"
+    	},
+    	"Changes": {
+    		"AddtoInventorySlots": [ "Holster" ]
+    	},
+		"Weapons": [
+			"PPSh-41", "PP-91-01 Kedr-B", "Vector 9x19", "Vector .45ACP", "STM-9",
+			"MP7A2", "P90", "UZI PRO SMG", "UMP 45"
+		],
+    	"Rarity": "Niche"
+    },
+	"Glass Cannon": {
+     	"Description": "It’s neither made of glass nor actually a cannon - but look at it. When you fire it, it’s definitely a cannon, and when you check its durability, it’s definitely glass",
+    	"Explanation": "Shotgun variant chambered in .50 BMG with a 1-round magazine. Features increased durability damage but can be held in the pistol slot",
+    	"ShortName": "Glass Cannon",
+    	"Properties": {
+			"DurabilityBurnRatio": "+1500%"
+    	},
+    	"Changes": {
+    		"AddtoInventorySlots": [ "Holster" ],
+			"Chambers": {
+				"FromWeapons": [ "AK-50" ]
+			},
+    		"Slots": {
+			    "mod_magazine": {
+					"Filter": [ "Glass Cannon .50BMG 1-shell magazine" ]
+				}
+			}
+    	},
+		"Weapons": [
+			"KS-23M", "MP-153", "MP-155", "M870", "590A1",
+			"MP-133"
+		],
+    	"Rarity": "Niche"
+    }
+}

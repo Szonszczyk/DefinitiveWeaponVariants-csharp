@@ -1,0 +1,325 @@
+{
+	"AK-101 Unique": {
+		"Description": "A modern approach to the PPSh using an AK platform results in a surprisingly effective weapon firing an otherwise obsolete battlefield caliber",
+		"Explanation": "AK-101 >SMG & WWII<\nThis unique variant replicates PPSh stats and caliber, but with zero recoil",
+		"ShortName": ">SMG & WWII<",
+		"Properties": {
+			"DurabilityBurnRatio": 1.15,
+			"BFirerate": 1250,
+			"RecoilForceUp": 89,
+    		"RecoilForceBack": 294,
+			"RecoilCamera": 0.05,	
+			"RecoilReturnPathDampingHandRotation": 0.45,
+			"RecoilReturnPathOffsetHandRotation": 0.012,
+			"RecoilReturnSpeedHandRotation": 2,
+			"RecoilStableAngleIncreaseStep": 2.9,
+			"AllowJam": false,
+			"AllowFeed": false,
+			"AllowMisfire": false,
+			"AllowSlide": false,
+			"RecoilStableIndexShot": 1
+		},
+		"Changes": {
+			"Chambers": {
+				"FromWeapons": [ "TT" ]
+			},
+        	"Slots": {
+			    "mod_magazine": {
+					"FromWeapons": [ "PPSh-41" ]
+				}
+			}
+		},
+		"Weapons": [ "AK-101" ],
+		"Rarity": "Unique"
+	},
+	"M4A1 Unique": {
+		"Description": "Miracle of U.S. engineering. Someone wanted to a BiS M4 so here it is",
+		"Explanation": "M4A1 >7.62x51 Meta<\nThis unique variant provides meta-tier stats and fires 7.62×51mm using X-17 magazines",
+		"ShortName": ">7.62x51 Meta<",
+		"Properties": {
+			"RecoilForceUp": "-30%",
+			"RecoilForceBack": "-15%",
+			"RecoilReturnSpeedHandRotation": "+15%",
+			"RecoilCamera": "-15%",
+			"RecoilDampingHandRotation": "-15%",
+			"RecoilReturnPathDampingHandRotation": "-15%",
+			"Ergonomics": "+15"
+		},
+		"Changes": {
+			"Chambers": {
+				"FromWeapons": [ "X-17" ]
+			},
+        	"Slots": {
+			    "mod_magazine": {
+					"FromWeapons": [ "X-17" ]
+				}
+			}
+		},
+		"Weapons": [ "M4A1" ],
+		"Rarity": "Unique"
+	},
+	"Vector 9x19 Unique": {
+		"Description": "What do you call a weapon with M4 caliber, higher fire rate than an M4, and M4 magazines? A 5.56 Vector",
+		"Explanation": "Vector 9x19 >5.56x45 Speedy<\nThis unique variant increases fire rate and is chambered with 5.56×45mm using M4A1 magazines",
+		"ShortName": ">5.56x45 Speedy<",
+		"Properties": {
+			"BFirerate": "+69%"
+		},
+		"Changes": {
+			"Chambers": {
+				"FromWeapons": [ "M4A1" ]
+			},
+        	"Slots": {
+			    "mod_magazine": {
+					"FromWeapons": [ "M4A1" ]
+				}
+			}
+		},
+		"Weapons": [ "Vector 9x19" ],
+		"Rarity": "Unique"
+	},
+	"SVT-40 Unique": {
+		"Description": "A toy gun for adults. Please do not choke on the magazine!",
+		"Explanation": "SVT-40 >Blicky<\nThis unique variant allows the use of the Blicky Special Magical Unbelievable Magazine, compatible with all matching calibers",
+		"ShortName": ">Blicky<",
+		"Changes": {
+			"Chambers": {
+				"Filter": [
+                    "5cde8864d7f00c0010373be1",
+                	"5d2f2ab648f03550091993ca"
+                ],
+                "FromWeapons": [
+                    "SVDS",
+                    "FN40GL",
+                    "TT",
+                    "M4A1",
+                    "Saiga-12K",
+                    "SR-2M"
+                ]
+			},
+        	"Slots": {
+			    "mod_magazine": {
+					"Filter": [ "Blicky Special Magical Unbelievable Magazine" ]
+				}
+			}
+		},
+		"Weapons": [ "SVT-40" ],
+		"Rarity": "Unique"
+	},
+	"MP-155 Unique": {
+		"Description": "Anti-materiel shotgun - because rifles are for cool kids, but shotguns are for chads!",
+		"Explanation": "MP-155 >Sniper AMR<\nThis unique variant fires 12.7×108mm using a custom magazine and AXMC barrel for improved accuracy",
+		"ShortName": ">Sniper AMR<",
+		"Changes": {
+			"Chambers": {
+				"Filter": [
+                    "5cde8864d7f00c0010373be1",
+                	"5d2f2ab648f03550091993ca"
+                ]
+			},
+        	"Slots": {
+				"mod_barrel": {
+					"Filter": [ "Sniper Variant 28 inch barrel" ]
+				},
+			    "mod_magazine": {
+					"Filter": [ "MP-155 12.7x108mm 6-shell magazine" ]
+				}
+			}
+		},
+		"Weapons": [ "MP-155" ],
+		"Rarity": "Unique"
+	},
+	"AK-545 Unique": {
+		"Description": "We hope this variant finally satisfies everyone who couldn't choose between automatic fire and marksman precision",
+		"Explanation": "AK-545 >Automatic Marksman<\nThis unique variant blends the best traits of Automatic and Marksman variant types. It supports all fire modes, increased fire rate, reduced recoil, 2-round bursts, and cannot malfunction",
+		"ShortName": ">Automatic Marksman<",
+		"Properties": {
+			"WeapFireType": [
+				"fullauto",
+				"single",
+		        "burst"
+			],
+			"BFirerate": "+10%",
+			"RecoilForceBack": "-30%",
+		    "RecoilForceUp": "-20%",
+		    "RecoilDampingHandRotation": "-30%",
+		    "RecoilReturnSpeedHandRotation": "-30%",
+		    "BurstShotsCount": 2,
+		    "AllowJam": false,
+			"AllowFeed": false,
+			"AllowMisfire": false,
+			"AllowSlide": false
+		},
+		"Weapons": [ "AK-545" ],
+		"Rarity": "Unique"
+	},
+	"M870 Unique": {
+		"Description": "The M870, but with enough firepower to politely ask entire squads to disappear",
+		"Explanation": "M870 >Karabin Spetsialniy & Buckshot Launcher<\nThis variant combines full-magazine-per-click firing, extremely reduced recoil, 23×75mm ammo, and a special 12-round magazine",
+		"ShortName": ">KS-23 & B.Launcher<",
+		"Properties": {
+			"WeapFireType": [ "burst" ],
+			"BurstShotsCount": 100,
+			"RecoilForceBack": "-90%",
+			"RecoilForceUp": "-90%",
+			"RecoilCamera": "-90%"
+		},
+		"Changes": {
+			"Minimum": {
+				"BFirerate": 7200
+			},
+			"Chambers": {
+				"FromWeapons": [ "KS-23M" ]
+			},
+    		"Slots": {
+			    "mod_magazine": {
+					"Filter": [ "KS-23M 23x75 12-shell magazine cap" ]
+				}
+			}
+    	},
+		"Weapons": [ "M870" ],
+		"Rarity": "Unique"
+	},
+	"PPSh-41 Unique": {
+		"Description": "The PPSh for people who think 'high capacity' means 'several thousand'",
+		"Explanation": "PPSh-41 >Actually Endless<\nThis variant features a special magazine holding nearly 5,000 rounds with zero heat buildup",
+		"ShortName": ">Actually Endless<",
+		"Properties": {
+			"DurabilityBurnRatio": 0
+		},
+		"Changes": {
+    		"Slots": {
+			    "mod_magazine": {
+					"Filter": [ "PPSh-41 Unique 7.62x25 4999-round drum magazine" ]
+				}
+			}
+    	},
+		"Weapons": [ "PPSh-41" ],
+		"Rarity": "Unique"
+	},
+	"AK-50 Unique": {
+		"Description": "We upgraded your AK-50 to an AK-74 at no additional cost - and with significantly fewer engineering delays",
+		"Explanation": "AK-50 >Real AK<\nThis unique variant adopts most of its statistics from the AK-74",
+		"ShortName": ">Real AK<",
+		"Properties": {
+			"AimPlane": 0.19,
+			"AimSensitivity": 0.65,
+			"AllowFeed": true,
+			"AllowJam": true,
+			"AllowMisfire": true,
+			"AllowOverheat": true,
+			"AllowSlide": true,
+			"BaseMalfunctionChance": 0.1771,
+			"BurstShotsCount": 3,
+			"CameraSnap": 3.5,
+			"CameraToWeaponAngleStep": 0.1,
+			"CenterOfImpact": 0.058,
+			"CompactHandling": true,
+			"ConflictingItems": [],
+			"CoolFactorGun": 3.168,
+			"CoolFactorGunMods": 1.0008,
+			"DeviationCurve": 1.35,
+			"DeviationMax": 23,
+			"DiscardLimit": -1,
+			"DoubleActionAccuracyPenalty": 1.5,
+			"DropSoundType": "Rifle",
+			"Durability": 100,
+			"DurabilityBurnRatio": 1.15,
+			"Ergonomics": 30,
+			"ExamineExperience": 10,
+			"ExamineTime": 1,
+			"HeatFactorByShot": 1.49,
+			"HeatFactorGun": 0.9701,
+			"Height": 1,
+			"HipAccuracyRestorationDelay": 0.2,
+			"HipAccuracyRestorationSpeed": 7,
+			"HipInnaccuracyGain": 0.16,
+			"IronSightRange": 100,
+			"ItemSound": "weap_ar",
+			"LeftHandItem": false,
+			"LootExperience": 20,
+			"ManualBoltCatch": false,
+			"MaxDurability": 100,
+			"MaxRepairDegradation": 0.04,
+			"MaxRepairKitDegradation": 0.035,
+			"OperatingResource": 5200,
+			"RarityPvE": "Common",
+			"RecoilAngle": 90,
+			"RecoilCamera": 0.04,
+			"RecoilCategoryMultiplierHandRotation": 0.19,
+			"RecoilDampingHandRotation": 0.85,
+			"RecoilForceBack": 322,
+			"RecoilForceUp": 120,
+			"RecoilPosZMult": 1,
+			"RecoilReturnPathDampingHandRotation": 0.48,
+			"RecoilReturnPathOffsetHandRotation": 0.01,
+			"RecoilReturnSpeedHandRotation": 2.4,
+			"RecoilStableAngleIncreaseStep": 2.5,
+			"RecoilStableIndexShot": 5,
+			"RecolDispersion": 10,
+			"ReloadMode": "ExternalMagazine",
+			"RepairComplexity": 0,
+			"RepairCost": 109,
+			"RepairSpeed": 5,
+			"SightingRange": 100,
+			"SingleFireRate": 450,
+			"SizeReduceRight": 0,
+			"StackMaxSize": 1,
+			"StackObjectsCount": 1,
+			"TacticalReloadFixation": 0.95,
+			"Unlootable": false,
+			"UseAltMountBone": false,
+			"Velocity": 1.8,
+			"Weight": 1.992,
+			"Width": 4,
+			"BEffDist": 650,
+			"BFirerate": 650,
+			"BHearDist": 80,
+			"WeapFireType": [
+				"single",
+				"fullauto"
+			]
+		},
+		"Weapons": [ "AK-50" ],
+		"Rarity": "Unique"
+	},
+	"Mosin Sniper Unique": {
+		"Description": "The 'gun of shoulder destruction' - now in an even more >Unheard< edition",
+		"Explanation": "Mosin Sniper >The Unheard Edition & AMR & Hypersonic & No-Bolt<\nThis unique variant is chambered in 12.7×108mm, uses The Unheard Edition magazines, has massive visible recoil, functions as a DMR, and features extreme muzzle velocity",
+		"ShortName": ">Anti-Unheard Rifle<",
+		"Properties": {
+			"RecoilForceBack": "+300%",
+            "AllowJam": false,
+			"AllowFeed": false,
+			"AllowSlide": false,
+			"AllowMisfire": true,
+			"Velocity": 350,
+			"CenterOfImpact": 0.01,
+    		"WeapFireType": [ "burst" ],
+    		"BurstShotsCount": 1
+		},
+		"Changes": {
+			"Minimum": {
+				"BFirerate": 450
+			},
+			"Slots": {
+				"mod_magazine": {
+					"Filter": [
+						"The Unheard Edition Variant 5-round magazine",
+						"The Unheard Edition Variant 10-round magazine",
+						"The Unheard Edition Variant 20-round magazine",
+						"The Unheard Edition Variant 30-round magazine"
+					]
+				}
+			},
+			"Chambers": {
+				"Filter": [
+					"5cde8864d7f00c0010373be1",
+					"5d2f2ab648f03550091993ca"
+				]
+			}
+		},
+		"Weapons": [ "Mosin Sniper" ],
+		"Rarity": "Unique"
+	}
+}

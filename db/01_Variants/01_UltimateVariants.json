@@ -1,0 +1,319 @@
+{
+	"Meta": {
+		"Description": "A weapon modification rumored to have been crafted by the Mechanic himself. Created entirely with his bare hands, without the use of any tools",
+		"Explanation": "Weapon variant with reduced recoil, improved ergonomics, and decreased heat buildup, offering no drawbacks",
+		"ShortName": "Meta",
+		"Properties": {
+			"RecoilForceUp": "-25%",
+			"RecoilForceBack": "-10%",
+			"RecoilReturnSpeedHandRotation": "+10%",
+			"RecoilCamera": "-10%",
+			"RecoilDampingHandRotation": "-10%",
+			"RecoilReturnPathDampingHandRotation": "-10%",
+			"Ergonomics": "+25",
+			"RecoilStableIndexShot": 4,
+			"HeatFactorByShot": "-25%"
+		},
+		"Weapons": [
+			"9A-91", "AVT-40", "AK-12", "G36", "M4A1",
+			"SPEAR 6.8", "Mk47", "SA-58", "AS VAL", "PPSh-41",
+			"PKP", "RPK-16", "M60E6", "AK-102", "HK 416A5",
+			"AKM", "Saiga-12K FA", "AK-50"
+		],
+		"Rarity": "Ultimate"
+	},
+	"Lapua": {
+        "Description": "A highly requested weapon variant, crafted for all you devoted Lapua enthusiasts",
+        "Explanation": "Weapon variant chambered with .338 Lapua Magnum caliber and compatible with all .338 magazines but with increased recoil and heat buildup",
+        "ShortName": ".338",
+        "Properties": {
+			"RecoilForceUp": "+25%",
+            "RecoilForceBack": "+50%",
+            "RecoilCamera": "+30%",
+            "RecoilReturnPathDampingHandRotation": "-30%",
+            "RecoilDampingHandRotation": "+5%",
+			"RecoilReturnSpeedHandRotation": "-30%",
+			"RecoilReturnPathOffsetHandRotation": "+30%",
+			"HeatFactorByShot": "+100%"
+        },
+		"Changes": {
+			"Slots": {
+				"mod_magazine": {
+					"Filter": [],
+					"FromWeapons": [
+						"Mk-18 Mjölnir",
+						"AXMC"
+					],
+					"Add": []
+				}
+			},
+			"Chambers": {
+				"Filter": [],
+				"FromWeapons": [ "AXMC" ],
+				"Add": []
+			}
+		},
+		"Weapons": [
+			"AK-545", "TX-15 DML", "G28", "M1A", "RSASS",
+			"AS VAL", "AK-74", "T-5000M", "VSK-94", "X-17"
+		],
+        "Rarity": "Ultimate"
+	},
+	"Overclocked & Automatic": {
+        "Description": "What happens when you put a processor in a weapon? It becomes automatic and requires cooling. And if you're adding cooling, why not overclock it to fire faster? Researchers remain deeply unsettled by this abomination",
+        "Explanation": "Weapon variant with a full-auto fire mode only, featuring an increased fire rate and improved cooling capabilities, but reduced ergonomics",
+        "ShortName": "OC/AC",
+        "Properties": {
+            "WeapFireType": [ "fullauto" ],
+            "CoolFactorGun": "+50%",
+            "CoolFactorGunMods": 1,
+            "SingleFireRate": "+35%",
+            "BFirerate": "+40%",
+            "Ergonomics": "-20%"
+        },
+		"Changes": {
+			"Minimum": {
+				"BFirerate": 450
+			}
+		},
+		"Weapons": [
+			"OP-SKS", "RFB", "VPO-209", "SR-25", "RSASS",
+    		"M1A", "Glock 19X", "SR-1MP", "USP .45", "Glock 18C"
+		],
+        "Rarity": "Ultimate"
+	},
+	"Heavy Machine Gun": {
+    	"Description": "Close your eyes and pull the trigger. Feel nothing. Become one with the gun",
+    	"Explanation": "A weapon variant with full-auto fire mode only, featuring lower vertical recoil, significantly higher horizontal recoil, and an increased fire rate",
+    	"ShortName": "HMG",
+    	"Properties": {
+    		"RecoilForceBack": "+150%",
+    		"RecoilForceUp": "-60%",
+			"WeapFireType": [ "fullauto" ],
+			"BFirerate": "+20%"
+    	},
+		"Weapons": [
+			"PKM", "RPDN", "M60E6", "HK 416A5", "RPK-16",
+			"Mk 43 Mod 1", "PKP", "RPD"
+		],
+    	"Rarity": "Ultimate"
+    },
+	"Anti-materiel rifle": {
+		"Description": "Using quantum physics—and perhaps a touch of black magic—this weapon variant fires rounds typically reserved for combating lightly armored vehicles",
+		"Explanation": "A weapon variant chambered in the 12.7x108mm caliber with a single small magazine, increased horizontal recoil, and only capable of Misfire malfunctions. Uses 12.7x108mm ammo, available from Skier LL1",
+		"ShortName": "AMR",
+		"Properties": {
+			"RecoilForceBack": "+300%",
+            "AllowJam": false,
+			"AllowFeed": false,
+			"AllowSlide": false,
+			"AllowMisfire": true
+        },
+		"Changes": {
+			"Slots": {
+				"mod_magazine": {
+					"Filter": [ "12.7x108 Anti-materiel rifle Variant 2-round magazine" ],
+					"FromWeapons": [],
+					"Add": []
+				}
+			},
+			"Chambers": {
+				"Filter": [
+					"5cde8864d7f00c0010373be1",
+					"5d2f2ab648f03550091993ca"
+				],
+				"FromWeapons": [],
+				"Add": []
+			}
+		},
+		"IndividualChanges": {
+			"Blicky": {
+				"Slots": {
+					"mod_magazine": {
+						"Filter": [ "Blicky Special Magical Unbelievable Magazine" ],
+						"FromWeapons": [],
+						"Add": []
+					}
+				}
+			}
+        },
+		"Weapons": [
+			"Mosin Sniper", "AXMC", "M700", "OP-SKS", "SVT-40",
+			"AVT-40", "MP-43-1C", "MP-18", "Sawed-off", "Blicky",
+			"FN40GL", "TRG M10"
+		],
+        "Rarity": "Ultimate"
+	},
+	"Point & Click": {
+		"Description": "The entire interior has been replaced with cutting-edge, experimental electronics, transforming it into a precise and efficient tool. Although slightly fragile, it can deliver four rounds simultaneously to the same target with pinpoint accuracy",
+		"Explanation": "Weapon variant with low recoil and dispersion, an exceptionally high fire rate, a 5-round burst fire mode, and immunity to malfunctions, but causing increased wear to the weapon's durability",
+		"ShortName": "P&C",
+		"Properties": {
+			"WeapFireType": [
+				"burst"
+			],
+			"BFirerate": "+400%",
+			"RecoilForceBack": "-80%",
+			"RecoilForceUp": "-80%",
+			"RecoilCamera": "-80%",
+			"AimPlane": "-80%",
+			"RecolDispersion": "-80%",
+			"RecoilReturnPathDampingHandRotation": "-80%",
+			"RecoilDampingHandRotation": "-80%",
+		    "RecoilReturnSpeedHandRotation": "+80%",
+			"CenterOfImpact": 0.01,
+			"BurstShotsCount": 5,
+			"HeatFactorByShot": "+200%",
+			"DurabilityBurnRatio": "+40%",
+			"AllowJam": false,
+			"AllowFeed": false,
+			"AllowMisfire": false,
+			"AllowSlide": false,
+			"MaxRepairKitDegradation": 0
+		},
+		"IndividualChanges": {
+			"SVT-40": {
+				"Properties": {
+					"BFirerate": 4123
+				}
+			}
+		},
+		"Weapons": [
+			"STM-9", "AK-545", "SVT-40", "TX-15 DML", "VSS Vintorez",
+			"Vector 9x19", "ASh-12"
+		],
+		"Rarity": "Ultimate"
+	},
+	"Buckshot Launcher": {
+		"Description": "\"Point and Click Shotgun Adventure\"\nA cousin of the Fullburst variant - unleashing full power with a single pull of the trigger!",
+		"Explanation": "Shotgun variant with a full-magazine-per-click fire mode and significantly reduced recoil",
+		"ShortName": "Buckshot L.",
+		"Properties": {
+			"BFirerate": "+0%",
+			"WeapFireType": [ "burst" ],
+			"BurstShotsCount": 100,
+			"RecoilForceBack": "-90%",
+			"RecoilForceUp": "-90%",
+			"RecoilCamera": "-90%"
+		},
+		"Changes": {
+			"Minimum": {
+				"BFirerate": 7200
+			}
+		},
+		"IndividualChanges": {
+			"AA-12 Gen 1": {
+				"Properties": {
+					"WeapFireType": [ "fullauto" ]
+				}
+			},
+			"AA-12 Gen 2": {
+				"Properties": {
+					"WeapFireType": [ "fullauto" ]
+				}
+			}
+		},
+		"Weapons": [
+			"KS-23M", "590A1", "M870", "MP-133", "MP-153",
+			"MP-155", "TOZ-106", "AA-12 Gen 1", "AA-12 Gen 2", "Saiga-12K"
+		],
+		"Rarity": "Ultimate"
+	},
+	"Pay to Win": {
+        "Description": "Only for Tarkov whales! These guns literally shoot money!",
+        "Explanation": "Weapon variant chambered in .338 Lapua Magnum rounds, with increased visible recoil and reduced fire rate. Features incredibly expensive magazines",
+        "ShortName": "P2W",
+        "Properties": {
+			"RecoilForceUp": "+35%",
+			"RecoilCamera": "+15%",
+			"BFirerate": "-20%"
+        },
+		"Changes": {
+			"Slots": {
+				"mod_magazine": {
+					"Filter": [
+						"Pay to Win Variant 5-round magazine",
+						"Pay to Win Variant 20-round magazine",
+						"Pay to Win Variant 30-round magazine",
+						"Pay to Win Variant 50-round magazine"
+					],
+					"FromWeapons": [],
+					"Add": []
+				}
+			},
+			"Chambers": {
+				"Filter": [],
+				"FromWeapons": [
+					"AK-50"
+				],
+				"Add": []
+			}
+		},
+        "Weapons": [
+            "AK-74M", "AK-102", "AKM", "VSS Vintorez", "M4A1",
+            "Mk47", "HK 416A5", "SPEAR 6.8"
+        ],
+        "Rarity": "Ultimate"
+    },
+	"The Unheard Edition": {
+        "Description": "Some internet portal claimed these weapons were made by Nikita and placed in special paid crates shortly after the EFT 1.0 release\nOr… it was just a bad dream?",
+        "Explanation": "Weapon variant chambered in 12.7x108mm rounds, with increased visible recoil. Features incredibly expensive magazines",
+        "ShortName": "Unheard",
+        "Properties": {
+            "WeapFireType": [ "single" ],
+			"RecoilForceUp": "+35%",
+			"RecoilCamera": "+15%"
+        },
+		"Changes": {
+			"Slots": {
+				"mod_magazine": {
+					"Filter": [
+						"The Unheard Edition Variant 5-round magazine",
+						"The Unheard Edition Variant 10-round magazine",
+						"The Unheard Edition Variant 20-round magazine",
+						"The Unheard Edition Variant 30-round magazine"
+					],
+					"FromWeapons": [],
+					"Add": []
+				}
+			},
+			"Chambers": {
+				"Filter": [
+					"5cde8864d7f00c0010373be1",
+					"5d2f2ab648f03550091993ca"
+				],
+				"FromWeapons": [],
+				"Add": []
+			}
+		},
+        "Weapons": [
+            "G28", "M1A", "Mk-18 Mjölnir", "RSASS", "SR-25",
+            "SVDS", "VSS Vintorez", "AK-50"
+        ],
+        "Rarity": "Ultimate"
+    },
+	"50Cal": {
+        "Description": "The 50Cal Variant exists because someone asked \"What if we made everything .50 BMG? :ThinkingEmoji:\"\nCongratulations - you now possess a handheld anti-material argument\nSay goodbye to recoil, and say hello to orbit",
+        "Explanation": "Weapon variant chambered in .50 BMG with increased recoil. Features special 5-round internal magazine",
+        "ShortName": ".50 BMG",
+        "Properties": {
+			"RecoilForceUp": "+100%",
+            "RecoilForceBack": "+260%"
+        },
+        "Changes": {
+            "Chambers": {
+                "FromWeapons": [ "AK-50" ]
+            },
+        	"Slots": {
+        		"mod_magazine": {
+					"Filter": [ "M82A1 .50 BMG 5-round internal magazine" ]
+                }
+        	}
+        },
+        "Weapons": [
+            "Mosin Infantry", "AXMC", "M700", "OP-SKS", "SVT-40",
+			"AVT-40", "MP-43-1C", "MP-18", "Sawed-off", "FN40GL"
+        ],
+		"Rarity": "Ultimate"
+    }
+}

@@ -1,0 +1,224 @@
+{
+    "SOK-12 12ga MD Arms Internal 20-round magazine": {
+        "Description": "Special MD Arms 20-shell magazine for Panic Variant weapons with internal magazine",
+        "ShortName": "MD Arms Inter.",
+        "ItemTplToClone": "674fe8f6f34d761ab8020cc8",
+        "Properties": {
+            "ReloadMagType": "InternalMagazine",
+			"RaidModdable": false
+        },
+        "HandbookPriceRoubles": 25000,
+        "VariantType": "Panic",
+        "Rarity": "Flawed"
+    },
+    "Quick-scope special \"reflex\" sight": {
+        "Description": "The Walther MRS (Multi-Reticle Sight) reflex sight features 1 dots and 1 reticles without adjustable brightness levels.",
+        "ShortName": "Quick-sight",
+        "ItemTplToClone": "570fd721d2720bc5458b4596",
+        "Properties": {
+            "ModesCount": [1],
+            "Weight": 0
+        },
+        "HandbookPriceRoubles": 20000,
+        "VariantType": "Quick-scope",
+        "Rarity": "Flawed"
+    },
+    "ORSIS T-5000M Quick-scope mount": {
+        "Description": "A changed scope mount for the T-5000M sniper rifle, manufactured by ORSIS. Allows installation of reflex sights.",
+        "ShortName": "T-5000M Q",
+        "ItemTplToClone": "5df35e970b92095fd441e4d2",
+        "Properties": {
+            "Weight": 0
+        },
+        "Changes": {
+            "Slots": {
+                "mod_scope": {
+                    "Filter": [ "Quick-scope special \"reflex\" sight" ]
+                }
+            }
+        },
+        "HandbookPriceRoubles": 2200,
+        "VariantType": "Quick-scope",
+        "Rarity": "Flawed"
+    },
+    "M700 AB Arms MOD*X rail Quick-scope mount": {
+        "Description": "The AB Arms MOD*X changed mount for the Remington Model 700 sniper rifle, allows installation of reflex sight.",
+        "ShortName": "MOD*X rail Q",
+        "ItemTplToClone": "5cde7b43d7f00c000d36b93e",
+        "Properties": {
+            "Weight": 0
+        },
+        "Changes": {
+            "Slots": {
+                "mod_scope": {
+                    "Filter": [ "Quick-scope special \"reflex\" sight" ]
+                }
+            }
+        },
+        "HandbookPriceRoubles": 2640,
+        "VariantType": "Quick-scope",
+        "Rarity": "Flawed"
+    },
+    "AI AXMC upper receiver Q": {
+        "Description": "An upper receiver for the AXMC Quick sniper rifle manufactured by Accuracy International, allows installation of reflex sight.",
+        "ShortName": "AXMC upper Q",
+        "ItemTplToClone": "62811fbf09427b40ab14e767",
+        "Properties": {
+            "Weight": 0
+        },
+        "Changes": {
+            "Slots": {
+                "mod_scope": {
+                    "Filter": [ "Quick-scope special \"reflex\" sight" ]
+                }
+            }
+        },
+        "HandbookPriceRoubles": 7440,
+        "VariantType": "Quick-scope",
+        "Rarity": "Flawed"
+    },
+    "AI AXMC .338 LM chassis Q": {
+        "Description": "The factory fitted .338 Lapua Magnum chassis for the AXMC Quick sniper rifle, manufactured by Accuracy International.",
+        "ShortName": "AXMC .338LM Q",
+        "ItemTplToClone": "6281204f308cb521f87a8f9b",
+        "Properties": {
+            "Weight": 0
+        },
+        "Changes": {
+            "Slots": {
+                "mod_reciever": {
+                    "Filter": [ "AI AXMC upper receiver Q" ]
+                }
+            }
+        },
+        "HandbookPriceRoubles": 5440,
+        "VariantType": "Quick-scope",
+        "Rarity": "Flawed"
+    },
+    "AI AXMC pistol grip Q": {
+        "Description": "A pistol grip for the AXMC Quick sniper rifle, manufactured by Accuracy International.",
+        "ShortName": "AXMC PG Q",
+        "ItemTplToClone": "62811e2510e26c1f344e6554",
+        "Properties": {
+            "Weight": 0
+        },
+        "Changes": {
+            "Slots": {
+                "mod_reciever": {
+                    "Filter": [ "AI AXMC .338 LM chassis Q" ]
+                }
+            }
+        },
+        "HandbookPriceRoubles": 2440,
+        "VariantType": "Quick-scope",
+        "Rarity": "Flawed"
+    },
+    "TOZ-106 rail scope mount Q": {
+        "Description": "A universal Weaver rail mount for TOZ-106. Provides a rail that allows installing the reflex sight on the weapon. Requires a dovetail mount.",
+        "ShortName": "106 mount Q",
+        "ItemTplToClone": "5c61627a2e22160012542c55",
+        "Properties": {
+            "Weight": 0
+        },
+        "Changes": {
+            "Slots": {
+                "mod_scope": {
+                    "Filter": [ "Quick-scope special \"reflex\" sight" ]
+                }
+            }
+        },
+        "HandbookPriceRoubles": 2440,
+        "VariantType": "Quick-scope",
+        "Rarity": "Flawed"
+    },
+    "TOZ-106 dovetail mount Q": {
+        "Description": "A dovetail mount for TOZ-106 Quick bolt-action shotgun, allows installing reflex sight mount.",
+        "ShortName": "106 DT Q",
+        "ItemTplToClone": "5c6162682e22160010261a2b",
+        "Properties": {
+            "Weight": 0
+        },
+        "Changes": {
+            "Slots": {
+                "mod_mount_000": {
+                    "Filter": [ "TOZ-106 rail scope mount Q" ]
+                }
+            }
+        },
+        "HandbookPriceRoubles": 1440,
+        "VariantType": "Quick-scope",
+        "Rarity": "Flawed"
+    },
+    "Mosin Rifle AIM Sports MNG rail mount Q": {
+        "Description": "A Picatinny rail for the Mosin rifle, mounted instead of the regular rear sight. Provides a rail that allows installing the reflex sight on the weapon. Manufactured by AIM Sports.",
+        "ShortName": "Mosin MNG Q",
+        "ItemTplToClone": "5bc5a372d4351e44f824d17f",
+        "Properties": {
+            "Weight": 0
+        },
+        "Changes": {
+            "Slots": {
+                "mod_scope": {
+                    "Filter": [ "Quick-scope special \"reflex\" sight" ]
+                }
+            }
+        },
+        "HandbookPriceRoubles": 4540,
+        "VariantType": "Quick-scope",
+        "Rarity": "Flawed"
+    },
+    "Mosin Rifle 7.62x54R 730mm regular barrel Infantry Q": {
+        "Description": "A regular 730mm barrel for the Mosin Infantry Quick rifle.",
+        "ShortName": "Mosin 730mm IQ",
+        "ItemTplToClone": "5ae09bff5acfc4001562219d",
+        "Properties": {
+            "Weight": 0
+        },
+        "Changes": {
+            "Slots": {
+                "mod_sight_rear": {
+                    "Filter": [ "5ae099925acfc4001a5fc7b3" ]
+                }
+            }
+        },
+        "HandbookPriceRoubles": 4540,
+        "VariantType": "Quick-scope",
+        "Rarity": "Flawed"
+    },
+    "Mosin Rifle 7.62x54R 730mm regular barrel Sniper Q": {
+        "Description": "A regular 730mm barrel for the Mosin Sniper Quick rifle.",
+        "ShortName": "Mosin 730mm SQ",
+        "ItemTplToClone": "5ae09bff5acfc4001562219d",
+        "Properties": {
+            "Weight": 0
+        },
+        "Changes": {
+            "Slots": {
+                "mod_sight_rear": {
+                    "Filter": [ "Mosin Rifle AIM Sports MNG rail mount Q" ]
+                }
+            }
+        },
+        "HandbookPriceRoubles": 4542,
+        "VariantType": "Quick-scope",
+        "Rarity": "Flawed"
+    },
+    "AK-50 dust cover Q": {
+        "Description": "A receiver dust cover for the AK-50 sniper rifle Quick.",
+        "ShortName": "AK-50 DC Q",
+        "ItemTplToClone": "67d416e19bd76ef20f0e743b",
+        "Properties": {
+            "Weight": 0
+        },
+        "Changes": {
+            "Slots": {
+                "mod_scope": {
+                    "Filter": [ "Quick-scope special \"reflex\" sight" ]
+                }
+            }
+        },
+        "HandbookPriceRoubles": 7643,
+        "VariantType": "Quick-scope",
+        "Rarity": "Flawed"
+    }
+}

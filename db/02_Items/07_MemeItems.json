@@ -1,0 +1,33 @@
+{
+	"12.7x99 BFG-50 1-round magazine": {
+		"Description": "Special 1-round magazine for special BFG-50 needs",
+        "ShortName": "BFG mag",
+        "ItemTplToClone": "587df3a12459772c28142567",
+        "Changes": {
+            "Cartridges": {
+                "Count": 1, 
+                "FromWeapons": [ "AK-50" ]
+            }
+        },
+        "HandbookPriceRoubles": 3000,
+        "VariantType": "BFG-50",
+        "Rarity": "Meme"
+	},
+    "Converted Variant 9x39 Shotgun 15-round magazine": {
+		"Description": "A 15-round polymer TsNIITochMash 6L24 9x39 magazine for shotguns from Converted Variant",
+        "ShortName": "BFG mag",
+        "ItemTplToClone": "57838f0b2459774a256959b2",
+        "Properties": {
+            "ReloadMagType": "InternalMagazine"
+        },
+        "Changes": {
+            "Cartridges": {
+                "Count": 15,
+                "FromWeapons": [ "VSS Vintorez" ]
+            }
+        },
+        "HandbookPriceRoubles": 4838,
+        "VariantType": "Converted",
+        "Rarity": "Meme"
+	}
+}

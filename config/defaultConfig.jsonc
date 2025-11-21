@@ -1,0 +1,105 @@
+{
+ // Config of Szonszczyk - Definitive Weapon Variants (DWV)
+
+ // In here you can adjust how you want to get weapon variants in game
+ // DO NOT CHANGE ANYTHING IN defaultConfig.jsonc. Run server once or make a copy of this file, rename it to "config.jsonc"
+ // Make changes only in config.jsonc to not lose your changes after update!
+
+ // ##########################
+ // ### EASY CONFIGURATION ###
+ 
+ // ### 1.1. Airdrop
+ // If variants of this quality can be found in Airdrops
+ "Airdrop": { // true/false
+	 "Unique": false,
+	 "Ultimate": false,
+	 "Superior": false,
+	 "Advanced": true,
+	 "Niche": true,
+	 "Baseline": true,
+	 "Flawed": true,
+	 "Meme": false
+ },
+
+ // ### 1.2. Fence
+ // If variants of this quality can be found in Fence trader shop
+ // Warning: You will see sometimes variants without their special attachments that can't be bought anywhere, so they will be useless
+
+ "Fence": { // true/false
+	 "Unique": false,
+	 "Ultimate": false,
+	 "Superior": false,
+	 "Advanced": false,
+	 "Niche": false,
+	 "Baseline": true,
+	 "Flawed": true,
+	 "Meme": true
+ },
+
+ // ### 1.3. Flea Market
+ // If variants of this quality can be bought/sold on flea market
+
+ "Flea": { // true/false
+	 "Unique": false,
+	 "Ultimate": false,
+	 "Superior": false,
+	 "Advanced": false,
+	 "Niche": false,
+	 "Baseline": true,
+	 "Flawed": true,
+	 "Meme": true
+ },
+
+ // ### 1.4. Marked Rooms
+ // If variants of this quality can spawn in Customs/Reserve/Streets marked rooms
+ "Marked": { // true/false
+	"Unique": true,
+	"Ultimate": true,
+	"Superior": true,
+	"Advanced": true,
+	"Niche": true,
+	"Baseline": false,
+	"Flawed": false,
+	"Meme": false
+ },
+ // Probability of finding a variant weapon per spawn point
+ // This is still random so you will have some lucky and some unlucky streaks!
+ "MarkedRoomsProbability": 0.30, // percentage (0.30 => 30%) / MIN:0 - MAX:0.99
+
+ // ### 2.1. Quality generation
+ // If variants of this quality will be generated 
+ // Change this setting to false for quality, only when you don't have any weapons of this quality in your profile
+ "Generate": { // true/false
+	 "Unique": true,
+	 "Ultimate": true,
+	 "Superior": true,
+	 "Advanced": true,
+	 "Niche": true,
+	 "Baseline": true,
+	 "Flawed": true,
+	 "Meme": true
+ },
+
+ // ### 2.2. 12.7x108 Caliber ammo
+ // 12.7x108mm caliber ammo is in the game, but is not supposed to be in the loot or any other source of item drops
+ // Make 12.7x108mm B-32 accessible to buy in trader
+ "DWVCaliberBarter": {
+	 "TraderId": "SKIER", //Trader name uppercased - default: "SKIER"
+	 "LoyalLevel": 1, //Number 1-4 - default: 1
+	 "Price": 2500 //Number - default: 2500
+ },
+
+ // ##############################
+ // ### ADVANCED CONFIGURATION ###
+ // For advanced users - use only when you have knowledge about JSON arrays!
+
+ // ### 4.1. Remove variant types from generation
+ // Add name of variant type ("Meta"/"SMG" etc.) to below array to exclude it from generation
+ // Add only variant types of weapons you don't have in your profile
+  "NotGenerateVariantTypes": [],
+
+ // ### 4.2. Remove specific weapons from generation
+ // Add short weapon name with variant short name (from db/01.Variants, e.g. "AKM Meta") to exclude it from generation
+ // Add only weapons you don't have in your profile
+  "NotGenerateWeapons": []
+}

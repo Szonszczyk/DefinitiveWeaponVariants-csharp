@@ -1,0 +1,223 @@
+{
+    "Overclocked": {
+		"Description": "By harnessing water-cooling technology from high-performance PCs, this variant pushes your weapon to fire faster than ever before, delivering unmatched speed at the cost of increased complexity",
+		"Explanation": "Weapon variant with an increased fire rate and enhanced cooling capabilities, but slightly reduced ergonomics",
+		"ShortName": "OC",
+		"Properties": {
+			"CoolFactorGun": "+50%",
+			"CoolFactorGunMods": 1,
+			"SingleFireRate": "+35%",
+			"BFirerate": "+35%",
+			"Ergonomics": "-15",
+			"Weight": "+20%"
+		},
+		"Weapons": [
+			"AK-12", "AK-104", "AUG A1", "HK 416A5", "MCX .300 BLK",
+			"SPEAR 6.8", "SA-58", "AS VAL", "MP7A2", "MPX",
+			"P90", "PPSh-41", "Vector .45ACP", "PKM", "RPD",
+			"RPDN", "UZI PRO Pistol"
+		],
+		"Rarity": "Advanced"
+	},
+	"Upgraded": {
+		"Description": "We took the original, cleaned it, tightened a few screws, and voilà - it's officially 'Upgraded' now!",
+		"Explanation": "Weapon variant with improved recoil, accuracy, ergonomics, fire rate, and heat buildup",
+		"ShortName": "Upgraded",
+		"Properties": {
+			"RecoilForceUp": "-15%",
+			"RecoilForceBack": "-15%",
+			"RecoilReturnSpeedHandRotation": "+7%",
+			"RecoilCamera": "-15%",
+			"RecoilDampingHandRotation": "-7%",
+			"AimPlane": "-20%",
+			"RecolDispersion": "-50%",
+			"Ergonomics": "+15",
+			"SingleFireRate": "+10%",
+			"BFirerate": "+10%",
+			"HeatFactorByShot": "-30%"
+		},
+		"Weapons": [
+			"Mk47", "Mk 16", "SPEAR 6.8", "AK-74N", "AK-103",
+			"AKS-74U", "AKS-74N", "PM", "PB", "APS",
+			"PP-91-01 Kedr-B", "PP-91 Kedr", "Glock 17", "MP5K-N", "Saiga-9",
+			"MP7A1", "SR-3M"
+		],
+		"Rarity": "Advanced"
+	},
+	"Light Machine Gun": {
+		"Description": "We're well aware that this magazine is either awkwardly floating beneath the weapon or somehow lodged inside it—but let's just call that a feature and move on",
+		"Explanation": "Weapon variant chambered in 7.62x54r ammunition, compatible only with a 100-round magazine. It features increased recoil, a lowered fire rate, and a full-auto fire mode exclusively",
+		"ShortName": "LMG",
+		"Properties": {
+			"RecoilForceBack": "+35%",
+			"RecoilForceUp": "+35%",
+			"RecoilCamera": "+35%",
+			"RecoilStableIndexShot": 100,
+			"RecoilStableAngleIncreaseStep": "+35%",
+			"RecoilDampingHandRotation": "+5%",
+			"RecoilReturnSpeedHandRotation": "+35%",
+			"Ergonomics": "+10",
+			"BFirerate": "-35%",
+			"WeapFireType": [ "fullauto" ],
+			"DurabilityBurnRatio": "-50%"
+		},
+		"Changes": {
+			"Minimum":{
+				"BFirerate": 450
+			},
+			"Slots": {
+			    "mod_magazine": {
+					"FromWeapons": [
+						"PKP"
+					]
+				}
+			},
+			"Chambers": {
+				"FromWeapons": [
+					"PKP"
+				]
+			}
+		},
+		"IndividualChanges": {
+			"Blicky": {
+				"Slots": {
+					"mod_magazine": {
+						"Filter": [ "Blicky Special Magical Unbelievable Magazine" ]
+					}
+				}
+			}
+		},
+		"Weapons": [
+			"HK 416A5", "M4A1", "SA-58", "RD-704", "AKM",
+			"AK-12", "MCX .300 BLK", "VPO-136 Vepr-KM", "RPK-16", "Blicky"
+		],
+        "Rarity": "Advanced"
+	},
+    "Shotgun": {
+    	"Description": "The perfect weapon to surprise your friends. They'll think you brought an assault rifle—until they see the magazine. That's when they know you're up to something sinister",
+    	"Explanation": "Weapon variant chambered in the 12/70 shotgun caliber, compatible with Saiga-12K magazines, but featuring increased recoil and a low fire rate",
+    	"ShortName": "Shotgun",
+    	"Properties": {
+			"RecoilForceUp": "+45%",
+			"RecoilForceBack": "+90%",
+			"BFirerate": "-34%",
+			"RecoilCamera": "+30%",
+			"ShotgunDispersion": 3
+    	},
+    	"Changes": {
+			"Minimum": {
+				"BFirerate": 450
+			},
+			"Slots": {
+			    "mod_magazine": {
+					"FromWeapons": [
+						"Saiga-12K",
+						"AA-12 Gen 1"
+					]
+				}
+			},
+			"Chambers": {
+				"FromWeapons": [
+					"Saiga-12K"
+				]
+			}
+    	},
+		"Weapons": [
+			"HK 416A5", "MCX .300 BLK", "SPEAR 6.8", "SA-58", "AS VAL",
+			"UMP 45", "MP7A2", "FN 5-7", "STM-9", "VPO-101 Vepr-Hunter",
+			"AKS-74", "RPDN", "RPD", "Velociraptor .300 BLK"
+		],
+        "Rarity": "Advanced"
+    },
+	"Unbreakable": {
+		"Description": "Some famous guy from television used his miracle product to make this gun unbreakable\nNow you can throw it into the sand without worrying about jams\n~It even works underwater!~\nJust... maybe don't cut it in half",
+    	"Explanation": "Weapon variant immune to durability damage, overheating, and malfunctions",
+    	"ShortName": "Unbreakable",
+		"Properties": {
+			"DurabilityBurnRatio": 0,
+			"HeatFactorByShot": 0,
+			"AllowJam": false,
+			"AllowFeed": false,
+			"AllowMisfire": false,
+			"AllowSlide": false
+		},
+		"Weapons": [
+			"AS VAL", "VSS Vintorez", "AVT-40", "M4A1", "PKP",
+			"MP5", "VPO-101 Vepr-Hunter"
+		],
+		"Rarity": "Advanced"
+	},
+	"Hypersonic": {
+    	"Description": "The technology used to modify this weapon shouldn't even work in theory. Decades of research have only managed to reduce the bullet's sensitivity to gravity and even that remains far from perfect",
+    	"Explanation": "Weapon variant with exceptionally high muzzle velocity and very good accuracy",
+    	"ShortName": "Hypersonic",
+    	"Properties": {
+			"Velocity": 350,
+			"CenterOfImpact": 0.01
+		},
+		"Weapons": [
+			"Mk-18 Mjölnir", "ASh-12", "RD-704", "G28", "M1A",
+			"RSASS", "MP-18", "RSh-12", "AK-12", "AK-105",
+			"MCX .300 BLK", "Mk 17", "G36"
+		],
+		"Rarity": "Advanced"
+	},
+	"Sniper": {
+		"Description": "A weapon designed for hunters who occasionally mistake a human for a wild boar-from a comfortably safe distance",
+		"Explanation": "Shotgun weapon variant with increased velocity and accuracy",
+		"ShortName": "Sniper",
+		"Properties": {
+			"Velocity": 100,
+			"ShotgunDispersion": 1,
+			"CenterOfImpact": 0.01
+        },
+        "Changes": {
+        	"Slots": {
+        		"mod_barrel": {
+					"Filter": [ "Sniper Variant 28 inch barrel" ]
+				}
+        	}
+        },
+		"Weapons": [
+			"KS-23M", "M3 Super 90", "M870", "MP-133", "MP-153",
+			"Saiga-12K", "TOZ-106", "590A1"
+		],
+        "Rarity": "Advanced"
+	},
+	"Speedy": {
+    	"Description": "Gas gas gas! I'm gonna step on the gas Tonight I'll fly...",
+    	"Explanation": "Weapon variant with an increased fire rate, but also higher recoil",
+    	"ShortName": "Speedy",
+    	"Properties": {
+			"BFirerate": "+69%",
+			"RecoilForceUp": "+20%",
+			"RecoilForceBack": "+40%",
+			"RecoilCamera": "+15%"
+    	},
+		"Weapons": [
+			"MP5", "PP-19-01", "SR-2M", "UMP 45", "MP7A2",
+			"MPX", "P90", "PPSh-41", "Vector .45ACP", "Vector 9x19",
+			"AK-102", "RPK-16", "Mk 43 Mod 1", "UZI", "X-17"
+		],
+        "Rarity": "Advanced"
+    },
+    "No-Bolt": {
+    	"Description": "Someone decided bolt-action rifles were too difficult to use, so they simply removed the bolt. Now it's no bolt, but plenty of action",
+    	"Explanation": "Bolt action, but it is now DMR",
+    	"ShortName": "No-Bolt",
+    	"Properties": {
+    		"WeapFireType": [ "burst" ],
+    		"BurstShotsCount": 1
+    	},
+    	"Changes": {
+    		"Minimum": {
+				"BFirerate": 450
+			}
+    	},
+		"Weapons": [
+			"T-5000M", "SV-98", "DVL-10", "M700", "VPO-215",
+			"TRG M10"
+		],
+        "Rarity": "Advanced"
+    }
+}

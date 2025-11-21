@@ -1,0 +1,70 @@
+{
+    "TOZ-106 20ga MTs 20-01 Sb.3 Internal 5-shot magazine": {
+        "Description": "Special TOZ-106 20ga MTs 20-01 Sb.3 5-shot magazine for 20/70 Variant weapons with internal magazine",
+        "ShortName": "Sb.3x5 Internal",
+        "ItemTplToClone": "5c6161fb2e221600113fbde5",
+        "Properties": {
+            "ReloadMagType": "InternalMagazine",
+			"RaidModdable": false
+        },
+        "HandbookPriceRoubles": 1410,
+        "VariantType": "20/70",
+        "Rarity": "Baseline"
+    },
+    "CR 200DS 20/70 6-round cylinder": {
+        "Description": "A 6-round cylinder 20/70 cylinder for Chiappa Rhino 200DS Shotgun-o-Revolver Variant",
+        "ShortName": "CR 20/70",
+        "ItemTplToClone": "624c3074dbbd335e8e6becf3",
+        "Changes": {
+            "Cartridges": {
+                "Count": 6,
+                "FromWeapons": [ "TOZ-106" ]
+            }
+        },
+        "HandbookPriceRoubles": 1600,
+        "VariantType": "Shotgun-o-Revolver",
+        "Rarity": "Baseline"
+    },
+    "CR 50DS 12/70 6-round cylinder": {
+        "Description": "A 6-round 12/70 cylinder for Chiappa Rhino 50DS Shotgun-o-Revolver Variant",
+        "ShortName": "CR 12/70",
+        "ItemTplToClone": "619f54a1d25cbd424731fb99",
+        "Changes": {
+            "Cartridges": {
+                "Count": 6,
+                "FromWeapons": [ "MP-155" ]
+            }
+        },
+        "HandbookPriceRoubles": 1600,
+        "VariantType": "Shotgun-o-Revolver",
+        "Rarity": "Baseline"
+    },
+    "RSh-12 23x75mm 5-round cylinder": {
+        "Description": "A 5-round 23x75mm cylinder for RSh-12 Shotgun-o-Revolver Variant",
+        "ShortName": "RSh 23x75",
+        "ItemTplToClone": "633ec6ee025b096d320a3b15",
+        "Changes": {
+            "Cartridges": {
+                "Count": 5,
+                "FromWeapons": [ "KS-23M" ]
+            }
+        },
+        "HandbookPriceRoubles": 12000,
+        "VariantType": "Shotgun-o-Revolver",
+        "Rarity": "Baseline"
+    },
+    "MTs-255-12 7.62x51mm cylinder": {
+        "Description": "A standard-issue 7.62x51mm cylinder for MTs-255-12 Shotgun-o-Revolver Variant",
+        "ShortName": "RSh 23x75",
+        "ItemTplToClone": "60dc519adf4c47305f6d410d",
+        "Changes": {
+            "Cartridges": {
+                "Count": 5,
+                "FromWeapons": [ "RSASS" ]
+            }
+        },
+        "HandbookPriceRoubles": 4500,
+        "VariantType": "Shotgun-o-Revolver",
+        "Rarity": "Baseline"
+    }
+}

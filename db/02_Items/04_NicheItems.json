@@ -1,0 +1,59 @@
+{
+    "40mm Rifle Grenade single round magazine": {
+        "Description": "1-round magazine for Rifle Grenade Launcher Variant weapons\nIt's not needed and can even disable reload of your weapon\nExperts says that it needs to be either sold or destroyed",
+        "ShortName": "R.Gre mag",
+        "ItemTplToClone": "5ce69cbad7f00c00b61c5098",
+        "Changes": {
+            "Cartridges": {
+                "Count": 1,
+                "FromWeapons": [
+                    "5e81ebcd8e146c7080625e15"
+                ]
+            }
+        },
+        "HandbookPriceRoubles": 69,
+        "VariantType": "Rifle Grenade Launcher",
+        "Rarity": "Niche"
+    },
+    "M32A1 40mm 6-round Bombardier cylinder": {
+        "Description": "A standard-issue 6-round cylinder for the Bombardier Variant revolvers",
+        "ShortName": "MSGL B.6",
+        "ItemTplToClone": "627bce33f21bc425b06ab967",
+        "Changes": {
+            "Parent": "610720f290b75a49ff2e5e25"
+        },
+        "HandbookPriceRoubles": 15000,
+        "VariantType": "Bombardier",
+        "Rarity": "Niche"
+    },
+    "M32A1 40mm 5-round Bombardier cylinder": {
+        "Description": "A standard-issue 5-round cylinder for the Bombardier Variant revolvers",
+        "ShortName": "MSGL B.5",
+        "ItemTplToClone": "627bce33f21bc425b06ab967",
+        "Changes": {
+            "Parent": "610720f290b75a49ff2e5e25",
+            "Slots": {
+                "camora_004": {
+                    "Filter": []
+                }
+            }
+        },
+        "HandbookPriceRoubles": 15000,
+        "VariantType": "Bombardier",
+        "Rarity": "Niche"
+    },
+    "Glass Cannon .50BMG 1-shell magazine": {
+        "Description": "A non-standard 1-round magazine for the Glass Cannon Variant shotguns",
+        "ShortName": "GC .50",
+        "ItemTplToClone": "55d485804bdc2d8c2f8b456b",
+        "Changes": {
+            "Cartridges": {
+                "Count": 1,
+                "FromWeapons": [ "AK-50" ]
+            }
+        },
+        "HandbookPriceRoubles": 5555,
+        "VariantType": "Glass Cannon",
+        "Rarity": "Niche"
+    }
+}

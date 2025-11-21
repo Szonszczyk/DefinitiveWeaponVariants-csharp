@@ -1,0 +1,272 @@
+{
+    "Fullburst": {
+		"Description": "The trigger is broken and can get stuck, causing almost the entire magazine to unload with a single pull—or not, as it might jam in the meantime. Fullburst, but only sometimes",
+		"Explanation": "Weapon variant with a 30-round burst fire mode only, featuring reduced fire rate and recoil, but with an increased chance of jamming due to higher heat buildup",
+		"ShortName": "Fullburst",
+		"Properties": {
+			"WeapFireType": [ "burst" ],
+			"BFirerate": 450,
+			"RecoilForceUp": "-50%",
+			"RecoilForceBack": "-30%",
+			"RecoilDampingHandRotation": "-95%",
+		    "RecoilReturnSpeedHandRotation": "+95%",
+			"BurstShotsCount": 30,
+			"HeatFactorByShot": "+20%",
+			"CoolFactorGun": "+50%",
+			"RecoilStableIndexShot": 3
+		},
+		"Weapons": [
+			"Mk-18 Mjölnir", "AK-74", "AKS-74N", "AK-102", "AUG A1",
+			"M4A1", "RD-704", "MDR 7.62x51", "SA-58", "RSASS",
+			"SPEAR 6.8", "9A-91", "ASh-12", "MP5K-N", "STM-9",
+			"SR-2M", "MP7A1", "AA-12 Gen 1", "UZI", "Saiga-12K FA",
+			"X-17"
+		],
+		"Rarity": "Meme"
+	},
+    "Experimental": {
+    	"Description": "They did everything to this weapon: touch it in forbidden places, pull the trigger with thumb, put vaseline in the barrel and paint it pink. Nightmare fuel!",
+    	"Explanation": "Weapon variant with increased malfunction chanse but no misfire malfunction, increased durability burn, but with increased fire rate and no recoil. Features only full auto fire mode",
+    	"ShortName": "Experimental",
+    	"Properties": {
+			"WeapFireType": [ "fullauto" ],
+    		"BaseMalfunctionChance": "+500%",
+    		"DurabilityBurnRatio": "+500%",
+			"HeatFactorByShot": "-60%",
+    		"AllowMisfire": false,
+			"RecoilStableIndexShot": 1,
+			"BFirerate": "+35%"
+    	},
+		"Weapons": [
+			"AK-74M", "AK-102", "Mk 16", "M4A1", "AKMN",
+			"RPD", "Mk 17", "RSASS", "SPEAR 6.8", "PP-91-01 Kedr-B",
+			"MP9-N", "P90", "SR-3M", "M60E6", "Desert Eagle L6",
+			"Velociraptor .300 BLK"
+		],
+        "Rarity": "Meme"
+    },
+	"Slav \"Thing\"": {
+		"Description": "If it works, don't question it. If it doesn't work, hit it with a wrench. Classic Slav engineering",
+    	"Explanation": "Weapon variant chambered in 7.62x39mm with increased stabilization point, increased recoil, dispersion and decreased ergonomics",
+    	"ShortName": "v2.0-Slav",
+		"Properties": {
+			"RecoilStableIndexShot": 10,
+			"RecolDispersion": 25,
+			"RecoilForceUp": "+45%",
+			"Ergonomics": "-25"
+    	},
+		"Changes": {
+			"Minimum": {
+				"BFirerate": 650
+			},
+			"Slots": {
+			    "mod_magazine": {
+					"FromWeapons": [
+						"RPD",
+						"AKM"
+					]
+				}
+			},
+			"Chambers": {
+				"FromWeapons": [ "AKM" ]
+			}
+    	},
+		"Weapons": [
+			"HK 416A5", "AUG A3", "MDR 5.56x45", "M4A1", "G36",
+			"ADAR 2-15", "TX-15 DML"
+		],
+        "Rarity": "Meme"
+	},
+	"Freedom \"Thing\"": {
+		"Description": "If it works, don't question it. If it doesn't work, shoot it until it does. Classic American engineering",
+    	"Explanation": "Weapon variant chambered in 5.56x45mm NATO with decreased recoil, increased ergonomics and fire rate but with increased stabilization point",
+    	"ShortName": "v2.0-Freedom",
+		"Properties": {
+			"RecoilForceUp": "-22%",
+			"RecoilForceBack": "-22%",
+			"Ergonomics": "+22",
+			"RecoilStableIndexShot": 10,
+			"BFirerate": 800
+    	},
+		"Changes": {
+			"Slots": {
+			    "mod_magazine": {
+					"FromWeapons": [ "M4A1" ]
+				}
+			},
+			"Chambers": {
+				"FromWeapons": [ "M4A1" ]
+			}
+    	},
+		"Weapons": [
+			"VPO-209", "AKS-74UB", "AK-105", "AK-545", "RPK-16",
+			"AK-12", "AK-74N", "RPDN", "AKMS", "VPO-136 Vepr-KM",
+			"AKM", "VSS Vintorez"
+		],
+        "Rarity": "Meme"
+	},
+	"Lawn Mower": {
+        "Description": "BRRRRRRRRRRRR - the grass is gone. The enemy is gone. Your hearing is gone",
+        "Explanation": "A weapon variant with almost tripled fire rate, decreased recoil and no heat buildup, but with bad dispersion and bullet velocity",
+        "ShortName": "BRRRR",
+        "Properties": {
+			"WeapFireType": [ "fullauto" ],
+			"RecolDispersion": 100,
+			"HeatFactorByShot": 0,
+			"BFirerate": "+150%",
+            "AimPlane": "+333%",
+			"Velocity": -50,
+			"RecoilForceUp": "-90%"
+        },
+		"Changes": {
+			"Minimum": {
+				"BFirerate": 450
+			}
+    	},
+        "Weapons": [
+			"MCX .300 BLK", "AKS-74", "M4A1", "AK-103", "Mk47",
+			"PKM", "PKP", "VSK-94", "MPX", "Vector .45ACP",
+			"Mk 43 Mod 1", "AA-12 Gen 2", "UZI PRO Pistol"
+		],
+        "Rarity": "Meme"
+    },
+	"Pistol": {
+        "Description": "A weapon variant designed specifically for pistol quests, tailored for those who dislike using actual pistols",
+        "Explanation": "Bolt-action rifles with significantly improved accuracy and handling, but chambered in the 9x18mm and 50AE pistol caliber",
+        "ShortName": "\"Pistol\"",
+        "Properties": {
+            "AmmoCaliber": "Caliber9x18PM",
+            "DropSoundType": "Pistol",
+            "WeapUseType": "secondary",
+            "CenterOfImpact": 0.01,
+            "Ergonomics": "+50",
+            "Velocity": "+20",
+            "Weight": "-90%"
+        },
+        "Changes": {
+			"AddtoInventorySlots": ["Holster"],
+            "Minimum": {
+                "BFirerate": 450
+            },
+			"Slots": {
+                "mod_magazine": {
+                    "FromWeapons": [
+                        "PM",
+						"Desert Eagle L6"
+                    ]
+                }
+            },
+            "Chambers": {
+				"FromWeapons": [
+					"PM",
+					"Desert Eagle L6"
+				]
+			}
+        },
+        "WeaponIdToUseAs": "5448bd6b4bdc2dfc2f8b4569",
+        "Weapons": [
+            "Mosin Infantry", "T-5000M", "SV-98", "DVL-10", "M700", "AXMC",
+            "VPO-215", "TRG M10"
+        ],
+        "Rarity": "Meme"
+    },
+	"BFG-50": {
+		"Description": "\"The BFG-50 was Mark Serbu's first rifle design, coming into production in late 1999. It is on the civilian market for a price of $2,000-$3,000 USD, but is not intended to be used by any armed forces in the world\"\n~https://guns.fandom.com/wiki/Serbu_BFG-50",
+        "Explanation": "Weapon variant chambered in .50 BMG with significantly increased recoil, slightly increased ergonomics and with only a 1-round magazine",
+		"ShortName": "BFG-50",
+		"Properties": {
+			"RecoilForceUp": "+400%",
+            "RecoilForceBack": "+400%",
+			"Ergonomics": "+20"
+        },
+        "Changes": {
+			"Slots": {
+        		"mod_magazine": {
+					"Filter": [ "12.7x99 BFG-50 1-round magazine" ]
+				}
+        	},
+            "Chambers": {
+                "FromWeapons": [ "AK-50" ]
+            }
+        },
+		"Weapons": [
+			"Mosin Sniper", "AXMC", "M700", "OP-SKS", "SVT-40",
+			"AVT-40", "FN40GL", "TRG M10", "SKS"
+		],
+		"Rarity": "Meme"
+	},
+	"Laser Rifle": {
+		"Description": "\"That is the third time I am trying to make a Laser Rifle. Third time's a charm?\"\n*Clicking*\n\"It's not... oh, it was not on! Maybe now?\"\n*Small explosion*\n\"Oh, ffs!\"",
+        "Explanation": "Weapon variant chambered in 9x21mm caliber ammo, shooting 3-bullet burst with incredible fire rate and increased muzzle velocity",
+		"ShortName": "Laser",
+		"Properties": {
+			"WeapFireType": [ "burst" ],
+			"BFirerate": 5450,
+			"BurstShotsCount": 3,
+			"RecoilStableIndexShot": 1,
+			"Velocity": "+100"
+        },
+        "Changes": {
+			"Slots": {
+        		"mod_magazine": {
+					"FromWeapons": [ "SR-2M" ]
+				}
+        	},
+            "Chambers": {
+                "FromWeapons": [ "SR-2M" ]
+            }
+        },
+		"IndividualChanges": {
+			"Blicky": {
+				"Slots": {
+        			"mod_magazine": {
+						"Filter": [ "Blicky Special Magical Unbelievable Magazine" ]
+					}
+        		}
+			}
+		},
+		"Weapons": [
+			"AKS-74UN", "AK-545 Short", "AKMSN", "AS VAL", "PPSh-41",
+			"PP-91 Kedr", "PP-9 Klin", "MP9", "PP-19-01", "Saiga-9",
+			"MP5", "Vector 9x19", "UMP 45", "MP7A2", "UZI PRO SMG",
+			"AK-50", "Blicky"
+		],
+		"Rarity": "Meme"
+	},
+	"Converted": {
+    	"Description": "We have successfully converted your weak-ass shotguns and pistols to the medium-ass assault rifles, or something, I don't care...",
+    	"Explanation": "Weapon variant chambered in 9x39mm caliber with increased durability burn",
+    	"ShortName": "Converted",
+    	"Changes": {
+			"Minimum": {
+				"DurabilityBurnRatio": 1.15,
+				"HeatFactorByShot": 2.17,
+				"HeatFactorGun": 1.11
+			},
+            "Slots": {
+				"mod_magazine": {
+			    	"BasedOn": {
+						"Property": "ReloadMode",
+						"Cases": {
+							"ExternalMagazine": {
+								"FromWeapons": [ "VSS Vintorez" ]
+							},
+							"InternalMagazine": {
+								"Filter": [ "Converted Variant 9x39 Shotgun 15-round magazine" ]
+							}
+						}
+					}
+			    }
+			},
+            "Chambers": {
+				"FromWeapons": [ "VSS Vintorez" ]
+			}
+		},
+		"Weapons": [
+			"MP-133", "M870", "M3 Super 90", "MP-43-1C", "MP-153",
+			"MP-155", "TOZ-106", "SR-25", "MP-18", "Glock 19X",
+			"M9A3", "M45A1", "Desert Eagle L5 .50 AE"
+		],
+        "Rarity": "Meme"
+    }
+}

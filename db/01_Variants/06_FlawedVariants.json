@@ -1,0 +1,152 @@
+{
+    "Panic": {
+        "Description": "Don't panic-it's just a cockroach... *bang* *bang* *bang*",
+        "Explanation": "Shotguns limited to a MaxRounds Powermag 20-round magazine, featuring a full-auto fire mode, increased recoil, and a higher fire rate",
+        "ShortName": "Panic",
+        "Properties": {
+            "BFirerate": "+20%",
+            "WeapFireType": [ "fullauto" ],
+            "RecoilForceBack": "+59%",
+            "RecoilForceUp": "+59%",
+            "RecoilCamera": "+50%",
+            "AllowJam": false
+        },
+        "Changes": {
+            "Minimum": {
+                "BFirerate": 250
+            },
+            "Slots": {
+                "mod_magazine": {
+                    "BasedOn": {
+                        "Property": "ReloadMode",
+                        "Cases": {
+                            "ExternalMagazine": {
+                                "Filter": [ "5cf8f3b0d7f00c00217872ef" ]
+                            },
+                            "InternalMagazine": {
+                                "Filter": [ "SOK-12 12ga MD Arms Internal 20-round magazine" ]
+                            }
+                        }
+                    }
+                }
+            },
+            "Chambers": {
+				"FromWeapons": [ "Saiga-12K" ]
+			}
+        },
+        "IndividualChanges": {
+            "M3 Super 90": {
+                "Properties": {
+                    "WeapFireType": [ "semiauto", "single" ]
+                }
+            },
+            "Blicky": {
+				"Slots": {
+        			"mod_magazine": {
+						"Filter": [ "Blicky Special Magical Unbelievable Magazine" ]
+					}
+        		}
+			}
+        },
+        "Weapons": [
+            "KS-23M", "M3 Super 90", "590A1", "M870", "MP-133",
+            "MP-153", "MP-155", "TOZ-106", "AA-12 Gen 1", "Blicky"
+        ],
+        "Rarity": "Flawed"
+    },
+    "Control-Fire": {
+        "Description": "A practice weapon for newly appointed PMCs eager to try legendary 'fullauto' fire mode. Unfortunately, they end up disappointed",
+        "Explanation": "Weapon variant with only a full-auto fire mode but offering better controllability due to a low fire rate and no recoil",
+        "ShortName": "Control",
+        "Properties": {
+            "BFirerate": 80,
+            "WeapFireType": [ "fullauto" ],
+            "RecoilStableIndexShot": 0,
+            "RecoilForceBack": "+100%"
+        },
+        "Weapons": [
+            "TX-15 DML", "G28", "M1A", "Mk-18 Mjölnir", "RSASS",
+            "SR-25", "SVDS", "OP-SKS", "RFB", "AK-545",
+            "VPO-101 Vepr-Hunter"
+        ],
+        "Rarity": "Flawed"
+    },
+    "Slowed": {
+        "Description": "A gun once tossed into a swamp... now fished out, but not without consequences. Its action speed has suffered a serious debuff",
+        "Explanation": "Weapon variant with extremely low ergonomics, fire rate, and velocity. Full-auto only, but with reduced recoil when sustained",
+        "ShortName": "Slowed",
+        "Properties": {
+            "WeapFireType": [ "fullauto" ],
+            "Ergonomics": "-200",
+            "SingleFireRate": "-30%",
+            "BFirerate": "-30%",
+            "Velocity": "-50",
+            "RecoilStableIndexShot": 2,
+            "HeatFactorByShot": 0
+        },
+        "Changes": {
+    		"Minimum": {
+    			"BFirerate": 450
+    		}
+    	},
+        "Weapons": [
+            "Mk47", "Mk 16", "SPEAR 6.8", "AK-74N", "AK-103",
+            "AKS-74U", "AKS-74N", "PM", "PB", "APS",
+            "PP-91-01 Kedr-B", "PP-91 Kedr", "Glock 17", "MP5K-N", "Saiga-9",
+            "MP7A1", "SR-3M"
+        ],
+        "Rarity": "Flawed"
+    },
+    "No-Scope": {
+    	"Description": "Do a 360 headshot with this!",
+    	"Explanation": "Weapon variant missing scope slot but with increased ergonomics", 
+    	"ShortName": "No-Scope",
+    	"Properties": {
+            "Ergonomics": "+15"
+    	},
+    	"Changes": {
+    		"Slots": {
+    			"mod_scope": {
+                    "Filter": []
+                }
+    		}
+    	},
+		"Weapons": [
+			"G36", "ASh-12", "MDR 5.56x45", "MDR 7.62x51", "Vector 9x19",
+			"Vector .45ACP", "RSASS"
+		],
+        "Rarity": "Flawed"
+    },
+    "Quick-scope": {
+		"Description": "Quick! Use this bolt-action as a close-quarters weapon, we don't have time!\nDon't ask any questions",
+		"Explanation": "Weapon variant with maximum ergonomics and extremely high velocity, restricted to one special reflex sight",
+		"ShortName": "Quick",
+		"Properties": {
+            "Velocity": 250
+		},
+		"Changes": {
+            "Minimum": {
+				"Ergonomics": 200
+			},
+            "Slots": {
+    			"mod_scope": {
+                    "Filter": [ "Quick-scope special \"reflex\" sight" ]
+                }
+    		}
+		},
+        "IndividualChanges": {
+            "T-5000M": { "Slots": { "mod_mount": { "Filter": [ "ORSIS T-5000M Quick-scope mount" ] } } },
+            "M700": { "Slots": { "mod_mount": { "Filter": [ "M700 AB Arms MOD*X rail Quick-scope mount" ] } } },
+            "AXMC": { "Slots": { "mod_pistol_grip": { "Filter": [ "AI AXMC pistol grip Q" ] } } },
+            "TOZ-106": { "Slots": { "mod_mount_000": { "Filter": [ "TOZ-106 dovetail mount Q" ] } } },
+            "Mosin Infantry": { "Slots": { "mod_barrel": { "Filter": [ "Mosin Rifle 7.62x54R 730mm regular barrel Infantry Q" ] } } },
+            "Mosin Sniper": { "Slots": { "mod_barrel": { "Filter": [ "Mosin Rifle 7.62x54R 730mm regular barrel Sniper Q" ] } } },
+            "AK-50": { "Slots": { "mod_reciever": { "Filter": [ "AK-50 dust cover Q" ] } } }
+        },
+		"Weapons": [
+			 "Mosin Sniper", "SV-98", "DVL-10", "Mosin Infantry", "M700",
+             "T-5000M", "AXMC", "TOZ-106", "AK-50"
+		],
+		"Rarity": "Flawed"
+	}
+}

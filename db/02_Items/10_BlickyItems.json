@@ -1,0 +1,27 @@
+{
+    "Blicky Special Magical Unbelievable Magazine": {
+        "Description": "A Special Magical Unbelievable Magazine for toy gun named Blicky. It can store rounds of calibers: \n- 12.7x108mm (Anti-materiel Rifle)\n- 7.62x54r (Light Machine Gun)\n- 40x46mm grenades (Rifle Grenade Launcher)\n- 7.62x25TT (World War II)\n- 5.56x45 NATO (Assault Rifle)\n- 12/70 (Panic)\n- 9x21 (Laser)",
+        "ShortName": "SMUM",
+        "ItemTplToClone": "66015dc4aaad2f54cb04c56a",
+        "Changes": {
+            "Cartridges": {
+                "Count": 35,
+                "Filter": [
+                    "5cde8864d7f00c0010373be1",
+                	"5d2f2ab648f03550091993ca"
+                ],
+                "FromWeapons": [
+                    "SVDS",
+                    "FN40GL",
+                    "TT",
+                    "M4A1",
+                    "Saiga-12K",
+                    "SR-2M"
+                ]
+            }
+        },
+        "HandbookPriceRoubles": 99999,
+        "VariantType": "Anti-materiel Rifle/Light Machine Gun/Rifle Grenade Launcher/World War II/Assault Rifle/Panic/Laser",
+        "Rarity": "Unique"
+    }
+}

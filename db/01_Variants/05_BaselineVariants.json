@@ -1,0 +1,248 @@
+{
+    "Modified": {
+		"Description": "Upgraded to be a slightly better weapon, but its improved statistics come at the cost of sacrificing others",
+		"Explanation": "Weapon variant in equilibrium with the universe, featuring adjustments to various aspects: reduced vertical recoil but increased horizontal recoil, improved ergonomics, lowered fire rate, increased heat buildup, and reduced weight",
+		"ShortName": "Modified",
+		"Properties": {
+			"RecoilForceUp": "+15%",
+			"RecoilForceBack": "-60%",
+			"RecoilDampingHandRotation": "+7%",
+		    "RecoilReturnSpeedHandRotation": "-7%",
+			"Ergonomics": "+25",
+			"SingleFireRate": "-25%",
+			"BFirerate": "-25%",
+			"HeatFactorByShot": "+25%",
+			"Weight": "-25%",
+			"RecoilCamera": "-25%"
+		},
+		"Weapons": [
+			"TX-15 DML", "VSK-94", "AK-74N", "AK-104", "AUG A3",
+			"Mk47", "RD-704", "MP7A2"
+		],
+		"Rarity": "Baseline"
+	},
+	"SMG": {
+		"Description": "A weapon for true gamblers—its fire rate depends entirely on how fast you can pull the trigger. Keep pulling, and eventually, you'll win",
+		"Explanation": "Weapon variant chambered in 4.6x30mm HK caliber, featuring reduced recoil and an exceptionally high single-fire rate",
+		"ShortName": "SMG",
+		"Properties": {
+			"WeapFireType": [ "single" ],
+			"RecoilForceUp": "-50%",
+			"RecoilForceBack": "-30%",
+			"RecoilReturnSpeedHandRotation": "+30%",
+			"RecoilCamera": "-40%",
+			"RecoilStableAngleIncreaseStep": "+40%",
+			"RecoilDampingHandRotation": "-70%",
+			"DurabilityBurnRatio": "-70%",
+			"SingleFireRate": "+300%"
+		},
+		"Changes": {
+			"Minimum": {
+				"SingleFireRate": 450
+			},
+			"Slots": {
+			    "mod_magazine": {
+					"FromWeapons": [
+						"MP7A2"
+					]
+				}
+			},
+			"Chambers": {
+				"FromWeapons": [
+					"MP7A2"
+				]
+			}
+		},
+		"Weapons": [
+			"TX-15 DML", "G28", "M1A", "Mk-18 Mjölnir", "RSASS",
+			"SR-25", "SVDS", "AK-105", "AUG A1", "AKS-74",
+			"VPO-209", "G36"
+		],
+        "Rarity": "Baseline"
+    },
+    "Close Quarters": {
+    	"Description": "In tight spaces, size matters. This gun makes sure you win",
+    	"Explanation": "Modified to use 12.7x55mm rounds, excelling in close-quarters combat with unparalleled stopping power",
+    	"ShortName": "CQ",
+    	"Properties": {},
+		"Changes": {
+			"Chambers": {
+				"FromWeapons": [
+					"ASh-12"
+				]
+			},
+        	"Slots": {
+			    "mod_magazine": {
+					"FromWeapons": [
+						"ASh-12"
+					]
+				}
+			}
+		},
+		"Weapons": [
+			"SVDS", "SV-98", "DVL-10", "AKM", "AK-74N",
+			"VPO-215", "OP-SKS", "VSS Vintorez", "AK-545","AK-101",
+			"AK-104", "AVT-40", "X-17"
+		],
+        "Rarity": "Baseline"
+    },
+    "20/70": {
+    	"Description": "A typo in the weapon's description, left uncorrected out of sheer laziness. And now? Well, it's stuck like this-for better or for worse",
+    	"Explanation": "Shotgun variant chambered in 20ga shotgun cartridges",
+    	"ShortName": "20/70",
+    	"Properties": {},
+    	"Changes": {
+			"Slots": {
+        		"mod_magazine": {
+			    	"BasedOn": {
+						"Property": "ReloadMode",
+						"Cases": {
+							"ExternalMagazine": {
+								"FromWeapons": [
+									"TOZ-106"
+								]
+							},
+							"InternalMagazine": {
+								"Filter": [ "TOZ-106 20ga MTs 20-01 Sb.3 Internal 5-shot magazine" ]
+							}
+						}
+					}
+			    }
+			},
+			"Chambers": {
+				"FromWeapons": [
+					"TOZ-106"
+				]
+			}
+		},
+		"Weapons": [
+			"KS-23M", "M3 Super 90", "590A1", "M870", "MP-43-1C",
+			"MP-133", "MP-153", "MP-155", "Sawed-off", "Saiga-12K",
+			"AA-12 Gen 2", "Saiga-12K FA"
+		],
+        "Rarity": "Baseline"
+    },
+	"Shotgun-o-Revolver": {
+		"Description": "Somewhere, deep in the void of forbidden weapon concepts, someone asked: 'What if revolvers... but shotguns?",
+		"Explanation": "Revolver variant converted to fire shotgun shells. Because sometimes six big booms are better than six small ones",
+		"ShortName": "Shotgun-o",
+		"Properties": {
+			"ShotgunDispersion": 10
+		},
+		"IndividualChanges": {
+			"CR 200DS": {
+				"Properties": {
+					"AmmoCaliber": "Caliber20g"
+				},
+				"Slots": {
+					"mod_magazine": {
+						"Filter": [ "CR 200DS 20/70 6-round cylinder" ]
+					}
+				}
+			},
+			"CR 50DS": {
+				"Properties": {
+					"AmmoCaliber": "Caliber12g"
+				},
+				"Slots": {
+					"mod_magazine": {
+						"Filter": [ "CR 50DS 12/70 6-round cylinder" ]
+					}
+				}
+			},
+			"RSh-12": {
+				"Properties": {
+					"AmmoCaliber": "Caliber23x75"
+				},
+				"Slots": {
+					"mod_magazine": {
+						"Filter": [ "RSh-12 23x75mm 5-round cylinder" ]
+					}
+				}
+			},
+			"MTs-255-12": {
+				"Properties": {
+					"AmmoCaliber": "Caliber762x51"
+				},
+				"Slots": {
+					"mod_magazine": {
+						"Filter": [ "MTs-255-12 7.62x51mm cylinder" ]
+					}
+				}
+			}
+		},
+		"Weapons": [
+			"CR 200DS", "CR 50DS", "RSh-12", "MTs-255-12"
+		],
+		"Rarity": "Baseline"
+	},
+	"World War II": {
+    	"Description": "If your goal isn't to kill your enemies but to seriously injure them, this is the perfect weapon for you. Now with occasional WW2 flashbacks!",
+    	"Explanation": "Bootleg of the PPSh-41. It even has the same fire rate and immunity to malfunctions! On top of that, it boasts low recoil",
+    	"ShortName": "WW2",
+    	"Properties": {
+			"BFirerate": 1250,
+    		"SingleFireRate": 625,
+    		"WeapFireType": [ "single", "fullauto" ],
+			"RecoilForceUp": "-60%",
+    		"RecoilForceBack": "-70%",
+			"RecoilCamera": "-60%",	
+			"RecoilReturnSpeedHandRotation": "+40%",
+			"RecoilDampingHandRotation": "-50%",
+			"AllowJam": false,
+			"AllowFeed": false,
+			"AllowMisfire": false,
+			"AllowSlide": false
+    	},
+    	"Changes": {
+			"Slots": {
+			    "mod_magazine": {
+					"FromWeapons": [ "PPSh-41" ]
+				}
+			},
+			"Chambers": {
+				"FromWeapons": [ "TT" ]
+			}
+		},
+		"IndividualChanges": {
+			"Blicky": {
+				"Slots": {
+					"mod_magazine": {
+						"Filter": [ "Blicky Special Magical Unbelievable Magazine" ]
+					}
+				}
+			}
+		},
+		"Weapons": [
+			"MCX .300 BLK", "TX-15 DML", "VSK-94", "Vector 9x19", "SPEAR 6.8",
+			"Mk-18 Mjölnir", "ASh-12", "RSASS", "AK-74N", "AK-101",
+			"Blicky"
+		],
+        "Rarity": "Baseline"
+    },
+	"FURY": {
+		"Description": "UNLEASH THE FURY OF TRASHY SMGs. THEY ARE NOW FURIOUS",
+    	"Explanation": "SMG variant chambered in .277 FURY (6.8x51mm), limited to a 2-shot burst fire mode",
+    	"ShortName": ".277",
+    	"Properties": {
+			"WeapFireType": [ "burst" ],
+			"BurstShotsCount": 2
+		},
+		"Changes": {
+			"Slots": {
+			    "mod_magazine": {
+					"FromWeapons": [ "SPEAR 6.8" ]
+				}
+			},
+			"Chambers": {
+				"FromWeapons": [ "SPEAR 6.8" ]
+			}
+        	
+		},
+		"Weapons": [
+			"PP-91-01 Kedr-B", "PP-91 Kedr", "PP-9 Klin", "MP9", "MP5K-N",
+			"PP-19-01", "MP9-N", "MP5", "Vector 9x19"
+		],
+        "Rarity": "Baseline"
+	}
+}
