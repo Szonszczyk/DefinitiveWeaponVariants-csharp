@@ -59,6 +59,14 @@ namespace DefinitiveWeaponVariants.Generators
                         TemplateItem copiedItem = items[copiedWeaponId]!;
                         HandbookItem? copiedItemHandbook = handbook.Items.Find(t => t.Id == copiedWeaponId);
                         var copiedItemName = locale[$"{copiedWeaponId} Name"];
+                        var weaponCountsToward = copiedItemName;
+                        if (variant.WeaponIdToUseAs is not null)
+                        {
+                            if (customSlotsChanger.GetItemFromString(variant.WeaponIdToUseAs) is not null)
+                            {
+                                weaponCountsToward = locale[$"{customSlotsChanger.GetItemFromString(variant.WeaponIdToUseAs)?.Id} Name"];
+                            }
+                        }
 
                         double? price = copiedItemHandbook!.Price;
                         var newWeapon = new NewItemFromCloneDetails
@@ -74,28 +82,28 @@ namespace DefinitiveWeaponVariants.Generators
                                 BackgroundColor = IsPluginLoaded() ? $"{rarity.Color}ff" : rarity.BgColor
                             },
                             Locales = new Dictionary<string, LocaleDetails>
-                        {
                             {
-                                "en", new LocaleDetails
                                 {
-                                    Name = GenerateVariantName(variant.Rarity, rarity, copiedItemName, variantName),
-                                    ShortName = variantShortName,
-                                    Description = string.Join("\n", new[] {
-                                        $"<align=\"center\">{variant.Description}",
-                                        $"",
-                                        $"<color={rarity.Color}><b>{variantName} Variant</b></color>",
-                                        $"<i>{variant.Explanation}</i>",
-                                        $"{weaponNamesInVariant.Replace(weaponShortname, $"<b><color={rarity.Color}>{weaponShortname}</color></b>")}",
-                                        $"",
-                                        $"<color={rarity.Color}><b>{rarity.StarRating} {variant.Rarity} Quality {rarity.StarRating}</b></color>",
-                                        $"<i>{rarity.Flavour}</i>",
-                                        $"<color={rarity.Color}>{rarity.Description}</color></align>",
-                                        $"{CreateWeaponDescription(variant)}</color>",
-                                        //$"This weapon counts toward ${getShortNameById(this.ShortNames, variant.quests?.id) || "original"} weapon kills for quest completion</ align >"
-                                    })
+                                    "en", new LocaleDetails
+                                    {
+                                        Name = GenerateVariantName(variant.Rarity, rarity, copiedItemName, variantName),
+                                        ShortName = variantShortName,
+                                        Description = string.Join("\n", new[] {
+                                            $"<align=\"center\">{variant.Description}",
+                                            $"",
+                                            $"<color={rarity.Color}><b>{variantName} Variant</b></color>",
+                                            $"<i>{variant.Explanation}</i>",
+                                            $"{weaponNamesInVariant.Replace(weaponShortname, $"<b><color={rarity.Color}>{weaponShortname}</color></b>")}",
+                                            $"",
+                                            $"<color={rarity.Color}><b>{rarity.StarRating} {variant.Rarity} Quality {rarity.StarRating}</b></color>",
+                                            $"<i>{rarity.Flavour}</i>",
+                                            $"<color={rarity.Color}>{rarity.Description}</color>",
+                                            $"{CreateWeaponDescription(variant)}",
+                                            $"This weapon counts toward {weaponCountsToward} kills for quest completion</align>"
+                                        })
+                                    }
                                 }
                             }
-                        }
                         };
                         // Add mastery
                         CustomItemConfig newWeaponConfig = new();
@@ -105,9 +113,9 @@ namespace DefinitiveWeaponVariants.Generators
                             newWeaponConfig.MasteryName = mastery.Name;
                         }
 
-                        if (!modConfig.Airdrop[variant.Rarity]) newWeaponConfig.AirdropBlacklisted = true;
-                        if (!modConfig.Fence[variant.Rarity]) newWeaponConfig.FenceBlacklisted = true;
-                        if (!modConfig.Flea[variant.Rarity]) newWeaponConfig.FleaBlacklisted = true;
+                        if (modConfig.Airdrop[variant.Rarity] == true) newWeaponConfig.AirdropBlacklisted = false;
+                        if (modConfig.Fence[variant.Rarity] == true) newWeaponConfig.FenceBlacklisted = false;
+                        if (modConfig.Flea[variant.Rarity] == true) newWeaponConfig.FleaBlacklisted = false;
 
                         // Change normal properties
                         Dictionary<string, object> individualChangesProperties = variant.IndividualChanges?.GetValueOrDefault(weaponShortname)?.Properties ?? [];

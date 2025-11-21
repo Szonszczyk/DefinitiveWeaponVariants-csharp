@@ -33,8 +33,8 @@
 		"Rarity": "Unique"
 	},
 	"M4A1 Unique": {
-		"Description": "Miracle of U.S. engineering. Someone wanted to a BiS M4 so here it is",
-		"Explanation": "M4A1 >7.62x51 Meta<\nThis unique variant provides meta-tier stats and fires 7.62×51mm using X-17 magazines",
+		"Description": "Miracle of U.S. engineering. Someone wanted to have a BiS M4 so here it is",
+		"Explanation": "M4A1 >7.62x51 Meta<\nThis unique variant provides meta-tier stats and is chambered with 7.62x51mm using X-17 magazines",
 		"ShortName": ">7.62x51 Meta<",
 		"Properties": {
 			"RecoilForceUp": "-30%",
@@ -60,7 +60,7 @@
 	},
 	"Vector 9x19 Unique": {
 		"Description": "What do you call a weapon with M4 caliber, higher fire rate than an M4, and M4 magazines? A 5.56 Vector",
-		"Explanation": "Vector 9x19 >5.56x45 Speedy<\nThis unique variant increases fire rate and is chambered with 5.56×45mm using M4A1 magazines",
+		"Explanation": "Vector 9x19 >5.56x45 Speedy<\nThis unique variant increases fire rate and is chambered with 5.56x45mm using M4A1 magazines",
 		"ShortName": ">5.56x45 Speedy<",
 		"Properties": {
 			"BFirerate": "+69%"
@@ -108,7 +108,7 @@
 	},
 	"MP-155 Unique": {
 		"Description": "Anti-materiel shotgun - because rifles are for cool kids, but shotguns are for chads!",
-		"Explanation": "MP-155 >Sniper AMR<\nThis unique variant fires 12.7×108mm using a custom magazine and AXMC barrel for improved accuracy",
+		"Explanation": "MP-155 >Sniper AMR<\nThis unique variant fires 12.7x108mm using a custom magazine and AXMC barrel for improved accuracy",
 		"ShortName": ">Sniper AMR<",
 		"Changes": {
 			"Chambers": {
@@ -155,7 +155,7 @@
 	},
 	"M870 Unique": {
 		"Description": "The M870, but with enough firepower to politely ask entire squads to disappear",
-		"Explanation": "M870 >Karabin Spetsialniy & Buckshot Launcher<\nThis variant combines full-magazine-per-click firing, extremely reduced recoil, 23×75mm ammo, and a special 12-round magazine",
+		"Explanation": "M870 >Karabin Spetsialniy & Buckshot Launcher<\nThis variant combines full-magazine-per-click firing, extremely reduced recoil, 23x75mm ammo, and a special 12-round magazine",
 		"ShortName": ">KS-23 & B.Launcher<",
 		"Properties": {
 			"WeapFireType": [ "burst" ],
@@ -285,7 +285,7 @@
 	},
 	"Mosin Sniper Unique": {
 		"Description": "The 'gun of shoulder destruction' - now in an even more >Unheard< edition",
-		"Explanation": "Mosin Sniper >The Unheard Edition & AMR & Hypersonic & No-Bolt<\nThis unique variant is chambered in 12.7×108mm, uses The Unheard Edition magazines, has massive visible recoil, functions as a DMR, and features extreme muzzle velocity",
+		"Explanation": "Mosin Sniper >The Unheard Edition & AMR & Hypersonic & No-Bolt<\nThis unique variant is chambered in 12.7x108mm, uses The Unheard Edition magazines, has massive visible recoil, functions as a DMR, and features extreme muzzle velocity",
 		"ShortName": ">Anti-Unheard Rifle<",
 		"Properties": {
 			"RecoilForceBack": "+300%",

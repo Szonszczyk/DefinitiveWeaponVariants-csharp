@@ -221,7 +221,7 @@
 	},
 	"Pay to Win": {
         "Description": "Only for Tarkov whales! These guns literally shoot money!",
-        "Explanation": "Weapon variant chambered in .338 Lapua Magnum rounds, with increased visible recoil and reduced fire rate. Features incredibly expensive magazines",
+        "Explanation": "Weapon variant chambered in .50 BMG rounds, with increased visible recoil and reduced fire rate. Features incredibly expensive magazines",
         "ShortName": "P2W",
         "Properties": {
 			"RecoilForceUp": "+35%",
