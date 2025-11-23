@@ -120,6 +120,33 @@ namespace DefinitiveWeaponVariants.CustomClasses
             {
                 var propType = prop.PropertyType;
 
+                if (propType == typeof(MongoId?))
+                {
+                    try
+                    {
+                        string? idString = null;
+
+                        if (value is JsonElement je)
+                            idString = je.GetString();
+                        else
+                            idString = value?.ToString();
+
+                        if (string.IsNullOrWhiteSpace(idString))
+                        {
+                            logger.LogWithColor($"[{GetType().Namespace}] MongoId value for '{propertyName}' is null or empty!", LogTextColor.Red);
+                            return;
+                        }
+
+                        value = new MongoId(idString);
+                        prop.SetValue(target, value);
+                        return;
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.LogWithColor($"[{GetType().Namespace}] Failed to convert value to MongoId for '{propertyName}': {ex.Message}", LogTextColor.Red);
+                        return;
+                    }
+                }
                 if (value is JsonElement jsonElement)
                 {
                     try
@@ -148,7 +175,6 @@ namespace DefinitiveWeaponVariants.CustomClasses
                     }
                 }
                 prop.SetValue(target, value);
-                return;
             }
             catch (Exception ex)
             {

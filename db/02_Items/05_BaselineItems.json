@@ -55,7 +55,7 @@
     },
     "MTs-255-12 7.62x51mm cylinder": {
         "Description": "A standard-issue 7.62x51mm cylinder for MTs-255-12 Shotgun-o-Revolver Variant",
-        "ShortName": "RSh 23x75",
+        "ShortName": "MTs 7.62x51",
         "ItemTplToClone": "60dc519adf4c47305f6d410d",
         "Changes": {
             "Cartridges": {

@@ -191,18 +191,27 @@ namespace DefinitiveWeaponVariants.Generators
 
                         // Add to inventory slots
                         if (variant.Changes?.AddtoInventorySlots?.Count > 0) newWeaponConfig.AddToInventorySlots = variant.Changes.AddtoInventorySlots;
-                        switch (newWeapon.ParentId)
+                        if (weaponShortname.Contains("Sawed-off"))
+                            newWeaponConfig.AddToInventorySlots.Add("Holster");
+                        else
                         {
-                            case "5447b6094bdc2dc3278b4567":
-                            case "5447bedf4bdc2d87278b4568":
-                                newWeaponConfig.AddToInventorySlots.Add("FirstPrimaryWeapon");
-                                newWeaponConfig.AddToInventorySlots.Add("SecondPrimaryWeapon");
-                                break;
-                            case "617f1ef5e8b54b0998387733":
-                                newWeaponConfig.AddToInventorySlots.Add("Holster");
-                                break;
+                            string Shotgun_ID = "5447b6094bdc2dc3278b4567";
+                            string GrenadeLauncher_ID = "5447bedf4bdc2d87278b4568";
+                            string Revolver_ID = "617f1ef5e8b54b0998387733";
+
+                            var parentIdsToChange = new[] { Shotgun_ID, GrenadeLauncher_ID, Revolver_ID };
+
+                            if (parentIdsToChange.Contains(newWeapon.ParentId))
+                            {
+                                if (copiedItem?.Properties?.WeapUseType == "secondary")
+                                    newWeaponConfig.AddToInventorySlots.Add("Holster");
+                                else
+                                {
+                                    newWeaponConfig.AddToInventorySlots.Add("FirstPrimaryWeapon");
+                                    newWeaponConfig.AddToInventorySlots.Add("SecondPrimaryWeapon");
+                                }
+                            }
                         }
-                        if (weaponShortname.Contains("Sawed-off")) newWeaponConfig.AddToInventorySlots.Add("Holster");
 
                         // Change slots
                         var slotConfig = GetCombinedSlotConfig(variant, weaponShortname);

@@ -205,7 +205,9 @@
 		"Explanation": "A revolver variant chambered in the 12.7x108mm caliber with increased horizontal recoil. Uses normal 12.7x108mm caliber ammo, available from Skier LL1",
 		"ShortName": "AMR",
 		"Properties": {
-			"RecoilForceBack": "+300%"
+			"RecoilForceBack": "+300%",
+			"AmmoCaliber": "Caliber127x108",
+			"DefAmmo": "5cde8864d7f00c0010373be1"
         },
         "Changes": {
         	"Slots": {

@@ -82,7 +82,10 @@
         "Changes": {
             "Cartridges": {
                 "Count": 5,
-                "FromWeapons": [ "5cffa483d7ad1a049e54ef1c" ]
+                "Filter": [
+                    "5cde8864d7f00c0010373be1",
+                	"5d2f2ab648f03550091993ca"
+                ]
             }
         },
         "HandbookPriceRoubles": 12000,

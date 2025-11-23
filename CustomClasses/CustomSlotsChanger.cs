@@ -39,7 +39,7 @@ namespace DefinitiveWeaponVariants.CustomClasses
                     newSlot.Parent = newItem.NewId;
                     if (newSlot.Name != null && slotConfig.TryGetValue(newSlot.Name, out FilterSlotExtendedConfiguration? newFilterConfig))
                     {
-                        var newFilter = CreateFilterFromConfiguration(newFilterConfig, newSlot.Name, "Slots", copiedItem);
+                        var newFilter = CreateFilterFromConfiguration(newFilterConfig, newSlot.Name, newSlot.Name.Contains("camora_") ? "Chambers" : "Slots", copiedItem);
 
                         if (newFilterConfig.BasedOn is { Property: var basedOnProperty } basedOn)
                         {
@@ -50,7 +50,7 @@ namespace DefinitiveWeaponVariants.CustomClasses
 
                             if (value != null && basedOn.Cases.TryGetValue(value, out var caseCfg))
                             {
-                                newFilter = [.. newFilter, .. CreateFilterFromConfiguration(caseCfg, newSlot.Name, "Slots", copiedItem)];
+                                newFilter = [.. newFilter, .. CreateFilterFromConfiguration(caseCfg, newSlot.Name, newSlot.Name.Contains("camora_") ? "Chambers" : "Slots", copiedItem)];
                             }
                         }
                         if (newSlot?.Properties?.Filters != null)
@@ -74,24 +74,26 @@ namespace DefinitiveWeaponVariants.CustomClasses
         )
         {
             if (chamberConfig == null) return null;
+            if (copiedItem?.Properties?.Chambers is null || copiedItem?.Properties?.Chambers?.Count() == 0) return null;
             var newFilter = CreateFilterFromConfiguration(chamberConfig, "N/A", "Chambers", copiedItem);
-            var chambers = new List<Slot>();
-            if (copiedItem?.Properties?.Chambers?.Count() > 0)
+            if (newFilter.Count == 0)
             {
-                foreach (var slot in copiedItem.Properties.Chambers)
-                {
-                    if (slot == null) continue;
-
-                    var newSlot = cloner.Clone(slot)!;
-                    newSlot.Id = idDatabaseManager.GetCustomId($"{newItemName}:CHAMBER:{newSlot.Name}");
-                    newSlot.Parent = newItem.NewId;
-                    if (newSlot?.Properties?.Filters != null)
-                        newSlot.Properties.Filters.First().Filter = [.. newFilter];
-                    chambers.Add(newSlot!);
-                }
-                return chambers;
+                logger.LogWithColor($"[{GetType().Namespace}] Item '{newItemName}' have no valid ammo in chambers!", LogTextColor.Red);
+                return null;
             }
-            return null;
+            var chambers = new List<Slot>();
+            foreach (var slot in copiedItem!.Properties.Chambers)
+            {
+                if (slot == null) continue;
+
+                var newSlot = cloner.Clone(slot)!;
+                newSlot.Id = idDatabaseManager.GetCustomId($"{newItemName}:CHAMBER:{newSlot.Name}");
+                newSlot.Parent = newItem.NewId;
+                if (newSlot?.Properties?.Filters != null)
+                    newSlot.Properties.Filters.First().Filter = [.. newFilter];
+                chambers.Add(newSlot!);
+            }
+            return chambers;
         }
         
         public List<Slot>? CartridgesChanger(

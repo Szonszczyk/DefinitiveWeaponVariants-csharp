@@ -132,7 +132,8 @@
 		"IndividualChanges": {
 			"CR 200DS": {
 				"Properties": {
-					"AmmoCaliber": "Caliber20g"
+					"AmmoCaliber": "Caliber20g",
+					"DefAmmo": "5a38ebd9c4a282000d722a5b"
 				},
 				"Slots": {
 					"mod_magazine": {
@@ -142,7 +143,8 @@
 			},
 			"CR 50DS": {
 				"Properties": {
-					"AmmoCaliber": "Caliber12g"
+					"AmmoCaliber": "Caliber12g",
+					"DefAmmo": "560d5e524bdc2d25448b4571"
 				},
 				"Slots": {
 					"mod_magazine": {
@@ -152,7 +154,8 @@
 			},
 			"RSh-12": {
 				"Properties": {
-					"AmmoCaliber": "Caliber23x75"
+					"AmmoCaliber": "Caliber23x75",
+					"DefAmmo": "5e85aa1a988a8701445df1f5"
 				},
 				"Slots": {
 					"mod_magazine": {
@@ -162,7 +165,8 @@
 			},
 			"MTs-255-12": {
 				"Properties": {
-					"AmmoCaliber": "Caliber762x51"
+					"AmmoCaliber": "Caliber762x51",
+					"DefAmmo": "5a6086ea4f39f99cd479502f"
 				},
 				"Slots": {
 					"mod_magazine": {

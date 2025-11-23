@@ -80,16 +80,31 @@ namespace DefinitiveWeaponVariants.Generators
                     if (variant.Properties != null)
                         newItem.OverrideProperties = customPropertiesChanger.ChangeItemProperties(variant.Properties, newItem.OverrideProperties, copiedItem, config, variantName);
 
+                    if (variant?.Changes?.Cartridges != null)
+                    {
+                        var newCartridges = customSlotsChanger.CartridgesChanger(variant.Changes.Cartridges, copiedItem, newItem, variantName);
+                        if (newCartridges != null) newItem.OverrideProperties.Cartridges = newCartridges;
+
+                        // Revolver slot changes when changing cartidges filter!
+                        if (copiedItem.Properties?.Slots?.Count() > 0)
+                        {
+                            foreach (var slot in copiedItem.Properties.Slots)
+                            {
+                                if (slot?.Name is not null && slot.Name.Contains("camora_"))
+                                {
+                                    if (variant.Changes.Slots is null) variant.Changes.Slots = [];
+                                    variant.Changes.Slots.Add(slot.Name, variant.Changes.Cartridges);
+                                }
+                            }
+                        }
+                    }
+
                     if (variant?.Changes?.Slots != null)
                     {
                         var newSlots = customSlotsChanger.SlotsChanger(variant.Changes.Slots, copiedItem, newItem, variantName);
                         if (newSlots != null) newItem.OverrideProperties.Slots = newSlots;
                     }
-                    if (variant?.Changes?.Cartridges != null)
-                    {
-                        var newCartridges = customSlotsChanger.CartridgesChanger(variant.Changes.Cartridges, copiedItem, newItem, variantName);
-                        if (newCartridges != null) newItem.OverrideProperties.Cartridges = newCartridges;
-                    }
+                    
                     
                     customItemCreator.AddItemToDatabase(newItem, new CustomItemConfig(), config.Barter ?? new CustomBarterConfig());
                 }
