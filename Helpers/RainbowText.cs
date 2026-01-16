@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace DefinitiveWeaponVariants.CustomClasses
+namespace DefinitiveWeaponVariants.Helpers
 {
     public static class RainbowText
     {
@@ -17,13 +17,13 @@ namespace DefinitiveWeaponVariants.CustomClasses
             for (int i = 0; i < input.Length; i++)
             {
                 char c = input[i];
-                if (skipSpaces && Char.IsWhiteSpace(c))
+                if (skipSpaces && char.IsWhiteSpace(c))
                 {
                     sb.Append(c);
                     continue;
                 }
 
-                double t = (lengthForGradient == 1) ? 0.0 : (double)colorIndex / (lengthForGradient - 1);
+                double t = lengthForGradient == 1 ? 0.0 : (double)colorIndex / (lengthForGradient - 1);
                 string hex = ColorFromHueToHex(t);
                 sb.Append("<color=#").Append(hex).Append(">").Append(c).Append("</color>");
                 colorIndex++;
@@ -45,13 +45,13 @@ namespace DefinitiveWeaponVariants.CustomClasses
             for (int i = 0; i < input.Length; i++)
             {
                 char c = input[i];
-                if (skipSpaces && Char.IsWhiteSpace(c))
+                if (skipSpaces && char.IsWhiteSpace(c))
                 {
                     sb.Append(c);
                     continue;
                 }
 
-                double t = (lengthForGradient == 1) ? 0.0 : (double)colorIndex / (lengthForGradient - 1);
+                double t = lengthForGradient == 1 ? 0.0 : (double)colorIndex / (lengthForGradient - 1);
                 string hex = ColorFromHueToHex(t);
                 sb.Append("<span style=\"color:#").Append(hex).Append("\">").Append(System.Net.WebUtility.HtmlEncode(c.ToString())).Append("</span>");
                 colorIndex++;
@@ -65,7 +65,7 @@ namespace DefinitiveWeaponVariants.CustomClasses
         {
             if (!skipSpaces) return s.Length;
             int c = 0;
-            foreach (var ch in s) if (!Char.IsWhiteSpace(ch)) c++;
+            foreach (var ch in s) if (!char.IsWhiteSpace(ch)) c++;
             return c;
         }
 
@@ -86,7 +86,7 @@ namespace DefinitiveWeaponVariants.CustomClasses
         private static (int r, int g, int b) HSVtoRGB(double h, double s, double v)
         {
             double c = v * s;
-            double hh = (h / 60.0) % 6.0;
+            double hh = h / 60.0 % 6.0;
             double x = c * (1 - Math.Abs(hh % 2 - 1));
             double m = v - c;
 
@@ -109,6 +109,6 @@ namespace DefinitiveWeaponVariants.CustomClasses
             return (r, g, b);
         }
 
-        private static int Clamp(int v, int min, int max) => v < min ? min : (v > max ? max : v);
+        private static int Clamp(int v, int min, int max) => v < min ? min : v > max ? max : v;
     }
 }

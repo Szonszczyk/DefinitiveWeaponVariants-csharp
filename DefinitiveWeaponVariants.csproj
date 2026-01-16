@@ -14,9 +14,13 @@
 
   <ItemGroup>
     <Compile Remove="ModCompatibility\**" />
+    <Compile Remove="NewFolder\**" />
     <Content Remove="ModCompatibility\**" />
+    <Content Remove="NewFolder\**" />
     <EmbeddedResource Remove="ModCompatibility\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
     <None Remove="ModCompatibility\**" />
+    <None Remove="NewFolder\**" />
   </ItemGroup>
 
   <ItemGroup>

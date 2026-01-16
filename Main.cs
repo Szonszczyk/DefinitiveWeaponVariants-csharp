@@ -1,5 +1,6 @@
 using DefinitiveWeaponVariants.CustomClasses;
 using DefinitiveWeaponVariants.Generators;
+using DefinitiveWeaponVariants.Helpers;
 using DefinitiveWeaponVariants.Loaders;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.DI;
@@ -31,11 +32,24 @@ public class DefinitiveWeaponVariants(
     public Task OnLoad()
     {
         ConfigLoader configLoader = new(logger, modHelper);
+        ConfigChecker configChecker = new(logger, configLoader);
+        configChecker.CheckConfig();
+
         ModDatabaseLoader modDatabaseLoader = new(logger, modHelper);
         IdDatabaseManager idDatabaseManager = new(logger, modHelper, jsonUtil);
         CustomItemCreator customItemCreator = new(logger, configServer, customItemService, databaseService);
         CustomPropertiesChanger customPropertiesChanger = new(logger);
         CustomSlotsChanger customSlotsChanger = new(logger, databaseService, modDatabaseLoader, cloner, idDatabaseManager);
+        CustomLootManager customLootManager = new(
+            logger,
+            databaseService,
+            cloner,
+            configLoader,
+            itemHelper,
+            randomUtil,
+            idDatabaseManager,
+            configServer
+        );
         ItemGenerator itemGenerator = new(
             logger,
             databaseService,
@@ -43,7 +57,9 @@ public class DefinitiveWeaponVariants(
             idDatabaseManager,
             customItemCreator,
             customPropertiesChanger,
-            customSlotsChanger
+            customSlotsChanger,
+            configLoader,
+            cloner
         );
         WeaponGenerator weaponGenerator = new(
             logger,
@@ -57,16 +73,22 @@ public class DefinitiveWeaponVariants(
             cloner,
             configLoader,
             itemHelper,
-            randomUtil
+            randomUtil,
+            customLootManager
          );
 
-
+        itemGenerator.GenerateVariantCores();
+        itemGenerator.GenerateBlindBoxes();
         itemGenerator.GenerateItems();
         weaponGenerator.GenerateWeaponsFromVariantConfig();
+        customLootManager.AddVariantsToLooseLoot();
+        customLootManager.CreateLootpoolForBlindBoxes();
+        customLootManager.AddCoresToBotPockets();
         idDatabaseManager.SaveDatabase();
 
         // Add 12.7x108mm B-32 to trader
-        customItemCreator.AddItemToTrader("5cde8864d7f00c0010373be1", configLoader.Config.DWVCaliberBarter);
+        if (configLoader.Config.SpecialAmmoBuyableEnabled)
+            customItemCreator.AddItemToTrader("5cde8864d7f00c0010373be1", configLoader.Config.DWVCaliberBarter);
 
         logger.LogWithColor($"[{GetType().Namespace}] Mod finished loading. Created {customItemCreator.itemsLoaded} custom items!", LogTextColor.Green);
 

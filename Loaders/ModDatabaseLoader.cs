@@ -68,8 +68,7 @@ namespace DefinitiveWeaponVariants.Loaders
                             // --- Merge Weapons ---
                             if (duplicate.Weapons?.Count > 0)
                             {
-                                if (original.Weapons == null)
-                                    original.Weapons = new List<string>();
+                                original.Weapons ??= new List<string>();
 
                                 original.Weapons = original.Weapons
                                     .Union(duplicate.Weapons, StringComparer.OrdinalIgnoreCase)
@@ -79,13 +78,24 @@ namespace DefinitiveWeaponVariants.Loaders
                             // --- Merge IndividualChanges ---
                             if (duplicate.IndividualChanges != null)
                             {
-                                if (original.IndividualChanges == null)
-                                    original.IndividualChanges = new Dictionary<string, IndividualChangeSet>(StringComparer.OrdinalIgnoreCase);
+                                original.IndividualChanges ??= new Dictionary<string, IndividualChangeSet>(StringComparer.OrdinalIgnoreCase);
 
                                 foreach (var kv in duplicate.IndividualChanges)
                                 {
                                     // Replace duplicates with newer entry
                                     original.IndividualChanges[kv.Key] = kv.Value;
+                                }
+                            }
+
+                            // --- Merge Properties ---
+                            if (duplicate.Properties != null)
+                            {
+                                original.Properties ??= new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
+
+                                foreach (var kv in duplicate.Properties)
+                                {
+                                    // Replace duplicates with newer entry
+                                    original.Properties[kv.Key] = kv.Value;
                                 }
                             }
 

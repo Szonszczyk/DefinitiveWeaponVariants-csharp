@@ -18,6 +18,12 @@ namespace DefinitiveWeaponVariants.Loaders
         public Dictionary<string, string> DbIds { get; private set; }
         private readonly Dictionary<string, string> _newIds = new(); // Only new IDs
 
+        // Debug switch
+        private const bool DebugIdUsage = false;
+
+        // Track which IDs were actually requested via GetCustomId
+        private readonly HashSet<string> _usedKeys = new();
+
         public IdDatabaseManager(
             ISptLogger<DefinitiveWeaponVariants> logger,
             ModHelper modHelper,
@@ -79,9 +85,11 @@ namespace DefinitiveWeaponVariants.Loaders
 
         public string GetCustomId(string sourceKey)
         {
+            // Mark as used (even if it already existed)
+            _usedKeys.Add(sourceKey);
+
             if (!DbIds.TryGetValue(sourceKey, out string? value))
             {
-                // Create new ID, remember it and merge later
                 value = new MongoId();
                 DbIds[sourceKey] = value;
                 _newIds[sourceKey] = value;
@@ -92,6 +100,9 @@ namespace DefinitiveWeaponVariants.Loaders
 
         public void SaveDatabase()
         {
+            LogIdUsageStats();
+            SaveUsedIdsDatabase();
+
             if (_newIds.Count == 0)
                 return;
 
@@ -111,6 +122,45 @@ namespace DefinitiveWeaponVariants.Loaders
                 LogTextColor.Yellow, LogBackgroundColor.Red);
 
             _newIds.Clear();
+        }
+
+        private void LogIdUsageStats()
+        {
+            if (!DebugIdUsage)  return;
+
+            int total = DbIds.Count;
+            int used = _usedKeys.Count;
+            int unused = total - used;
+
+            _logger.LogWithColor(
+                $"[{GetType().Namespace}] ID usage summary → Total: {total}, Used: {used}, Unused: {unused}",
+                LogTextColor.Cyan);
+
+            if (unused > 0)
+            {
+                _logger.LogWithColor(
+                    $"[{GetType().Namespace}] WARNING: {unused} IDs are never used",
+                    LogTextColor.Yellow);
+            }
+        }
+        private void SaveUsedIdsDatabase()
+        {
+            if (!DebugIdUsage) return;
+
+            var usedOnly = DbIds
+                .Where(kvp => _usedKeys.Contains(kvp.Key))
+                .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+
+            if (usedOnly.Count == 0) return;
+
+            string filePath = Path.Combine(folderPath, "_ids_used_combined.json");
+            string json = _jsonutil.Serialize(usedOnly);
+
+            File.WriteAllText(filePath, json);
+
+            _logger.LogWithColor(
+                $"[{GetType().Namespace}] Saved combined USED ID database: {filePath}",
+                LogTextColor.Green);
         }
     }
 }

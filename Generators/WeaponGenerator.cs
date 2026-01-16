@@ -1,8 +1,8 @@
 ﻿using DefinitiveWeaponVariants.Constants;
 using DefinitiveWeaponVariants.CustomClasses;
+using DefinitiveWeaponVariants.Helpers;
 using DefinitiveWeaponVariants.Interfaces;
 using DefinitiveWeaponVariants.Loaders;
-using DefinitiveWeaponVariants.MarkedRooms;
 using SPTarkov.Server.Core.Helpers;
 using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Eft.Common;
@@ -28,7 +28,8 @@ namespace DefinitiveWeaponVariants.Generators
         ICloner cloner,
         ConfigLoader configLoader,
         ItemHelper itemHelper,
-        RandomUtil randomUtil
+        RandomUtil randomUtil,
+        CustomLootManager customLootManager
     )
     {
         private readonly Dictionary<MongoId, TemplateItem> items = databaseService.GetItems();
@@ -38,8 +39,6 @@ namespace DefinitiveWeaponVariants.Generators
         private readonly Dictionary<string, string> locale = localeService.GetLocaleDb("en");
         private readonly Globals globals = databaseService.GetGlobals();
         private readonly ConfigData modConfig = configLoader.Config;
-        private readonly MarkedRoomsHelper markedRoomsHelper = new(logger, databaseService, cloner, configLoader, itemHelper, randomUtil);
-
         private readonly Dictionary<string, string> weaponDescriptions = [];
         private readonly Dictionary<string, List<string>> weaponListForKillQuests = [];
         public void GenerateWeaponsFromVariantConfig()
@@ -121,7 +120,7 @@ namespace DefinitiveWeaponVariants.Generators
                         Dictionary<string, object> individualChangesProperties = variant.IndividualChanges?.GetValueOrDefault(weaponShortname)?.Properties ?? [];
                         if (variant.Properties != null || individualChangesProperties != null || variant.Changes?.Minimum != null)
                         {
-                            Dictionary<string, object> newProperties = variant.Properties ?? [];
+                            Dictionary<string, object> newProperties = cloner.Clone(variant.Properties) ?? [];
                             // Combine Properties from IndividualChanges with variant config Properties
                             foreach (var kvp in individualChangesProperties!)
                             {
@@ -257,7 +256,40 @@ namespace DefinitiveWeaponVariants.Generators
                                 }
                             }
                         }
-                        
+                        // Add core slot
+                        if (modConfig.VariantCoresEnabled)
+                        {
+                            var coreTemplate = customSlotsChanger.GetItemFromString($"{variant.Rarity} Quality Variant Core");
+                            if (coreTemplate != null)
+                            {
+                                List<MongoId> newFilterWithCore = [coreTemplate.Id];
+                                var newSlotsWithCore = customSlotsChanger.CoreSlotAdder(
+                                    newSlots,
+                                    copiedItem,
+                                    newFilterWithCore,
+                                    newWeapon,
+                                    $"{weaponShortname}{variant.ShortName}"
+                                );
+                                if (newSlotsWithCore != null)
+                                {
+                                    newWeapon.OverrideProperties.Slots = newSlotsWithCore;
+                                    // Add core to presets
+                                    foreach (var (presetId, preset) in newWeaponConfig.Presets)
+                                    {
+                                        var rootItem = preset.Items.First();
+                                        var item = new Item
+                                        {
+                                            Id = new MongoId(),
+                                            Template = coreTemplate.Id,
+                                            ParentId = rootItem.Id,
+                                            SlotId = "mod_core"
+                                        };
+                                        preset.Items.Add(item);
+                                    }
+                                }
+                            }
+                        }
+
                         // Change chambers
                         if (variant.Changes?.Chambers != null || variant.IndividualChanges?.GetValueOrDefault(weaponShortname)?.Chambers != null)
                         {
@@ -315,11 +347,12 @@ namespace DefinitiveWeaponVariants.Generators
                                 }
                             }
                         }
-                        // Add weapon to marked room database
-                        if (newWeaponConfig.Presets.Count > 0 && modConfig.Marked[variant.Rarity] && modConfig.MarkedRoomsProbability > 0)
+                        // Add weapon to loot databse
+                        if (newWeaponConfig.Presets.Count > 0)
                         {
-                            markedRoomsHelper.AddVariantToMarkedRoomsDatabase(newWeaponConfig.Presets.First().Value.Items);
+                            customLootManager.AddVariantToLootDatabase(newWeaponConfig.Presets.First().Value.Items, variant.Rarity);
                         }
+
                         // Add weapon to weapon list for kill quests database
                         var weaponIdToUseAs = variant.WeaponIdToUseAs ?? copiedItem?.Id;
                         if (weaponIdToUseAs is not null && weaponListForKillQuests.TryGetValue(weaponIdToUseAs, out var list))
@@ -339,7 +372,6 @@ namespace DefinitiveWeaponVariants.Generators
                 }
             }
             AddVariantsToKillQuests();
-            markedRoomsHelper.AddVariantsToMarkedRooms();
         }
         private static bool IsPluginLoaded()
         {
@@ -451,10 +483,12 @@ namespace DefinitiveWeaponVariants.Generators
             if (!weaponDescriptions.TryGetValue(rarity, out _))
             {
                 List<string> strings = [];
-                if (modConfig.Airdrop[rarity]) strings.Add("in airdrop");
+                if (modConfig.Airdrop[rarity]) strings.Add("in Airdrop");
                 if (modConfig.Fence[rarity]) strings.Add("in Fence");
                 if (modConfig.Flea[rarity]) strings.Add("on Flea Market");
                 if (modConfig.Marked[rarity] && modConfig.MarkedRoomsProbability > 0) strings.Add("in Marked Rooms (Customs, Reserve, Streets)");
+                if (modConfig.StaticLoot[rarity] && modConfig.StaticLootProbability > 0) strings.Add("in Weapon Boxes, Duffle Bags, Wooden Crates and Caches");
+                if (modConfig.BlindBoxesEnabled && modConfig.VariantCores.Price.TryGetValue(rarity, out _) && modConfig.BlindBoxes.Price[rarity] > 0) strings.Add($"in {rarity} Weapon Variant Blind Box");
                 weaponDescriptions[rarity] = strings.Count > 0 ? $"Weapons of this variant type can be found: {string.Join(", ", strings)}" : "";
             }
             if (config.Barter is not null)

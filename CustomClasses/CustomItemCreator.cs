@@ -125,11 +125,14 @@ namespace DefinitiveWeaponVariants.CustomClasses
             }
             var trader = traders[(MongoId)traderId];
 
-            var barter = GetItemIdByName(barterConfig.Barter);
-            if (barter == null)
+            foreach (var (addBarterId, _) in barterConfig.BarterPrice)
             {
-                logger.LogWithColor($"[{GetType().Namespace}] Barter item of id '{barter}' is incorrect!", LogTextColor.Red);
-                return;
+                var addBarter = GetItemIdByName(addBarterId);
+                if (addBarter == null)
+                {
+                    logger.LogWithColor($"[{GetType().Namespace}] Barter item of id '{addBarterId}' is incorrect! Item {itemId} was not added to trader", LogTextColor.Red);
+                    return;
+                }
             }
 
             var newItem = new Item
@@ -147,19 +150,25 @@ namespace DefinitiveWeaponVariants.CustomClasses
             var assort = trader.Assort.Items;
             assort?.Add(newItem);
 
-            var newBarterScheme = new BarterScheme
-            {
-                Count = barterConfig.Price,
-                Template = (MongoId)barter
-            };
-            var assortBarterScheme = trader.Assort.BarterScheme;
+            List<BarterScheme> newBarterSchemes = [];
 
+            foreach (var (addBarterId, price) in barterConfig.BarterPrice)
+            {
+                var id = GetItemIdByName(addBarterId)!;
+                var newBarterScheme = new BarterScheme
+                {
+                    Count = price,
+                    Template = (MongoId)id
+                };
+                newBarterSchemes.Add(newBarterScheme);
+
+            }
+            var assortBarterScheme = trader.Assort.BarterScheme;
             if (!assortBarterScheme.ContainsKey(itemId))
             {
                 assortBarterScheme[itemId] = [];
-                assortBarterScheme[itemId].Add([newBarterScheme]);
+                assortBarterScheme[itemId].Add(newBarterSchemes);
             }
-
             trader.Assort.LoyalLevelItems[itemId] = barterConfig.LoyalLevel;
         }
 

@@ -35,8 +35,9 @@
             "LoyalLevel": 1,
             "UnlimitedCount": true,
             "StackObjectsCount": 99,
-            "Price": 50000,
-            "Barter": "MONEY_ROUBLES"
+            "BarterPrice": {
+                "MONEY_ROUBLES": 50000
+            }
         },
         "HandbookPriceRoubles": 20000,
         "VariantType": "Pay to Win",
@@ -61,8 +62,9 @@
             "LoyalLevel": 2,
             "UnlimitedCount": true,
             "StackObjectsCount": 99,
-            "Price": 250000,
-            "Barter": "MONEY_ROUBLES"
+            "BarterPrice": {
+                "MONEY_ROUBLES": 250000
+            }
         },
         "HandbookPriceRoubles": 100000,
         "VariantType": "Pay to Win",
@@ -84,8 +86,9 @@
             "LoyalLevel": 3,
             "UnlimitedCount": true,
             "StackObjectsCount": 99,
-            "Price": 500000,
-            "Barter": "MONEY_ROUBLES"
+            "BarterPrice": {
+                "MONEY_ROUBLES": 500000
+            }
         },
         "HandbookPriceRoubles": 200000,
         "VariantType": "Pay to Win",
@@ -109,8 +112,9 @@
             "LoyalLevel": 4,
             "UnlimitedCount": true,
             "StackObjectsCount": 99,
-            "Price": 1000000,
-            "Barter": "MONEY_ROUBLES"
+            "BarterPrice": {
+                "MONEY_ROUBLES": 1000000
+            }
         },
         "HandbookPriceRoubles": 500000,
         "VariantType": "Pay to Win",
@@ -135,8 +139,9 @@
             "LoyalLevel": 1,
             "UnlimitedCount": true,
             "StackObjectsCount": 99,
-            "Price": 40000,
-            "Barter": "MONEY_ROUBLES"
+            "BarterPrice": {
+                "MONEY_ROUBLES": 40000
+            }
         },
         "HandbookPriceRoubles": 20000,
         "VariantType": "The Unheard Edition",
@@ -161,8 +166,9 @@
             "LoyalLevel": 2,
             "UnlimitedCount": true,
             "StackObjectsCount": 99,
-            "Price": 200000,
-            "Barter": "MONEY_ROUBLES"
+            "BarterPrice": {
+                "MONEY_ROUBLES": 200000
+            }
         },
         "HandbookPriceRoubles": 100000,
         "VariantType": "The Unheard Edition",
@@ -187,8 +193,9 @@
             "LoyalLevel": 3,
             "UnlimitedCount": true,
             "StackObjectsCount": 99,
-            "Price": 400000,
-            "Barter": "MONEY_ROUBLES"
+            "BarterPrice": {
+                "MONEY_ROUBLES": 400000
+            }
         },
         "HandbookPriceRoubles": 200000,
         "VariantType": "The Unheard Edition",
@@ -213,8 +220,9 @@
             "LoyalLevel": 4,
             "UnlimitedCount": true,
             "StackObjectsCount": 99,
-            "Price": 1000000,
-            "Barter": "MONEY_ROUBLES"
+            "BarterPrice": {
+                "MONEY_ROUBLES": 1000000
+            }
         },
         "HandbookPriceRoubles": 500000,
         "VariantType": "The Unheard Edition",

@@ -182,7 +182,7 @@
         "Changes": {
 			"Slots": {
         		"mod_magazine": {
-					"Filter": [ "12.7x99 BFG-50 1-round magazine" ]
+					"Filter": []
 				}
         	},
             "Chambers": {
@@ -191,7 +191,8 @@
         },
 		"Weapons": [
 			"Mosin Sniper", "AXMC", "M700", "OP-SKS", "SVT-40",
-			"AVT-40", "FN40GL", "TRG M10", "SKS"
+			"AVT-40", "FN40GL", "TRG M10", "SKS", "M1A",
+			"RFB", "AK-104" 
 		],
 		"Rarity": "Meme"
 	},

@@ -18,31 +18,30 @@
     },
 	"Rifle Grenade Launcher": {
 		"Description": "- It's like an underbarrel grenade launcher, but instead, it's an in-barrel grenade launcher!\n- You mean a rifle grenade…?\n- Exactly what I have in mind!",
-    	"Explanation": "Weapon variant chambered in 40mm grenades, with no magazine. Just load grenade launcher rounds directly into the chamber. Now with increased grenade velocity!",
+    	"Explanation": "Weapon variant additionary chambered in 40mm grenades with slightly increased muzzle velocity. So, when you are out of ammo, just load grenade launcher rounds directly into the chamber!",
     	"ShortName": "R.Grenade",
     	"Properties": {
 			"Velocity": 50
     	},
     	"Changes": {
-			"Slots": {
-			    "mod_magazine": {
-					"Filter": [ "40mm Rifle Grenade single round magazine" ]
-				}
-			},
 			"Chambers": {
-				"FromWeapons": [
-					"FN40GL"
+				"Add": [
+					"5ede474b0c226a66f5402622",
+					"5ede475b549eed7c6d5c18fb",
+					"5ede4739e0350d05467f73e8",
+					"5f0c892565703e5c461894e9",
+					"5ede47405b097655935d7d16",
+					"5ede475339ee016e8c534742",
+					"5ede47641cf3836a88318df1"
 				]
 			}
     	},
 		"IndividualChanges": {
-			"Blicky": {
-				"Slots": {
-					"mod_magazine": {
-						"Filter": [ "Blicky Special Magical Unbelievable Magazine" ]
-					}
-				}
-			}
+			"Blicky": { "Slots": { "mod_magazine": { "Filter": [ "Blicky Special Magical Unbelievable Magazine" ] } } },
+			"AXMC": { "Slots": { "mod_magazine": { "Filter": [ "Multi-caliber Rifle Grenade Launcher 7-round internal magazine" ] } } },
+			"OP-SKS": { "Slots": { "mod_magazine": { "Filter": [ "Multi-caliber Rifle Grenade Launcher 7-round internal magazine" ] } } },
+			"Mosin Infantry": { "Slots": { "mod_magazine": { "Filter": [ "Multi-caliber Rifle Grenade Launcher 7-round internal magazine" ] } } },
+			"TRG M10": { "Slots": { "mod_magazine": { "Filter": [ "Multi-caliber Rifle Grenade Launcher 7-round internal magazine" ] } } }
 		},
 		"Weapons": [
 			"MP-43-1C", "MP-18", "Blicky", "AXMC", "Mk-18 Mjölnir",

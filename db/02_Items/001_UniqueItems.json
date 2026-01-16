@@ -1,0 +1,43 @@
+{
+	"PK .50 BMG 100-round box": {
+        "Description": "A unique-quality 100-round ammunition box for .50 BMG ammo for Kalashnikov Machine gun Unique Variant. Manufactured by >REDACTED<",
+        "ShortName": "PK .50",
+        "ItemTplToClone": "646372518610c40fc20204e8",
+        "Changes": {
+            "Cartridges": {
+                "Count": 100, 
+                "FromWeapons": [ "AK-50" ]
+            }
+        },
+        "HandbookPriceRoubles": 66777,
+        "VariantType": "PKM >Heavy P2W Gun< Unique",
+        "Rarity": "Unique"
+    },
+    "Nightforce ATACR 7-35x56 34mm riflescope for Stormtrooper Use Only": {
+        "Description": "The NightForce ATACR 7-35x56 versatile scope with an extensive magnification range and a wide field-of-view across the entire range making it easy to see and engage even the littlest targets",
+        "ShortName": "Storm Scope",
+        "ItemTplToClone": "5aa66be6e5b5b0214e506e97",
+        "Properties": {
+            "Ergonomics": 100,
+            "Weight": -20
+        },
+        "HandbookPriceRoubles": 150666,
+        "VariantType": "APB >Stormtrooper< Unique",
+        "Rarity": "Unique"
+    },
+    "Nightforce Magmount 34mm ring scope mount for Stormtrooper Use Only": {
+        "Description": "Nightforce X-Treme Duty Ultralite one piece Magmount is a special 34mm scope base mount for installation on Picatinny rails. \"Nightforce ATACR 7-35x56 34mm riflescope for Stormtrooper Use Only\" can be attached only to this mount",
+        "ShortName": "Storm Mount",
+        "ItemTplToClone": "5aa66a9be5b5b0214e506e89",
+        "Changes": {
+            "Slots": {
+                "mod_scope": {
+                    "Filter": [ "Nightforce ATACR 7-35x56 34mm riflescope for Stormtrooper Use Only" ]
+                }
+            }
+        },
+        "HandbookPriceRoubles": 7777,
+        "VariantType": "APB >Stormtrooper< Unique",
+        "Rarity": "Unique"
+    }
+}

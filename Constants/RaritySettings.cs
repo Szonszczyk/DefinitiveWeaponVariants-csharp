@@ -91,24 +91,29 @@
                 }
             };
 
-            /// <summary>
-            /// Returns RarityData by rarity name (case-insensitive). 
-            /// Defaults to Baseline if not found.
-            /// </summary>
-            public static RarityData GetByName(string rarityName)
-            {
-                if (string.IsNullOrWhiteSpace(rarityName))
-                    return Values[Rarity.Baseline];
-
-                if (Enum.TryParse<Rarity>(rarityName, true, out var rarity))
-                {
-                    if (Values.TryGetValue(rarity, out var data))
-                        return data;
-                }
-
-                // fallback
+        /// <summary>
+        /// Returns RarityData by rarity name (case-insensitive). 
+        /// Defaults to Baseline if not found.
+        /// </summary>
+        public static RarityData GetByName(string rarityName)
+        {
+            if (string.IsNullOrWhiteSpace(rarityName))
                 return Values[Rarity.Baseline];
+
+            if (Enum.TryParse<Rarity>(rarityName, true, out var rarity))
+            {
+                if (Values.TryGetValue(rarity, out var data))
+                    return data;
             }
+
+            // fallback
+            return Values[Rarity.Baseline];
+        }
+
+        public static List<string> RarityList()
+        {
+            return ["Meme", "Flawed", "Baseline", "Niche", "Advanced", "Superior", "Ultimate", "Unique"];
+        }
     }
 
     public class RarityData

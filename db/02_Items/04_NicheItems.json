@@ -1,17 +1,20 @@
 {
-    "40mm Rifle Grenade single round magazine": {
-        "Description": "1-round magazine for Rifle Grenade Launcher Variant weapons\nIt's not needed and can even disable reload of your weapon\nExperts says that it needs to be either sold or destroyed",
+    "Multi-caliber Rifle Grenade Launcher 7-round internal magazine": {
+        "Description": "7-round magazine for AXMC, OP-SKS, Mosin Infantry and TRG M10 Rifle Grenade Launcher Variant weapons\nCan store 7.62x39mm, 7.62x54r, .338 Lapua Magnum and 40x46mm caliber bullets/granades.",
         "ShortName": "R.Gre mag",
-        "ItemTplToClone": "5ce69cbad7f00c00b61c5098",
+        "ItemTplToClone": "587df3a12459772c28142567",
         "Changes": {
             "Cartridges": {
-                "Count": 1,
+                "Count": 7,
                 "FromWeapons": [
-                    "5e81ebcd8e146c7080625e15"
+                    "AXMC",
+                    "OP-SKS",
+                    "Mosin Infantry",
+                    "FN40GL"
                 ]
             }
         },
-        "HandbookPriceRoubles": 69,
+        "HandbookPriceRoubles": 21937,
         "VariantType": "Rifle Grenade Launcher",
         "Rarity": "Niche"
     },

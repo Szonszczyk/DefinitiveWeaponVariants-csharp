@@ -1,0 +1,249 @@
+{
+	"PKM Unique": {
+		"Description": "Someone really wanted to have a mobile 12.7x108 mm caliber light machine gun in their hands. But the thing is, we can't allow just anyone to wield this kind of power, so we made this weapon as a good middle ground",
+		"Explanation": "PKM >Heavy Pay2Win Gun<\nThis unique variant blends the best traits of the Heavy Machine Gun Variant - reduced recoil and increased fire rate - with the .50 BMG caliber from the Pay2Win Variant. Not to mention, we are bundling a 100-round .50 BMG magazine with it!",
+		"ShortName": ">Heavy P2W Gun<",
+		"Properties": {
+			"RecoilForceBack": "+150%",
+    		"RecoilForceUp": "-60%",
+			"WeapFireType": [ "fullauto" ],
+			"BFirerate": "+20%",
+			"RecoilCamera": "+15%"
+		},
+		"Changes": {
+			"Slots": {
+				"mod_magazine": {
+					"Filter": [
+						"PK .50 BMG 100-round box",
+						"Pay to Win Variant 5-round magazine",
+						"Pay to Win Variant 20-round magazine",
+						"Pay to Win Variant 30-round magazine",
+						"Pay to Win Variant 50-round magazine"
+					]
+				}
+			},
+			"Chambers": {
+				"FromWeapons": [ "AK-50" ]
+			}
+		},
+		"Weapons": [ "PKM" ],
+		"Rarity": "Unique"
+	},
+	"AK-74 Unique": {
+		"Description": "When you don't shoot this weapon in full-auto fire mode, Kalashnikov turns in his grave, generating enough power to supply a medium-sized city",
+		"Explanation": "AK-74 >Overclocked Meta<\nThis unique variant blends the best traits of the Overclocked Variant - its fire rate and gun-cooling capabilities - with Meta Variant stats",
+		"ShortName": ">Overclocked Meta<",
+		"Properties": {
+			"RecoilForceUp": "-25%",
+			"RecoilForceBack": "-10%",
+			"RecoilReturnSpeedHandRotation": "+10%",
+			"RecoilCamera": "-10%",
+			"RecoilDampingHandRotation": "-10%",
+			"RecoilReturnPathDampingHandRotation": "-10%",
+			"Ergonomics": "+15",
+			"RecoilStableIndexShot": 4,
+			"HeatFactorByShot": "-25%",
+			"CoolFactorGun": "+50%",
+			"CoolFactorGunMods": 1,
+			"SingleFireRate": "+35%",
+			"BFirerate": "+35%",
+			"Weight": "+20%"
+		},
+		"Weapons": [ "AK-74" ],
+		"Rarity": "Unique"
+	},
+	"G36 Unique": {
+		"Description": "Are you tired of constantly changing magazines because they only fit a few weapons? Are you tired of managing calibers for all the weapons you possess? This gun says \"No longer!\" to these issues!",
+		"Explanation": "G36 >All caliber<\nThis unique variant can straight up use all magazines and all bullets!",
+		"ShortName": ">All caliber<",
+		"Changes": {
+			"Slots": {
+				"mod_magazine": {
+					"Add": [ "5448bc234bdc2d3c308b4569" ]
+				}
+			},
+			"Chambers": {
+				"Add": [ "5485a8684bdc2da71d8b4567" ]
+			}
+		},
+		"Weapons": [ "G36" ],
+		"Rarity": "Unique"
+	},
+	"AXMC Unique": {
+		"Description": "Extremely fast, small, and able to fit in a pocket. It's not about the weapon, but about this blue creature. I have no idea why it is even here... We need to...\n>>> PUT HIM OUT OF HIS MISERY <<<\n*Proceeding to insert it into the gun*",
+		"Explanation": "AXMC >Handy Pocket-sized Hypersonic<\nThis unique variant blends the best traits of the Handy Variant - ergonomics - Pocket-sized - the ability to be placed in a holster slot - and Hypersonic - incredible muzzle velocity",
+		"ShortName": ">Sonic<",
+		"Properties": {
+    		"Ergonomics": 78,
+			"Weight": "-92%",
+			"Velocity": 350,
+			"CenterOfImpact": 0.01
+    	},
+    	"Changes": {
+    		"AddtoInventorySlots": [ "Holster" ]
+    	},
+		"Weapons": [ "AXMC" ],
+		"Rarity": "Unique"
+	},
+	"M700 Unique": {
+		"Description": "When you're running out of good guns, still want to play one, and at the same time feel creative with your choices",
+		"Explanation": "M700 >M4A1 No-bolt<\nThis unique variant has M4A1 stats with matching magazines and a 1-shot burst mode",
+		"ShortName": ">Standardized<",
+		"Properties": {
+    		"WeapClass": "assaultRifle",
+			"Weight": 0.38,
+			"SingleFireRate": 450,
+			"RecoilDampingHandRotation": 0.85,
+			"RecoilForceBack": 342,
+			"RecoilForceUp": 119,
+			"RecoilPosZMult": 1,
+			"RecoilReturnPathDampingHandRotation": 0.48,
+			"RecoilReturnPathOffsetHandRotation": 0.01,
+			"RecoilReturnSpeedHandRotation": 2.5,
+			"RecoilStableAngleIncreaseStep": 2.4,
+			"RecoilStableIndexShot": 5,
+			"RecolDispersion": 1,
+			"RecoilCamera": 0.04,
+			"RecoilCategoryMultiplierHandRotation": 0.19,
+			"HeatFactorByShot": 1.235,
+			"HeatFactorGun": 1,
+			"DropSoundType": "Rifle",
+			"ItemSound": "weap_ar",
+			"Durability": 100,
+			"DurabilityBurnRatio": 1.15,
+			"Ergonomics": 48,
+			"CoolFactorGun": 3.168,
+			"CenterOfImpact": 0.01,
+			"AimPlane": 0.16,
+			"AimSensitivity": 0.65,
+			"WeapFireType": [ "burst" ],
+    		"BurstShotsCount": 1,
+			"BFirerate": 800
+    	},
+    	"Changes": {
+			"Chambers": {
+				"FromWeapons": [ "M4A1" ]
+			},
+    		"Slots": {
+			    "mod_magazine": {
+					"FromWeapons": [ "M4A1" ]
+				}
+			}
+    	},
+		"Weapons": [ "M700" ],
+		"Rarity": "Unique"
+	},
+	"AKMS Unique": {
+		"Description": "A worn-out and old weapon that received a few upgrades during its lifespan and is now just perfect",
+		"Explanation": "AKMS >Actually meta<\nThis unique variant has much better stats than its Meta counterpart",
+		"ShortName": ">Overpowered<",
+		"Properties": {
+    		"RecoilForceUp": "-50%",
+			"RecoilForceBack": "-20%",
+			"RecoilReturnSpeedHandRotation": "+20%",
+			"RecoilCamera": "-20%",
+			"RecoilDampingHandRotation": "-20%",
+			"RecoilReturnPathDampingHandRotation": "-20%",
+			"Ergonomics": "+50",
+			"RecoilStableIndexShot": 3,
+			"HeatFactorByShot": "-50%"
+    	},
+		"Weapons": [ "AKMS" ],
+		"Rarity": "Unique"
+	},
+	"M1A Unique": {
+		"Description": "\"Jesus, take the full auto\"",
+		"Explanation": "M1A >Faster Control-Fire<\nThis unique variant has a special recoilless full-auto fire mode, but with a much faster fire rate than its predecessor",
+		"ShortName": ">Faster Control-Fire<",
+		"Properties": {
+    		"BFirerate": 333,
+            "WeapFireType": [ "fullauto" ],
+            "RecoilStableIndexShot": 0,
+            "RecoilForceBack": "+35%"
+    	},
+		"Weapons": [ "M1A" ],
+		"Rarity": "Unique"
+	},
+	"APB Unique": {
+		"Description": "Try not to look through the scope. Thank you for your consideration!",
+		"Explanation": "APB >Russian Stormtrooper<\nThis unique variant has a special scope with unique statistics and is chambered in .366 TKM\n9 out of 10 Russian Stormtroopers choose .366 TKM as their favourite ammunition - amazing!",
+		"ShortName": ">Stormtrooper<",
+		"Properties": {
+			"RecoilStableIndexShot": 1,
+			"RecoilForceUp": 0,
+			"RecoilForceBack": 0,
+			"RecoilCamera": 0,
+			"Velocity": 400
+		},
+		"Changes": {
+			"Chambers": {
+				"FromWeapons": [ "VPO-209" ]
+			},
+    		"Slots": {
+			    "mod_sight_front": {
+					"Filter": [ "Nightforce Magmount 34mm ring scope mount for Stormtrooper Use Only" ]
+				},
+				"mod_magazine": {
+					"FromWeapons": [ "VPO-209" ]
+				}
+			}
+    	},
+		"Weapons": [ "APB" ],
+		"Rarity": "Unique"
+	},
+	"STM-9 Unique": {
+		"Description": "Fully automatic FURY at your immediate disposal",
+		"Explanation": "STM-9 >Automatic FURY<\nThis unique variant combines Automatic and FURY Variant capabilities. It has full-auto and a special 2-shot burst fire mode, in addition to being chambered in .277 FURY (6.8x51 mm)",
+		"ShortName": ">Automatic FURY<",
+		"Properties": {
+    		"WeapFireType": [
+				"burst",
+				"fullauto"
+			],
+			"BFirerate": "+10%",
+			"BurstShotsCount": 2
+		},
+		"Changes": {
+			"Slots": {
+			    "mod_magazine": {
+					"FromWeapons": [ "SPEAR 6.8" ]
+				}
+			},
+			"Chambers": {
+				"FromWeapons": [ "SPEAR 6.8" ]
+			}
+		},
+		"Weapons": [ "STM-9" ],
+		"Rarity": "Unique"
+	},
+	"AS VAL Unique": {
+		"Description": "Point and click without issues - guaranteed! Or your money back!",
+		"Explanation": "AS VAL >Unbreakable P&C<\nThis unique variant allows firing the special Point & Click burst mode without damaging the weapon in the process",
+		"ShortName": ">Unbreakable P&C<",
+		"Properties": {
+    		"WeapFireType": [
+				"burst"
+			],
+			"BFirerate": "+400%",
+			"RecoilForceBack": "-80%",
+			"RecoilForceUp": "-80%",
+			"RecoilCamera": "-80%",
+			"AimPlane": "-80%",
+			"RecolDispersion": "-80%",
+			"RecoilReturnPathDampingHandRotation": "-80%",
+			"RecoilDampingHandRotation": "-80%",
+		    "RecoilReturnSpeedHandRotation": "+80%",
+			"CenterOfImpact": 0.01,
+			"BurstShotsCount": 5,
+			"MaxRepairKitDegradation": 0,
+			"DurabilityBurnRatio": 0,
+			"HeatFactorByShot": 0,
+			"AllowJam": false,
+			"AllowFeed": false,
+			"AllowMisfire": false,
+			"AllowSlide": false
+    	},
+		"Weapons": [ "AS VAL" ],
+		"Rarity": "Unique"
+	}
+}
