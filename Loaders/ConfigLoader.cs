@@ -29,7 +29,7 @@ namespace DefinitiveWeaponVariants.Loaders
                     }
                     else
                     {
-                        logger.LogWithColor($"[{GetType().Namespace}] Neither config.jsonc nor defaultConfig.jsonc found in {configDir}. Using built-in defaults.", LogTextColor.Red);
+                        logger.LogWithColor($"[{GetType().Namespace}] Neither config.jsonc nor defaultConfig.jsonc found in {configDir}. Using built-in defaults. Consider reinstalling the mod!", LogTextColor.Red);
                         Config = new ConfigData();
                         return;
                     }
@@ -50,8 +50,19 @@ namespace DefinitiveWeaponVariants.Loaders
             }
             catch (Exception ex)
             {
-                logger.LogWithColor($"[{GetType().Namespace}] Failed to load config: {ex.Message}", LogTextColor.Red);
-                Config = new ConfigData();
+                logger.LogWithColor($"[{GetType().Namespace}] Failed to load config: {ex.Message}", LogTextColor.Red, LogBackgroundColor.White);
+                try
+                {
+                    var config = modHelper.GetJsonDataFromFile<ConfigData>(modFolder, defaultConfigPath);
+                    logger.LogWithColor($"[{GetType().Namespace}] Default config loaded successfully", LogTextColor.Yellow);
+                    Config = config;
+                }
+                catch (Exception ex2)
+                {
+                    logger.LogWithColor($"[{GetType().Namespace}] Failed to load default config: {ex2.Message}\nThis should not happened. Please don't edit defaultConfig.json! Consider downloading fresh file from Forge!", LogTextColor.Red, LogBackgroundColor.White);
+                    Config = new ConfigData();
+                }
+                    
             }
         }
     }

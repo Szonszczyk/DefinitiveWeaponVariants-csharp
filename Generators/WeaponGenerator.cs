@@ -1,4 +1,5 @@
-﻿using DefinitiveWeaponVariants.Constants;
+﻿using DefinitiveWeaponVariants.Compatibility;
+using DefinitiveWeaponVariants.Constants;
 using DefinitiveWeaponVariants.CustomClasses;
 using DefinitiveWeaponVariants.Helpers;
 using DefinitiveWeaponVariants.Interfaces;
@@ -28,8 +29,8 @@ namespace DefinitiveWeaponVariants.Generators
         ICloner cloner,
         ConfigLoader configLoader,
         ItemHelper itemHelper,
-        RandomUtil randomUtil,
-        CustomLootManager customLootManager
+        CustomLootManager customLootManager,
+        CompatibilityLayers compatibilityLayers
     )
     {
         private readonly Dictionary<MongoId, TemplateItem> items = databaseService.GetItems();
@@ -54,8 +55,10 @@ namespace DefinitiveWeaponVariants.Generators
                     foreach (var weaponShortname in weaponsToGenerate)
                     {
                         string variantShortName = $"{weaponShortname} {variant.ShortName}";
-                        string copiedWeaponId = modDatabaseLoader.DbShortnames[weaponShortname];
-                        TemplateItem copiedItem = items[copiedWeaponId]!;
+                        modDatabaseLoader.DbShortnames.TryGetValue(weaponShortname, out var copiedWeaponId);
+                        items.TryGetValue(copiedWeaponId ?? weaponShortname, out var copiedItem);
+                        if (copiedItem is null) continue;
+                        copiedWeaponId ??= copiedItem.Id;
                         HandbookItem? copiedItemHandbook = handbook.Items.Find(t => t.Id == copiedWeaponId);
                         var copiedItemName = locale[$"{copiedWeaponId} Name"];
                         var weaponCountsToward = copiedItemName;
@@ -214,12 +217,7 @@ namespace DefinitiveWeaponVariants.Generators
 
                         // Change slots
                         var slotConfig = GetCombinedSlotConfig(variant, weaponShortname);
-                        var newSlots = customSlotsChanger.SlotsChanger(
-                            slotConfig,
-                            copiedItem,
-                            newWeapon,
-                            $"{weaponShortname}{variant.ShortName}"
-                        );
+                        var newSlots = customSlotsChanger.SlotsChanger(slotConfig, copiedItem, newWeapon);
                         if (newSlots != null) {
                             newWeapon.OverrideProperties.Slots = newSlots;
                             // Change item in slot in preset(s)
@@ -367,6 +365,8 @@ namespace DefinitiveWeaponVariants.Generators
                                 weaponListForKillQuests.Add(weaponIdToUseAs, [newWeapon.NewId]);
                             }
                         }
+                        compatibilityLayers.AddVariantToDB(newWeapon.NewId, variant.Rarity, variantName);
+                        if (config.Barter is not null && modConfig.AmonyaTraderMode) config.Barter.TraderId = "ee840a5ba014e9c5478d5ccd";
                         customItemCreator.AddItemToDatabase(newWeapon, newWeaponConfig, config.Barter ?? new CustomBarterConfig());
                     }
                 }
@@ -449,25 +449,29 @@ namespace DefinitiveWeaponVariants.Generators
             var weaponsToGenerate = new List<string>();
             foreach(var weaponShortname in variant.Weapons) 
             {
-                string variantShortName = $"{weaponShortname} {variant.ShortName}";
+                var variantShortName = $"{weaponShortname} {variant.ShortName}";
                 if (modConfig.NotGenerateWeapons.Contains(variantShortName)) continue;
 
-                string copiedWeaponId = modDatabaseLoader.DbShortnames[weaponShortname];
+                modDatabaseLoader.DbShortnames.TryGetValue(weaponShortname, out var copiedWeaponId);
+                if (copiedWeaponId is null)
+                {
+                    if (items.TryGetValue(weaponShortname, out var item)) copiedWeaponId = item.Id;
+                }
                 if (string.IsNullOrEmpty(copiedWeaponId))
                 {
-                    logger.LogWithColor($"[{GetType().Namespace}] Weapon {weaponShortname} is missing shortname in db/03_Shortnames", LogTextColor.Red);
+                    logger.LogWithColor($"[{GetType().Namespace}] Weapon {weaponShortname} is missing shortname in db/03_Shortnames (or is incorrect)", LogTextColor.Red);
                     continue;
                 }
-                TemplateItem copiedItem = items[copiedWeaponId];
+                items.TryGetValue(copiedWeaponId, out var copiedItem);
                 if (copiedItem == null)
                 {
-                    logger.LogWithColor($"[{GetType().Namespace}] Base weapon '{weaponShortname}/{copiedWeaponId} not found. Skipping' ", LogTextColor.Yellow);
+                    logger.LogWithColor($"[{GetType().Namespace}] Base weapon '{weaponShortname}/{copiedWeaponId}' not found. Skipping", LogTextColor.Yellow);
                     continue;
                 }
                 HandbookItem? copiedItemHandbook = handbook.Items.Find(t => t.Id == copiedWeaponId);
                 if (copiedItemHandbook == null)
                 {
-                    logger.LogWithColor($"[{GetType().Namespace}] Handbook entry for '{weaponShortname}/{copiedWeaponId} not found. Skipping' ", LogTextColor.Yellow);
+                    logger.LogWithColor($"[{GetType().Namespace}] Handbook entry for '{weaponShortname}/{copiedWeaponId}' not found. Skipping", LogTextColor.Yellow);
                     continue;
                 }
                 weaponsToGenerate.Add(weaponShortname);
@@ -489,6 +493,7 @@ namespace DefinitiveWeaponVariants.Generators
                 if (modConfig.Marked[rarity] && modConfig.MarkedRoomsProbability > 0) strings.Add("in Marked Rooms (Customs, Reserve, Streets)");
                 if (modConfig.StaticLoot[rarity] && modConfig.StaticLootProbability > 0) strings.Add("in Weapon Boxes, Duffle Bags, Wooden Crates and Caches");
                 if (modConfig.BlindBoxesEnabled && modConfig.VariantCores.Price.TryGetValue(rarity, out _) && modConfig.BlindBoxes.Price[rarity] > 0) strings.Add($"in {rarity} Weapon Variant Blind Box");
+                if (modConfig.EnableAPBSBlacklistGeneration && modConfig.APBSTierConfig[rarity] > 0) strings.Add($"on enemies of {modConfig.APBSTierConfig[rarity]}-7 tiers");
                 weaponDescriptions[rarity] = strings.Count > 0 ? $"Weapons of this variant type can be found: {string.Join(", ", strings)}" : "";
             }
             if (config.Barter is not null)
@@ -496,6 +501,7 @@ namespace DefinitiveWeaponVariants.Generators
                 var traderName = customItemCreator.GetTraderIdByName(config.Barter.TraderId) == null ? "N/A" : traders[(MongoId)customItemCreator.GetTraderIdByName(config.Barter.TraderId)!].Base.Nickname;
                 return $"{weaponDescriptions[rarity]}/nCan be bought in {traderName} LL{config.Barter.LoyalLevel}";
             }
+
             return weaponDescriptions[rarity];
         }
 

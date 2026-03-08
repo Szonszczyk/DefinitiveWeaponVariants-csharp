@@ -1,3 +1,4 @@
+using DefinitiveWeaponVariants.Compatibility;
 using DefinitiveWeaponVariants.CustomClasses;
 using DefinitiveWeaponVariants.Generators;
 using DefinitiveWeaponVariants.Helpers;
@@ -6,6 +7,7 @@ using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.DI;
 using SPTarkov.Server.Core.Helpers;
 using SPTarkov.Server.Core.Models.Logging;
+using SPTarkov.Server.Core.Models.Spt.Mod;
 using SPTarkov.Server.Core.Models.Utils;
 using SPTarkov.Server.Core.Servers;
 using SPTarkov.Server.Core.Services;
@@ -18,6 +20,7 @@ namespace DefinitiveWeaponVariants;
 [Injectable(TypePriority = OnLoadOrder.PostDBModLoader + 89000)]
 public class DefinitiveWeaponVariants(
     ISptLogger<DefinitiveWeaponVariants> logger,
+    IReadOnlyList<SptMod> modlist,
     CustomItemService customItemService,
     ModHelper modHelper,
     DatabaseService databaseService,
@@ -33,13 +36,16 @@ public class DefinitiveWeaponVariants(
     {
         ConfigLoader configLoader = new(logger, modHelper);
         ConfigChecker configChecker = new(logger, configLoader);
+        CompatibilityLayers compatibilityLayers = new(logger, configLoader, modHelper, jsonUtil, databaseService, modlist);
         configChecker.CheckConfig();
+        compatibilityLayers.CheckAllMods();
 
         ModDatabaseLoader modDatabaseLoader = new(logger, modHelper);
         IdDatabaseManager idDatabaseManager = new(logger, modHelper, jsonUtil);
         CustomItemCreator customItemCreator = new(logger, configServer, customItemService, databaseService);
         CustomPropertiesChanger customPropertiesChanger = new(logger);
         CustomSlotsChanger customSlotsChanger = new(logger, databaseService, modDatabaseLoader, cloner, idDatabaseManager);
+
         CustomLootManager customLootManager = new(
             logger,
             databaseService,
@@ -61,6 +67,12 @@ public class DefinitiveWeaponVariants(
             configLoader,
             cloner
         );
+
+        itemGenerator.GenerateVariantCores();
+        itemGenerator.GenerateBlindBoxes();
+        itemGenerator.GenerateItems();
+        
+
         WeaponGenerator weaponGenerator = new(
             logger,
             databaseService,
@@ -73,17 +85,15 @@ public class DefinitiveWeaponVariants(
             cloner,
             configLoader,
             itemHelper,
-            randomUtil,
-            customLootManager
+            customLootManager,
+            compatibilityLayers
          );
 
-        itemGenerator.GenerateVariantCores();
-        itemGenerator.GenerateBlindBoxes();
-        itemGenerator.GenerateItems();
         weaponGenerator.GenerateWeaponsFromVariantConfig();
         customLootManager.AddVariantsToLooseLoot();
         customLootManager.CreateLootpoolForBlindBoxes();
         customLootManager.AddCoresToBotPockets();
+        compatibilityLayers.RunCompatibilityLayers();
         idDatabaseManager.SaveDatabase();
 
         // Add 12.7x108mm B-32 to trader

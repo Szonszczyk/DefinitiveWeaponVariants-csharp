@@ -82,10 +82,7 @@
         "Changes": {
             "Cartridges": {
                 "Count": 5,
-                "Filter": [
-                    "5cde8864d7f00c0010373be1",
-                	"5d2f2ab648f03550091993ca"
-                ]
+                "FromWeapons": [ "NSV Utyos" ]
             }
         },
         "HandbookPriceRoubles": 12000,

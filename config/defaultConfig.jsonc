@@ -115,10 +115,22 @@
  // ### 4.1. BUYABLE 12.7x108 CALIBER AMMO*
  // 12.7x108mm caliber ammo is in the game, but is not supposed to be in the loot or any other source of item drops
  // Make 12.7x108mm B-32 accessible to buy in trader
- "SpecialAmmoBuyableEnabled": true,
+ "SpecialAmmoBuyableEnabled": true, // true/false
 
+ // ### 5. Compatibility with other mods
 
+ // ### 5.1. APBS*
+ // Enable automatic creation and update of APBS blacklist (more info can be found on Forge page)
+ // Warning: you should create a copy of blacklists.json file (in APBS folder) before enabling
+ // Requires: APBS >=2.1.0
+ "EnableAPBSBlacklistGeneration": false,  // true/false - default: false
+ "APBSFolderName": "acidphantasm-progressivebotsystem", // text - default: "acidphantasm-progressivebotsystem"
 
+ // ### 5.2. Amonya
+ // All items added to vanilla traders will be added to Amonya instead
+ // Requires: Amonya >=2.0.3
+ "AmonyaTraderMode": false,
+ // Enabling this option will disable "SpecialAmmoBuyableEnabled" option
 
 
 
@@ -149,7 +161,7 @@
 	 "Meme": 20
  },
 
- // ### 12.1 LOOT PROBABILITIES
+ // ### 12.1. LOOT PROBABILITIES
  // Probability of finding a variant weapon in percentage
  // This is still random so you will have some lucky and some unlucky streaks!
 
@@ -162,7 +174,7 @@
  // [2.6.] Probability of finding a variant weapon per spawn point (NOT YET IMPLEMENTED)
  "LooseLootProbability": 0, // percentage (0.20 => 20%) / MIN:0 - MAX:0.99
 
- // ### 13.1 VARIANT CORES
+ // ### 13.1. VARIANT CORES
  // Advanced configuration for section 3.1.
  "VariantCores": {
 	"FoundOnEnemies": { // Cores can be found in bot pockets - change all probabilities to 0 to disable
@@ -187,7 +199,7 @@
 	}
  },
 
- // ### 13.2 VARIANT BLIND BOXES
+ // ### 13.2. VARIANT BLIND BOXES
  // Advanced configuration for section 3.2.
  "BlindBoxes": {
 	// The price of one lootbox is: "Price" in roubles or "CoresPrice" if "VariantCoresEnabled" is true
@@ -212,7 +224,7 @@
 	"Height": 2 // Height in inventory
  },
 
- // ### 14.1 BUYABLE 12.7x108 CALIBER AMMO
+ // ### 14.1. BUYABLE 12.7x108 CALIBER AMMO
  // Advanced configuration for section 4.1.
  "DWVCaliberBarter": {
 	 "TraderId": "SKIER", //Trader name uppercased - default: "SKIER"
@@ -220,5 +232,22 @@
 	 "BarterPrice": {
 		 "MONEY_ROUBLES": 2500 //Number - default: 2500
 	 }
- }
+ },
+
+ // ### 15.1. APBS Compatibility
+ // Advanced configuration for section 5.1.
+
+ // 1-7 is minimum bot tier that quality is starting to appear
+ // 0 is that tier is not appearing on APBS bots at all
+ "APBSTierConfig": {
+	"Unique": 0, // Number 0-7 - default: 0 (blacklisted entirely)
+	"Ultimate": 7, // Number 0-7 - default: 7 (found on enemies of tier 7)
+	"Superior": 6, // Number 0-7 - default: 6 (found on enemies of tier 6-7)
+	"Advanced": 5, // Number 0-7 - default: 5 (found on enemies of tier 5-7)
+	"Niche": 4, // Number 0-7 - default: 4 (found on enemies of tier 4-7)
+	"Baseline": 3, // Number 0-7 - default: 3 (found on enemies of tier 3-7)
+	"Flawed": 2, // Number 0-7 - default: 2 (found on enemies of tier 2-7)
+	"Meme": 1 // Number 0-7 - default: 1 (found on enemies of all tiers)
+ },
+ "APBSBlacklistedVariantTypes": ["Rifle Grenade Launcher"]
 }

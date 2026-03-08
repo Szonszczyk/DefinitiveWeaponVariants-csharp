@@ -29,6 +29,8 @@ namespace DefinitiveWeaponVariants.Helpers
             CheckDictionaryStringInt(modConfig.VariantCores.Price);
             CheckDictionaryStringInt(modConfig.BlindBoxes.Price);
 
+            CheckDictionaryStringInt(modConfig.APBSTierConfig);
+
             modConfig.LooseLootProbability = CheckProbability(modConfig.LooseLootProbability, nameof(modConfig.LooseLootProbability));
             modConfig.StaticLootProbability = CheckProbability(modConfig.StaticLootProbability, nameof(modConfig.StaticLootProbability));
             modConfig.MarkedRoomsProbability = CheckProbability(modConfig.MarkedRoomsProbability, nameof(modConfig.MarkedRoomsProbability));

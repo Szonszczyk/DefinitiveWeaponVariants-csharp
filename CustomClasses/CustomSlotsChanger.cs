@@ -48,20 +48,19 @@ namespace DefinitiveWeaponVariants.CustomClasses
         public List<Slot>? SlotsChanger(
             Dictionary<string, FilterSlotExtendedConfiguration>? slotConfig,
             TemplateItem copiedItem,
-            NewItemFromCloneDetails newItem,
-            string newItemName
+            NewItemFromCloneDetails newItem
         )
         {
             if (slotConfig is null) return null;
             var slots = RemapSlots(copiedItem?.Properties?.Slots?.ToList(), newItem.NewId!);
             if (slots is null) return null;
 
+            var slotsToRemove = new List<Slot>();
             foreach (var slot in slots)
             {
                 if (slot.Name != null && slotConfig.TryGetValue(slot.Name, out FilterSlotExtendedConfiguration? newFilterConfig))
                 {
                     var newFilter = CreateFilterFromConfiguration(newFilterConfig, slot.Name, slot.Name.Contains("camora_") ? "Chambers" : "Slots", copiedItem);
-
                     if (newFilterConfig.BasedOn is { Property: var basedOnProperty } basedOn)
                     {
                         var value = copiedItem!.Properties.GetType()
@@ -74,11 +73,20 @@ namespace DefinitiveWeaponVariants.CustomClasses
                             newFilter = [.. newFilter, .. CreateFilterFromConfiguration(caseCfg, slot.Name, slot.Name.Contains("camora_") ? "Chambers" : "Slots", copiedItem)];
                         }
                     }
+                    if (newFilter.Count == 0)
+                    {
+                        slotsToRemove.Add(slot);
+                        continue;
+                    }
                     if (slot?.Properties?.Filters != null)
                     {
                         slot.Properties.Filters.First().Filter = [.. newFilter];
                     }
                 }
+            }
+            foreach(var slot in slotsToRemove)
+            {
+                slots.Remove(slot);
             }
             return slots;
         }

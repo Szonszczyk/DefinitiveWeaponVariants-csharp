@@ -132,7 +132,7 @@
     },
 	"Pistol": {
         "Description": "A weapon variant designed specifically for pistol quests, tailored for those who dislike using actual pistols",
-        "Explanation": "Bolt-action rifles with significantly improved accuracy and handling, but chambered in the 9x18mm and 50AE pistol caliber",
+        "Explanation": "Bolt-action rifles with significantly improved accuracy and handling, but chambered in the 9x18mm pistol caliber",
         "ShortName": "\"Pistol\"",
         "Properties": {
             "AmmoCaliber": "Caliber9x18PM",
@@ -151,15 +151,13 @@
 			"Slots": {
                 "mod_magazine": {
                     "FromWeapons": [
-                        "PM",
-						"Desert Eagle L6"
+                        "PM"
                     ]
                 }
             },
             "Chambers": {
 				"FromWeapons": [
-					"PM",
-					"Desert Eagle L6"
+					"PM"
 				]
 			}
         },

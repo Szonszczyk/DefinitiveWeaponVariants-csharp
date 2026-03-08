@@ -1390,12 +1390,6 @@
           "slotId": "mod_scope"
         },
         {
-          "_id": "691faf11c81efa7cecfd2e29",
-          "_tpl": "5cde8864d7f00c0010373be1",
-          "parentId": "691faf11c81efa7cecfd2e23",
-          "slotId": "patron_in_weapon"
-        },
-        {
           "_id": "691faf11c81efa7cecfd2e2a",
           "_tpl": "64119d1f2c6d6f921a0929f8",
           "parentId": "691faf11c81efa7cecfd2e25",

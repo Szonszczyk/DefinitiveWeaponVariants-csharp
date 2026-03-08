@@ -24,7 +24,7 @@
         "Rarity": "Flawed"
     },
     "ORSIS T-5000M Quick-scope mount": {
-        "Description": "A changed scope mount for the T-5000M sniper rifle, manufactured by ORSIS. Allows installation of reflex sights.",
+        "Description": "A changed scope mount for the T-5000M sniper rifle, manufactured by ORSIS. Allows installation of the reflex sight.",
         "ShortName": "T-5000M Q",
         "ItemTplToClone": "5df35e970b92095fd441e4d2",
         "Properties": {
@@ -42,7 +42,7 @@
         "Rarity": "Flawed"
     },
     "M700 AB Arms MOD*X rail Quick-scope mount": {
-        "Description": "The AB Arms MOD*X changed mount for the Remington Model 700 sniper rifle, allows installation of reflex sight.",
+        "Description": "The AB Arms MOD*X changed mount for the Remington Model 700 sniper rifle, allows installation of the reflex sight.",
         "ShortName": "MOD*X rail Q",
         "ItemTplToClone": "5cde7b43d7f00c000d36b93e",
         "Properties": {
@@ -60,7 +60,7 @@
         "Rarity": "Flawed"
     },
     "AI AXMC upper receiver Q": {
-        "Description": "An upper receiver for the AXMC Quick sniper rifle manufactured by Accuracy International, allows installation of reflex sight.",
+        "Description": "An upper receiver for the AXMC Quick sniper rifle manufactured by Accuracy International, allows installation of the reflex sight.",
         "ShortName": "AXMC upper Q",
         "ItemTplToClone": "62811fbf09427b40ab14e767",
         "Properties": {

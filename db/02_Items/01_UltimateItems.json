@@ -6,9 +6,8 @@
         "Changes": {
             "Cartridges": {
                 "Count": 2, 
-                "Filter": [
-                    "5cde8864d7f00c0010373be1",
-                	"5d2f2ab648f03550091993ca"
+                "FromWeapons": [
+                    "NSV Utyos"
                 ]
             }
         },
@@ -131,7 +130,7 @@
         "Changes": {
             "Cartridges": {
                 "Count": 5,
-                "FromWeapons": [ "5cffa483d7ad1a049e54ef1c" ]
+                "FromWeapons": [ "NSV Utyos" ]
             }
         },
         "Barter": {
@@ -158,7 +157,7 @@
         "Changes": {
             "Cartridges": {
                 "Count": 10,
-                "FromWeapons": [ "5cffa483d7ad1a049e54ef1c" ]
+                "FromWeapons": [ "NSV Utyos" ]
             }
         },
         "Barter": {
@@ -185,7 +184,7 @@
         "Changes": {
             "Cartridges": {
                 "Count": 20,
-                "FromWeapons": [ "5cffa483d7ad1a049e54ef1c" ]
+                "FromWeapons": [ "NSV Utyos" ]
             }
         },
         "Barter": {
@@ -212,7 +211,7 @@
         "Changes": {
             "Cartridges": {
                 "Count": 30,
-                "FromWeapons": [ "5cffa483d7ad1a049e54ef1c" ]
+                "FromWeapons": [ "NSV Utyos" ]
             }
         },
         "Barter": {

@@ -118,12 +118,7 @@
 				}
 			},
 			"Chambers": {
-				"Filter": [
-					"5cde8864d7f00c0010373be1",
-					"5d2f2ab648f03550091993ca"
-				],
-				"FromWeapons": [],
-				"Add": []
+				"FromWeapons": [ "NSV Utyos" ]
 			}
 		},
 		"IndividualChanges": {
@@ -278,11 +273,8 @@
 				}
 			},
 			"Chambers": {
-				"Filter": [
-					"5cde8864d7f00c0010373be1",
-					"5d2f2ab648f03550091993ca"
-				],
-				"FromWeapons": [],
+				"Filter": [],
+				"FromWeapons": [ "NSV Utyos" ],
 				"Add": []
 			}
 		},

@@ -41,13 +41,20 @@ namespace DefinitiveWeaponVariants.Generators
                         continue;
                     }
                     MongoId itemTplToClone = (MongoId)variant.ItemTplToClone;
-                    TemplateItem copiedItem = items[itemTplToClone];
+                    items.TryGetValue(itemTplToClone, out var copiedItem);
+                    if (copiedItem is null)
+                    {
+                        logger.LogWithColor($"[{GetType().Namespace}] ItemTplToClone {variant.ItemTplToClone} is not found (or you are missing some mod) ({variantName})! Skipping", LogTextColor.Yellow);
+                        continue;
+                    }
+
                     HandbookItem? copiedItemHandbook = handbook.Items.Find(t => t.Id == itemTplToClone);
                     if (copiedItemHandbook == null) {
-                        logger.LogWithColor($"[{GetType().Namespace}] Item {itemTplToClone} handbook entry is missing ({variantName})! Skipped generation of {variantName} item", LogTextColor.Red);
+                        logger.LogWithColor($"[{GetType().Namespace}] Item {itemTplToClone} handbook entry is missing ({variantName})! Skipping", LogTextColor.Yellow);
                         continue;
                     }
                     RarityData rarity = RaritySettings.GetByName(variant.Rarity);
+                    if (variant.Barter is not null && modConfig.AmonyaTraderMode) variant.Barter.TraderId = "ee840a5ba014e9c5478d5ccd";
                     var traderName = (variant.Barter == null || customItemCreator.GetTraderIdByName(variant.Barter.TraderId) == null) ? "N/A" : traders[(MongoId)customItemCreator.GetTraderIdByName(variant.Barter.TraderId)!].Base.Nickname;
                     var text = variant.Barter == null ? "Can't be bought from traders" : $"Can be bought in {traderName} LL{variant.Barter.LoyalLevel}";
                     var newItem = new NewItemFromCloneDetails
@@ -105,21 +112,21 @@ namespace DefinitiveWeaponVariants.Generators
                     }
                     if (variant?.Changes?.Slots != null)
                     {
-                        var newSlots = customSlotsChanger.SlotsChanger(variant.Changes.Slots, copiedItem, newItem, variantName);
+                        var newSlots = customSlotsChanger.SlotsChanger(variant.Changes.Slots, copiedItem, newItem);
                         if (newSlots != null) newItem.OverrideProperties.Slots = newSlots;
                     }
 
-                    if (config.Barter is not null)
+                    if (variant?.Barter is not null)
                     {
-                        foreach (var (barter, price) in config.Barter.BarterPrice.ToList())
+                        foreach (var (barter, price) in variant.Barter.BarterPrice.ToList())
                         {
                             var barterId = customSlotsChanger.GetItemFromString(barter)?.Id;
                             if (barterId is null) continue;
-                            config.Barter.BarterPrice.Remove(barter);
-                            config.Barter.BarterPrice[barterId] = price;
+                            variant.Barter.BarterPrice.Remove(barter);
+                            variant.Barter.BarterPrice[barterId] = price;
                         }
                     }
-                    customItemCreator.AddItemToDatabase(newItem, new CustomItemConfig(), config.Barter ?? new CustomBarterConfig());
+                    customItemCreator.AddItemToDatabase(newItem, new CustomItemConfig(), variant?.Barter ?? new CustomBarterConfig());
                 } else
                 {
                     logger.LogWithColor($"[{GetType().Namespace}] Item '{variantName}' is missing one or more required properties!", LogTextColor.Red);
@@ -139,9 +146,9 @@ namespace DefinitiveWeaponVariants.Generators
                     HandbookPriceRoubles = modConfig.VariantCores.Price[quality],
                     Rarity = quality
                 };
-                if (enabled)
+                if (enabled && modConfig.VariantCores.Buyable)
                 {
-                    var barter = modConfig.VariantCores.Buyable ? modConfig.VariantCores.CoresBarter : new CustomBarterConfig();
+                    var barter = modConfig.VariantCores.CoresBarter;
                     barter.BarterPrice = [];
                     barter.BarterPrice.Add("5449016a4bdc2d6f028b456f", modConfig.VariantCores.Price[quality]);
                     variant.Barter = barter;
@@ -151,8 +158,8 @@ namespace DefinitiveWeaponVariants.Generators
                 HandbookItem? copiedItemHandbook = handbook.Items.Find(t => t.Id == itemTplToClone);
 
                 RarityData rarity = RaritySettings.GetByName(variant.Rarity);
+                if (variant.Barter is not null && modConfig.AmonyaTraderMode) variant.Barter.TraderId = "ee840a5ba014e9c5478d5ccd";
                 var traderName = (variant.Barter == null || customItemCreator.GetTraderIdByName(variant.Barter.TraderId) == null) ? "N/A" : traders[(MongoId)customItemCreator.GetTraderIdByName(variant.Barter.TraderId)!].Base.Nickname;
-                var text = variant.Barter == null ? "Can't be bought from traders" : $"Can be bought in {traderName} LL{variant.Barter.LoyalLevel}";
                 var newItem = new NewItemFromCloneDetails
                 {
                     ItemTplToClone = itemTplToClone,
@@ -173,7 +180,8 @@ namespace DefinitiveWeaponVariants.Generators
                         ExtraSizeDown = 0,
                         ToolModdable = true,
                         RaidModdable = true,
-                        Recoil = 0
+                        Recoil = 0,
+                        Slots = []
                     },
                     Locales = new Dictionary<string, LocaleDetails>
                     {
@@ -187,14 +195,13 @@ namespace DefinitiveWeaponVariants.Generators
                                     $"",
                                     $"Special currency <color={rarity.Color}><b>{quality} Quality Variant Core</b></color> ",
                                     $"",
-                                    $"This item is special currency used to buy Variant Blind Boxes, but can also be inserted into special slot in weapon variant of the same quality.",
-                                    $"{text}</align>"
+                                    $"This item is special currency used to buy Variant Blind Boxes, but can also be inserted into special slot in weapon variant of the same quality.{(modConfig.VariantCores.FoundOnEnemies.TryGetValue("assault", out _) ? $"\nCan be found in Scav pockets" : "")}",
+                                    $"{(variant.Barter == null ? "Can't be bought from traders" : $"Can be bought in {traderName} LL{variant.Barter.LoyalLevel}")}</align>"
                                 })
                             }
                         }
                     }
                 };
-                
                 customItemCreator.AddItemToDatabase(newItem, new CustomItemConfig(), variant.Barter ?? new CustomBarterConfig());
                 
             }
@@ -227,6 +234,7 @@ namespace DefinitiveWeaponVariants.Generators
                 HandbookItem? copiedItemHandbook = handbook.Items.Find(t => t.Id == itemTplToClone);
 
                 RarityData rarity = RaritySettings.GetByName(variant.Rarity);
+                if (variant.Barter is not null && modConfig.AmonyaTraderMode) variant.Barter.TraderId = "ee840a5ba014e9c5478d5ccd";
                 var traderName = (variant.Barter == null || customItemCreator.GetTraderIdByName(variant.Barter.TraderId) == null) ? "N/A" : traders[(MongoId)customItemCreator.GetTraderIdByName(variant.Barter.TraderId)!].Base.Nickname;
                 var text = variant.Barter == null ? "Can't be bought from traders" : $"Can be bought in {traderName} LL{variant.Barter.LoyalLevel}";
                 var newItem = new NewItemFromCloneDetails
