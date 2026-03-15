@@ -178,8 +178,12 @@
  // Advanced configuration for section 3.1.
  "VariantCores": {
 	"FoundOnEnemies": { // Cores can be found in bot pockets - change all probabilities to 0 to disable
-		"assault": 0.5 // Scav internal name + probability in percentage (0.50 => 50%) / MIN:0 - MAX:0.99
+		"assault": 0.33 // Scav internal name + probability in percentage (0.50 => 50%) / MIN:0 - MAX:0.99
 	},
+	"Required": false, // If cores should be required for weapon to work
+	// Note: If this config is enabled, you won't be able to remove Variant Cores from weapons while in raid
+	//       Unless you use UI Fixes (https://forge.sp-tarkov.com/mod/1342/ui-fixes) config option: "Modify Weapons In Raid" changed to "Always" or "With Multitool"
+	//       This config option will fix variant weapons equipped by APBS bots not having Variant Cores in their usual slot
 	"Buyable": false, // If cores can be bought via trader
 	"CoresBarter": {
 		"TraderId": "SKIER", // Trader name uppercased - default: "SKIER"

@@ -318,6 +318,8 @@ namespace DefinitiveWeaponVariants.CustomClasses
             var bots = databaseService.GetBots();
             foreach (var (botName, prob) in modConfig.VariantCores.FoundOnEnemies)
             {
+                if (prob <= 0) continue;
+
                 bots.Types.TryGetValue(botName, out var bot);
                 if (bot is null)
                 {
@@ -325,8 +327,8 @@ namespace DefinitiveWeaponVariants.CustomClasses
                     continue;
                 }
                 var pockets = bot.BotInventory.Items.Pockets;
-                var configProbability = prob;
                 var totalProbability = pockets.Sum(item => item.Value);
+                var probabilityOfAddedItems = prob / (1 - prob) * totalProbability;
                 var qualityTotal = modConfig.QualityWeights.Sum(item => item.Value);
 
                 foreach (var (quality, enabled) in modConfig.Generate)
@@ -335,10 +337,11 @@ namespace DefinitiveWeaponVariants.CustomClasses
                     if (idDatabaseManager.DbIds.TryGetValue($"{quality} Quality Variant Core:ID", out var idDatabaseId))
                     {
                         (bool find, TemplateItem? item) = itemHelper.GetItem(idDatabaseId);
+                        
                         if (find && item is not null)
                         {
-                            pockets.Add(idDatabaseId, totalProbability / qualityTotal * modConfig.QualityWeights[quality] * configProbability);
-                            //logger.LogWithColor($"[{GetType().Namespace}] Added {quality} Quality Variant Core with {totalProbability / qualityTotal * modConfig.QualityWeights[quality] * 0.5}(QWEIGHT:{modConfig.QualityWeights[quality]}/TOTALWEIGHT:{qualityTotal})(MAX:{totalProbability},ADDED:{totalProbability * configProbability}) to Scav pockets", LogTextColor.Cyan);
+                            pockets.Add(idDatabaseId, Math.Ceiling(((float)modConfig.QualityWeights[quality] / (float)qualityTotal) * probabilityOfAddedItems)); 
+                            //logger.LogWithColor($"[{GetType().Namespace}] Added {quality} Quality Variant Core with {Math.Ceiling(((float)modConfig.QualityWeights[quality] / (float)qualityTotal) * probabilityOfAddedItems)}(QWEIGHT:{modConfig.QualityWeights[quality]}/TOTALWEIGHT:{qualityTotal})(MAX:{totalProbability},ADDED:{probabilityOfAddedItems}) to Scav pockets", LogTextColor.Cyan);
                         }
                     }
                 }

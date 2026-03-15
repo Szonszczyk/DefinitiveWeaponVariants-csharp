@@ -26,7 +26,7 @@ namespace DefinitiveWeaponVariants.CustomClasses
             TemplateItem copiedItem,
             List<MongoId> newFilter,
             NewItemFromCloneDetails newItem,
-            string newItemName
+            bool coreSlotIsRequired
         )
         {
             var slots = slotsBefore ?? RemapSlots(copiedItem?.Properties?.Slots?.ToList(), newItem.NewId!);
@@ -36,8 +36,8 @@ namespace DefinitiveWeaponVariants.CustomClasses
                 Name = "mod_core",
                 Id = new MongoId(),
                 Parent = newItem.NewId,
-                Properties = new SlotProperties()
-                //Required = true
+                Properties = new SlotProperties(),
+                Required = coreSlotIsRequired
             };
             var filterSlot = new SlotFilter { Filter = [.. newFilter] };
             addedSlot.Properties.Filters = new List<SlotFilter> { filterSlot };

@@ -50,14 +50,17 @@ namespace DefinitiveWeaponVariants.Compatibility
 
         public void CheckAllMods()
         {
-            if (modConfig.AmonyaTraderMode && !ModCheck("com.szonszczyk.amonya"))
+            if (modConfig.AmonyaTraderMode)
             {
-                logger.LogWithColor($"[{GetType().Namespace}] Config option \"AmonyaTraderMode\" was enabled but Amonya mod is missing. Please download: https://forge.sp-tarkov.com/mod/2419/amonya-ammo-loving-trader-quester", LogTextColor.Yellow);
-                modConfig.AmonyaTraderMode = false;
-            } else
-            {
-                modConfig.SpecialAmmoBuyableEnabled = false;
-            }
+                if (!ModCheck("com.szonszczyk.amonya"))
+                {
+                    logger.LogWithColor($"[{GetType().Namespace}] Config option \"AmonyaTraderMode\" was enabled but Amonya mod is missing. Please download: https://forge.sp-tarkov.com/mod/2419/amonya-ammo-loving-trader-quester", LogTextColor.Yellow);
+                    modConfig.AmonyaTraderMode = false;
+                } else
+                {
+                    modConfig.SpecialAmmoBuyableEnabled = false;
+                }
+            } 
             if (modConfig.EnableAPBSBlacklistGeneration && !ModCheck("com.acidphantasm.progressivebotsystem", modConfig.APBSFolderName))
             {
                 logger.LogWithColor($"[{GetType().Namespace}] Config option \"EnableAPBSBlacklistGeneration\" was enabled but APBS mod is missing (or APBS folder was not found). Please download: https://forge.sp-tarkov.com/mod/1594/apbs-acids-progressive-bot-system", LogTextColor.Yellow);

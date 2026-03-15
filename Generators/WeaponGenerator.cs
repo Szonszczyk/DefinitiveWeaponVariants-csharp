@@ -266,7 +266,7 @@ namespace DefinitiveWeaponVariants.Generators
                                     copiedItem,
                                     newFilterWithCore,
                                     newWeapon,
-                                    $"{weaponShortname}{variant.ShortName}"
+                                    modConfig.VariantCores.Required
                                 );
                                 if (newSlotsWithCore != null)
                                 {

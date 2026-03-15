@@ -34,6 +34,7 @@
     public class VariantCoresConfigData
     {
         public Dictionary<string, float> FoundOnEnemies { get; set; } = new() { ["assault"] =  0.5f };
+        public bool Required { get; set; } = false;
         public bool Buyable { get; set; } = false;
         public CustomBarterConfig CoresBarter { get; set; } = new CustomBarterConfig();
         public Dictionary<string, int> Price { get; set; } = [];
