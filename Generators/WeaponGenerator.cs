@@ -258,9 +258,10 @@ namespace DefinitiveWeaponVariants.Generators
                         if (modConfig.VariantCoresEnabled)
                         {
                             var coreTemplate = customSlotsChanger.GetItemFromString($"{variant.Rarity} Quality Variant Core");
-                            if (coreTemplate != null)
+                            var coreTemplateLocked = customSlotsChanger.GetItemFromString($"{variant.Rarity} Quality Variant Core (Locked)");
+                            if (coreTemplate is not null && coreTemplateLocked is not null)
                             {
-                                List<MongoId> newFilterWithCore = [coreTemplate.Id];
+                                List<MongoId> newFilterWithCore = [coreTemplate.Id, coreTemplateLocked.Id];
                                 var newSlotsWithCore = customSlotsChanger.CoreSlotAdder(
                                     newSlots,
                                     copiedItem,

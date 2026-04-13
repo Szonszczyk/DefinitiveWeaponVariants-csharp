@@ -198,6 +198,7 @@ namespace DefinitiveWeaponVariants.CustomClasses
                     Type = "Item"
                 });
             };
+            newRecipe.EndProduct = id;
             newRecipe.Count = 1;
             newRecipe.ProductionTime = productionTime;
             newRecipe.Id = newCraftId;
