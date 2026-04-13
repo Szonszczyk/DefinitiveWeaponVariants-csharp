@@ -42,7 +42,7 @@ public class DefinitiveWeaponVariants(
 
         ModDatabaseLoader modDatabaseLoader = new(logger, modHelper);
         IdDatabaseManager idDatabaseManager = new(logger, modHelper, jsonUtil);
-        CustomItemCreator customItemCreator = new(logger, configServer, customItemService, databaseService);
+        CustomItemCreator customItemCreator = new(logger, configServer, customItemService, databaseService, cloner);
         CustomPropertiesChanger customPropertiesChanger = new(logger);
         CustomSlotsChanger customSlotsChanger = new(logger, databaseService, modDatabaseLoader, cloner, idDatabaseManager);
 
@@ -68,8 +68,6 @@ public class DefinitiveWeaponVariants(
             cloner
         );
 
-        itemGenerator.GenerateVariantCores();
-        itemGenerator.GenerateBlindBoxes();
         itemGenerator.GenerateItems();
         
 

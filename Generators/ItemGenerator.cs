@@ -32,6 +32,15 @@ namespace DefinitiveWeaponVariants.Generators
 
         public void GenerateItems()
         {
+            GenerateItemsFromJsons();
+            GenerateVariantCores();
+            GenerateLockedVariantCores();
+            GenerateBlindBoxes();
+        }
+
+
+        public void GenerateItemsFromJsons()
+        {
             foreach (var (variantName, config) in modDatabaseLoader.DbItems)
             {
                 if (config is { Description: not null, ShortName: not null, ItemTplToClone: not null, Rarity: not null, HandbookPriceRoubles: not null, VariantType: not null } variant)
@@ -136,13 +145,15 @@ namespace DefinitiveWeaponVariants.Generators
 
         public void GenerateVariantCores()
         {
+            var itemTplToClone = "58d2912286f7744e27117493";
+            HandbookItem? copiedItemHandbook = handbook.Items.Find(t => t.Id == itemTplToClone);
             foreach (var (quality, enabled) in modConfig.Generate)
             {
                 var variantName = $"{quality} Quality Variant Core";
                 var variant = new VariantConfiguration
                 {
                     ShortName = $"{quality} C.",
-                    ItemTplToClone = "58d2912286f7744e27117493",
+                    ItemTplToClone = itemTplToClone,
                     HandbookPriceRoubles = modConfig.VariantCores.Price[quality],
                     Rarity = quality
                 };
@@ -153,10 +164,7 @@ namespace DefinitiveWeaponVariants.Generators
                     barter.BarterPrice.Add("5449016a4bdc2d6f028b456f", modConfig.VariantCores.Price[quality]);
                     variant.Barter = barter;
                 }
-                MongoId itemTplToClone = (MongoId)variant.ItemTplToClone;
                 TemplateItem copiedItem = items[itemTplToClone];
-                HandbookItem? copiedItemHandbook = handbook.Items.Find(t => t.Id == itemTplToClone);
-
                 RarityData rarity = RaritySettings.GetByName(variant.Rarity);
                 if (variant.Barter is not null && modConfig.AmonyaTraderMode) variant.Barter.TraderId = "ee840a5ba014e9c5478d5ccd";
                 var traderName = (variant.Barter == null || customItemCreator.GetTraderIdByName(variant.Barter.TraderId) == null) ? "N/A" : traders[(MongoId)customItemCreator.GetTraderIdByName(variant.Barter.TraderId)!].Base.Nickname;
@@ -203,7 +211,70 @@ namespace DefinitiveWeaponVariants.Generators
                     }
                 };
                 customItemCreator.AddItemToDatabase(newItem, new CustomItemConfig(), variant.Barter ?? new CustomBarterConfig());
-                
+            }
+        }
+
+        public void GenerateLockedVariantCores()
+        {
+            var itemTplToClone = "58d2912286f7744e27117493";
+            HandbookItem? copiedItemHandbook = handbook.Items.Find(t => t.Id == itemTplToClone);
+            foreach (var (quality, enabled) in modConfig.Generate)
+            {
+                var variantName = $"{quality} Quality Variant Core (Locked)";
+                var variant = new VariantConfiguration
+                {
+                    ShortName = $"{quality} Core (Locked)",
+                    ItemTplToClone = itemTplToClone,
+                    HandbookPriceRoubles = modConfig.VariantCores.Price[quality],
+                    Rarity = quality
+                };
+                TemplateItem copiedItem = items[itemTplToClone];
+                RarityData rarity = RaritySettings.GetByName(variant.Rarity);
+                var newItem = new NewItemFromCloneDetails
+                {
+                    ItemTplToClone = itemTplToClone,
+                    ParentId = variant.Changes?.Parent != null ? variant.Changes.Parent : copiedItem.Parent,
+                    HandbookParentId = copiedItemHandbook != null ? copiedItemHandbook.ParentId : "5b5f6fa186f77409407a7eb7",
+                    NewId = idDatabaseManager.GetCustomId($"{variantName}:ID"),
+                    FleaPriceRoubles = variant.HandbookPriceRoubles * 2,
+                    HandbookPriceRoubles = variant.HandbookPriceRoubles,
+                    OverrideProperties = new TemplateItemProperties
+                    {
+                        BackgroundColor = IsPluginLoaded() ? $"{rarity.Color}ff" : rarity.BgColor,
+                        StackMaxSize = 10,
+                        Prefab = new Prefab
+                        {
+                            Path = "assets/content/items/barter/cpu/item_cpu.bundle",
+                            Rcid = ""
+                        },
+                        Ergonomics = 7,
+                        ExtraSizeDown = 0,
+                        ToolModdable = true,
+                        RaidModdable = true,
+                        Recoil = 0,
+                        Slots = []
+                    },
+                    Locales = new Dictionary<string, LocaleDetails>
+                    {
+                        {
+                            "en", new LocaleDetails
+                            {
+                                Name = GenerateVariantName(variant.Rarity, rarity, variantName),
+                                ShortName = variant.ShortName,
+                                Description = string.Join("\n", new[] {
+                                    $"<align=\"center\">This small and flat chip is a core item that is making variant weapon - The Variant Weapon",
+                                    $"",
+                                    $"Special currency <color={rarity.Color}><b>{quality} Quality Variant Core (Locked)</b></color>",
+                                    $"",
+                                    $"This item is special attachment that can be inserted into Mod Core Slot in Weapon Variant of the same quality. Provides little more ergonomics then it's unlocked version, but this one can't be exchanged for Blind Boxes so it will not be removed when buying them when sloted in weapon. Can be used to deterministically craft Variant Weapons in Cultist Circle",
+                                    $"Can be crafted in Hideout from 3 normal {quality} Quality Variant Cores</align>"
+                                })
+                            }
+                        }
+                    }
+                };
+                customItemCreator.AddItemToDatabase(newItem, new CustomItemConfig(), variant.Barter ?? new CustomBarterConfig());
+                customItemCreator.CreateHideoutCraft(newItem.NewId, "5d78f27d115f693ad750d2c6", new Dictionary<string, int> { [idDatabaseManager.GetCustomId($"{quality} Quality Variant Core:ID")] = 3 }, 120, idDatabaseManager.GetCustomId($"{variantName}:HideoutCraft"));
             }
         }
 

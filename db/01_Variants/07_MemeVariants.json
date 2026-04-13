@@ -175,7 +175,8 @@
 		"Properties": {
 			"RecoilForceUp": "+400%",
             "RecoilForceBack": "+400%",
-			"Ergonomics": "+20"
+			"Ergonomics": "+20",
+			"ReloadMode": "OnlyBarrel"
         },
         "Changes": {
 			"Slots": {

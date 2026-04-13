@@ -10,6 +10,7 @@ using SPTarkov.Server.Core.Models.Utils;
 using SPTarkov.Server.Core.Servers;
 using SPTarkov.Server.Core.Services;
 using SPTarkov.Server.Core.Services.Mod;
+using SPTarkov.Server.Core.Utils.Cloners;
 using System.Reflection;
 
 namespace DefinitiveWeaponVariants.CustomClasses
@@ -19,12 +20,14 @@ namespace DefinitiveWeaponVariants.CustomClasses
         ISptLogger<DefinitiveWeaponVariants> logger,
         ConfigServer configServer,
         CustomItemService customItemService,
-        DatabaseService databaseService
+        DatabaseService databaseService,
+        ICloner cloner
     )
     {
         private readonly Globals globals = databaseService.GetGlobals();
         private readonly Dictionary<MongoId, TemplateItem> items = databaseService.GetItems();
         private readonly Dictionary<MongoId, Trader> traders = databaseService.GetTraders();
+        private readonly SPTarkov.Server.Core.Models.Spt.Hideout.Hideout hideoutCrafts = databaseService.GetHideout();
         public int itemsLoaded = 0;
 
         public void AddItemToDatabase(NewItemFromCloneDetails item, CustomItemConfig itemConfig, CustomBarterConfig barterConfig)
@@ -170,6 +173,35 @@ namespace DefinitiveWeaponVariants.CustomClasses
                 assortBarterScheme[itemId].Add(newBarterSchemes);
             }
             trader.Assort.LoyalLevelItems[itemId] = barterConfig.LoyalLevel;
+        }
+
+        public void CreateHideoutCraft(MongoId id, string craftIdToCopy, Dictionary<string, int> requiredItems, int productionTime, string newCraftId)
+        {
+            var recipes = hideoutCrafts.Production.Recipes;
+            var recipeToCopy = recipes?.Where(e => e.Id == craftIdToCopy).ToList();
+            var newRecipe = cloner.Clone(recipeToCopy?.FirstOrDefault());
+            if (newRecipe?.Requirements is null)
+            {
+                logger.LogWithColor($"[{GetType().Namespace}] Can't find craft of id: {craftIdToCopy}", LogTextColor.Red);
+                return;
+            }
+            newRecipe.Requirements = [newRecipe.Requirements.FirstOrDefault()];
+            foreach (var (requiredItemId, count) in requiredItems)
+            {
+                newRecipe.Requirements.Add(new SPTarkov.Server.Core.Models.Eft.Hideout.Requirement
+                {
+                    TemplateId = requiredItemId,
+                    Count = count,
+                    IsEncoded = false,
+                    IsFunctional = false,
+                    IsSpawnedInSession = false,
+                    Type = "Item"
+                });
+            };
+            newRecipe.Count = 1;
+            newRecipe.ProductionTime = productionTime;
+            newRecipe.Id = newCraftId;
+            recipes?.Add(newRecipe);
         }
 
         public MongoId? GetTraderIdByName(string name)
