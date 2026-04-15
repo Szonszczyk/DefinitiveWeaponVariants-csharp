@@ -369,6 +369,15 @@ namespace DefinitiveWeaponVariants.Generators
                         compatibilityLayers.AddVariantToDB(newWeapon.NewId, variant.Rarity, variantName);
                         if (config.Barter is not null && modConfig.AmonyaTraderMode) config.Barter.TraderId = "ee840a5ba014e9c5478d5ccd";
                         customItemCreator.AddItemToDatabase(newWeapon, newWeaponConfig, config.Barter ?? new CustomBarterConfig());
+                        if (variant.Rarity == "Unique")
+                        {
+                            customItemCreator.CreateCultistCircleCraft(
+                                [newWeapon.NewId],
+                                ["5673de654bdc2d180f8b456d", idDatabaseManager.GetCustomId($"{variant.Rarity} Quality Variant Core (Locked):ID")],
+                                120,
+                                true
+                            );
+                        }
                     }
                 }
             }

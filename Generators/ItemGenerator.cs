@@ -236,8 +236,8 @@ namespace DefinitiveWeaponVariants.Generators
                     ParentId = variant.Changes?.Parent != null ? variant.Changes.Parent : copiedItem.Parent,
                     HandbookParentId = copiedItemHandbook != null ? copiedItemHandbook.ParentId : "5b5f6fa186f77409407a7eb7",
                     NewId = idDatabaseManager.GetCustomId($"{variantName}:ID"),
-                    FleaPriceRoubles = variant.HandbookPriceRoubles * 2,
-                    HandbookPriceRoubles = variant.HandbookPriceRoubles,
+                    FleaPriceRoubles = variant.HandbookPriceRoubles * 6,
+                    HandbookPriceRoubles = variant.HandbookPriceRoubles * 3,
                     OverrideProperties = new TemplateItemProperties
                     {
                         BackgroundColor = IsPluginLoaded() ? $"{rarity.Color}ff" : rarity.BgColor,
@@ -274,7 +274,7 @@ namespace DefinitiveWeaponVariants.Generators
                     }
                 };
                 customItemCreator.AddItemToDatabase(newItem, new CustomItemConfig(), variant.Barter ?? new CustomBarterConfig());
-                customItemCreator.CreateHideoutCraft(newItem.NewId, "5d78f27d115f693ad750d2c6", new Dictionary<string, int> { [idDatabaseManager.GetCustomId($"{quality} Quality Variant Core:ID")] = 3 }, 120, idDatabaseManager.GetCustomId($"{variantName}:HideoutCraft"));
+                customItemCreator.CreateHideoutCraft(newItem.NewId, "5d78f27d115f693ad750d2c6", new Dictionary<string, int> { [idDatabaseManager.GetCustomId($"{quality} Quality Variant Core:ID")] = 4 }, 120, idDatabaseManager.GetCustomId($"{variantName}:HideoutCraft"));
             }
         }
 
