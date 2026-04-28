@@ -41,9 +41,9 @@ namespace DefinitiveWeaponVariants.Interfaces
         public List<string>? AddtoInventorySlots { get; set; }
         // [variant] Minimum value of integer/float property
         public Dictionary<string, double>? Minimum { get; set; }
-
+        // [variant/item] Change slots
         public Dictionary<string, FilterSlotExtendedConfiguration>? Slots { get; set; }
-
+        // [variant/item] Change chambers
         public FilterSlotExtendedConfiguration? Chambers { get; set; }
         // [item] Change type and count of cartidges in magazine
         public FilterSlotExtendedConfiguration? Cartridges { get; set; }
@@ -68,6 +68,8 @@ namespace DefinitiveWeaponVariants.Interfaces
         public List<string>? FromWeapons { get; set; }
         // [variant/item] Add to existing filter
         public List<string>? Add { get; set; }
+        // [variant/item] Is this slot required (slot only)
+        public bool? Required { get; set; }
     }
 
     public class FilterSlotExtendedConfiguration : FilterSlotConfiguration

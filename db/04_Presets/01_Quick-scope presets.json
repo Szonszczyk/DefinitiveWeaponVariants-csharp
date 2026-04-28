@@ -1,667 +1,616 @@
 {
-	"AK-50 Quick": {
-    "_changeWeaponName": false,
-    "_encyclopedia": "67d0576f29f580ebc10efd08",
-    "_id": "690a065b64b2a3bab0a986da",
-    "_items": [
-      {
-          "_id": "690a06bc6c65be6d001b4cd1",
-          "_tpl": "67d0576f29f580ebc10efd08",
-          "upd": {
-            "Repairable": {
-              "Durability": 82,
-              "MaxDurability": 88
+    "AK-50 Quick": {
+        "_items": [
+            {
+                "_id": "690a06bc6c65be6d001b4cd1",
+                "_tpl": "67d0576f29f580ebc10efd08",
+                "upd": {
+                    "Repairable": {
+                        "Durability": 100,
+                        "MaxDurability": 100
+                    }
+                }
+            },
+            {
+                "_id": "690a06bc6c65be6d001b4d0a",
+                "_tpl": "67d4178bffb910d21f04720a",
+                "parentId": "690a06bc6c65be6d001b4cd1",
+                "slotId": "mod_barrel"
+            },
+            {
+                "_id": "690a06bc6c65be6d001b4d18",
+                "_tpl": "67d417c023ec241bb70d4896",
+                "parentId": "690a06bc6c65be6d001b4d0a",
+                "slotId": "mod_gas_block"
+            },
+            {
+                "_id": "690a06bc6c65be6d001b4d32",
+                "_tpl": "67d41883f378a36c4706eeb7",
+                "parentId": "690a06bc6c65be6d001b4d0a",
+                "slotId": "mod_muzzle"
+            },
+            {
+                "_id": "690a06bc6c65be6d001b4d3b",
+                "_tpl": "67d416e19bd76ef20f0e743b",
+                "parentId": "690a06bc6c65be6d001b4cd1",
+                "slotId": "mod_reciever",
+                "desc": "AK-50 dust cover Q"
+            },
+            {
+                "_id": "690a06bc6c65be6d001b4d43",
+                "_tpl": "5aa66a9be5b5b0214e506e89",
+                "parentId": "690a06bc6c65be6d001b4d3b",
+                "slotId": "mod_scope",
+                "desc": "Quick-scope special \"reflex\" sight"
+            },
+            {
+                "_id": "690a06bc6c65be6d001b4d5c",
+                "_tpl": "6087e663132d4d12c81fd96b",
+                "parentId": "690a06bc6c65be6d001b4cd1",
+                "slotId": "mod_pistol_grip"
+            },
+            {
+                "_id": "690a06bc6c65be6d001b4d65",
+                "_tpl": "67d418d0ffb910d21f04720e",
+                "parentId": "690a06bc6c65be6d001b4cd1",
+                "slotId": "mod_magazine"
             }
-          }
-        },
-      {
-        "_id": "690a06bc6c65be6d001b4d0a",
-        "_tpl": "67d4178bffb910d21f04720a",
-        "parentId": "690a06bc6c65be6d001b4cd1",
-        "slotId": "mod_barrel"
-      },
-      {
-        "_id": "690a06bc6c65be6d001b4d18",
-        "_tpl": "67d417c023ec241bb70d4896",
-        "parentId": "690a06bc6c65be6d001b4d0a",
-        "slotId": "mod_gas_block"
-      },
-      {
-        "_id": "690a06bc6c65be6d001b4d32",
-        "_tpl": "67d41883f378a36c4706eeb7",
-        "parentId": "690a06bc6c65be6d001b4d0a",
-        "slotId": "mod_muzzle"
-      },
-      {
-        "_id": "690a06bc6c65be6d001b4d3b",
-        "_tpl": "67d416e19bd76ef20f0e743b",
-        "parentId": "690a06bc6c65be6d001b4cd1",
-        "slotId": "mod_reciever",
-        "desc": "AK-50 dust cover Q"
-      },
-      {
-        "_id": "690a06bc6c65be6d001b4d43",
-        "_tpl": "5aa66a9be5b5b0214e506e89",
-        "parentId": "690a06bc6c65be6d001b4d3b",
-        "slotId": "mod_scope",
-        "desc": "Quick-scope special \"reflex\" sight"
-      },
-      {
-        "_id": "690a06bc6c65be6d001b4d5c",
-        "_tpl": "6087e663132d4d12c81fd96b",
-        "parentId": "690a06bc6c65be6d001b4cd1",
-        "slotId": "mod_pistol_grip"
-      },
-      {
-        "_id": "690a06bc6c65be6d001b4d65",
-        "_tpl": "67d418d0ffb910d21f04720e",
-        "parentId": "690a06bc6c65be6d001b4cd1",
-        "slotId": "mod_magazine"
-      }
-	  ],
-      "_name": "AK-50 .50 BMG sniper rifle default",
-      "_parent": "690a06bc6c65be6d001b4cd1",
-      "_type": "Preset"
+        ]
     },
     "AXMC Quick": {
-        "_changeWeaponName": false,
-        "_encyclopedia": "68875f304e084d6804000f1b",
-        "_id": "68875f304e084d6804000f1c",
         "_items": [
-          {
-            "_id": "68875f304e084d6804000f1d",
-            "_tpl": "68875f304e084d6804000f1b",
-            "upd": {
-              "Repairable": {
-                "MaxDurability": 100,
-                "Durability": 100
-              },
-              "FireMode": {
-                "FireMode": "single"
-              }
-            }
-          },
-          {
-            "_id": "6888a84b0612580568000f25",
-            "_tpl": "628120fd5631d45211793c9f",
-            "parentId": "68875f304e084d6804000f1d",
-            "slotId": "mod_magazine"
-          },
-          {
-            "_id": "6888a84b0612580568000f26",
-            "_tpl": "68875f304e084d6804001115",
-            "parentId": "68875f304e084d6804000f1d",
-            "slotId": "mod_pistol_grip",
-            "upd": {
-              "Foldable": {
-                "Folded": false
-              }
+            {
+                "_id": "68875f304e084d6804000f1d",
+                "_tpl": "68875f304e084d6804000f1b",
+                "upd": {
+                    "Repairable": {
+                        "MaxDurability": 100,
+                        "Durability": 100
+                    },
+                    "FireMode": {
+                        "FireMode": "single"
+                    }
+                }
             },
-            "desc": "AI AXMC pistol grip Q"
-          },
-          {
-            "_id": "6888a84b0612580568000f27",
-            "_tpl": "62811f828193841aca4a45c3",
-            "parentId": "6888a84b0612580568000f26",
-            "slotId": "mod_stock"
-          },
-          {
-            "_id": "6888a84b0612580568000f28",
-            "_tpl": "68875f304e084d6804001118",
-            "parentId": "6888a84b0612580568000f26",
-            "slotId": "mod_reciever",
-            "desc": "AI AXMC .338 LM chassis Q"
-          },
-          {
-            "_id": "6888a84b0612580568000f29",
-            "_tpl": "6281209662cba23f6c4d7a19",
-            "parentId": "6888a84b0612580568000f28",
-            "slotId": "mod_handguard"
-          },
-          {
-            "_id": "6888a84b0612580568000f2a",
-            "_tpl": "628120c21d5df4475f46a337",
-            "parentId": "6888a84b0612580568000f29",
-            "slotId": "mod_mount_000"
-          },
-          {
-            "_id": "6888a84b0612580568000f2b",
-            "_tpl": "628120d309427b40ab14e76d",
-            "parentId": "6888a84b0612580568000f29",
-            "slotId": "mod_mount_001"
-          },
-          {
-            "_id": "6888a84b0612580568000f2c",
-            "_tpl": "628120d309427b40ab14e76d",
-            "parentId": "6888a84b0612580568000f29",
-            "slotId": "mod_mount_002"
-          },
-          {
-            "_id": "6888a84b0612580568000f2d",
-            "_tpl": "628120dd308cb521f87a8fa1",
-            "parentId": "6888a84b0612580568000f29",
-            "slotId": "mod_mount_003"
-          },
-          {
-            "_id": "6888a84b0612580568000f2e",
-            "_tpl": "6281212a09427b40ab14e770",
-            "parentId": "6888a84b0612580568000f28",
-            "slotId": "mod_foregrip"
-          },
-          {
-            "_id": "6888a84b0612580568000f2f",
-            "_tpl": "68875f304e084d680400111c",
-            "parentId": "6888a84b0612580568000f28",
-            "slotId": "mod_reciever",
-            "desc": "AI AXMC upper receiver Q"
-          },
-          {
-            "_id": "6888a84b0612580568000f30",
-            "_tpl": "628121434fa03b6b6c35dc6a",
-            "parentId": "6888a84b0612580568000f2f",
-            "slotId": "mod_barrel"
-          },
-          {
-            "_id": "6888a84b0612580568000f31",
-            "_tpl": "62812081d23f207deb0ab216",
-            "parentId": "6888a84b0612580568000f30",
-            "slotId": "mod_muzzle"
-          },
-          {
-            "_id": "6888a84b0612580568000f32",
-            "_tpl": "628120621d5df4475f46a335",
-            "parentId": "6888a84b0612580568000f31",
-            "slotId": "mod_muzzle"
-          },
-          {
-            "_id": "6888a84b0612580568000f33",
-            "_tpl": "62811cd7308cb521f87a8f99",
-            "parentId": "68875f304e084d6804000f1d",
-            "slotId": "mod_charge"
-          },
-          {
-            "_id": "b964fb09aafd0914fa17e1ca",
-            "_tpl": "688503e1872439568c001100",
-            "parentId": "6888a84b0612580568000f2f",
-            "slotId": "mod_scope",
-            "desc": "Quick-scope special \"reflex\" sight"
-          }
-        ],
-        "_name": "AXMC Quick Variant Default Preset",
-        "_parent": "68875f304e084d6804000f1d",
-        "_type": "Preset"
+            {
+                "_id": "6888a84b0612580568000f25",
+                "_tpl": "628120fd5631d45211793c9f",
+                "parentId": "68875f304e084d6804000f1d",
+                "slotId": "mod_magazine"
+            },
+            {
+                "_id": "6888a84b0612580568000f26",
+                "_tpl": "68875f304e084d6804001115",
+                "parentId": "68875f304e084d6804000f1d",
+                "slotId": "mod_pistol_grip",
+                "upd": {
+                    "Foldable": {
+                        "Folded": false
+                    }
+                },
+                "desc": "AI AXMC pistol grip Q"
+            },
+            {
+                "_id": "6888a84b0612580568000f27",
+                "_tpl": "62811f828193841aca4a45c3",
+                "parentId": "6888a84b0612580568000f26",
+                "slotId": "mod_stock"
+            },
+            {
+                "_id": "6888a84b0612580568000f28",
+                "_tpl": "68875f304e084d6804001118",
+                "parentId": "6888a84b0612580568000f26",
+                "slotId": "mod_reciever",
+                "desc": "AI AXMC .338 LM chassis Q"
+            },
+            {
+                "_id": "6888a84b0612580568000f29",
+                "_tpl": "6281209662cba23f6c4d7a19",
+                "parentId": "6888a84b0612580568000f28",
+                "slotId": "mod_handguard"
+            },
+            {
+                "_id": "6888a84b0612580568000f2a",
+                "_tpl": "628120c21d5df4475f46a337",
+                "parentId": "6888a84b0612580568000f29",
+                "slotId": "mod_mount_000"
+            },
+            {
+                "_id": "6888a84b0612580568000f2b",
+                "_tpl": "628120d309427b40ab14e76d",
+                "parentId": "6888a84b0612580568000f29",
+                "slotId": "mod_mount_001"
+            },
+            {
+                "_id": "6888a84b0612580568000f2c",
+                "_tpl": "628120d309427b40ab14e76d",
+                "parentId": "6888a84b0612580568000f29",
+                "slotId": "mod_mount_002"
+            },
+            {
+                "_id": "6888a84b0612580568000f2d",
+                "_tpl": "628120dd308cb521f87a8fa1",
+                "parentId": "6888a84b0612580568000f29",
+                "slotId": "mod_mount_003"
+            },
+            {
+                "_id": "6888a84b0612580568000f2e",
+                "_tpl": "6281212a09427b40ab14e770",
+                "parentId": "6888a84b0612580568000f28",
+                "slotId": "mod_foregrip"
+            },
+            {
+                "_id": "6888a84b0612580568000f2f",
+                "_tpl": "68875f304e084d680400111c",
+                "parentId": "6888a84b0612580568000f28",
+                "slotId": "mod_reciever",
+                "desc": "AI AXMC upper receiver Q"
+            },
+            {
+                "_id": "6888a84b0612580568000f30",
+                "_tpl": "628121434fa03b6b6c35dc6a",
+                "parentId": "6888a84b0612580568000f2f",
+                "slotId": "mod_barrel"
+            },
+            {
+                "_id": "6888a84b0612580568000f31",
+                "_tpl": "62812081d23f207deb0ab216",
+                "parentId": "6888a84b0612580568000f30",
+                "slotId": "mod_muzzle"
+            },
+            {
+                "_id": "6888a84b0612580568000f32",
+                "_tpl": "628120621d5df4475f46a335",
+                "parentId": "6888a84b0612580568000f31",
+                "slotId": "mod_muzzle"
+            },
+            {
+                "_id": "6888a84b0612580568000f33",
+                "_tpl": "62811cd7308cb521f87a8f99",
+                "parentId": "68875f304e084d6804000f1d",
+                "slotId": "mod_charge"
+            },
+            {
+                "_id": "b964fb09aafd0914fa17e1ca",
+                "_tpl": "688503e1872439568c001100",
+                "parentId": "6888a84b0612580568000f2f",
+                "slotId": "mod_scope",
+                "desc": "Quick-scope special \"reflex\" sight"
+            }
+        ]
     },
     "DVL-10 Quick": {
-        "_changeWeaponName": false,
-        "_encyclopedia": "6828a3cf3c599b2cd400010e",
-        "_id": "6828a3cf3c599b2cd400010f",
         "_items": [
-          {
-            "_id": "6828a3cf3c599b2cd4000110",
-            "_tpl": "6828a3cf3c599b2cd400010e",
-            "upd": {
-              "Repairable": {
-                "MaxDurability": 100,
-                "Durability": 100
-              },
-              "FireMode": {
-                "FireMode": "single"
-              }
+            {
+                "_id": "6828a3cf3c599b2cd4000110",
+                "_tpl": "6828a3cf3c599b2cd400010e",
+                "upd": {
+                    "Repairable": {
+                        "MaxDurability": 100,
+                        "Durability": 100
+                    },
+                    "FireMode": {
+                        "FireMode": "single"
+                    }
+                }
+            },
+            {
+                "_id": "6888a84b0612580568000f09",
+                "_tpl": "5888988e24597752fe43a6fa",
+                "parentId": "6828a3cf3c599b2cd4000110",
+                "slotId": "mod_magazine"
+            },
+            {
+                "_id": "6888a84b0612580568000f0a",
+                "_tpl": "5888956924597752983e182d",
+                "parentId": "6828a3cf3c599b2cd4000110",
+                "slotId": "mod_barrel"
+            },
+            {
+                "_id": "6888a84b0612580568000f0b",
+                "_tpl": "5888996c24597754281f9419",
+                "parentId": "6888a84b0612580568000f0a",
+                "slotId": "mod_muzzle"
+            },
+            {
+                "_id": "6888a84b0612580568000f0c",
+                "_tpl": "5888976c24597754281f93f5",
+                "parentId": "6888a84b0612580568000f0a",
+                "slotId": "mod_handguard"
+            },
+            {
+                "_id": "6888a84b0612580568000f0d",
+                "_tpl": "57c55f172459772d27602381",
+                "parentId": "6828a3cf3c599b2cd4000110",
+                "slotId": "mod_pistol_grip"
+            },
+            {
+                "_id": "6888a84b0612580568000f0e",
+                "_tpl": "58889d0c2459775bc215d981",
+                "parentId": "6828a3cf3c599b2cd4000110",
+                "slotId": "mod_stock"
+            },
+            {
+                "_id": "597927394ac0f9f79b018293",
+                "_tpl": "688503e1872439568c001100",
+                "parentId": "6828a3cf3c599b2cd4000110",
+                "slotId": "mod_scope",
+                "desc": "Quick-scope special \"reflex\" sight"
             }
-          },
-          {
-            "_id": "6888a84b0612580568000f09",
-            "_tpl": "5888988e24597752fe43a6fa",
-            "parentId": "6828a3cf3c599b2cd4000110",
-            "slotId": "mod_magazine"
-          },
-          {
-            "_id": "6888a84b0612580568000f0a",
-            "_tpl": "5888956924597752983e182d",
-            "parentId": "6828a3cf3c599b2cd4000110",
-            "slotId": "mod_barrel"
-          },
-          {
-            "_id": "6888a84b0612580568000f0b",
-            "_tpl": "5888996c24597754281f9419",
-            "parentId": "6888a84b0612580568000f0a",
-            "slotId": "mod_muzzle"
-          },
-          {
-            "_id": "6888a84b0612580568000f0c",
-            "_tpl": "5888976c24597754281f93f5",
-            "parentId": "6888a84b0612580568000f0a",
-            "slotId": "mod_handguard"
-          },
-          {
-            "_id": "6888a84b0612580568000f0d",
-            "_tpl": "57c55f172459772d27602381",
-            "parentId": "6828a3cf3c599b2cd4000110",
-            "slotId": "mod_pistol_grip"
-          },
-          {
-            "_id": "6888a84b0612580568000f0e",
-            "_tpl": "58889d0c2459775bc215d981",
-            "parentId": "6828a3cf3c599b2cd4000110",
-            "slotId": "mod_stock"
-          },
-          {
-            "_id": "597927394ac0f9f79b018293",
-            "_tpl": "688503e1872439568c001100",
-            "parentId": "6828a3cf3c599b2cd4000110",
-            "slotId": "mod_scope",
-            "desc": "Quick-scope special \"reflex\" sight"
-          }
-        ],
-        "_name": "DVL-10 Quick Variant Default Preset",
-        "_parent": "6828a3cf3c599b2cd4000110",
-        "_type": "Preset"
+        ]
     },
     "M700 Quick": {
-    "_changeWeaponName": false,
-    "_encyclopedia": "5bfea6e90db834001b7347f3",
-    "_id": "5c0c1d6586f7743e5335d264",
-    "_items": [
-      {
-        "_id": "66b5e61d19a3ab39b7175bbf",
-        "_tpl": "5bfea6e90db834001b7347f3",
-        "upd": {
-          "Repairable": {
-            "Durability": 100,
-            "MaxDurability": 100
-          }
-        }
-      },
-      {
-        "_id": "66b5e61d19a3ab39b7175bc0",
-        "_tpl": "5bfea7ad0db834001c38f1ee",
-        "parentId": "66b5e61d19a3ab39b7175bbf",
-        "slotId": "mod_magazine"
-      },
-      {
-        "_id": "66b5e61d19a3ab39b7175bc1",
-        "_tpl": "5bfeb32b0db834001a6694d9",
-        "parentId": "66b5e61d19a3ab39b7175bbf",
-        "slotId": "mod_stock"
-      },
-      {
-        "_id": "66b5e61d19a3ab39b7175bc2",
-        "_tpl": "5bfebc320db8340019668d79",
-        "parentId": "66b5e61d19a3ab39b7175bbf",
-        "slotId": "mod_barrel"
-      },
-      {
-        "_id": "66b5e61d19a3ab39b7175bc3",
-        "_tpl": "5d270b3c8abbc3105335cfb8",
-        "parentId": "66b5e61d19a3ab39b7175bc2",
-        "slotId": "mod_muzzle"
-      },
-        {
-          "_id": "74811b67305292557b86199c",
-          "_tpl": "b836b7e203aecb0d89e3e23e",
-          "parentId": "66b5e61d19a3ab39b7175bbf",
-          "slotId": "mod_mount",
-          "desc": "M700 AB Arms MOD*X rail Quick-scope mount"
-        },
-        {
-          "_id": "85f698cf151d1ce3a3a25c1b",
-          "_tpl": "688503e1872439568c001100",
-          "parentId": "74811b67305292557b86199c",
-          "slotId": "mod_scope",
-          "desc": "Quick-scope special \"reflex\" sight"
-        }
-    ],
-    "_name": "M700 Quick Variant Default Preset",
-    "_parent": "66b5e61d19a3ab39b7175bbf",
-    "_type": "Preset"
-  },
-  "Mosin Infantry Quick": {
-      "_changeWeaponName": false,
-      "_encyclopedia": "6828a3cf3c599b2cd4000113",
-      "_id": "6828a3cf3c599b2cd4000114",
-      "_items": [
-        {
-          "_id": "6828a3cf3c599b2cd4000115",
-          "_tpl": "6828a3cf3c599b2cd4000113",
-          "upd": {
-            "Repairable": {
-              "MaxDurability": 100,
-              "Durability": 100
+        "_items": [
+            {
+                "_id": "66b5e61d19a3ab39b7175bbf",
+                "_tpl": "5bfea6e90db834001b7347f3",
+                "upd": {
+                    "Repairable": {
+                        "Durability": 100,
+                        "MaxDurability": 100
+                    }
+                }
             },
-            "FireMode": {
-              "FireMode": "single"
+            {
+                "_id": "66b5e61d19a3ab39b7175bc0",
+                "_tpl": "5bfea7ad0db834001c38f1ee",
+                "parentId": "66b5e61d19a3ab39b7175bbf",
+                "slotId": "mod_magazine"
+            },
+            {
+                "_id": "66b5e61d19a3ab39b7175bc1",
+                "_tpl": "5bfeb32b0db834001a6694d9",
+                "parentId": "66b5e61d19a3ab39b7175bbf",
+                "slotId": "mod_stock"
+            },
+            {
+                "_id": "66b5e61d19a3ab39b7175bc2",
+                "_tpl": "5bfebc320db8340019668d79",
+                "parentId": "66b5e61d19a3ab39b7175bbf",
+                "slotId": "mod_barrel"
+            },
+            {
+                "_id": "66b5e61d19a3ab39b7175bc3",
+                "_tpl": "5d270b3c8abbc3105335cfb8",
+                "parentId": "66b5e61d19a3ab39b7175bc2",
+                "slotId": "mod_muzzle"
+            },
+            {
+                "_id": "74811b67305292557b86199c",
+                "_tpl": "b836b7e203aecb0d89e3e23e",
+                "parentId": "66b5e61d19a3ab39b7175bbf",
+                "slotId": "mod_mount",
+                "desc": "M700 AB Arms MOD*X rail Quick-scope mount"
+            },
+            {
+                "_id": "85f698cf151d1ce3a3a25c1b",
+                "_tpl": "688503e1872439568c001100",
+                "parentId": "74811b67305292557b86199c",
+                "slotId": "mod_scope",
+                "desc": "Quick-scope special \"reflex\" sight"
             }
-          }
-        },
-        {
-          "_id": "6888a84b0612580568000f0f",
-          "_tpl": "5ae0973a5acfc4001562206c",
-          "parentId": "6828a3cf3c599b2cd4000115",
-          "slotId": "mod_magazine"
-        },
-        {
-          "_id": "6888a84b0612580568000f10",
-          "_tpl": "5bfd35380db83400232fe5cc",
-          "parentId": "6828a3cf3c599b2cd4000115",
-          "slotId": "mod_stock"
-        },
-        {
-          "_id": "6888a84b0612580568000f11",
-          "_tpl": "6888a84b0612580568001126",
-          "parentId": "6828a3cf3c599b2cd4000115",
-          "slotId": "mod_barrel",
-          "desc": "Mosin Rifle 7.62x54R 730mm regular barrel Infantry Q"
-        },
-        {
-          "_id": "6888a84b0612580568000f12",
-          "_tpl": "5ae099875acfc4001714e593",
-          "parentId": "6888a84b0612580568000f11",
-          "slotId": "mod_sight_front"
-        },
-        {
-          "_id": "6888a84b0612580568000f13",
-          "_tpl": "5ae099925acfc4001a5fc7b3",
-          "parentId": "6888a84b0612580568000f11",
-          "slotId": "mod_sight_rear"
-        }
-      ],
-      "_name": "Mosin Infantry Quick Variant Default Preset",
-      "_parent": "6828a3cf3c599b2cd4000115",
-      "_type": "Preset"
+        ]
+    },
+    "Mosin Infantry Quick": {
+        "_items": [
+            {
+                "_id": "6828a3cf3c599b2cd4000115",
+                "_tpl": "6828a3cf3c599b2cd4000113",
+                "upd": {
+                    "Repairable": {
+                        "MaxDurability": 100,
+                        "Durability": 100
+                    },
+                    "FireMode": {
+                        "FireMode": "single"
+                    }
+                }
+            },
+            {
+                "_id": "6888a84b0612580568000f0f",
+                "_tpl": "5ae0973a5acfc4001562206c",
+                "parentId": "6828a3cf3c599b2cd4000115",
+                "slotId": "mod_magazine"
+            },
+            {
+                "_id": "6888a84b0612580568000f10",
+                "_tpl": "5bfd35380db83400232fe5cc",
+                "parentId": "6828a3cf3c599b2cd4000115",
+                "slotId": "mod_stock"
+            },
+            {
+                "_id": "6888a84b0612580568000f11",
+                "_tpl": "6888a84b0612580568001126",
+                "parentId": "6828a3cf3c599b2cd4000115",
+                "slotId": "mod_barrel",
+                "desc": "Mosin Rifle 7.62x54R 730mm regular barrel Infantry Q"
+            },
+            {
+                "_id": "6888a84b0612580568000f12",
+                "_tpl": "5ae099875acfc4001714e593",
+                "parentId": "6888a84b0612580568000f11",
+                "slotId": "mod_sight_front"
+            },
+            {
+                "_id": "6888a84b0612580568000f13",
+                "_tpl": "5ae099925acfc4001a5fc7b3",
+                "parentId": "6888a84b0612580568000f11",
+                "slotId": "mod_sight_rear"
+            }
+        ],
+        "_name": "Mosin Infantry Quick Variant Default Preset",
+        "_parent": "6828a3cf3c599b2cd4000115",
+        "_type": "Preset"
     },
     "Mosin Sniper Quick": {
-    "_changeWeaponName": false,
-    "_encyclopedia": "5ae08f0a5acfc408fb1398a1",
-    "_id": "5b8683a486f77467f2423114",
-    "_items": [
-      {
-        "_id": "5bbf1d5988a45017b431dafb",
-        "_tpl": "5ae08f0a5acfc408fb1398a1"
-      },
-      {
-        "_id": "5bbf1d5988a45017b431dafc",
-        "_tpl": "5ae0973a5acfc4001562206c",
-        "parentId": "5bbf1d5988a45017b431dafb",
-        "slotId": "mod_magazine"
-      },
-      {
-        "_id": "5bbf1d5988a45017b431dafd",
-        "_tpl": "5ae096d95acfc400185c2c81",
-        "parentId": "5bbf1d5988a45017b431dafb",
-        "slotId": "mod_stock"
-      },
-      {
-        "_id": "5bbf1d5988a45017b431dafe",
-        "_tpl": "5ae09bff5acfc4001562219d",
-        "parentId": "5bbf1d5988a45017b431dafb",
-        "slotId": "mod_barrel",
-        "desc": "Mosin Rifle 7.62x54R 730mm regular barrel Sniper Q"
-      },
-      {
-        "_id": "5bbf1d5988a45017b431daff",
-        "_tpl": "5ae099875acfc4001714e593",
-        "parentId": "5bbf1d5988a45017b431dafe",
-        "slotId": "mod_sight_front"
-      },
-      {
-        "_id": "5bbf1d5988a45017b431db00",
-        "_tpl": "5ae099925acfc4001a5fc7b3",
-        "parentId": "5bbf1d5988a45017b431dafe",
-        "slotId": "mod_sight_rear",
-        "desc": "Mosin Rifle AIM Sports MNG rail mount Q"
-      },
-      {
-        "_id": "979dc36c8f325edc3eac22e4",
-        "_tpl": "688503e1872439568c001100",
-        "parentId": "5bbf1d5988a45017b431db00",
-        "slotId": "mod_scope",
-        "desc": "Quick-scope special \"reflex\" sight"
-      }
-    ],
-    "_name": "Mosin Sniper Quick Variant Default Preset",
-    "_parent": "5bbf1d5988a45017b431dafb",
-    "_type": "Preset"
-  },
-  "SV-98 Quick": {
-        "_changeWeaponName": false,
-        "_encyclopedia": "6828a3cf3c599b2cd4000109",
-        "_id": "6828a3cf3c599b2cd400010a",
         "_items": [
-          {
-            "_id": "6828a3cf3c599b2cd400010b",
-            "_tpl": "6828a3cf3c599b2cd4000109",
-            "upd": {
-              "Repairable": {
-                "MaxDurability": 100,
-                "Durability": 100
-              },
-              "FireMode": {
-                "FireMode": "single"
-              }
+            {
+                "_id": "5bbf1d5988a45017b431dafb",
+                "_tpl": "5ae08f0a5acfc408fb1398a1"
+            },
+            {
+                "_id": "5bbf1d5988a45017b431dafc",
+                "_tpl": "5ae0973a5acfc4001562206c",
+                "parentId": "5bbf1d5988a45017b431dafb",
+                "slotId": "mod_magazine"
+            },
+            {
+                "_id": "5bbf1d5988a45017b431dafd",
+                "_tpl": "5ae096d95acfc400185c2c81",
+                "parentId": "5bbf1d5988a45017b431dafb",
+                "slotId": "mod_stock"
+            },
+            {
+                "_id": "5bbf1d5988a45017b431dafe",
+                "_tpl": "5ae09bff5acfc4001562219d",
+                "parentId": "5bbf1d5988a45017b431dafb",
+                "slotId": "mod_barrel",
+                "desc": "Mosin Rifle 7.62x54R 730mm regular barrel Sniper Q"
+            },
+            {
+                "_id": "5bbf1d5988a45017b431daff",
+                "_tpl": "5ae099875acfc4001714e593",
+                "parentId": "5bbf1d5988a45017b431dafe",
+                "slotId": "mod_sight_front"
+            },
+            {
+                "_id": "5bbf1d5988a45017b431db00",
+                "_tpl": "5ae099925acfc4001a5fc7b3",
+                "parentId": "5bbf1d5988a45017b431dafe",
+                "slotId": "mod_sight_rear",
+                "desc": "Mosin Rifle AIM Sports MNG rail mount Q"
+            },
+            {
+                "_id": "979dc36c8f325edc3eac22e4",
+                "_tpl": "688503e1872439568c001100",
+                "parentId": "5bbf1d5988a45017b431db00",
+                "slotId": "mod_scope",
+                "desc": "Quick-scope special \"reflex\" sight"
             }
-          },
-          {
-            "_id": "688a12a17da401616c000f04",
-            "_tpl": "559ba5b34bdc2d1f1a8b4582",
-            "parentId": "6828a3cf3c599b2cd400010b",
-            "slotId": "mod_magazine"
-          },
-          {
-            "_id": "688a12a17da401616c000f05",
-            "_tpl": "56083e1b4bdc2dc8488b4572",
-            "parentId": "6828a3cf3c599b2cd400010b",
-            "slotId": "mod_sight_rear"
-          },
-          {
-            "_id": "688a12a17da401616c000f06",
-            "_tpl": "56083eab4bdc2d26448b456a",
-            "parentId": "6828a3cf3c599b2cd400010b",
-            "slotId": "mod_tactical"
-          },
-          {
-            "_id": "688a12a17da401616c000f07",
-            "_tpl": "560e620e4bdc2d724b8b456b",
-            "parentId": "6828a3cf3c599b2cd400010b",
-            "slotId": "mod_muzzle"
-          },
-          {
-            "_id": "688a12a17da401616c000f08",
-            "_tpl": "61faa91878830f069b6b7967",
-            "parentId": "6828a3cf3c599b2cd400010b",
-            "slotId": "mod_stock"
-          },
-          {
-            "_id": "688a12a17da401616c000f09",
-            "_tpl": "56ea8222d2720b69698b4567",
-            "parentId": "688a12a17da401616c000f08",
-            "slotId": "mod_bipod"
-          },
-          {
-            "_id": "d8a8cafcf7ed30834fe70f2d",
-            "_tpl": "688503e1872439568c001100",
-            "parentId": "6828a3cf3c599b2cd400010b",
-            "slotId": "mod_scope",
-            "desc": "Quick-scope special \"reflex\" sight"
-          }
-        ],
-        "_name": "SV-98 Quick Variant Default Preset",
-        "_parent": "6828a3cf3c599b2cd400010b",
-        "_type": "Preset"
+        ]
+    },
+    "SV-98 Quick": {
+        "_items": [
+            {
+                "_id": "6828a3cf3c599b2cd400010b",
+                "_tpl": "6828a3cf3c599b2cd4000109",
+                "upd": {
+                    "Repairable": {
+                        "MaxDurability": 100,
+                        "Durability": 100
+                    },
+                    "FireMode": {
+                        "FireMode": "single"
+                    }
+                }
+            },
+            {
+                "_id": "688a12a17da401616c000f04",
+                "_tpl": "559ba5b34bdc2d1f1a8b4582",
+                "parentId": "6828a3cf3c599b2cd400010b",
+                "slotId": "mod_magazine"
+            },
+            {
+                "_id": "688a12a17da401616c000f05",
+                "_tpl": "56083e1b4bdc2dc8488b4572",
+                "parentId": "6828a3cf3c599b2cd400010b",
+                "slotId": "mod_sight_rear"
+            },
+            {
+                "_id": "688a12a17da401616c000f06",
+                "_tpl": "56083eab4bdc2d26448b456a",
+                "parentId": "6828a3cf3c599b2cd400010b",
+                "slotId": "mod_tactical"
+            },
+            {
+                "_id": "688a12a17da401616c000f07",
+                "_tpl": "560e620e4bdc2d724b8b456b",
+                "parentId": "6828a3cf3c599b2cd400010b",
+                "slotId": "mod_muzzle"
+            },
+            {
+                "_id": "688a12a17da401616c000f08",
+                "_tpl": "61faa91878830f069b6b7967",
+                "parentId": "6828a3cf3c599b2cd400010b",
+                "slotId": "mod_stock"
+            },
+            {
+                "_id": "688a12a17da401616c000f09",
+                "_tpl": "56ea8222d2720b69698b4567",
+                "parentId": "688a12a17da401616c000f08",
+                "slotId": "mod_bipod"
+            },
+            {
+                "_id": "d8a8cafcf7ed30834fe70f2d",
+                "_tpl": "688503e1872439568c001100",
+                "parentId": "6828a3cf3c599b2cd400010b",
+                "slotId": "mod_scope",
+                "desc": "Quick-scope special \"reflex\" sight"
+            }
+        ]
     },
     "T-5000M Quick": {
-        "_changeWeaponName": false,
-        "_encyclopedia": "6828a3cf3c599b2cd400011d",
-        "_id": "6828a3cf3c599b2cd400011e",
         "_items": [
-          {
-            "_id": "6828a3cf3c599b2cd400011f",
-            "_tpl": "6828a3cf3c599b2cd400011d",
-            "upd": {
-              "Repairable": {
-                "MaxDurability": 100,
-                "Durability": 100
-              },
-              "FireMode": {
-                "FireMode": "single"
-              }
+            {
+                "_id": "6828a3cf3c599b2cd400011f",
+                "_tpl": "6828a3cf3c599b2cd400011d",
+                "upd": {
+                    "Repairable": {
+                        "MaxDurability": 100,
+                        "Durability": 100
+                    },
+                    "FireMode": {
+                        "FireMode": "single"
+                    }
+                }
+            },
+            {
+                "_id": "688bac46fb1f8a67e4000fb0",
+                "_tpl": "5df25b6c0b92095fd441e4cf",
+                "parentId": "6828a3cf3c599b2cd400011f",
+                "slotId": "mod_magazine"
+            },
+            {
+                "_id": "688bac46fb1f8a67e4000fb1",
+                "_tpl": "5df256570dee1b22f862e9c4",
+                "parentId": "6828a3cf3c599b2cd400011f",
+                "slotId": "mod_barrel"
+            },
+            {
+                "_id": "688bac46fb1f8a67e4000fb2",
+                "_tpl": "5df35e7f2a78646d96665dd4",
+                "parentId": "688bac46fb1f8a67e4000fb1",
+                "slotId": "mod_muzzle"
+            },
+            {
+                "_id": "688bac46fb1f8a67e4000fb3",
+                "_tpl": "5df35e59c41b2312ea3334d5",
+                "parentId": "6828a3cf3c599b2cd400011f",
+                "slotId": "mod_stock",
+                "upd": {
+                    "Foldable": {
+                        "Folded": false
+                    }
+                }
+            },
+            {
+                "_id": "688bac46fb1f8a67e4000fb4",
+                "_tpl": "5df25d3bfd6b4e6e2276dc9a",
+                "parentId": "688bac46fb1f8a67e4000fb3",
+                "slotId": "mod_handguard"
+            },
+            {
+                "_id": "688bac46fb1f8a67e4000fb5",
+                "_tpl": "5df35eb2b11454561e3923e2",
+                "parentId": "688bac46fb1f8a67e4000fb4",
+                "slotId": "mod_mount_000"
+            },
+            {
+                "_id": "688bac46fb1f8a67e4000fb6",
+                "_tpl": "5df35eb2b11454561e3923e2",
+                "parentId": "688bac46fb1f8a67e4000fb4",
+                "slotId": "mod_mount_001"
+            },
+            {
+                "_id": "688bac46fb1f8a67e4000fb7",
+                "_tpl": "5df35ea9c41b2312ea3334d8",
+                "parentId": "688bac46fb1f8a67e4000fb4",
+                "slotId": "mod_mount_002"
+            },
+            {
+                "_id": "688bac46fb1f8a67e4000fb8",
+                "_tpl": "5df35eb2b11454561e3923e2",
+                "parentId": "688bac46fb1f8a67e4000fb4",
+                "slotId": "mod_mount_003"
+            },
+            {
+                "_id": "688bac46fb1f8a67e4000fb9",
+                "_tpl": "5df36948bb49d91fb446d5ad",
+                "parentId": "688bac46fb1f8a67e4000fb4",
+                "slotId": "mod_foregrip"
+            },
+            {
+                "_id": "688bac46fb1f8a67e4000fba",
+                "_tpl": "5df38a5fb74cd90030650cb6",
+                "parentId": "688bac46fb1f8a67e4000fb3",
+                "slotId": "mod_pistol_grip"
+            },
+            {
+                "_id": "688bac46fb1f8a67e4000fbb",
+                "_tpl": "5df35ddddfc58d14537c2036",
+                "parentId": "688bac46fb1f8a67e4000fb3",
+                "slotId": "mod_stock_axis"
+            },
+            {
+                "_id": "688bac46fb1f8a67e4000fbc",
+                "_tpl": "50ec2a1072a192680a499f2a",
+                "parentId": "6828a3cf3c599b2cd400011f",
+                "slotId": "mod_mount",
+                "desc": "ORSIS T-5000M Quick-scope mount"
+            },
+            {
+                "_id": "a48a0faa7e90cc7a0494fe60",
+                "_tpl": "688503e1872439568c001100",
+                "parentId": "688bac46fb1f8a67e4000fbc",
+                "slotId": "mod_scope",
+                "desc": "Quick-scope special \"reflex\" sight"
             }
-          },
-          {
-            "_id": "688bac46fb1f8a67e4000fb0",
-            "_tpl": "5df25b6c0b92095fd441e4cf",
-            "parentId": "6828a3cf3c599b2cd400011f",
-            "slotId": "mod_magazine"
-          },
-          {
-            "_id": "688bac46fb1f8a67e4000fb1",
-            "_tpl": "5df256570dee1b22f862e9c4",
-            "parentId": "6828a3cf3c599b2cd400011f",
-            "slotId": "mod_barrel"
-          },
-          {
-            "_id": "688bac46fb1f8a67e4000fb2",
-            "_tpl": "5df35e7f2a78646d96665dd4",
-            "parentId": "688bac46fb1f8a67e4000fb1",
-            "slotId": "mod_muzzle"
-          },
-          {
-            "_id": "688bac46fb1f8a67e4000fb3",
-            "_tpl": "5df35e59c41b2312ea3334d5",
-            "parentId": "6828a3cf3c599b2cd400011f",
-            "slotId": "mod_stock",
-            "upd": {
-              "Foldable": {
-                "Folded": false
-              }
-            }
-          },
-          {
-            "_id": "688bac46fb1f8a67e4000fb4",
-            "_tpl": "5df25d3bfd6b4e6e2276dc9a",
-            "parentId": "688bac46fb1f8a67e4000fb3",
-            "slotId": "mod_handguard"
-          },
-          {
-            "_id": "688bac46fb1f8a67e4000fb5",
-            "_tpl": "5df35eb2b11454561e3923e2",
-            "parentId": "688bac46fb1f8a67e4000fb4",
-            "slotId": "mod_mount_000"
-          },
-          {
-            "_id": "688bac46fb1f8a67e4000fb6",
-            "_tpl": "5df35eb2b11454561e3923e2",
-            "parentId": "688bac46fb1f8a67e4000fb4",
-            "slotId": "mod_mount_001"
-          },
-          {
-            "_id": "688bac46fb1f8a67e4000fb7",
-            "_tpl": "5df35ea9c41b2312ea3334d8",
-            "parentId": "688bac46fb1f8a67e4000fb4",
-            "slotId": "mod_mount_002"
-          },
-          {
-            "_id": "688bac46fb1f8a67e4000fb8",
-            "_tpl": "5df35eb2b11454561e3923e2",
-            "parentId": "688bac46fb1f8a67e4000fb4",
-            "slotId": "mod_mount_003"
-          },
-          {
-            "_id": "688bac46fb1f8a67e4000fb9",
-            "_tpl": "5df36948bb49d91fb446d5ad",
-            "parentId": "688bac46fb1f8a67e4000fb4",
-            "slotId": "mod_foregrip"
-          },
-          {
-            "_id": "688bac46fb1f8a67e4000fba",
-            "_tpl": "5df38a5fb74cd90030650cb6",
-            "parentId": "688bac46fb1f8a67e4000fb3",
-            "slotId": "mod_pistol_grip"
-          },
-          {
-            "_id": "688bac46fb1f8a67e4000fbb",
-            "_tpl": "5df35ddddfc58d14537c2036",
-            "parentId": "688bac46fb1f8a67e4000fb3",
-            "slotId": "mod_stock_axis"
-          },
-          {
-            "_id": "688bac46fb1f8a67e4000fbc",
-            "_tpl": "50ec2a1072a192680a499f2a",
-            "parentId": "6828a3cf3c599b2cd400011f",
-            "slotId": "mod_mount",
-            "desc": "ORSIS T-5000M Quick-scope mount"
-          },
-          {
-            "_id": "a48a0faa7e90cc7a0494fe60",
-            "_tpl": "688503e1872439568c001100",
-            "parentId": "688bac46fb1f8a67e4000fbc",
-            "slotId": "mod_scope",
-            "desc": "Quick-scope special \"reflex\" sight"
-          }
-        ],
-        "_name": "T-5000M Quick Variant Default Preset",
-        "_parent": "6828a3cf3c599b2cd400011f",
-        "_type": "Preset"
+        ]
     },
     "TOZ-106 Quick": {
-        "_changeWeaponName": false,
-        "_encyclopedia": "6887608e62561c5b44000f2a",
-        "_id": "6887608e62561c5b44000f2b",
         "_items": [
-          {
-            "_id": "6887608e62561c5b44000f2c",
-            "_tpl": "6887608e62561c5b44000f2a",
-            "upd": {
-              "Repairable": {
-                "MaxDurability": 100,
-                "Durability": 100
-              },
-              "FireMode": {
-                "FireMode": "single"
-              }
+            {
+                "_id": "6887608e62561c5b44000f2c",
+                "_tpl": "6887608e62561c5b44000f2a",
+                "upd": {
+                    "Repairable": {
+                        "MaxDurability": 100,
+                        "Durability": 100
+                    },
+                    "FireMode": {
+                        "FireMode": "single"
+                    }
+                }
+            },
+            {
+                "_id": "688bac46fb1f8a67e4000fcd",
+                "_tpl": "5a38ee51c4a282000c5a955c",
+                "parentId": "6887608e62561c5b44000f2c",
+                "slotId": "mod_magazine"
+            },
+            {
+                "_id": "688bac46fb1f8a67e4000fce",
+                "_tpl": "5a38ef1fc4a282000b1521f6",
+                "parentId": "6887608e62561c5b44000f2c",
+                "slotId": "mod_stock"
+            },
+            {
+                "_id": "688bac46fb1f8a67e4000fcf",
+                "_tpl": "5a38eecdc4a282329a73b512",
+                "parentId": "688bac46fb1f8a67e4000fce",
+                "slotId": "mod_pistol_grip"
+            },
+            {
+                "_id": "4bcd47fe8365b1311f17eb46",
+                "_tpl": "6887608e62561c5b44001120",
+                "parentId": "6887608e62561c5b44000f2c",
+                "slotId": "mod_mount_000",
+                "desc": "TOZ-106 dovetail mount Q"
+            },
+            {
+                "_id": "c7c34b353989d2571fbefa8c",
+                "_tpl": "6887608e62561c5b44001122",
+                "parentId": "4bcd47fe8365b1311f17eb46",
+                "slotId": "mod_mount_000",
+                "desc": "TOZ-106 rail scope mount Q"
+            },
+            {
+                "_id": "c417856bcc9aa36ccadbda3f",
+                "_tpl": "688503e1872439568c001100",
+                "parentId": "c7c34b353989d2571fbefa8c",
+                "slotId": "mod_scope",
+                "desc": "Quick-scope special \"reflex\" sight"
             }
-          },
-          {
-            "_id": "688bac46fb1f8a67e4000fcd",
-            "_tpl": "5a38ee51c4a282000c5a955c",
-            "parentId": "6887608e62561c5b44000f2c",
-            "slotId": "mod_magazine"
-          },
-          {
-            "_id": "688bac46fb1f8a67e4000fce",
-            "_tpl": "5a38ef1fc4a282000b1521f6",
-            "parentId": "6887608e62561c5b44000f2c",
-            "slotId": "mod_stock"
-          },
-          {
-            "_id": "688bac46fb1f8a67e4000fcf",
-            "_tpl": "5a38eecdc4a282329a73b512",
-            "parentId": "688bac46fb1f8a67e4000fce",
-            "slotId": "mod_pistol_grip"
-          },
-          {
-            "_id": "4bcd47fe8365b1311f17eb46",
-            "_tpl": "6887608e62561c5b44001120",
-            "parentId": "6887608e62561c5b44000f2c",
-            "slotId": "mod_mount_000",
-            "desc": "TOZ-106 dovetail mount Q"
-          },
-          {
-            "_id": "c7c34b353989d2571fbefa8c",
-            "_tpl": "6887608e62561c5b44001122",
-            "parentId": "4bcd47fe8365b1311f17eb46",
-            "slotId": "mod_mount_000",
-            "desc": "TOZ-106 rail scope mount Q"
-          },
-          {
-            "_id": "c417856bcc9aa36ccadbda3f",
-            "_tpl": "688503e1872439568c001100",
-            "parentId": "c7c34b353989d2571fbefa8c",
-            "slotId": "mod_scope",
-            "desc": "Quick-scope special \"reflex\" sight"
-          }
-        ],
-        "_name": "TOZ-106 Quick Variant Default Preset",
-        "_parent": "6887608e62561c5b44000f2c",
-        "_type": "Preset"
+        ]
     }
 }

@@ -2,6 +2,7 @@
 {
     public enum Rarity
     {
+        Unknown,
         Meme,
         Flawed,
         Baseline,
@@ -19,6 +20,7 @@
             {
                 [Rarity.Unique] = new RarityData
                 {
+                    ShortName = "Uni.",
                     Color = "#ff1493",
                     BgColor = "tracerRed",
                     Description = "This Unique-quality variant is the best possible combination of 2 or more variant types in one weapon",
@@ -28,6 +30,7 @@
                 },
                 [Rarity.Ultimate] = new RarityData
                 {
+                    ShortName = "Ult.",
                     Color = "#ca1f2b",
                     BgColor = "red",
                     Description = "This Ultimate-quality variant is capable of outperforming even the best modified weapons",
@@ -37,6 +40,7 @@
                 },
                 [Rarity.Superior] = new RarityData
                 {
+                    ShortName = "Sup.",
                     Color = "#ca741f",
                     BgColor = "orange",
                     Description = "This Superior-quality variant offers outstanding performance",
@@ -46,6 +50,7 @@
                 },
                 [Rarity.Advanced] = new RarityData
                 {
+                    ShortName = "Adv.",
                     Color = "#f6f15d",
                     BgColor = "yellow",
                     Description = "This Advanced-quality variant offers better performance than standard weapons",
@@ -55,6 +60,7 @@
                 },
                 [Rarity.Niche] = new RarityData
                 {
+                    ShortName = "Nich",
                     Color = "#75339c",
                     BgColor = "violet",
                     Description = "This Niche-quality variant is best used in very specific circumstances and situations",
@@ -64,6 +70,7 @@
                 },
                 [Rarity.Baseline] = new RarityData
                 {
+                    ShortName = "Base",
                     Color = "#2694da",
                     BgColor = "blue",
                     Description = "This Baseline-quality variant performs on par with the original weapon",
@@ -73,6 +80,7 @@
                 },
                 [Rarity.Flawed] = new RarityData
                 {
+                    ShortName = "Flaw",
                     Color = "#157230",
                     BgColor = "green",
                     Description = "This Flawed-quality variant delivers worse performance than the original weapon",
@@ -82,12 +90,23 @@
                 },
                 [Rarity.Meme] = new RarityData
                 {
+                    ShortName = "Meme",
                     Color = "#808080",
                     BgColor = "tracerGreen",
                     Description = "This Meme-quality variant trades everything to be good at one thing only",
                     Flavour = "A clown weapon for clown users, but remember to have fun before you die trying to kill someone with this god-forgotten thing",
                     StarRating = "✧",
                     PriceMultiplier = 0.7
+                },
+                [Rarity.Unknown] = new RarityData // Only for use for some items
+                {
+                    ShortName = "Unk.",
+                    Color = "#A0E8E3",
+                    BgColor = "black",
+                    Description = "This Unknown-quality variant is unknown. You should not be reading this text btw.",
+                    Flavour = "Use one of usable variant qualities instead of this one",
+                    StarRating = "?",
+                    PriceMultiplier = 1
                 }
             };
 
@@ -98,7 +117,7 @@
         public static RarityData GetByName(string rarityName)
         {
             if (string.IsNullOrWhiteSpace(rarityName))
-                return Values[Rarity.Baseline];
+                return Values[Rarity.Unknown];
 
             if (Enum.TryParse<Rarity>(rarityName, true, out var rarity))
             {
@@ -107,7 +126,7 @@
             }
 
             // fallback
-            return Values[Rarity.Baseline];
+            return Values[Rarity.Unknown];
         }
 
         public static List<string> RarityList()
@@ -118,6 +137,7 @@
 
     public class RarityData
     {
+        public string ShortName { get; set; } = "";
         public string Color { get; set; } = "";
         public string BgColor { get; set; } = "";
         public string Description { get; set; } = "";

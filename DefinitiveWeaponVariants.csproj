@@ -6,19 +6,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <OutputType>Library</OutputType>
-    <Version>4.1.2</Version>
+    <Version>4.2.0</Version>
     <!-- The two lines below will set the output path for the binaries -->
     <OutputPath>bin\$(Configuration)\$(ProjectName)\$(AssemblyName)\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <Authors>Szonszczyk</Authors>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="ModCompatibility\**" />
-    <Content Remove="ModCompatibility\**" />
-    <EmbeddedResource Remove="ModCompatibility\**" />
-    <None Remove="ModCompatibility\**" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="SPTarkov.Common" Version="4.0.4" />
@@ -27,6 +20,6 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="echo f | xcopy /s /y /f &quot;C:\Programowanie\SPT 4.0 Mods\DefinitiveWeaponVariants\bin\Debug\DefinitiveWeaponVariants\DefinitiveWeaponVariants.dll&quot; &quot;C:\Games\SPT 4.0\SPT\user\mods\DefinitiveWeaponVariants\DefinitiveWeaponVariants.dll&quot;&#xD;&#xA;echo f | xcopy /s /y /f &quot;C:\Programowanie\SPT 4.0 Mods\DefinitiveWeaponVariants\bin\Debug\DefinitiveWeaponVariants\DefinitiveWeaponVariants.pdb&quot; &quot;C:\Games\SPT 4.0\SPT\user\mods\DefinitiveWeaponVariants\DefinitiveWeaponVariants.pdb&quot;&#xD;&#xA;echo f | xcopy /s /y /f &quot;C:\Programowanie\SPT 4.0 Mods\DefinitiveWeaponVariants\db\01_Variants&quot; &quot;C:\Games\SPT 4.0\SPT\user\mods\DefinitiveWeaponVariants\db\01_Variants&quot;&#xD;&#xA;echo f | xcopy /s /y /f &quot;C:\Programowanie\SPT 4.0 Mods\DefinitiveWeaponVariants\db\02_Items&quot; &quot;C:\Games\SPT 4.0\SPT\user\mods\DefinitiveWeaponVariants\db\02_Items&quot;" />
+    <Exec Command="echo f | xcopy /s /y /f &quot;C:\Programowanie\SPT 4.0 Mods\DefinitiveWeaponVariants\bin\Debug\DefinitiveWeaponVariants\DefinitiveWeaponVariants.dll&quot; &quot;C:\Games\SPT 4.0 DEV\SPT\user\mods\DefinitiveWeaponVariants\DefinitiveWeaponVariants.dll&quot;&#xD;&#xA;echo f | xcopy /s /y /f &quot;C:\Programowanie\SPT 4.0 Mods\DefinitiveWeaponVariants\bin\Debug\DefinitiveWeaponVariants\DefinitiveWeaponVariants.pdb&quot; &quot;C:\Games\SPT 4.0 DEV\SPT\user\mods\DefinitiveWeaponVariants\DefinitiveWeaponVariants.pdb&quot;&#xD;&#xA;echo f | xcopy /s /y /f &quot;C:\Programowanie\SPT 4.0 Mods\DefinitiveWeaponVariants\db\01_Variants&quot; &quot;C:\Games\SPT 4.0 DEV\SPT\user\mods\DefinitiveWeaponVariants\db\01_Variants&quot;&#xD;&#xA;echo f | xcopy /s /y /f &quot;C:\Programowanie\SPT 4.0 Mods\DefinitiveWeaponVariants\db\02_Items&quot; &quot;C:\Games\SPT 4.0 DEV\SPT\user\mods\DefinitiveWeaponVariants\db\02_Items&quot;&#xD;&#xA;echo f | xcopy /s /y /f &quot;C:\Programowanie\SPT 4.0 Mods\DefinitiveWeaponVariants\bin\Debug\DefinitiveWeaponVariants\DefinitiveWeaponVariants.dll&quot; &quot;C:\Games\SPT 4.0\SPT\user\mods\DefinitiveWeaponVariants\DefinitiveWeaponVariants.dll&quot;&#xD;&#xA;echo f | xcopy /s /y /f &quot;C:\Programowanie\SPT 4.0 Mods\DefinitiveWeaponVariants\bin\Debug\DefinitiveWeaponVariants\DefinitiveWeaponVariants.pdb&quot; &quot;C:\Games\SPT 4.0\SPT\user\mods\DefinitiveWeaponVariants\DefinitiveWeaponVariants.pdb&quot;&#xD;&#xA;echo f | xcopy /s /y /f &quot;C:\Programowanie\SPT 4.0 Mods\DefinitiveWeaponVariants\db\01_Variants&quot; &quot;C:\Games\SPT 4.0\SPT\user\mods\DefinitiveWeaponVariants\db\01_Variants&quot;&#xD;&#xA;echo f | xcopy /s /y /f &quot;C:\Programowanie\SPT 4.0 Mods\DefinitiveWeaponVariants\db\02_Items&quot; &quot;C:\Games\SPT 4.0\SPT\user\mods\DefinitiveWeaponVariants\db\02_Items&quot;" />
   </Target>
 </Project>

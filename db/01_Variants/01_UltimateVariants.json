@@ -144,9 +144,7 @@
 		"Explanation": "Weapon variant with low recoil and dispersion, an exceptionally high fire rate, a 5-round burst fire mode, and immunity to malfunctions, but causing increased wear to the weapon's durability",
 		"ShortName": "P&C",
 		"Properties": {
-			"WeapFireType": [
-				"burst"
-			],
+			"WeapFireType": [ "burst" ],
 			"BFirerate": "+400%",
 			"RecoilForceBack": "-80%",
 			"RecoilForceUp": "-80%",

@@ -21,10 +21,12 @@ namespace DefinitiveWeaponVariants.CustomClasses
     {
         private readonly Dictionary<MongoId, TemplateItem> items = databaseService.GetItems();
 
+        public Dictionary<string, List<string>> coreMods = [];
+
         public List<Slot>? CoreSlotAdder(
             List<Slot>? slotsBefore,
             TemplateItem copiedItem,
-            List<MongoId> newFilter,
+            string rarity,
             NewItemFromCloneDetails newItem,
             bool coreSlotIsRequired
         )
@@ -39,7 +41,7 @@ namespace DefinitiveWeaponVariants.CustomClasses
                 Properties = new SlotProperties(),
                 Required = coreSlotIsRequired
             };
-            var filterSlot = new SlotFilter { Filter = [.. newFilter] };
+            var filterSlot = new SlotFilter { Filter = [.. coreMods[rarity]] };
             addedSlot.Properties.Filters = new List<SlotFilter> { filterSlot };
             slots.Add(addedSlot);
             return slots;
@@ -81,6 +83,10 @@ namespace DefinitiveWeaponVariants.CustomClasses
                     if (slot?.Properties?.Filters != null)
                     {
                         slot.Properties.Filters.First().Filter = [.. newFilter];
+                    }
+                    if (newFilterConfig.Required is not null && slot is not null)
+                    {
+                        slot.Required = newFilterConfig.Required;
                     }
                 }
             }

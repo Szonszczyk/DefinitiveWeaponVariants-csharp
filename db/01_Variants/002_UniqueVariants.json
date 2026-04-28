@@ -1,0 +1,363 @@
+{
+	"RSASS Unique": {
+		"Description": "I had a dream, and in it I saw an ultimate blend of multiple weapon types working together in harmony only to make slug bullets a little more powerful",
+		"Explanation": "RSASS >Marksman Shotgun<\nThis unique variant introduces the RSASS as a long-range capable shotgun weapon by changing its caliber to 12/70ga, decreasing recoil, and removing malfunctions. It has reduced shotgun dispersion and can fire in 2-round burst mode",
+		"ShortName": ">Marksman Shotgun<",
+		"Properties": {
+			"WeapFireType": [
+		        "single",
+		        "burst"
+		    ],
+		    "SingleFireRate": 400,
+		    "RecoilForceBack": "-30%",
+		    "RecoilForceUp": "-20%",
+		    "RecoilDampingHandRotation": "-30%",
+		    "RecoilReturnSpeedHandRotation": "-30%",
+			"RecoilCamera": "+30%",
+		    "BurstShotsCount": 2,
+		    "AllowJam": false,
+			"AllowFeed": false,
+			"AllowMisfire": false,
+			"AllowSlide": false,
+			"ShotgunDispersion": 3
+		},
+		"Changes": {
+			"Slots": {
+			    "mod_magazine": {
+					"FromWeapons": [
+						"Saiga-12K",
+						"AA-12 Gen 1"
+					],
+					"Add": [ "Shotgun Variant 35-round drum magazine" ]
+				}
+			},
+			"Chambers": {
+				"FromWeapons": [
+					"Saiga-12K"
+				]
+			}
+    	},
+		"Weapons": [ "RSASS" ],
+		"Rarity": "Unique"
+	},
+	"AVT-40 Unique": {
+		"Description": "Refurbished weapon, once fragile, now indestructible, once small magazine, now huge magazine, once for Timmys, now for Chads (still no scope tho)",
+		"Explanation": "AVT-40 >Unbreakable LMG<\nThis unique variant blends the best characteristics of the Unbreakable and Light Machine Gun variant types, making this weapon practically indestructible by removing heat buildup and malfunctions while upgrading its firepower by allowing the use of PKP magazines, with the small caveat of having no recoil stabilization point",
+		"ShortName": ">Unbreakable LMG<",
+		"Properties": {
+			"DurabilityBurnRatio": 0,
+			"HeatFactorByShot": 0,
+			"AllowJam": false,
+			"AllowFeed": false,
+			"AllowMisfire": false,
+			"AllowSlide": false,
+			"RecoilStableIndexShot": 100,
+			"Ergonomics": "+10",
+			"BFirerate": "-35%",
+			"WeapFireType": [ "fullauto" ]
+		},
+		"Changes": {
+			"Slots": {
+			    "mod_magazine": {
+					"FromWeapons": [
+						"PKP",
+						"AVT-40"
+					]
+				}
+			}
+		},
+		"Weapons": [ "AVT-40" ],
+		"Rarity": "Unique"
+	},
+	"ASh-12 Unique": {
+		"Description": "If you think this is still ASh-12 you know and love, you need to look again and question what you see",
+		"Explanation": "ASh-12 >Hypersonic Point & Laser Click<\nThis unique variant turns the ASh-12 into a completely different weapon. Even if the insane fire rate and muzzle velocity are the first things you notice, the 4-round burst mode and lack of recoil take this weapon to such absurd levels that you start questioning whether the caliber change to 9x21mm, with SR-2M magazines, was even a nerf or a buff",
+		"ShortName": ">Hypersonic Point & Laser Click<",
+		"Properties": {
+			"WeapFireType": [ "burst" ],
+			"BFirerate": 5450,
+			"RecoilForceBack": "-80%",
+			"RecoilForceUp": "-80%",
+			"RecoilCamera": "-80%",
+			"AimPlane": "-80%",
+			"RecolDispersion": "-80%",
+			"RecoilReturnPathDampingHandRotation": "-80%",
+			"RecoilDampingHandRotation": "-80%",
+		    "RecoilReturnSpeedHandRotation": "+80%",
+			"BurstShotsCount": 4,
+			"HeatFactorByShot": "+200%",
+			"DurabilityBurnRatio": "+40%",
+			"AllowJam": false,
+			"AllowFeed": false,
+			"AllowMisfire": false,
+			"AllowSlide": false,
+			"MaxRepairKitDegradation": 0,
+			"RecoilStableIndexShot": 1,
+			"Velocity": 450,
+			"CenterOfImpact": 0.01
+        },
+		"Changes": {
+			"Slots": {
+        		"mod_magazine": {
+					"FromWeapons": [ "SR-2M" ]
+				}
+        	},
+            "Chambers": {
+                "FromWeapons": [ "SR-2M" ]
+            }
+        },
+		"Weapons": [ "ASh-12" ],
+		"Rarity": "Unique"
+	},
+	"MP-153 Unique": {
+		"Description": "Feel the panic of the endless nightmare!\nIf by \"nightmare\" you mean shotgun that has 100-round magazine and full auto, count me in!",
+		"Explanation": "MP-153 >Endless Panic<\nThis unique variant blends the characteristics of the Endless - huge magazine, and Panic - full auto mode, variant types, making this weapon ideal for quickly destroying a whole room even with your eyes closed in terror",
+		"ShortName": ">Endless Panic<",
+		"Properties": {
+			"BFirerate": 330,
+            "WeapFireType": [ "fullauto" ],
+            "RecoilForceBack": "+39%",
+            "RecoilForceUp": "+39%",
+            "RecoilCamera": "+25%",
+            "AllowJam": false
+        },
+		"Changes": {
+			"Slots": {
+                "mod_magazine": {
+					"Filter": [ "M60 100-round \"Endless\" ammo box" ]
+				}
+			}
+		},
+		"Weapons": [ "MP-153" ],
+		"Rarity": "Unique"
+	},
+	"SKS Unique": {
+		"Description": "Little brother of OP-SKS wanted to be like his brother, but in the process mistaken \"OP\" as \"Overpowered\"",
+		"Explanation": "SKS >Off-Meta Meta<\nThis unique variant combines improved stats from the Meta and Off-Meta variant types and can take advantage of increased magazine variety",
+		"ShortName": ">Off-Meta Meta<",
+		"Properties": {
+			"WeapFireType": [ "single", "burst", "fullauto" ],
+            "RecoilForceBack": "-55%",
+            "RecoilForceUp": "-55%",
+            "RecoilCamera": "-30%",
+            "AimPlane": "-20%",
+            "RecolDispersion": "-20%",
+            "RecoilReturnPathDampingHandRotation": "-30%",
+            "RecoilDampingHandRotation": "-30%",
+            "RecoilReturnSpeedHandRotation": "+30%",
+            "Ergonomics": "+40",
+			"RecoilStableIndexShot": 3
+        },
+		"Changes": {
+			"Slots": {
+				"mod_magazine": {
+					"FromWeapons": [ "SKS", "AKM" ]
+				}
+			}
+		},
+		"Weapons": [ "SKS" ],
+		"Rarity": "Unique"
+	},
+	"Sawed-off Unique": {
+		"Description": "- Sir, we don't have any more ammo left! We only have some random grenade launcher rounds and flares!\n- \"Flares\"? Stick them into this shotgun and make a good use of them!\n- But sir, the flare damage is bullshit...\n- You know what is bullshit? This gun. Bullshit launcher. So don't panic, we have other weapons for this!",
+		"Explanation": "Sawed-off >Bullshit Launcher<\nThis unique variant is chambered in 40x46mm grenades, 30x29mm grenades, and 26x75mm flare ammunition, making this the ultimate \"I am out of ammo, what do I do?\" kind of weapon",
+		"ShortName": ">Bullshit Launcher<",
+		"Properties": {
+            "Ergonomics": "+100",
+			"RecoilStableIndexShot": 1,
+			"TacticalReloadFixation": 0
+        },
+		"Changes": {
+			"Chambers": {
+				"FromWeapons": [
+					"SP-81",
+					"AGS-30",
+					"FN40GL"
+				]
+			}
+		},
+		"Weapons": [ "Sawed-off" ],
+		"Rarity": "Unique"
+	},
+	"Mk-18 Mjölnir Unique": {
+		"Description": "Huh, that's some really overgrown MP5...",
+		"Explanation": "Mk-18 Mjölnir >Real MP5<\nThis unique variant has MP5 stats while still maintaining its .338 Lapua Magnum caliber",
+		"ShortName": ">Real MP5<",
+		"Properties": {
+            "AimPlane": 0.25,
+			"AimSensitivity": 0.65,
+			"AllowFeed": true,
+			"AllowJam": true,
+			"AllowMisfire": true,
+			"AllowOverheat": true,
+			"AllowSlide": true,
+			"BaseMalfunctionChance": 0.1771,
+			"BurstShotsCount": 3,
+			"CameraSnap": 3.5,
+			"CameraToWeaponAngleStep": 0.1,
+			"CenterOfImpact": 0.22,
+			"CompactHandling": false,
+			"ConflictingItems": [],
+			"CoolFactorGun": 3.168,
+			"CoolFactorGunMods": 1,
+			"DeviationCurve": 2.25,
+			"DeviationMax": 11,
+			"DiscardLimit": -1,
+			"DoubleActionAccuracyPenalty": 1.5,
+			"DropSoundType": "SubMachineGun",
+			"Durability": 100,
+			"DurabilityBurnRatio": 1.15,
+			"Ergonomics": 55,
+			"ExamineExperience": 8,
+			"ExamineTime": 1,
+			"HeatFactorByShot": 1.79,
+			"HeatFactorGun": 1,
+			"Height": 1,
+			"HipAccuracyRestorationDelay": 0.2,
+			"HipAccuracyRestorationSpeed": 7,
+			"HipInnaccuracyGain": 0.16,
+			"IronSightRange": 25,
+			"ItemSound": "weap_ar",
+			"LeftHandItem": false,
+			"LootExperience": 5,
+			"ManualBoltCatch": true,
+			"MaxDurability": 100,
+			"MaxRepairDegradation": 0.04,
+			"MaxRepairKitDegradation": 0.035,
+			"OperatingResource": 5600,
+			"RarityPvE": "Common",
+			"RecoilAngle": 90,
+			"RecoilCamera": 0.03,
+			"RecoilCategoryMultiplierHandRotation": 0.2,
+			"RecoilDampingHandRotation": 0.85,
+			"RecoilForceBack": 267,
+			"RecoilForceUp": 57,
+			"RecoilPosZMult": 1,
+			"RecoilReturnPathDampingHandRotation": 0.45,
+			"RecoilReturnPathOffsetHandRotation": 0.01,
+			"RecoilReturnSpeedHandRotation": 3.5,
+			"RecoilStableAngleIncreaseStep": 2.2,
+			"RecoilStableIndexShot": 6,
+			"RecolDispersion": 10,
+			"ReloadMode": "ExternalMagazine",
+			"RepairComplexity": 0,
+			"RepairCost": 250,
+			"RepairSpeed": 15,
+			"SightingRange": 100,
+			"SingleFireRate": 450,
+			"SizeReduceRight": 0,
+			"StackMaxSize": 1,
+			"StackObjectsCount": 1,
+			"TacticalReloadFixation": 0.95,
+			"Unlootable": false,
+			"UseAltMountBone": false,
+			"Velocity": 13,
+			"Weight": 0.68,
+			"Width": 1,
+			"BEffDist": 200,
+			"BFirerate": 900,
+			"BHearDist": 80,
+			"WeapClass": "smg",
+			"WeapFireType": [
+			  "single",
+			  "burst",
+			  "fullauto"
+			]
+        },
+		"Weapons": [ "Mk-18 Mjölnir" ],
+		"Rarity": "Unique"
+	},
+	"FN 5-7 Unique": {
+		"Description": "John Wick gun and with it... John Wick magazine capacity and John Wick one-tap potencial. Hope you have John Wick wrists for that kind of caliber! Just don't ask how the rounds (and magazine!) fit inside, its just a movie magic!",
+		"Explanation": "FN 5-7 >Automatic P2W<\nThis unique variant blends the characteristics of the Pay-2-Win - .50 cal caliber with special overpriced magazines, and Automatic - only full auto fire mode with slightly decreased ergonomics, variant types",
+		"ShortName": ">Automatic P2W<",
+		"Properties": {
+			"RecoilForceUp": "+35%",
+			"RecoilCamera": "+15%",
+			"WeapFireType": [
+				"fullauto"
+			],
+			"BFirerate": 240,
+			"Ergonomics": "-15%"
+        },
+		"Changes": {
+			"Slots": {
+				"mod_magazine": {
+					"Filter": [
+						"Pay to Win Variant 5-round magazine",
+						"Pay to Win Variant 20-round magazine",
+						"Pay to Win Variant 30-round magazine",
+						"Pay to Win Variant 50-round magazine"
+					]
+				}
+			},
+			"Chambers": {
+				"FromWeapons": [
+					"AK-50"
+				]
+			}
+		},
+		"Weapons": [ "FN 5-7" ],
+		"Rarity": "Unique"
+	},
+	"UZI Unique": {
+		"Description": "Some guy thought that his AR15 weighed too much so he started a \"Experimental weight reduction method\" on it, by cutting off unnecessary parts. Weirdly enough, the overall ergonomics went down",
+		"Explanation": "UZI >Experimental Black Market<\nThis unique variant blends the characteristics of the Black Market - .300 and 5.56x45 calibers, with Experimental - removed recoil and misfire malfunction at the cost of increased heat buildup and increased chance of other malfunctions, variant typess",
+		"ShortName": ">Experimental Black Market<",
+		"Properties": {
+			"WeapFireType": [ "fullauto" ],
+    		"BaseMalfunctionChance": "+250%",
+    		"DurabilityBurnRatio": "+250%",
+			"HeatFactorByShot": "-60%",
+    		"AllowMisfire": false,
+			"RecoilStableIndexShot": 1,
+			"BFirerate": "+35%"
+        },
+		"Changes": {
+			"Slots": {
+				"mod_magazine": {
+					"FromWeapons": [
+						"MCX .300 BLK",
+						"M4A1"
+					]
+				}
+			},
+			"Chambers": {
+				"FromWeapons": [
+					"MCX .300 BLK",
+					"M4A1"
+				]
+			}
+		},
+		"Weapons": [ "UZI" ],
+		"Rarity": "Unique"
+	},
+	"SPEAR 6.8 Unique": {
+		"Description": "Let me tell you a heartwarming story: There were 2 SPEARS, 6.8 and 7.62. One day they had a baby, but that baby was mutated and became... UPGRADED... and inherited both calibers from its parents. The End!",
+		"Explanation": "SPEAR 6.8 >Actually Upgraded<\nThis unique variant has improved stats from the Upgraded variant type and can be chambered in both .277 FURY and 7.62x51mm calibers",
+		"ShortName": ">Actually Upgraded<",
+		"Properties": {
+			"RecoilForceUp": "-22%",
+			"RecoilForceBack": "-22%",
+			"RecoilReturnSpeedHandRotation": "+9%",
+			"RecoilCamera": "-22%",
+			"RecoilDampingHandRotation": "-9%",
+			"AimPlane": "-25%",
+			"RecolDispersion": "-75%",
+			"Ergonomics": "+22",
+			"SingleFireRate": "+15%",
+			"BFirerate": "+15%",
+			"HeatFactorByShot": "-50%"
+        },
+		"Changes": {
+			"Chambers": {
+				"FromWeapons": [
+					"SPEAR 6.8",
+					"M700"
+				]
+			}
+		},
+		"Weapons": [ "SPEAR 6.8" ],
+		"Rarity": "Unique"
+	}
+}
