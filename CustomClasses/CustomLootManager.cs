@@ -75,7 +75,6 @@ namespace DefinitiveWeaponVariants.CustomClasses
             return new()
             {
                 ["Marked"] = Build(modConfig.Marked, modConfig.MarkedRoomsProbability),
-                ["LooseLoot"] = Build(modConfig.LooseLoot, modConfig.LooseLootProbability),
                 ["StaticLoot"] = Build(modConfig.StaticLoot, modConfig.StaticLootProbability),
             };
         }
@@ -130,11 +129,6 @@ namespace DefinitiveWeaponVariants.CustomClasses
                 logger.LogWithColor($"[{GetType().Namespace}] Config option of MarkedRoomsProbability is incorrect, is: {weights["Marked"].Probability}, should be between 0 and 1. Disabling adding variants to Marked rooms!", LogTextColor.Red);
                 weights["Marked"].Probability = 0;
             }
-            if (weights["LooseLoot"].Probability < 0 || weights["LooseLoot"].Probability >= 1)
-            {
-                logger.LogWithColor($"[{GetType().Namespace}] Config option of LooseLootProbability is incorrect, is: {weights["LooseLoot"].Probability}, should be between 0 and 1. Disabling adding variants to Marked rooms!", LogTextColor.Red);
-                weights["LooseLoot"].Probability = 0;
-            }
             var locations = databaseService.GetLocations().GetDictionary();
 
             
@@ -142,10 +136,7 @@ namespace DefinitiveWeaponVariants.CustomClasses
             foreach ((string locationId, Location location) in locations)
             {
                 // Add info about 12.7x108 caliber
-                if (location.StaticAmmo != null)
-                {
-                    location.StaticAmmo.Add("Caliber127x108", caliber127x108details);
-                }
+                location.StaticAmmo?.Add("Caliber127x108", caliber127x108details);
 
                 if (!((weights["Marked"].Probability == 0 && weights["LooseLoot"].Probability == 0) || (weights["Marked"].TotalWeapons == 0 && weights["LooseLoot"].TotalWeapons == 0)))
                 {
@@ -191,8 +182,9 @@ namespace DefinitiveWeaponVariants.CustomClasses
                         return looseLoot;
                     });
                 }
-                var containers = new List<string>
-                {
+
+                List<string> containersForWeapons =
+                [
                     "5909d5ef86f77467974efbd8", // "LOOTCONTAINER_WEAPON_BOX_5X2"
                     "5909d76c86f77471e53d2adf", // "LOOTCONTAINER_WEAPON_BOX_6X3"
                     "5909d7cf86f77470ee57d75a", // "LOOTCONTAINER_WEAPON_BOX_4X4"
@@ -201,7 +193,16 @@ namespace DefinitiveWeaponVariants.CustomClasses
                     "578f87ad245977356274f2cc", // "LOOTCONTAINER_WOODEN_CRATE"
                     "5d6d2b5486f774785c2ba8ea", // "LOOTCONTAINER_GROUND_CACHE"
                     "5d6d2bb386f774785b07a77a"  // "LOOTCONTAINER_BURIED_BARREL_CACHE"
-                };
+                ];
+                List<string> containersForPackage =
+                [
+                    "578f8778245977358849a9b5", // "LOOTCONTAINER_JACKET"
+                    "5909e4b686f7747f5b744fa4", // "LOOTCONTAINER_DEAD_SCAV"
+                    "59139c2186f77411564f8e42", // "LOOTCONTAINER_PC_BLOCK"
+                    "5c052cea86f7746b2101e8d8", // "LOOTCONTAINER_PLASTIC_SUITCASE"
+                    "578f8782245977354405a1e3"  // "LOOTCONTAINER_SAFE"
+                ];
+                var unknownPackageId = idDatabaseManager.GetCustomId($"Unknown Variant Weapon Core Package:ID");
                 if (weights["StaticLoot"].Probability != 0 && weights["StaticLoot"].TotalWeapons != 0)
                 {
                     location.StaticLoot?.AddTransformer(StaticLoot =>
@@ -210,27 +211,42 @@ namespace DefinitiveWeaponVariants.CustomClasses
                         foreach ((MongoId containerId, StaticLootDetails container) in StaticLoot)
                         {
                             if (container is null) continue;
-                            if (containers.Contains(containerId))
+                            if (containersForWeapons.Contains(containerId) || containersForPackage.Contains(containerId))
                             {
+                                container.ItemCountDistribution.ToList().ForEach(e => e.Count += 1);
                                 var totalWeightOfItemsCount = container.ItemCountDistribution.Sum(x => x.RelativeProbability);
                                 if (totalWeightOfItemsCount == 0 || totalWeightOfItemsCount is null) continue;
                                 var amountOfItems = container.ItemCountDistribution.Sum(x => x.Count * x.RelativeProbability) / (double)totalWeightOfItemsCount;
                                 var itemDistribution = container.ItemDistribution.ToList();
                                 double totalProbability = itemDistribution.Sum(item => item.RelativeProbability ?? 0);
                                 if (totalProbability == 0) continue;
-                                var probabilityOfAddedItems = weights["StaticLoot"].Probability / (1 - weights["StaticLoot"].Probability) * totalProbability;
-                                foreach (var quality in weights["StaticLoot"].Qualities)
+                                if (containersForWeapons.Contains(containerId))
                                 {
-                                    var allPossibleWeapons = variantsIds[quality];
-                                    foreach(var weaponId in allPossibleWeapons)
+                                    var probabilityOfAddedItems = weights["StaticLoot"].Probability / (1 - weights["StaticLoot"].Probability) * totalProbability;
+                                    foreach (var quality in weights["StaticLoot"].Qualities)
                                     {
-                                        itemDistribution.Add(new ItemDistribution
+                                        var allPossibleWeapons = variantsIds[quality];
+                                        foreach (var weaponId in allPossibleWeapons)
                                         {
-                                            Tpl = weaponId,
-                                            RelativeProbability = (float?)((float)Math.Floor(probabilityOfAddedItems * ((double)modConfig.QualityWeights[quality] / (double)weights["StaticLoot"].TotalWeight)) / amountOfItems / allPossibleWeapons.Count),
-                                        });
+                                            itemDistribution.Add(new ItemDistribution
+                                            {
+                                                Tpl = weaponId,
+                                                RelativeProbability = (float?)((float)Math.Floor(probabilityOfAddedItems * ((double)modConfig.QualityWeights[quality] / (double)weights["StaticLoot"].TotalWeight)) / amountOfItems / allPossibleWeapons.Count),
+                                            });
+                                        }
                                     }
                                 }
+                                if (containersForPackage.Contains(containerId) && modConfig.VariantCoresEnabled)
+                                {
+                                    var probabilityOfAddedItems = modConfig.VariantCores.UnknownPackageProbability / (1 - modConfig.VariantCores.UnknownPackageProbability) * totalProbability;
+                                    
+                                    itemDistribution.Add(new ItemDistribution
+                                    {
+                                        Tpl = unknownPackageId,
+                                        RelativeProbability = (float?)(probabilityOfAddedItems / amountOfItems),
+                                    });
+                                }
+
                                 container.ItemDistribution = itemDistribution;
                             }
                         }
@@ -308,6 +324,35 @@ namespace DefinitiveWeaponVariants.CustomClasses
                         // Fix found on MoxoPixel-Painter
                         item.Name = idDatabaseId;
                     }
+                }
+            }
+        }
+
+        public void CreateLootpoolForUnknownPackage()
+        {
+            var lootpool = new Dictionary<MongoId, double>();
+            foreach (var (quality, enabled) in modConfig.Generate)
+            {
+                if (!enabled) { continue; }
+                lootpool.Add(idDatabaseManager.GetCustomId($"{quality} Quality Variant Core:ID"), modConfig.QualityWeights[quality] * 2);
+            }
+            for (int i = 0; i < 5; i++)
+            {
+                lootpool.Add(idDatabaseManager.GetCustomId($"Universal Variant Weapon Core v1.{i}:ID"), 1);
+            }
+            if (idDatabaseManager.DbIds.TryGetValue($"Unknown Variant Weapon Core Package:ID", out var idDatabaseId))
+            {
+                (bool find, TemplateItem? item) = itemHelper.GetItem(idDatabaseId);
+                if (find && item is not null)
+                {
+                    inventoryConfig.RandomLootContainers.Add(idDatabaseId, new RewardDetails
+                    {
+                        RewardCount = 5,
+                        FoundInRaid = false,
+                        RewardTplPool = lootpool
+                    });
+                    // Fix found on MoxoPixel-Painter
+                    item.Name = idDatabaseId;
                 }
             }
         }

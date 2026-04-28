@@ -113,7 +113,8 @@
 					"FromWeapons": [
 						"Saiga-12K",
 						"AA-12 Gen 1"
-					]
+					],
+					"Add": [ "Shotgun Variant 35-round drum magazine" ]
 				}
 			},
 			"Chambers": {

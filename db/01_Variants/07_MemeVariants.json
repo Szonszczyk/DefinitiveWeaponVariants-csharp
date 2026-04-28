@@ -163,8 +163,44 @@
         },
         "WeaponIdToUseAs": "5448bd6b4bdc2dfc2f8b4569",
         "Weapons": [
-            "Mosin Infantry", "T-5000M", "SV-98", "DVL-10", "M700", "AXMC",
-            "VPO-215", "TRG M10"
+            "Mosin Infantry", "T-5000M", "SV-98", "AXMC", "VPO-215"
+        ],
+        "Rarity": "Meme"
+    },
+	"Desert": {
+        "Description": "A weapon variant designed specifically for pistol quests, tailored for those who dislike using actual pistols. Desert edition",
+        "Explanation": "Bolt-action rifles with significantly improved accuracy and handling, but chambered in the 50AE pistol caliber",
+        "ShortName": "\"Desert\"",
+        "Properties": {
+            "AmmoCaliber": "Caliber127x33",
+            "DropSoundType": "Pistol",
+            "WeapUseType": "secondary",
+            "CenterOfImpact": 0.01,
+            "Ergonomics": "+40",
+            "Velocity": "+15",
+            "Weight": "-70%"
+        },
+        "Changes": {
+			"AddtoInventorySlots": ["Holster"],
+            "Minimum": {
+                "BFirerate": 450
+            },
+			"Slots": {
+                "mod_magazine": {
+                    "FromWeapons": [
+                        "Desert Eagle Mk XIX"
+                    ]
+                }
+            },
+            "Chambers": {
+				"FromWeapons": [
+					"Desert Eagle Mk XIX"
+				]
+			}
+        },
+        "WeaponIdToUseAs": "668fe5a998b5ad715703ddd6",
+        "Weapons": [
+            "Mosin Sniper", "DVL-10", "M700", "TRG M10"
         ],
         "Rarity": "Meme"
     },
