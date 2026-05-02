@@ -24,27 +24,27 @@ Whether you want an automatic version of your favorite weapon, click scavs to de
 ## Variant Qualities
 
 There are 8 different qualities of Variant Weapons available:
-- **Unique**
+- **Unique**  
     Tailor-made to specific weapon, Variant types of this quality are only available 1 per weapon making it a weapon of destruction. But the same as destructive they can get, they are very hard to obtain
-- **Ultimate**
+- **Ultimate**  
     Variant types of this quality are capable of outperforming even the best modified weapons
-- **Superior**
+- **Superior**  
     Variant types of this quality are offering outstanding performance
-- **Advanced**
+- **Advanced**  
     Variant types of this quality are offering better performance than standard weapons
-- **Niche**
+- **Niche**  
     Variant types of this quality are best used in very specific circumstances and situations
-- **Baseline**
+- **Baseline**  
     Variant types of this quality are performing on par with the original weapon
-- **Flawed**
+- **Flawed**  
     Variant types of this quality can deliver worse performance than the original weapon
-- **Meme**
+- **Meme**  
     We are not speaking about this Variant quality, as Variant Types of this quality trades everything to be good at one thing only
 
 ## The Vision™ System
 
-The main purpose of the Vision™ system is to make each of your Tarkov playthroughs unique.
-This means getting very different variant weapons each time you play.
+The main purpose of the Vision™ system is to make each of your Tarkov playthroughs unique.  
+This means getting very different variant weapons each time you play.  
 Instead of buying variants or unlocking them through gameplay, you can obtain them at random from a few different sources:
 - Fence
 - Airdrop
@@ -62,20 +62,20 @@ This mod introduces a special type of currency that matches the quality of Weapo
 It can only be installed in the Mod Core slot available on Variant Weapons
 
 There are 4 different types of Cores:
-- **Normal**
-    Can be found in weapon variants and when installed in a weapon, adds 5 ergonomics
+- **Normal**\
+    Can be found in weapon variants and when installed in a weapon, adds 5 ergonomics\
     Can be used to buy Weapon Variants Blind Boxes of respective quality, that contains 1 random variant weapon of that quality
-- **Locked**
-    Can be bought with 3 Normal ones of the same quality and when installed in a weapon, adds 7 ergonomics
+- **Locked**\
+    Can be bought with 3 Normal ones of the same quality and when installed in a weapon, adds 7 ergonomics\
     Can't be used to buy Weapon Variants Blind Boxes, but they will not be taken out of the weapon when exchanging Cores for Blind Boxes. In exchange they have higher roubles value and are adding more ergonomics
-- **Universal**
-    Can be only received while opening Unknown Weapon Variant Core Package and slotted in weapon will decrease recoil by 1-5% and add 12-8 ergonomics (1%/12, 2%/11 and so on)
+- **Universal**\
+    Can be only received while opening Unknown Weapon Variant Core Package and slotted in weapon will decrease recoil by 1-5% and add 12-8 ergonomics (1%/12, 2%/11 and so on)\
     Has the highest roubles value and can't be used to buy Weapon Variants Blind Boxes
-- **Unknown Weapon Variant Core Package**
-    Can be bought with Roubles
-    Can be found in specific containers on all maps (Jackets/Dead scavs/PC Blocks/Plastic Suitcases/Safes)
-    Can be opened to receive 5 random Variant Cores. The loot pool contains:
-        All Normal Variant Cores with doubled weight
+- **Unknown Weapon Variant Core Package**\
+    Can be bought with Roubles\
+    Can be found in specific containers on all maps (Jackets/Dead scavs/PC Blocks/Plastic Suitcases/Safes)\
+    Can be opened to receive 5 random Variant Cores. The loot pool contains:\
+        All Normal Variant Cores with doubled weight\
         All Universal Variant Cores with a weight of 1 each
 
 In short:
@@ -85,5 +85,5 @@ In short:
 
 ## Thanks
 
-Special thanks to Amidorak, as about half of overall Variant Weapon were suggested by him.
+Special thanks to Amidorak, as about half of overall Variant Weapon were suggested by him.\
 Not only that, we playtest this mod together and he even created almost all Unique Variant presets you see in this mod!
