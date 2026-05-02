@@ -86,7 +86,8 @@
             "UnlimitedCount": true,
             "StackObjectsCount": 99,
             "BarterPrice": {
-                "MONEY_ROUBLES": 500000
+                "MONEY_ROUBLES": 300000,
+                "Ultimate Quality Variant Core": 1
             }
         },
         "HandbookPriceRoubles": 200000,
@@ -112,7 +113,8 @@
             "UnlimitedCount": true,
             "StackObjectsCount": 99,
             "BarterPrice": {
-                "MONEY_ROUBLES": 1000000
+                "MONEY_ROUBLES": 700000,
+                "Ultimate Quality Variant Core": 2
             }
         },
         "HandbookPriceRoubles": 500000,
@@ -193,7 +195,8 @@
             "UnlimitedCount": true,
             "StackObjectsCount": 99,
             "BarterPrice": {
-                "MONEY_ROUBLES": 400000
+                "MONEY_ROUBLES": 300000,
+                "Ultimate Quality Variant Core": 1
             }
         },
         "HandbookPriceRoubles": 200000,
@@ -220,7 +223,8 @@
             "UnlimitedCount": true,
             "StackObjectsCount": 99,
             "BarterPrice": {
-                "MONEY_ROUBLES": 1000000
+                "MONEY_ROUBLES": 700000,
+                "Ultimate Quality Variant Core": 2
             }
         },
         "HandbookPriceRoubles": 500000,

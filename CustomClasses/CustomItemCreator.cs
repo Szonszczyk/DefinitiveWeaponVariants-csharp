@@ -10,6 +10,7 @@ using SPTarkov.Server.Core.Models.Utils;
 using SPTarkov.Server.Core.Servers;
 using SPTarkov.Server.Core.Services;
 using SPTarkov.Server.Core.Services.Mod;
+using SPTarkov.Server.Core.Utils.Cloners;
 using System.Reflection;
 
 namespace DefinitiveWeaponVariants.CustomClasses
@@ -19,12 +20,15 @@ namespace DefinitiveWeaponVariants.CustomClasses
         ISptLogger<DefinitiveWeaponVariants> logger,
         ConfigServer configServer,
         CustomItemService customItemService,
-        DatabaseService databaseService
+        DatabaseService databaseService,
+        ICloner cloner
     )
     {
         private readonly Globals globals = databaseService.GetGlobals();
         private readonly Dictionary<MongoId, TemplateItem> items = databaseService.GetItems();
         private readonly Dictionary<MongoId, Trader> traders = databaseService.GetTraders();
+        private readonly SPTarkov.Server.Core.Models.Spt.Hideout.Hideout hideout = databaseService.GetHideout();
+        private readonly HideoutConfig hideoutConfig = configServer.GetConfig<HideoutConfig>();
         public int itemsLoaded = 0;
 
         public void AddItemToDatabase(NewItemFromCloneDetails item, CustomItemConfig itemConfig, CustomBarterConfig barterConfig)
@@ -170,6 +174,59 @@ namespace DefinitiveWeaponVariants.CustomClasses
                 assortBarterScheme[itemId].Add(newBarterSchemes);
             }
             trader.Assort.LoyalLevelItems[itemId] = barterConfig.LoyalLevel;
+        }
+
+        public void CreateHideoutCraft(MongoId id, string craftIdToCopy, Dictionary<string, int> requiredItems, int productionTime, string newCraftId)
+        {
+            var recipes = hideout?.Production?.Recipes;
+            if (recipes == null)
+            {
+                logger.LogWithColor($"[{GetType().Namespace}] Cannot add craft: Recipes collection is null.", LogTextColor.Red);
+                return;
+            }
+            var sourceRecipe = recipes.FirstOrDefault(e => e.Id == craftIdToCopy);
+            if (sourceRecipe == null)
+            {
+                logger.LogWithColor($"[{GetType().Namespace}] Can't find craft of id: {craftIdToCopy}", LogTextColor.Red);
+                return;
+            }
+            var newRecipe = cloner.Clone(sourceRecipe);
+            if (newRecipe is null) { return; }
+            newRecipe.Requirements = sourceRecipe.Requirements?.Take(1).ToList() ?? [];
+            foreach (var (requiredItemId, count) in requiredItems)
+            {
+                newRecipe.Requirements.Add(new SPTarkov.Server.Core.Models.Eft.Hideout.Requirement
+                {
+                    TemplateId = requiredItemId,
+                    Count = count,
+                    IsEncoded = false,
+                    IsFunctional = false,
+                    IsSpawnedInSession = false,
+                    Type = "Item"
+                });
+            }
+            newRecipe.Id = newCraftId;
+            newRecipe.EndProduct = id;
+            newRecipe.Count = 1;
+            newRecipe.ProductionTime = productionTime;
+            recipes.Add(newRecipe);
+        }
+
+        public void CreateCultistCircleCraft(List<string> reward, List<string> requiredItems, int craftTimeSeconds, bool repeatable)
+        {
+            var newdirectReward = new DirectRewardSettings
+            {
+                Reward = reward
+                        .Select(i => new MongoId(i))
+                        .ToList(),
+                RequiredItems = requiredItems
+                        .Select(i => new MongoId(i))
+                        .ToList(),
+
+                CraftTimeSeconds = craftTimeSeconds,
+                Repeatable = repeatable
+            };
+            hideoutConfig.CultistCircle.DirectRewards.Add(newdirectReward);
         }
 
         public MongoId? GetTraderIdByName(string name)

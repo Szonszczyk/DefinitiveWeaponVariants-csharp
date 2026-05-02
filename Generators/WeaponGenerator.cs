@@ -4,6 +4,7 @@ using DefinitiveWeaponVariants.CustomClasses;
 using DefinitiveWeaponVariants.Helpers;
 using DefinitiveWeaponVariants.Interfaces;
 using DefinitiveWeaponVariants.Loaders;
+using SPTarkov.Server.Core.Extensions;
 using SPTarkov.Server.Core.Helpers;
 using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Eft.Common;
@@ -69,7 +70,6 @@ namespace DefinitiveWeaponVariants.Generators
                                 weaponCountsToward = locale[$"{customSlotsChanger.GetItemFromString(variant.WeaponIdToUseAs)?.Id} Name"];
                             }
                         }
-
                         double? price = copiedItemHandbook!.Price;
                         var newWeapon = new NewItemFromCloneDetails
                         {
@@ -257,33 +257,29 @@ namespace DefinitiveWeaponVariants.Generators
                         // Add core slot
                         if (modConfig.VariantCoresEnabled)
                         {
-                            var coreTemplate = customSlotsChanger.GetItemFromString($"{variant.Rarity} Quality Variant Core");
-                            if (coreTemplate != null)
+                            var newSlotsWithCore = customSlotsChanger.CoreSlotAdder(
+                                newSlots,
+                                copiedItem,
+                                variant.Rarity,
+                                newWeapon,
+                                modConfig.VariantCores.Required
+                            );
+                            if (newSlotsWithCore != null)
                             {
-                                List<MongoId> newFilterWithCore = [coreTemplate.Id];
-                                var newSlotsWithCore = customSlotsChanger.CoreSlotAdder(
-                                    newSlots,
-                                    copiedItem,
-                                    newFilterWithCore,
-                                    newWeapon,
-                                    modConfig.VariantCores.Required
-                                );
-                                if (newSlotsWithCore != null)
+                                
+                                newWeapon.OverrideProperties.Slots = newSlotsWithCore;
+                                // Add core to presets
+                                foreach (var (presetId, preset) in newWeaponConfig.Presets)
                                 {
-                                    newWeapon.OverrideProperties.Slots = newSlotsWithCore;
-                                    // Add core to presets
-                                    foreach (var (presetId, preset) in newWeaponConfig.Presets)
+                                    var rootItem = preset.Items.First();
+                                    var item = new Item
                                     {
-                                        var rootItem = preset.Items.First();
-                                        var item = new Item
-                                        {
-                                            Id = new MongoId(),
-                                            Template = coreTemplate.Id,
-                                            ParentId = rootItem.Id,
-                                            SlotId = "mod_core"
-                                        };
-                                        preset.Items.Add(item);
-                                    }
+                                        Id = new MongoId(),
+                                        Template = customSlotsChanger.coreMods[variant.Rarity].First(),
+                                        ParentId = rootItem.Id,
+                                        SlotId = "mod_core"
+                                    };
+                                    preset.Items.Add(item);
                                 }
                             }
                         }
@@ -368,6 +364,13 @@ namespace DefinitiveWeaponVariants.Generators
                         compatibilityLayers.AddVariantToDB(newWeapon.NewId, variant.Rarity, variantName);
                         if (config.Barter is not null && modConfig.AmonyaTraderMode) config.Barter.TraderId = "ee840a5ba014e9c5478d5ccd";
                         customItemCreator.AddItemToDatabase(newWeapon, newWeaponConfig, config.Barter ?? new CustomBarterConfig());
+                        //if (variant.Rarity == "Unique")
+                        //    customItemCreator.CreateCultistCircleCraft(
+                        //        [newWeapon.NewId],
+                        //        [copiedWeaponId, idDatabaseManager.GetCustomId($"{variant.Rarity} Quality Variant Core (Locked):ID")],
+                        //        10,
+                        //        true
+                        //    );
                     }
                 }
             }
@@ -453,7 +456,7 @@ namespace DefinitiveWeaponVariants.Generators
                 if (modConfig.NotGenerateWeapons.Contains(variantShortName)) continue;
 
                 modDatabaseLoader.DbShortnames.TryGetValue(weaponShortname, out var copiedWeaponId);
-                if (copiedWeaponId is null)
+                if (copiedWeaponId is null && weaponShortname.IsValidMongoId())
                 {
                     if (items.TryGetValue(weaponShortname, out var item)) copiedWeaponId = item.Id;
                 }

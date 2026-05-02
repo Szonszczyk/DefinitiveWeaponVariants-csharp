@@ -7,6 +7,11 @@
       "commandName": "Executable",
       "executablePath": "C:\\Games\\SPT 4.0\\SPT\\SPT.Server.exe",
       "workingDirectory": "C:\\Games\\SPT 4.0\\SPT\\"
+    },
+    "SPT 4.0 DEV": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Games\\SPT 4.0 DEV\\SPT\\SPT.Server.exe",
+      "workingDirectory": "C:\\Games\\SPT 4.0 DEV\\SPT\\"
     }
   }
 }

@@ -22,7 +22,6 @@ namespace DefinitiveWeaponVariants.Helpers
             CheckDictionaryStringBool(modConfig.Flea);
             CheckDictionaryStringBool(modConfig.Marked);
             CheckDictionaryStringBool(modConfig.StaticLoot);
-            CheckDictionaryStringBool(modConfig.LooseLoot);
 
             CheckDictionaryStringInt(modConfig.QualityWeights);
 
@@ -31,11 +30,10 @@ namespace DefinitiveWeaponVariants.Helpers
 
             CheckDictionaryStringInt(modConfig.APBSTierConfig);
 
-            modConfig.LooseLootProbability = CheckProbability(modConfig.LooseLootProbability, nameof(modConfig.LooseLootProbability));
             modConfig.StaticLootProbability = CheckProbability(modConfig.StaticLootProbability, nameof(modConfig.StaticLootProbability));
             modConfig.MarkedRoomsProbability = CheckProbability(modConfig.MarkedRoomsProbability, nameof(modConfig.MarkedRoomsProbability));
         }
-
+        
         private void CheckDictionaryStringBool(Dictionary<string, bool> dict)
         {
             foreach (var q in RaritySettings.RarityList())

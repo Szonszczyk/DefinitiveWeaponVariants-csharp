@@ -107,7 +107,7 @@
     	"Rarity": "Niche"
     },
 	"Glass Cannon": {
-     	"Description": "It’s neither made of glass nor actually a cannon - but look at it. When you fire it, it’s definitely a cannon, and when you check its durability, it’s definitely glass",
+     	"Description": "It's neither made of glass nor actually a cannon - but look at it. When you fire it, it's definitely a cannon, and when you check its durability, it's definitely glass",
     	"Explanation": "Shotgun variant chambered in .50 BMG with a 1-round magazine. Features increased durability damage but can be held in the pistol slot",
     	"ShortName": "Glass Cannon",
     	"Properties": {

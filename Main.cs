@@ -1,4 +1,4 @@
-using DefinitiveWeaponVariants.Compatibility;
+﻿using DefinitiveWeaponVariants.Compatibility;
 using DefinitiveWeaponVariants.CustomClasses;
 using DefinitiveWeaponVariants.Generators;
 using DefinitiveWeaponVariants.Helpers;
@@ -14,6 +14,7 @@ using SPTarkov.Server.Core.Services;
 using SPTarkov.Server.Core.Services.Mod;
 using SPTarkov.Server.Core.Utils;
 using SPTarkov.Server.Core.Utils.Cloners;
+
 
 namespace DefinitiveWeaponVariants;
 
@@ -42,7 +43,8 @@ public class DefinitiveWeaponVariants(
 
         ModDatabaseLoader modDatabaseLoader = new(logger, modHelper);
         IdDatabaseManager idDatabaseManager = new(logger, modHelper, jsonUtil);
-        CustomItemCreator customItemCreator = new(logger, configServer, customItemService, databaseService);
+        CustomItemCreator customItemCreator = new(logger, configServer, customItemService, databaseService, cloner);
+
         CustomPropertiesChanger customPropertiesChanger = new(logger);
         CustomSlotsChanger customSlotsChanger = new(logger, databaseService, modDatabaseLoader, cloner, idDatabaseManager);
 
@@ -68,9 +70,7 @@ public class DefinitiveWeaponVariants(
             cloner
         );
 
-        itemGenerator.GenerateVariantCores();
-        itemGenerator.GenerateBlindBoxes();
-        itemGenerator.GenerateItems();
+        itemGenerator.GenerateAllItems();
         
 
         WeaponGenerator weaponGenerator = new(
@@ -92,6 +92,7 @@ public class DefinitiveWeaponVariants(
         weaponGenerator.GenerateWeaponsFromVariantConfig();
         customLootManager.AddVariantsToLooseLoot();
         customLootManager.CreateLootpoolForBlindBoxes();
+        customLootManager.CreateLootpoolForUnknownPackage();
         customLootManager.AddCoresToBotPockets();
         compatibilityLayers.RunCompatibilityLayers();
         idDatabaseManager.SaveDatabase();
