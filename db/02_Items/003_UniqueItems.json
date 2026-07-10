@@ -1,0 +1,16 @@
+{
+  "Blicky >Neverending< 20x1mm 20k-round magazine": {
+    "Description": "A special, magical, unbelievable and spacious disk magazine for the Blicky >Neverending< Unique Variant. We strongly recommend to load it with coins. Huge amount of coins. Manufactured in >REDACTED<",
+    "ShortName": ">DRUM<",
+    "ItemTplToClone": "66015dc4aaad2f54cb04c56a",
+    "Changes": {
+      "Cartridges": {
+        "Count": 20000,
+        "FromWeapons": [ "Blicky" ]
+      }
+    },
+    "HandbookPriceRoubles": 99999,
+    "VariantType": "Blicky >Neverending< Unique",
+    "Rarity": "Unique"
+  }
+}

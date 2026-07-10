@@ -146,7 +146,8 @@
             "RecoilDampingHandRotation": "-30%",
             "RecoilReturnSpeedHandRotation": "+30%",
             "Ergonomics": "+40",
-			"RecoilStableIndexShot": 3
+			"RecoilStableIndexShot": 3,
+			"BFirerate": 469
         },
 		"Changes": {
 			"Slots": {

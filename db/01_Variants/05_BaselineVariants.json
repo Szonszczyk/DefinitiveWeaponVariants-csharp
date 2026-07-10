@@ -1,4 +1,24 @@
 {
+	"Overclocked": {
+		"Description": "By harnessing water-cooling technology from high-performance PCs, this variant pushes your weapon to fire faster than ever before, delivering unmatched speed at the cost of increased complexity",
+		"Explanation": "Weapon variant with an increased fire rate and enhanced cooling capabilities, but slightly reduced ergonomics",
+		"ShortName": "OC",
+		"Properties": {
+			"CoolFactorGun": "+50%",
+			"CoolFactorGunMods": 1,
+			"SingleFireRate": "+35%",
+			"BFirerate": "+35%",
+			"Ergonomics": "-15",
+			"Weight": "+20%"
+		},
+		"Weapons": [
+			"AK-12", "AK-104", "AUG A1", "HK 416A5", "MCX .300 BLK",
+			"SPEAR 6.8", "SA-58", "AS VAL", "MP7A2", "MPX",
+			"P90", "PPSh-41", "Vector .45ACP", "PKM", "RPD",
+			"RPDN", "UZI PRO Pistol"
+		],
+		"Rarity": "Baseline"
+	},
     "Modified": {
 		"Description": "Upgraded to be a slightly better weapon, but its improved statistics come at the cost of sacrificing others",
 		"Explanation": "Weapon variant in equilibrium with the universe, featuring adjustments to various aspects: reduced vertical recoil but increased horizontal recoil, improved ergonomics, lowered fire rate, increased heat buildup, and reduced weight",
@@ -61,10 +81,15 @@
         "Rarity": "Baseline"
     },
     "Close Quarters": {
-    	"Description": "In tight spaces, size matters. This gun makes sure you win",
-    	"Explanation": "Modified to use 12.7x55mm rounds, excelling in close-quarters combat with unparalleled stopping power",
+    	"Description": "PLACEHOLDER",
+    	"Explanation": "Weapon variant chambered in 12.7x55mm caliber, featuring reduced recoil, fire rate and muzzle velocity",
     	"ShortName": "CQ",
-    	"Properties": {},
+    	"Properties": {
+			"RecoilForceUp": "-33%",
+			"RecoilForceBack": "-33%",
+			"BFirerate": "-33%",
+			"Velocity": -25
+		},
 		"Changes": {
 			"Chambers": {
 				"FromWeapons": [
@@ -75,6 +100,10 @@
 			    "mod_magazine": {
 					"FromWeapons": [
 						"ASh-12"
+					],
+					"Add": [
+						"Close Quarters 12.7x55 30-round magazine",
+						"Close Quarters 12.7x55 40-round magazine"
 					]
 				}
 			}
@@ -224,28 +253,89 @@
 		],
         "Rarity": "Baseline"
     },
-	"FURY": {
-		"Description": "UNLEASH THE FURY OF TRASHY SMGs. THEY ARE NOW FURIOUS",
-    	"Explanation": "SMG variant chambered in .277 FURY (6.8x51mm), limited to a 2-shot burst fire mode",
-    	"ShortName": ".277",
-    	"Properties": {
-			"WeapFireType": [ "burst" ],
-			"BurstShotsCount": 2
-		},
+	"Slav \"Thing\"": {
+		"Description": "If it works, don't question it. If it doesn't work, hit it with a wrench. Classic Slav engineering",
+    	"Explanation": "Weapon variant chambered in 7.62x39mm with increased stabilization point, increased recoil, dispersion and decreased ergonomics",
+    	"ShortName": "v2.0-Slav",
+		"Properties": {
+			"RecoilStableIndexShot": 10,
+			"RecolDispersion": 25,
+			"RecoilForceUp": "+45%",
+			"Ergonomics": "-25"
+    	},
 		"Changes": {
+			"Minimum": {
+				"BFirerate": 650
+			},
 			"Slots": {
 			    "mod_magazine": {
-					"FromWeapons": [ "SPEAR 6.8" ]
+					"FromWeapons": [
+						"RPD",
+						"AKM"
+					]
 				}
 			},
 			"Chambers": {
-				"FromWeapons": [ "SPEAR 6.8" ]
+				"FromWeapons": [ "AKM" ]
+			}
+    	},
+		"Weapons": [
+			"HK 416A5", "AUG A3", "MDR 5.56x45", "M4A1", "G36",
+			"ADAR 2-15", "TX-15 DML"
+		],
+        "Rarity": "Baseline"
+	},
+	"Freedom \"Thing\"": {
+		"Description": "If it works, don't question it. If it doesn't work, shoot it until it does. Classic American engineering",
+    	"Explanation": "Weapon variant chambered in 5.56x45mm NATO with decreased recoil, increased ergonomics and fire rate but with increased stabilization point",
+    	"ShortName": "v2.0-Freedom",
+		"Properties": {
+			"RecoilForceUp": "-22%",
+			"RecoilForceBack": "-22%",
+			"Ergonomics": "+22",
+			"RecoilStableIndexShot": 10,
+			"BFirerate": 800
+    	},
+		"Changes": {
+			"Slots": {
+			    "mod_magazine": {
+					"FromWeapons": [ "M4A1" ]
+				}
+			},
+			"Chambers": {
+				"FromWeapons": [ "M4A1" ]
+			}
+    	},
+		"Weapons": [
+			"VPO-209", "AKS-74UB", "AK-105", "AK-545", "RPK-16",
+			"AK-12", "AK-74N", "RPDN", "AKMS", "VPO-136 Vepr-KM",
+			"AKM", "VSS Vintorez"
+		],
+        "Rarity": "Baseline"
+	},
+	"Smoothbore": {
+		"Description": "Technically not a rifle - at least according to someone’s paperwork. Modified to support civilian smoothbore cartridges while retaining most of the platform’s original handling. Whether that makes it legal, practical, or safe is another question entirely",
+		"Explanation": "Weapon variant capable of using both .366 TKM and 7.62x39mm ammunition",
+		"ShortName": "Smoothbore",
+		"Changes": {
+			"Chambers": {
+				"FromWeapons": [
+					"VPO-209",
+					"AKM"
+				]
 			}
 		},
 		"Weapons": [
-			"PP-91-01 Kedr-B", "PP-91 Kedr", "PP-9 Klin", "MP9", "MP5K-N",
-			"PP-19-01", "MP9-N", "MP5", "Vector 9x19"
+			"AK-103",
+			"AK-104",
+			"AKM",
+			"AKMN",
+			"AKMS",
+			"AKMSN",
+			"Mk47",
+			"RD-704",
+			"VPO-209"
 		],
-        "Rarity": "Baseline"
+		"Rarity": "Baseline"
 	}
 }

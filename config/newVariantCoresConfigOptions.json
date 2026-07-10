@@ -1,0 +1,140 @@
+{
+  "VariantCores": {
+    "General": {
+      "Price": { // Default value in roubles. These prices are influencing all the cores and core related items
+        "Unique": 15000,
+        "Ultimate": 10000,
+        "Superior": 8000,
+        "Advanced": 5000,
+        "Niche": 6000,
+        "Baseline": 4000,
+        "Flawed": 3000,
+        "Meme": 2000
+      },
+      "Required": false // If cores should be required for weapon to work
+      // Note: If this config is enabled, you won't be able to remove Variant Cores from weapons while in raid
+      //       Unless you use UI Fixes (https://forge.sp-tarkov.com/mod/1342/ui-fixes) config option: "Modify Weapons In Raid" changed to "Always" or "With Multitool"
+      //       This config option will fix variant weapons equipped by APBS bots not having Variant Cores in their usual slot
+    },
+    "Normal": {
+      "Properties": { // Cores are adding some ergonomics to the weapon they are slotted in
+        "Ergonomics": 5
+      },
+      "Buyable": false, // If cores can be bought via trader
+      "Barter": { // Barter setup
+        "TraderId": "SKIER", // Trader name uppercased - default: "SKIER"
+        "LoyalLevel": 1, // Number 1-4 - default: 1
+        "UnlimitedCount": false, // Is trader stock for this item unlimited?
+        "StackObjectsCount": 5 // How many items you can buy at one time
+      },
+      "Upgradable": true, // Cores can exchanged for their higher quality counterpart - default: true
+      "UpgradableOptions": {
+        "UpToQuality": "Baseline", // Cores up to this quality can be exchanged, for example if this is "Baseline", you can exchange Meme to Flawed and Flawed to Baseline
+        "Ratio": 3, // How many lower quality cores are needed for one higher
+        "Barter": { // Barter setup
+          "TraderId": "SKIER", // Trader name uppercased - default: "SKIER"
+          "LoyalLevel": 1, // Number 1-4 - default: 1
+          "UnlimitedCount": false, // Is trader stock for this item unlimited?
+          "StackObjectsCount": 5 // How many items you can buy at one time
+        }
+      },
+      "FoundOnEnemies": { // Cores can be found in bot pockets - change all probabilities to 0 to disable
+        "assault": 0.33 // Scav internal name + probability in percentage (0.33 => 33%) / MIN:0 - MAX:0.99
+      },
+      "PriceMultiplier": 1 // General => Price multiplier for default roubles price
+    },
+    "Locked": {
+      "Properties": { // Cores are adding some additional stats to the weapon they are slotted in
+        "Ergonomics": 7,
+        "Accuracy": 3
+      },
+      "Upgradable": true, // Normal cores can exchanged for their Locked counterpart - default: true
+      "UpgradableOptions": {
+        "Ratio": 3, // How many normal cores needs to be exchanged for one Locked
+        "Barter": {
+          "TraderId": "SKIER", // Trader name uppercased - default: "SKIER"
+          "LoyalLevel": 2, // Number 1-4 - default: 1
+          "UnlimitedCount": false, // Is trader stock for this item unlimited?
+          "StackObjectsCount": 5 // How many items you can buy at one time
+        }
+      },
+      "PriceMultiplier": 6 // General => Price multiplier for default roubles price
+    },
+    "Universal": {
+      "Properties": { // Cores are adding some additional stats to the weapon they are slotted in
+        "Ergonomics": 7, // These stats are default ones, each of the Universal Cores are adding or removing some of these stats
+        "Recoil": 0
+      }
+    },
+    "BlindBoxes": {
+      "Properties": {
+        "Width": 3,
+        "Height": 2
+      },
+      "CoresPrice": 3,
+      "Barter": {
+        "TraderId": "SKIER", // Trader name uppercased - default: "SKIER"
+        "LoyalLevel": 1, // Number 1-4 - default: 1
+        "UnlimitedCount": false, // Is trader stock for this item unlimited?
+        "StackObjectsCount": 20 // How many items you can buy at one time
+      },
+      "PriceMultiplier": 25 // General => Price multiplier for default roubles price
+    },
+    "UnknownPackage": {
+      "Properties": {
+        "Width": 2,
+        "Height": 1,
+        "Weight": 1.2
+      },
+      "PriceInRoubles": 250000,
+      "Barter": {
+        "TraderId": "SKIER", // Trader name uppercased - default: "SKIER"
+        "LoyalLevel": 1, // Number 1-4 - default: 1
+        "UnlimitedCount": false, // Is trader stock for this item unlimited?
+        "StackObjectsCount": 20 // How many items you can buy at one time
+      },
+      "CoresReceived": 5,
+      // Probability of finding Unknown Package in Jacket/Dead scav/PC Block/Plastic Suitcase/Safe
+      "Probability": 0.33 // percentage (0.33 => 33%) / MIN:0 - MAX:0.99
+    },
+    "ExpeditionaryCase": {
+      "GridProperties": {
+        "CellsH": 1,
+        "CellsV": 2
+      },
+      "Properties": {
+        "Width": 1,
+        "Height": 1,
+        "Weight": 1.2
+      },
+      "PriceCoreQuality": "Baseline",
+      "PriceCoreAmount": 12,
+      "Barter": {
+        "TraderId": "SKIER", // Trader name uppercased - default: "SKIER"
+        "LoyalLevel": 1, // Number 1-4 - default: 1
+        "UnlimitedCount": false, // Is trader stock for this item unlimited?
+        "StackObjectsCount": 5 // How many items you can buy at one time
+      }
+    },
+    "CarryCase": {
+      "GridTypesWidth": {
+        "normal": 4,
+        "universal": 1,
+        "other": 5
+      },
+      "GridHeight": 10,
+      "Properties": {
+        "Width": 5,
+        "Height": 2
+      },
+      "PriceCoreQuality": "Baseline",
+      "PriceCoreAmount": 30,
+      "Barter": {
+        "TraderId": "SKIER", // Trader name uppercased - default: "SKIER"
+        "LoyalLevel": 1, // Number 1-4 - default: 1
+        "UnlimitedCount": false, // Is trader stock for this item unlimited?
+        "StackObjectsCount": 10 // How many items you can buy at one time
+      }
+    }
+  }
+}

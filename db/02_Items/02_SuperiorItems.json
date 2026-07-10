@@ -1,92 +1,175 @@
 {
-    "KS-23M 23x75 12-shell magazine cap": {
-        "Description": "Special KS-23M 23x75 12-shell magazine for \"Karabin Spetsialniy\" Variant weapons",
-        "ShortName": "KS-23Mx12",
-        "ItemTplToClone": "5f647d9f8499b57dc40ddb93",
-        "Changes": {
-            "Cartridges": {
-                "Count": 12,
-                "FromWeapons": ["KS-23M"]
-            }
-        },
-        "HandbookPriceRoubles": 521,
-        "VariantType": "Karabin Spetsialniy",
-        "Rarity": "Superior"
+  "KS-23M 23x75 12-shell magazine cap": {
+    "Description": "Special KS-23M 23x75 12-shell magazine for \"Karabin Spetsialniy\" Variant weapons",
+    "ShortName": "KS-23Mx12",
+    "ItemTplToClone": "5f647d9f8499b57dc40ddb93",
+    "Changes": {
+      "Cartridges": {
+        "Count": 12,
+        "FromWeapons": [ "KS-23M" ]
+      }
     },
-    "M60 500-round \"Endless\" ammo box": {
-        "Description": "Special 500-round \"Endless\" ammo box magazine for \"Endless\" Variant weapons\nFits 7.62x51mm NATO, 7.62x39mm and 5.56x45mm NATO ammunition",
-        "ShortName": "End.500",
-        "ItemTplToClone": "660ea4453786cc0af808a1be",
-        "Properties": {
-            "Height": 5,
-            "Width": 5
-        },
-        "Changes": {
-            "Cartridges": {
-                "Count": 500,
-                "FromWeapons": [
-                    "SA-58",
-                    "AKM",
-                    "M4A1"
-                ]
-            }
-        },
-        "HandbookPriceRoubles": 24000,
-        "VariantType": "Endless",
-        "Rarity": "Superior"
+    "HandbookPriceRoubles": 521,
+    "VariantType": "Karabin Spetsialniy",
+    "Rarity": "Superior"
+  },
+  "M60 500-round \"Endless\" ammo box": {
+    "Description": "Special 500-round \"Endless\" ammo box magazine for \"Endless\" Variant weapons of assault rifle category\nFits 7.62x51mm NATO, 7.62x39mm and 5.56x45mm NATO ammunition",
+    "ShortName": "End.500",
+    "ItemTplToClone": "660ea4453786cc0af808a1be",
+    "Properties": {
+      "Height": 5,
+      "Width": 5
     },
-    "M60 800-round \"Endless\" ammo box": {
-        "Description": "Special 800-round \"Endless\" ammo box magazine for \"Endless\" Variant weapons\nFits .45 ACP, 9x19mm, 4.6x30mm HK and 5.7x28mm FN ammunition",
-        "ShortName": "End.400",
-        "ItemTplToClone": "660ea4453786cc0af808a1be",
-        "Properties": {
-            "Height": 5,
-            "Width": 5
-        },
-        "Changes": {
-            "Cartridges": {
-                "Count": 800,
-                "FromWeapons": [
-                    "Vector 9x19",
-                    "Vector .45ACP",
-                    "MP7A2",
-                    "P90"
-                ]
-            }
-        },
-        "HandbookPriceRoubles": 24000,
-        "VariantType": "Endless",
-        "Rarity": "Superior"
+    "Changes": {
+      "Cartridges": {
+        "Count": 500,
+        "FromWeapons": [
+          "SA-58",
+          "AKM",
+          "M4A1"
+        ]
+      }
     },
-    "M60 100-round \"Endless\" ammo box": {
-        "Description": "Special 100-round \"Endless\" ammo box magazine for \"Endless\" Variant weapons\nFits 12/70 and 23x75mmR ammunition",
-        "ShortName": "End.100",
-        "ItemTplToClone": "660ea4453786cc0af808a1be",
-        "Changes": {
-            "Cartridges": {
-                "Count": 100,
-                "FromWeapons": [
-                    "MP-155",
-                    "KS-23M"
-                ]
-            }
-        },
-        "HandbookPriceRoubles": 24000,
-        "VariantType": "Endless",
-        "Rarity": "Superior"
+    "HandbookPriceRoubles": 24000,
+    "VariantType": "Endless",
+    "Rarity": "Superior"
+  },
+  "M60 800-round \"Endless\" ammo box": {
+    "Description": "Special 800-round \"Endless\" ammo box magazine for \"Endless\" Variant weapons of SMG category\nFits .45 ACP, 9x19mm, 4.6x30mm HK and 5.7x28mm FN ammunition",
+    "ShortName": "End.800",
+    "ItemTplToClone": "660ea4453786cc0af808a1be",
+    "Properties": {
+      "Height": 5,
+      "Width": 5
     },
-    "Anti-materiel revolver 12.7x108 5-round cylinder": {
-        "Description": "A 5-round 12.7x108 cylinder for Anti-materiel revolver Variant weapons. Now with 50% more wormholes!",
-        "ShortName": "AMR R cyl.",
-        "ItemTplToClone": "633ec6ee025b096d320a3b15",
-        "Changes": {
-            "Cartridges": {
-                "Count": 5,
-                "FromWeapons": [ "NSV Utyos" ]
-            }
-        },
-        "HandbookPriceRoubles": 12000,
-        "VariantType": "Anti-materiel revolver",
-        "Rarity": "Superior"
-    }
+    "Changes": {
+      "Cartridges": {
+        "Count": 800,
+        "FromWeapons": [
+          "Vector 9x19",
+          "Vector .45ACP",
+          "MP7A2",
+          "P90"
+        ]
+      }
+    },
+    "HandbookPriceRoubles": 24000,
+    "VariantType": "Endless",
+    "Rarity": "Superior"
+  },
+  "M60 100-round \"Endless\" ammo box": {
+    "Description": "Special 100-round \"Endless\" ammo box magazine for \"Endless\" Variant weapons of shotgun category\nFits 12/70 and 23x75mmR ammunition",
+    "ShortName": "End.100",
+    "ItemTplToClone": "660ea4453786cc0af808a1be",
+    "Properties": {
+      "Height": 5,
+      "Width": 5
+    },
+    "Changes": {
+      "Cartridges": {
+        "Count": 100,
+        "FromWeapons": [
+          "MP-155",
+          "KS-23M"
+        ]
+      }
+    },
+    "HandbookPriceRoubles": 24000,
+    "VariantType": "Endless",
+    "Rarity": "Superior"
+  },
+  "M60 40-round \"Endless\" ammo box": {
+    "Description": "Special 40-round \"Endless\" ammo box magazine for \"Endless\" Variant weapons of bolt-action category\nFits 7.62x51mm NATO, 7.62x54mmR and .338 Lapua Magnum ammunition",
+    "ShortName": "End.40",
+    "ItemTplToClone": "660ea4453786cc0af808a1be",
+    "Properties": {
+      "Height": 5,
+      "Width": 5
+    },
+    "Changes": {
+      "Cartridges": {
+        "Count": 40,
+        "FromWeapons": [
+          "AXMC",
+          "M700",
+          "Mosin Sniper"
+        ]
+      }
+    },
+    "HandbookPriceRoubles": 24000,
+    "VariantType": "Endless",
+    "Rarity": "Superior"
+  },
+  "Anti-materiel revolver 12.7x108 5-round cylinder": {
+    "Description": "A 5-round 12.7x108 cylinder for Anti-materiel revolver Variant weapons. Now with 50% more wormholes!",
+    "ShortName": "AMR R cyl.",
+    "ItemTplToClone": "633ec6ee025b096d320a3b15",
+    "Changes": {
+      "Cartridges": {
+        "Count": 5,
+        "FromWeapons": [ "NSV Utyos" ]
+      }
+    },
+    "HandbookPriceRoubles": 12000,
+    "VariantType": "Anti-materiel revolver",
+    "Rarity": "Superior"
+  },
+  "Lapua Variant 20-round magazine": {
+    "Description": "A 20-round magazine for Lapua Variant weapons, manufactured by SWORD International",
+    "ShortName": "20r LM",
+    "ItemTplToClone": "5fc23426900b1d5091531e15",
+    "Properties": {
+      "Ergonomics": -9
+    },
+    "Changes": {
+      "Cartridges": {
+        "Count": 20,
+        "FromWeapons": [
+          "AXMC"
+        ]
+      }
+    },
+    "Barter": {
+      "TraderId": "PEACEKEEPER",
+      "LoyalLevel": 1,
+      "UnlimitedCount": true,
+      "StackObjectsCount": 99,
+      "BarterPrice": {
+        "MONEY_ROUBLES": 34000
+      }
+    },
+    "HandbookPriceRoubles": 29000,
+    "VariantType": "Lapua",
+    "Rarity": "Superior"
+  },
+  "Lapua Variant 30-round magazine": {
+    "Description": "A 30-round magazine for Lapua Variant weapons, manufactured by SWORD International and upgraded by unknown entity",
+    "ShortName": "30r LM",
+    "ItemTplToClone": "5fc23426900b1d5091531e15",
+    "Properties": {
+      "Ergonomics": -12
+    },
+    "Changes": {
+      "Cartridges": {
+        "Count": 30,
+        "FromWeapons": [
+          "AXMC"
+        ]
+      }
+    },
+    "Barter": {
+      "TraderId": "PEACEKEEPER",
+      "LoyalLevel": 1,
+      "UnlimitedCount": true,
+      "StackObjectsCount": 99,
+      "BarterPrice": {
+        "MONEY_ROUBLES": 39000,
+        "Superior Quality Variant Core": 1
+      }
+    },
+    "HandbookPriceRoubles": 49000,
+    "VariantType": "Lapua",
+    "Rarity": "Superior"
+  }
 }

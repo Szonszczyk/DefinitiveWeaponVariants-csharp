@@ -1,21 +1,41 @@
 {
-    "Overclocked": {
-		"Description": "By harnessing water-cooling technology from high-performance PCs, this variant pushes your weapon to fire faster than ever before, delivering unmatched speed at the cost of increased complexity",
-		"Explanation": "Weapon variant with an increased fire rate and enhanced cooling capabilities, but slightly reduced ergonomics",
-		"ShortName": "OC",
+	"Assault Rifle": {
+		"Description": "\"I want a refund! This weapon is way too big for me! B-but I like the caliber. Can you get me something smaller that can fit in my handbag?\"",
+		"Explanation": "Pistol chambered in 5.56x45mm NATO, compatible with all M4A1 magazines",
+		"ShortName": "AR",
 		"Properties": {
-			"CoolFactorGun": "+50%",
-			"CoolFactorGunMods": 1,
-			"SingleFireRate": "+35%",
-			"BFirerate": "+35%",
-			"Ergonomics": "-15",
-			"Weight": "+20%"
+			"WeapFireType": [ "single", "burst", "fullauto" ],
+			"BurstShotsCount": 3,
+			"BFirerate": 750,
+			"HeatFactorByShot": "-40%",
+			"ItemSound": "weap_ar"
+		},
+		"Changes": {
+			"Chambers": {
+				"FromWeapons": [ "M4A1" ]
+			},
+    		"Slots": {
+			    "mod_magazine": {
+					"FromWeapons": [ "M4A1" ]
+				}
+			}
+    	},
+		"IndividualChanges": {
+			"Blicky": {
+				"Properties": {
+					"WeapFireType": [ "single", "fullauto" ]
+				},
+				"Slots": {
+					"mod_magazine": {
+						"Filter": [ "Blicky Special Magical Unbelievable Magazine" ]
+					}
+				}
+			}
 		},
 		"Weapons": [
-			"AK-12", "AK-104", "AUG A1", "HK 416A5", "MCX .300 BLK",
-			"SPEAR 6.8", "SA-58", "AS VAL", "MP7A2", "MPX",
-			"P90", "PPSh-41", "Vector .45ACP", "PKM", "RPD",
-			"RPDN", "UZI PRO Pistol"
+			"PM (t)", "APB", "MP-443 Grach", "P226R", "TT Gold",
+			"M9A3", "PL-15", "M45A1", "M1911A1", "Desert Eagle L5 .50 AE",
+			"Blicky"
 		],
 		"Rarity": "Advanced"
 	},
@@ -220,5 +240,29 @@
 			"TRG M10"
 		],
         "Rarity": "Advanced"
-    }
+    },
+	"FURY": {
+		"Description": "UNLEASH THE FURY OF TRASHY SMGs. THEY ARE NOW FURIOUS",
+    	"Explanation": "SMG variant chambered in .277 FURY (6.8x51mm), limited to a 2-shot burst fire mode",
+    	"ShortName": ".277",
+    	"Properties": {
+			"WeapFireType": [ "burst" ],
+			"BurstShotsCount": 2
+		},
+		"Changes": {
+			"Slots": {
+			    "mod_magazine": {
+					"FromWeapons": [ "SPEAR 6.8" ]
+				}
+			},
+			"Chambers": {
+				"FromWeapons": [ "SPEAR 6.8" ]
+			}
+		},
+		"Weapons": [
+			"PP-91-01 Kedr-B", "PP-91 Kedr", "PP-9 Klin", "MP9", "MP5K-N",
+			"PP-19-01", "MP9-N", "MP5", "Vector 9x19"
+		],
+        "Rarity": "Advanced"
+	}
 }

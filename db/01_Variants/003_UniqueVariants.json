@@ -1,0 +1,157 @@
+{
+  "AA-12 Gen 2 Unique": {
+    "Description": "The most versatile shotgun imaginable. It can fire almost any type of ammunition - provided you can find the right Endless Variant magazine, of course!",
+    "Explanation": "AA-12 Gen 2 >Endless Launcher<\nThis unique variant can use ALL magazines from the Endless Variant and has stats similar to the Buckshot Launcher Variant type - massive fire rate and extremely low recoil",
+    "ShortName": ">Endless Launcher<",
+    "Properties": {
+      "BFirerate": 3600,
+      "RecoilForceBack": "-90%",
+      "RecoilForceUp": "-90%",
+      "RecoilCamera": "-90%"
+    },
+    "Changes": {
+      "Slots": {
+        "mod_magazine": {
+          "Filter": [
+            "M60 100-round \"Endless\" ammo box",
+            "M60 500-round \"Endless\" ammo box",
+            "M60 800-round \"Endless\" ammo box",
+            "M60 40-round \"Endless\" ammo box"
+          ]
+        }
+      }
+    },
+    "Weapons": [ "AA-12 Gen 2" ],
+    "Rarity": "Unique"
+  },
+  "RFB Unique": {
+    "Description": "Please don't confuse the \"Automatic\" and \"No-Scope\" parts of the name. It doesn't perform <i>automatic no-scopes</i>... whatever that would even mean",
+    "Explanation": "RFB >Automatic No-Scope<\nThis unique variant is missing scope slot, but has full auto fire mode with full ergonomics and can use a variety of 7.62x51mm magazines",
+    "ShortName": ">Automatic No-Scope<",
+    "Properties": {
+      "WeapFireType": [ "fullauto" ],
+      "Ergonomics": "+100",
+      "BFirerate": "+25%"
+    },
+    "Changes": {
+      "Slots": {
+        "mod_mount": { "Filter": [ "RFB No-scope rail mount" ] },
+        "mod_magazine": {
+          "FromWeapons": [
+            "RFB",
+            "Mk 17",
+            "SA-58",
+            "M60E6",
+            "DVL-10",
+            "M700",
+            "T-5000M",
+            "G28",
+            "M1A"
+          ]
+        }
+      }
+    },
+    "Weapons": [ "RFB" ],
+    "Rarity": "Unique"
+  },
+  "VPO-215 Unique": {
+    "Description": "Watch your bullet strike the target without recoil throwing your aim into the clouds",
+    "Explanation": "VPO-215 >Recoiless Lapua<\nThis unique variant has minimal recoil and is chambered in .338 Lapua Magnum rounds",
+    "ShortName": ">Recoiless Lapua<",
+    "Properties": {
+      "RecoilForceUp": 0,
+      "RecoilForceBack": 0,
+      "RecoilReturnSpeedHandRotation": 0,
+      "RecoilCamera": 0,
+      "RecoilStableAngleIncreaseStep": "+90%",
+      "RecoilDampingHandRotation": "-70%",
+      "DurabilityBurnRatio": "-70%"
+    },
+    "Changes": {
+      "Slots": {
+        "mod_magazine": {
+          "FromWeapons": [
+            "Mk-18 Mjölnir",
+            "AXMC"
+          ],
+          "Add": [
+            "Lapua Variant 20-round magazine",
+            "Lapua Variant 30-round magazine"
+          ]
+        }
+      },
+      "Chambers": {
+        "FromWeapons": [ "AXMC" ]
+      }
+    },
+    "Weapons": [ "VPO-215" ],
+    "Rarity": "Unique"
+  },
+  "AK-103 Unique": {
+    "Description": "Turns out switching calibers is easier than switching identities...",
+    "Explanation": "AK-103 >Russian Market<\nThis unique variant can be chambered in both .366 TKM and 7.62x39mm, with decreased recoil and increased ergonomics",
+    "ShortName": ">Russian Market<",
+    "Properties": {
+      "RecoilForceUp": "-18%",
+      "RecoilForceBack": "-11%",
+      "RecoilReturnSpeedHandRotation": "+11%",
+      "RecoilCamera": "-11%",
+      "RecoilDampingHandRotation": "-11%",
+      "RecoilReturnPathDampingHandRotation": "-11%",
+      "Ergonomics": "+20",
+      "HeatFactorByShot": "-30%"
+    },
+    "Changes": {
+      "Chambers": {
+        "FromWeapons": [
+          "VPO-209",
+          "AKM"
+        ]
+      }
+    },
+    "Weapons": [ "AK-103" ],
+    "Rarity": "Unique"
+  },
+  "MP5K-N Unique": {
+    "Description": "A perfectly disguised M4A1, now with authentic German aesthetics!",
+    "Explanation": "MP5K-N >Handy Assault Rifle<\nThis unique variant is chambered in 5.56x45mm and has massively increased ergonomics",
+    "ShortName": ">Handy AR<",
+    "Properties": {
+      "Ergonomics": "+50"
+    },
+    "Changes": {
+      "Slots": {
+        "mod_magazine": {
+          "FromWeapons": [ "M4A1" ]
+        }
+      },
+      "Chambers": {
+        "FromWeapons": [ "M4A1" ]
+      }
+    },
+    "Weapons": [ "MP5K-N" ],
+    "Rarity": "Unique"
+  },
+  "Blicky Unique": {
+    "Description": "\"When you don't have damage, you need a lot of ammo\"\n~Sun Tzu - The Art of War",
+    "Explanation": "Blicky >Neverending<\nThis unique variant has enormous magazines, fires bullets at four times their normal muzzle velocity, has a fire rate of 9000 RPM and absolutely no recoil. Clearly this makes it a perfectly practical combat weapon. The tactical advantages are obvious. The enemy will surrender immediately. NATO probably banned it. Actually... maybe they didn't. Look, it's a toy gun, alright? Just have fun",
+    "ShortName": ">Neverending<",
+    "Properties": {
+      "WeapFireType": [ "fullauto" ],
+      "RecoilStableIndexShot": 1,
+      "DurabilityBurnRatio": 0,
+      "HeatFactorByShot": 0,
+      "BFirerate": 9000,
+      "Velocity": 300
+    },
+    "Changes": {
+      "Slots": {
+        "mod_magazine": {
+          "Filter": [ "Blicky >Neverending< 20x1mm 20k-round magazine" ]
+        }
+      }
+    },
+    "Weapons": [ "Blicky" ],
+    "Rarity": "Unique"
+  }
+}

@@ -1,6 +1,6 @@
 {
     "Multi-caliber Rifle Grenade Launcher 7-round internal magazine": {
-        "Description": "7-round magazine for AXMC, OP-SKS, Mosin Infantry and TRG M10 Rifle Grenade Launcher Variant weapons\nCan store 7.62x39mm, 7.62x54r, .338 Lapua Magnum and 40x46mm caliber bullets/granades.",
+        "Description": "7-round magazine for AXMC, OP-SKS, Mosin Infantry and TRG M10 Rifle Grenade Launcher Variant weapons\nCan store 7.62x39mm, 7.62x54r, .338 Lapua Magnum and 40x46mm caliber bullets/granades",
         "ShortName": "R.Gre mag",
         "ItemTplToClone": "587df3a12459772c28142567",
         "Changes": {
@@ -46,18 +46,18 @@
         "VariantType": "Bombardier",
         "Rarity": "Niche"
     },
-    "Glass Cannon .50BMG 1-shell magazine": {
-        "Description": "A non-standard 1-round magazine for the Glass Cannon Variant shotguns",
-        "ShortName": "GC .50",
-        "ItemTplToClone": "55d485804bdc2d8c2f8b456b",
+    "Railgun Variant 40x46mm grenade 7-round magazine": {
+        "Description": "A standard 40x46mm grenade 7-round magazine designed for the Railgun Variant weapons",
+        "ShortName": "RailMag",
+        "ItemTplToClone": "641074a07fd350b98c0b3f96",
         "Changes": {
             "Cartridges": {
-                "Count": 1,
-                "FromWeapons": [ "AK-50" ]
+                "Count": 7,
+                "FromWeapons": [ "FN40GL" ]
             }
         },
-        "HandbookPriceRoubles": 5555,
-        "VariantType": "Glass Cannon",
+        "HandbookPriceRoubles": 11234,
+        "VariantType": "Rifle Grenade Launcher",
         "Rarity": "Niche"
     }
 }

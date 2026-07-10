@@ -1,12 +1,48 @@
+
 {
+	"Lapua": {
+        "Description": "A highly requested weapon variant, crafted for all you devoted Lapua enthusiasts",
+        "Explanation": "Weapon variant chambered with .338 Lapua Magnum caliber and compatible with all .338 magazines but with increased recoil and heat buildup",
+        "ShortName": ".338",
+        "Properties": {
+			"RecoilForceUp": "+25%",
+            "RecoilForceBack": "+50%",
+            "RecoilCamera": "+30%",
+            "RecoilReturnPathDampingHandRotation": "-30%",
+            "RecoilDampingHandRotation": "+5%",
+			"RecoilReturnSpeedHandRotation": "-30%",
+			"RecoilReturnPathOffsetHandRotation": "+30%",
+			"HeatFactorByShot": "+100%"
+        },
+		"Changes": {
+			"Slots": {
+				"mod_magazine": {
+					"FromWeapons": [
+						"Mk-18 Mjölnir",
+						"AXMC"
+					],
+					"Add": [
+						"Lapua Variant 20-round magazine",
+						"Lapua Variant 30-round magazine"
+					]
+				}
+			},
+			"Chambers": {
+				"FromWeapons": [ "AXMC" ]
+			}
+		},
+		"Weapons": [
+			"AK-545", "TX-15 DML", "G28", "M1A", "RSASS",
+			"AS VAL", "AK-74", "T-5000M", "VSK-94", "X-17"
+		],
+        "Rarity": "Superior"
+	},
     "Automatic": {
 		"Description": "The fire selector is stuck on a non-existent setting",
 		"Explanation": "Weapon variant with only a full-auto fire mode, featuring an increased fire rate but reduced ergonomics",
 		"ShortName": "Auto",
 		"Properties": {
-			"WeapFireType": [
-				"fullauto"
-			],
+			"WeapFireType": [ "fullauto" ],
 			"BFirerate": "+10%",
 			"Ergonomics": "-15%"
 		},
@@ -117,46 +153,6 @@
 		],
 		"Rarity": "Superior"
 	},
-	"Assault Rifle": {
-		"Description": "\"I want a refund! This weapon is way too big for me! B-but I like the caliber. Can you get me something smaller that can fit in my handbag?\"",
-		"Explanation": "Pistol chambered in 5.56x45mm NATO, compatible with all M4A1 magazines",
-		"ShortName": "AR",
-		"Properties": {
-			"WeapFireType": [ "single", "burst", "fullauto" ],
-			"BurstShotsCount": 3,
-			"BFirerate": 750,
-			"HeatFactorByShot": "-40%",
-			"ItemSound": "weap_ar"
-		},
-		"Changes": {
-			"Chambers": {
-				"FromWeapons": [ "M4A1" ]
-			},
-    		"Slots": {
-			    "mod_magazine": {
-					"FromWeapons": [ "M4A1" ]
-				}
-			}
-    	},
-		"IndividualChanges": {
-			"Blicky": {
-				"Properties": {
-					"WeapFireType": [ "single", "fullauto" ]
-				},
-				"Slots": {
-					"mod_magazine": {
-						"Filter": [ "Blicky Special Magical Unbelievable Magazine" ]
-					}
-				}
-			}
-		},
-		"Weapons": [
-			"PM (t)", "APB", "MP-443 Grach", "P226R", "TT Gold",
-			"M9A3", "PL-15", "M45A1", "M1911A1", "Desert Eagle L5 .50 AE",
-			"Blicky"
-		],
-		"Rarity": "Superior"
-	},
 	"Endless": {
 		"Description": "Do you really need THAT many rounds in one raid? Probably not\nBut this weapon was built differently… so here we are",
 		"Explanation": "Weapon variant with a magazine that's heavy and bulky, but incredibly spacious",
@@ -185,6 +181,9 @@
 							},
 							"shotgun": {
 								"Filter": [ "M60 100-round \"Endless\" ammo box" ]
+							},
+							"sniperRifle": {
+								"Filter": [ "M60 40-round \"Endless\" ammo box" ]
 							}
 			    		}
 					}
@@ -196,7 +195,8 @@
 			"OP-SKS", "AUG A3", "M4A1", "TX-15 DML", "P90", 
 			"STM-9", "Vector 9x19", "MPX", "Vector .45ACP", "UMP 45",
 			"MP7A2", "M3 Super 90", "590A1", "M870", "MP-133",
-			"MP-153", "MP-155", "KS-23M"
+			"MP-153", "MP-155", "KS-23M", "AXMC", "SV-98",
+			"Mosin Sniper", "M700", "TRG M10"
 		],
 		"Rarity": "Superior"
 	},

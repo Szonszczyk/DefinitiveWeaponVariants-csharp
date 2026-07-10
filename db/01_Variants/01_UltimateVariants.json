@@ -22,43 +22,6 @@
 		],
 		"Rarity": "Ultimate"
 	},
-	"Lapua": {
-        "Description": "A highly requested weapon variant, crafted for all you devoted Lapua enthusiasts",
-        "Explanation": "Weapon variant chambered with .338 Lapua Magnum caliber and compatible with all .338 magazines but with increased recoil and heat buildup",
-        "ShortName": ".338",
-        "Properties": {
-			"RecoilForceUp": "+25%",
-            "RecoilForceBack": "+50%",
-            "RecoilCamera": "+30%",
-            "RecoilReturnPathDampingHandRotation": "-30%",
-            "RecoilDampingHandRotation": "+5%",
-			"RecoilReturnSpeedHandRotation": "-30%",
-			"RecoilReturnPathOffsetHandRotation": "+30%",
-			"HeatFactorByShot": "+100%"
-        },
-		"Changes": {
-			"Slots": {
-				"mod_magazine": {
-					"Filter": [],
-					"FromWeapons": [
-						"Mk-18 Mjölnir",
-						"AXMC"
-					],
-					"Add": []
-				}
-			},
-			"Chambers": {
-				"Filter": [],
-				"FromWeapons": [ "AXMC" ],
-				"Add": []
-			}
-		},
-		"Weapons": [
-			"AK-545", "TX-15 DML", "G28", "M1A", "RSASS",
-			"AS VAL", "AK-74", "T-5000M", "VSK-94", "X-17"
-		],
-        "Rarity": "Ultimate"
-	},
 	"Overclocked & Automatic": {
         "Description": "What happens when you put a processor in a weapon? It becomes automatic and requires cooling. And if you're adding cooling, why not overclock it to fire faster? Researchers remain deeply unsettled by this abomination",
         "Explanation": "Weapon variant with a full-auto fire mode only, featuring an increased fire rate and improved cooling capabilities, but reduced ergonomics",

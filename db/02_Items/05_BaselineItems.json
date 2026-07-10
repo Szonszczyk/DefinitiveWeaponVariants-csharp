@@ -66,5 +66,59 @@
         "HandbookPriceRoubles": 4500,
         "VariantType": "Shotgun-o-Revolver",
         "Rarity": "Baseline"
+    },
+    "Close Quarters 12.7x55 30-round magazine": {
+        "Description": "A standard 30-round magazine for the Close Quarters Variant weapons",
+        "ShortName": "30r 12.7x55",
+        "ItemTplToClone": "5caf1109ae9215753c44119f",
+        "Properties": {
+            "Ergonomics": -9
+        },
+        "Changes": {
+            "Cartridges": {
+                "Count": 30,
+                "FromWeapons": [ "ASh-12" ]
+            }
+        },
+        "Barter": {
+            "TraderId": "PEACEKEEPER",
+            "LoyalLevel": 1,
+            "UnlimitedCount": true,
+            "StackObjectsCount": 99,
+            "BarterPrice": {
+                "MONEY_ROUBLES": 19000
+            }
+        },
+        "HandbookPriceRoubles": 14000,
+        "VariantType": "Close Quarters",
+        "Rarity": "Baseline"
+    },
+    "Close Quarters 12.7x55 40-round magazine": {
+        "Description": "A standard 40-round magazine for the Close Quarters Variant weapons",
+        "ShortName": "40r 12.7x55",
+        "ItemTplToClone": "5caf1109ae9215753c44119f",
+        "Properties": {
+            "Ergonomics": -11
+        },
+        "Changes": {
+            "Cartridges": {
+                "Count": 40,
+                "FromWeapons": [ "ASh-12" ]
+            }
+        },
+        "Barter": {
+            "TraderId": "PEACEKEEPER",
+            "LoyalLevel": 1,
+            "UnlimitedCount": true,
+            "StackObjectsCount": 99,
+            "BarterPrice": {
+                "MONEY_ROUBLES": 24000,
+                "Baseline Quality Variant Core": 1
+
+            }
+        },
+        "HandbookPriceRoubles": 24000,
+        "VariantType": "Close Quarters",
+        "Rarity": "Baseline"
     }
 }

@@ -97,26 +97,6 @@
         ],
         "Rarity": "Flawed"
     },
-    "No-Scope": {
-    	"Description": "Do a 360 headshot with this!",
-    	"Explanation": "Weapon variant missing scope slot but with increased ergonomics", 
-    	"ShortName": "No-Scope",
-    	"Properties": {
-            "Ergonomics": "+15"
-    	},
-    	"Changes": {
-    		"Slots": {
-    			"mod_scope": {
-                    "Filter": []
-                }
-    		}
-    	},
-		"Weapons": [
-			"G36", "ASh-12", "MDR 5.56x45", "MDR 7.62x51", "Vector 9x19",
-			"Vector .45ACP", "RSASS"
-		],
-        "Rarity": "Flawed"
-    },
     "Quick-scope": {
 		"Description": "Quick! Use this bolt-action as a close-quarters weapon, we don't have time!\nDon't ask any questions",
 		"Explanation": "Weapon variant with maximum ergonomics and extremely high velocity, restricted to one special reflex sight",
@@ -146,6 +126,69 @@
 		"Weapons": [
 			 "Mosin Sniper", "SV-98", "DVL-10", "Mosin Infantry", "M700",
              "T-5000M", "AXMC", "TOZ-106", "AK-50"
+		],
+		"Rarity": "Flawed"
+	},
+	"Converted": {
+    	"Description": "We have successfully converted your weak-ass shotguns and pistols to the medium-ass assault rifles, or something, I don't care...",
+    	"Explanation": "Weapon variant chambered in 9x39mm caliber with increased durability burn",
+    	"ShortName": "Converted",
+    	"Changes": {
+			"Minimum": {
+				"DurabilityBurnRatio": 1.15,
+				"HeatFactorByShot": 2.17,
+				"HeatFactorGun": 1.11
+			},
+            "Slots": {
+				"mod_magazine": {
+			    	"BasedOn": {
+						"Property": "ReloadMode",
+						"Cases": {
+							"ExternalMagazine": {
+								"FromWeapons": [ "VSS Vintorez" ]
+							},
+							"InternalMagazine": {
+								"Filter": [ "Converted Variant 9x39 Shotgun 15-round magazine" ]
+							}
+						}
+					}
+			    }
+			},
+            "Chambers": {
+				"FromWeapons": [ "VSS Vintorez" ]
+			}
+		},
+		"Weapons": [
+			"MP-133", "M870", "M3 Super 90", "MP-43-1C", "MP-153",
+			"MP-155", "TOZ-106", "SR-25", "MP-18", "Glock 19X",
+			"M9A3", "M45A1", "Desert Eagle L5 .50 AE"
+		],
+        "Rarity": "Flawed"
+    },
+    "BFG-50": {
+		"Description": "\"The BFG-50 was Mark Serbu's first rifle design, coming into production in late 1999. It is on the civilian market for a price of $2,000-$3,000 USD, but is not intended to be used by any armed forces in the world\"\n~https://guns.fandom.com/wiki/Serbu_BFG-50",
+        "Explanation": "Weapon variant chambered in .50 BMG with significantly increased recoil, slightly increased ergonomics and with only a 1-round magazine",
+		"ShortName": "BFG-50",
+		"Properties": {
+			"RecoilForceUp": "+400%",
+            "RecoilForceBack": "+400%",
+			"Ergonomics": "+20",
+			"ReloadMode": "OnlyBarrel"
+        },
+        "Changes": {
+			"Slots": {
+        		"mod_magazine": {
+					"Filter": []
+				}
+        	},
+            "Chambers": {
+                "FromWeapons": [ "AK-50" ]
+            }
+        },
+		"Weapons": [
+			"Mosin Sniper", "AXMC", "M700", "OP-SKS", "SVT-40",
+			"AVT-40", "FN40GL", "TRG M10", "SKS", "M1A",
+			"RFB", "AK-104" 
 		],
 		"Rarity": "Flawed"
 	}

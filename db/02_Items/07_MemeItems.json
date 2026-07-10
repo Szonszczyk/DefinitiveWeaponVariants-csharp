@@ -1,19 +1,31 @@
 {
-    "Converted Variant 9x39 Shotgun 15-round magazine": {
-		"Description": "A 15-round polymer TsNIITochMash 6L24 9x39 magazine for shotguns from Converted Variant",
-        "ShortName": "BFG mag",
-        "ItemTplToClone": "57838f0b2459774a256959b2",
-        "Properties": {
-            "ReloadMagType": "InternalMagazine"
-        },
-        "Changes": {
-            "Cartridges": {
-                "Count": 15,
-                "FromWeapons": [ "VSS Vintorez" ]
-            }
-        },
-        "HandbookPriceRoubles": 4838,
-        "VariantType": "Converted",
-        "Rarity": "Meme"
-	}
+  "RFB No-scope rail mount": {
+    "Description": "A universal rail for mounting various front and back sights on to the RFB rifle, manufactured by >REDACTED<",
+    "ShortName": "Quick-sight",
+    "ItemTplToClone": "5f2aa49f9b44de6b1b4e68d4",
+    "Changes": {
+      "Slots": {
+        "mod_scope": {
+          "Filter": []
+        }
+      }
+    },
+    "HandbookPriceRoubles": 1122,
+    "VariantType": "No-Scope",
+    "Rarity": "Meme"
+  },
+  "Glass Cannon .50BMG 1-shell magazine": {
+    "Description": "A non-standard 1-round magazine for the Glass Cannon Variant shotguns",
+    "ShortName": "GC .50",
+    "ItemTplToClone": "55d485804bdc2d8c2f8b456b",
+    "Changes": {
+      "Cartridges": {
+        "Count": 1,
+        "FromWeapons": [ "AK-50" ]
+      }
+    },
+    "HandbookPriceRoubles": 5555,
+    "VariantType": "Glass Cannon",
+    "Rarity": "Meme"
+  }
 }

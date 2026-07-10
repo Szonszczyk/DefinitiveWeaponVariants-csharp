@@ -143,6 +143,6 @@
         public string Description { get; set; } = "";
         public string Flavour { get; set; } = "";
         public string StarRating { get; set; } = "";
-        public double PriceMultiplier { get; set; }
+        public double PriceMultiplier { get; set; } = 1;
     }
 }
