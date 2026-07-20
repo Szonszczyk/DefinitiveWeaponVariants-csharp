@@ -1,9 +1,16 @@
-## Version 4.3.0 for SPT ~4.0.13
+# Version 4.3.1 for SPT ~4.0.13
 
-### Variant Cores System Update and Balance Patch
+### Bugfixes
+- Fixed incorrect trades for upgrading cores
+- Fixed missing trades for new cases
+----------
+
+# Version 4.3.0 for SPT ~4.0.13
+
+## Variant Cores System Update and Balance Patch
 New storage cases for Variant Cores, more config options, many variant types changing quality, 36 new weapons (including 6 uniques)!
 
-## Variant Cores System Update
+### Variant Cores System Update
 - Added Expeditionary Variant Core Case that allows storing up to 20 of every type of normal Variant Core and can be placed inside secure containers. Can be purchased with 12 Baseline Cores
 - Added Variant Core Carry Case that can store a large number of Variant Cores in your inventory at once. It has 40 slots for normal and Locked Cores, 10 slots for Universal Cores and 50 slots dedicated for Unknown Packages and Blind Boxes. Can be purchased with 30 Baseline Cores
 - Added a 3:1 exchange option for upgrading Variant Cores. By default, upgrading is only available up to Baseline quality
@@ -14,7 +21,7 @@ New storage cases for Variant Cores, more config options, many variant types cha
 - Added many other options to the config file\
     If you want to make any changes to the Variant Core system, update your config. Instructions can be found in the mod description
 
-## Content Update
+### Content Update
 - Added 6 new Unique Variant Weapons:\
 AA-12 Gen 2 >Endless Launcher<\
 RFB >Automatic No-Scope<\
@@ -33,7 +40,7 @@ Weapon variant chambered in 7.62x54mmR that can use a larger variety of magazine
 Containing 11 new weapons
 
 
-## Balance Patch
+### Balance Patch
 - Lapua\
 Quality lowered from Ultimate to Superior\
 Added exclusive 20-round and 30-round magazines for this variant
@@ -68,6 +75,7 @@ Quality increased from Meme to Flawed
 - SKS Unique\
 Fire rate increased from 40 to 469
 
-## Other
+### Other
 - Moved required SPT version to 4.0.13
 - Fixed background colors of items when modified by other mods
+- ----------

@@ -1,5 +1,4 @@
-﻿using DefinitiveWeaponVariants.Compatibility;
-using DefinitiveWeaponVariants.Constants;
+﻿using DefinitiveWeaponVariants.Constants;
 using DefinitiveWeaponVariants.CustomClasses;
 using DefinitiveWeaponVariants.Helpers;
 using DefinitiveWeaponVariants.Interfaces;

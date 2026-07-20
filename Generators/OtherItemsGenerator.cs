@@ -109,8 +109,10 @@ public class OtherItemsGenerator(
                 if (!qualityNowEnabled || !qualityPrevEnabled) { continue; }
                 var nowCore = customSlotsChanger.GetItemFromString($"{qualityNow} Quality Variant Core")!;
                 var prevCore = customSlotsChanger.GetItemFromString($"{qualityPrev} Quality Variant Core")!;
-                var barterConfig = modConfig.VariantCores.Normal.UpgradableOptions.Barter;
+                var barterConfig = cloner.Clone(modConfig.VariantCores.Normal.UpgradableOptions.Barter);
+                if (barterConfig is null) continue;
                 barterConfig.BarterPrice.Add((string)prevCore.Id, modConfig.VariantCores.Normal.UpgradableOptions.Ratio);
+                if (modConfig.AmonyaTraderMode) barterConfig.TraderId = "ee840a5ba014e9c5478d5ccd";
                 customItemCreator.AddItemToTrader(nowCore.Id, barterConfig);
                 if (qualityNow == modConfig.VariantCores.Normal.UpgradableOptions.UpToQuality) break;
             }
@@ -260,7 +262,7 @@ public class OtherItemsGenerator(
         {
             variant.Barter.BarterPrice.Add("MONEY_ROUBLES", handbookPrice);
         }
-        if (modConfig.VariantCoresEnabled)
+        if (!modConfig.VariantCoresEnabled)
         {
             variant.Barter.LoyalLevel = 0;
         }
@@ -326,7 +328,7 @@ public class OtherItemsGenerator(
         {
             variant.Barter.BarterPrice.Add("MONEY_ROUBLES", handbookPrice);
         }
-        if (modConfig.VariantCoresEnabled)
+        if (!modConfig.VariantCoresEnabled)
         {
             variant.Barter.LoyalLevel = 0;
         }
