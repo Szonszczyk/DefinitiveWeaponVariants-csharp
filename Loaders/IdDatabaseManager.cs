@@ -1,8 +1,7 @@
-﻿using SPTarkov.DI.Annotations;
-using SPTarkov.Server.Core.Helpers;
+﻿using DefinitiveWeaponVariants.Helpers;
+using SPTarkov.DI.Annotations;
+using SPTarkov.Server.Core.Helpers.Server;
 using SPTarkov.Server.Core.Models.Common;
-using SPTarkov.Server.Core.Models.Logging;
-using SPTarkov.Server.Core.Models.Utils;
 using SPTarkov.Server.Core.Utils;
 using System.Reflection;
 
@@ -15,7 +14,7 @@ public class IdDatabaseManager
     private readonly string folderPath;
     private readonly JsonUtil _jsonutil;
     private readonly ModHelper _modHelper;
-    private readonly ISptLogger<DefinitiveWeaponVariants> _logger;
+    private readonly CustomLogger _logger;
 
     public Dictionary<string, string> DbIds { get; private set; }
     private readonly Dictionary<string, string> _newIds = new(); // Only new IDs
@@ -27,7 +26,7 @@ public class IdDatabaseManager
     private readonly HashSet<string> _usedKeys = new();
 
     public IdDatabaseManager(
-        ISptLogger<DefinitiveWeaponVariants> logger,
+        CustomLogger logger,
         ModHelper modHelper,
         JsonUtil jsonUtil)
     {
@@ -48,7 +47,7 @@ public class IdDatabaseManager
         if (!Directory.Exists(path))
         {
             Directory.CreateDirectory(path);
-            _logger.LogWithColor($"[{GetType().Namespace}] Creating directory: {path}", LogTextColor.Green);
+            _logger.Ok($"Creating directory: {path}");
         }
     }
 
@@ -60,7 +59,7 @@ public class IdDatabaseManager
 
         if (files.Length == 0)
         {
-            _logger.LogWithColor($"[{GetType().Namespace}] No ID files found in 99_Ids folder. Starting with empty database.", LogTextColor.Yellow);
+            _logger.Warning($"No ID files found in 99_Ids folder. Starting with empty database.");
             return combined;
         }
 
@@ -70,7 +69,7 @@ public class IdDatabaseManager
 
             if (data == null)
             {
-                _logger.LogWithColor($"[{GetType().Namespace}] Failed to load {file}", LogTextColor.Red);
+                _logger.Error($"Failed to load {file}");
                 continue;
             }
 
@@ -115,13 +114,9 @@ public class IdDatabaseManager
         string json = _jsonutil.Serialize(_newIds);
         File.WriteAllText(filePath, json);
 
-        _logger.LogWithColor(
-            $"[{GetType().Namespace}] New ID file created: {filePath}",
-            LogTextColor.Yellow, LogBackgroundColor.Red);
+        _logger.Important($"New ID file created: {filePath}");
 
-        _logger.LogWithColor(
-            $"[{GetType().Namespace}] IMPORTANT: This file MUST be saved and not deleted. If lost, user-created items will NOT load properly.",
-            LogTextColor.Yellow, LogBackgroundColor.Red);
+        _logger.Important($"IMPORTANT: This file MUST be saved and not deleted. If lost, user-created items will NOT load properly.");
 
         _newIds.Clear();
     }
@@ -134,15 +129,11 @@ public class IdDatabaseManager
         int used = _usedKeys.Count;
         int unused = total - used;
 
-        _logger.LogWithColor(
-            $"[{GetType().Namespace}] ID usage summary → Total: {total}, Used: {used}, Unused: {unused}",
-            LogTextColor.Cyan);
+        _logger.Info($"ID usage summary → Total: {total}, Used: {used}, Unused: {unused}");
 
         if (unused > 0)
         {
-            _logger.LogWithColor(
-                $"[{GetType().Namespace}] WARNING: {unused} IDs are never used",
-                LogTextColor.Yellow);
+            _logger.Info($"WARNING: {unused} IDs are never used");
         }
     }
     private void SaveUsedIdsDatabase()
@@ -160,8 +151,6 @@ public class IdDatabaseManager
 
         File.WriteAllText(filePath, json);
 
-        _logger.LogWithColor(
-            $"[{GetType().Namespace}] Saved combined USED ID database: {filePath}",
-            LogTextColor.Green);
+        _logger.Info($"Saved combined USED ID database: {filePath}");
     }
 }

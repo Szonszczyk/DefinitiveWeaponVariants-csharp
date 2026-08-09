@@ -2,24 +2,16 @@
 using DefinitiveWeaponVariants.CustomClasses;
 using DefinitiveWeaponVariants.Generators;
 using DefinitiveWeaponVariants.Helpers;
+using DefinitiveWeaponVariants.Interfaces;
 using DefinitiveWeaponVariants.Loaders;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.DI;
-using SPTarkov.Server.Core.Models.Logging;
-using SPTarkov.Server.Core.Models.Utils;
-using SPTarkov.Server.Core.Servers;
-using SPTarkov.Server.Core.Services;
-
 
 namespace DefinitiveWeaponVariants;
 
-[Injectable(TypePriority = OnLoadOrder.PostDBModLoader + 89000)]
+[Injectable(TypePriority = OnLoadOrder.Preload + 54000)]
 public class DefinitiveWeaponVariants(
-    ISptLogger<DefinitiveWeaponVariants> logger,
-    DatabaseService databaseService,
-    ConfigServer configServer,
-    LocaleService localeService,
-    ConfigLoader configLoader,
+    ConfigData config,
     ConfigChecker configChecker,
     CompatibilityLayers compatibilityLayers,
     IdDatabaseManager idDatabaseManager,
@@ -28,13 +20,14 @@ public class DefinitiveWeaponVariants(
     ItemGenerator itemGenerator,
     OtherItemsGenerator otherItemsGenerator,
     WeaponGenerator weaponGenerator,
-    ModDataStorage modDataStorage
+    ModDataStorage modDataStorage,
+    CustomLogger logger
 ) : IOnLoad
 {
-    public Task OnLoad()
+    public Task OnLoadAsync(CancellationToken cancellationToken)
     {
         configChecker.CheckConfig();
-        modDataStorage.Initialize(databaseService, configServer, localeService);
+        modDataStorage.Initialize();
 
         compatibilityLayers.CheckMods();
 
@@ -48,19 +41,19 @@ public class DefinitiveWeaponVariants(
         idDatabaseManager.SaveDatabase();
 
         // Add 12.7x108mm B-32 to trader
-        if (configLoader.Config.SpecialAmmoBuyableEnabled)
-            customItemCreator.AddItemToTrader("5cde8864d7f00c0010373be1", configLoader.Config.DWVCaliberBarter);
+        if (config.SpecialAmmoBuyableEnabled)
+            customItemCreator.AddItemToTrader("5cde8864d7f00c0010373be1", config.DWVCaliberBarter);
 
-        logger.LogWithColor($"[{GetType().Namespace}] Mod finished loading. Created {customItemCreator.ItemsAdded.Count} custom items!", LogTextColor.Green);
+        logger.Ok($"Mod finished loading. Created {customItemCreator.ItemsAdded.Count} custom items!");
 
         return Task.CompletedTask;
     }
 }
 
-[Injectable(TypePriority = OnLoadOrder.PostSptModLoader + 102)]
+[Injectable(TypePriority = OnLoadOrder.PostLoad + 102)]
 public class DefinitiveWeaponVariantsFixBackgrounds(ModDataStorage modDataStorage) : IOnLoad
 {
-    public Task OnLoad()
+    public Task OnLoadAsync(CancellationToken cancellationToken)
     {
         modDataStorage.FixBackgroundColors();
         return Task.CompletedTask;

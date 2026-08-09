@@ -328,5 +328,8 @@
 	"Flawed": 2, // Number 0-7 - default: 2 (found on enemies of tier 2-7)
 	"Meme": 1 // Number 0-7 - default: 1 (found on enemies of all tiers)
  },
- "APBSBlacklistedVariantTypes": ["Rifle Grenade Launcher"]
+ "APBSBlacklistedVariantTypes": [ "Rifle Grenade Launcher" ],
+
+	// Enable debug messages
+	"Debug": false
 }

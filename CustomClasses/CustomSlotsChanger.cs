@@ -4,9 +4,8 @@ using DefinitiveWeaponVariants.Loaders;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
-using SPTarkov.Server.Core.Models.Logging;
+using SPTarkov.Server.Core.Models.Enums;
 using SPTarkov.Server.Core.Models.Spt.Mod;
-using SPTarkov.Server.Core.Models.Utils;
 using SPTarkov.Server.Core.Utils.Cloners;
 using System.Reflection;
 
@@ -14,7 +13,7 @@ namespace DefinitiveWeaponVariants.CustomClasses;
 
 [Injectable(InjectionType.Singleton)]
 public class CustomSlotsChanger(
-    ISptLogger<DefinitiveWeaponVariants> logger,
+    CustomLogger logger,
     ModDatabaseLoader modDatabaseLoader,
     ICloner cloner,
     IdDatabaseManager idDatabaseManager,
@@ -107,7 +106,7 @@ public class CustomSlotsChanger(
         var newFilter = CreateFilterFromConfiguration(chamberConfig, "N/A", "Chambers", copiedItem);
         if (newFilter.Count == 0)
         {
-            logger.LogWithColor($"[{GetType().Namespace}] Item '{newItemName}' have no valid ammo in chambers!", LogTextColor.Red);
+            logger.Error($"Item '{newItemName}' have no valid ammo in chambers!");
             return null;
         }
         var chambers = RemapSlots(copiedItem?.Properties?.Chambers?.ToList(), newItem.NewId!);
@@ -133,12 +132,12 @@ public class CustomSlotsChanger(
         if (cartridgesConfig == null) return null;
         if (cartridgesConfig.Count == null || cartridgesConfig.Count <= 0)
         {
-            logger.LogWithColor($"[{GetType().Namespace}] Item '{newItemName}' have incorrect cartridges count {cartridgesConfig.Count}!", LogTextColor.Red);
+            logger.Error($"Item '{newItemName}' have incorrect cartridges count {cartridgesConfig.Count}!");
             return null;
         }
         var newFilter = CreateFilterFromConfiguration(cartridgesConfig, "N/A", "Cartridges", copiedItem);
         if (newFilter.Count == 0) {
-            logger.LogWithColor($"[{GetType().Namespace}] Item '{newItemName}' have no valid ammo!", LogTextColor.Red);
+            logger.Error($"Item '{newItemName}' have no valid ammo!");
             return null;
         }
         var cartridges = RemapSlots(copiedItem?.Properties?.Cartridges?.ToList(), newItem.NewId!);
@@ -217,7 +216,7 @@ public class CustomSlotsChanger(
                 }
                 else
                 {
-                    logger.LogWithColor($"[{GetType().Namespace}] FromWeapon (item) '{filter}' found, but couldn't get filters from {type}!", LogTextColor.Red);
+                    logger.Error($"FromWeapon (item) '{filter}' found, but couldn't get filters from {type}!");
                 }
             }
         }
@@ -257,7 +256,7 @@ public class CustomSlotsChanger(
                 if (modDataStorage.Items.TryGetValue(id, out var idFromTemplate)) return idFromTemplate;
             }
         }
-        logger.LogWithColor($"[{GetType().Namespace}] Item '{text}' not found", LogTextColor.Red);
+        logger.Error($"Item '{text}' not found");
         return null;
     }
 

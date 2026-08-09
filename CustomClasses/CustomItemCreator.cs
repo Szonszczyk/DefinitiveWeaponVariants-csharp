@@ -1,15 +1,13 @@
 ﻿using DefinitiveWeaponVariants.Helpers;
 using DefinitiveWeaponVariants.Interfaces;
 using SPTarkov.DI.Annotations;
-using SPTarkov.Server.Core.Helpers;
+using SPTarkov.Server.Core.Helpers.Items;
 using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
 using SPTarkov.Server.Core.Models.Enums;
-using SPTarkov.Server.Core.Models.Logging;
 using SPTarkov.Server.Core.Models.Spt.Config;
 using SPTarkov.Server.Core.Models.Spt.Mod;
-using SPTarkov.Server.Core.Models.Utils;
-using SPTarkov.Server.Core.Services.Mod;
+using SPTarkov.Server.Core.Services.Modding.Custom;
 using SPTarkov.Server.Core.Utils.Cloners;
 using System.Reflection;
 
@@ -17,7 +15,7 @@ namespace DefinitiveWeaponVariants.CustomClasses;
 
 [Injectable(InjectionType.Singleton)]
 public class CustomItemCreator(
-    ISptLogger<DefinitiveWeaponVariants> logger,
+    CustomLogger logger,
     CustomItemService customItemService,
     ICloner cloner,
     ModDataStorage modDataStorage,
@@ -113,7 +111,7 @@ public class CustomItemCreator(
         }
         else
         {
-            logger.LogWithColor($"[{GetType().Namespace}] MasteryName '{itemConfig.MasteryName}' is incorrect!", LogTextColor.Red);
+            logger.Error($"MasteryName '{itemConfig.MasteryName}' is incorrect!");
         }
     }
     public void AddItemToTrader(string itemId, CustomBarterConfig barterConfig)
@@ -121,7 +119,7 @@ public class CustomItemCreator(
         var traderId = GetTraderIdByName(barterConfig.TraderId);
         if (traderId == null)
         {
-            logger.LogWithColor($"[{GetType().Namespace}] Trader name / Trader ID '{traderId}' is incorrect!", LogTextColor.Red);
+            logger.Error($"Trader name / Trader ID '{traderId}' is incorrect!");
             return;
         }
         var trader = modDataStorage.Traders[(MongoId)traderId];
@@ -131,7 +129,7 @@ public class CustomItemCreator(
             var addBarter = GetItemIdByName(addBarterId);
             if (addBarter == null)
             {
-                logger.LogWithColor($"[{GetType().Namespace}] Barter item of id '{addBarterId}' is incorrect! Item {itemId} was not added to trader", LogTextColor.Red);
+                logger.Error($"Barter item of id '{addBarterId}' is incorrect! Item {itemId} was not added to trader");
                 return;
             }
         }
@@ -178,13 +176,13 @@ public class CustomItemCreator(
         var recipes = modDataStorage.HideoutData?.Production?.Recipes;
         if (recipes == null)
         {
-            logger.LogWithColor($"[{GetType().Namespace}] Cannot add craft: Recipes collection is null.", LogTextColor.Red);
+            logger.Error("Cannot add craft: Recipes collection is null.");
             return;
         }
         var sourceRecipe = recipes.FirstOrDefault(e => e.Id == craftIdToCopy);
         if (sourceRecipe == null)
         {
-            logger.LogWithColor($"[{GetType().Namespace}] Can't find craft of id: {craftIdToCopy}", LogTextColor.Red);
+            logger.Error($"Can't find craft of id: {craftIdToCopy}");
             return;
         }
         var newRecipe = cloner.Clone(sourceRecipe);

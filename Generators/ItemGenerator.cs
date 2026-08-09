@@ -6,25 +6,23 @@ using DefinitiveWeaponVariants.Loaders;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
-using SPTarkov.Server.Core.Models.Logging;
 using SPTarkov.Server.Core.Models.Spt.Mod;
-using SPTarkov.Server.Core.Models.Utils;
 
 namespace DefinitiveWeaponVariants.Generators;
 
 [Injectable(InjectionType.Singleton)]
 public class ItemGenerator(
-    ISptLogger<DefinitiveWeaponVariants> logger,
+    CustomLogger logger,
     ModDatabaseLoader modDatabaseLoader,
     IdDatabaseManager idDatabaseManager,
     CustomItemCreator customItemCreator,
     CustomPropertiesChanger customPropertiesChanger,
     CustomSlotsChanger customSlotsChanger,
-    ConfigLoader configLoader,
+    ConfigData config,
     ModDataStorage modDataStorage
 )
 {
-    private readonly ConfigData modConfig = configLoader.Config;
+    private readonly ConfigData modConfig = config;
 
     public void GenerateAllItems()
     {
@@ -47,14 +45,14 @@ public class ItemGenerator(
         if (config is { Description: not null, ShortName: not null, ItemTplToClone: not null, Rarity: not null, HandbookPriceRoubles: not null, VariantType: not null } variant)
         {
             if (!MongoId.IsValidMongoId(variant.ItemTplToClone)) {
-                logger.LogWithColor($"[{GetType().Namespace}] ItemTplToClone {variant.ItemTplToClone} is incorrect ({variantName})!", LogTextColor.Red);
+                logger.Error($"ItemTplToClone {variant.ItemTplToClone} is incorrect ({variantName})!");
                 return null;
             }
             MongoId itemTplToClone = (MongoId)variant.ItemTplToClone;
             modDataStorage.Items.TryGetValue(itemTplToClone, out var copiedItem);
             if (copiedItem is null)
             {
-                logger.LogWithColor($"[{GetType().Namespace}] ItemTplToClone {variant.ItemTplToClone} is not found (or you are missing some mod) ({variantName})! Skipping", LogTextColor.Yellow);
+                logger.Warning($"ItemTplToClone {variant.ItemTplToClone} is not found (or you are missing some mod) ({variantName})! Skipping");
                 return null;
             }
 
@@ -65,6 +63,7 @@ public class ItemGenerator(
             var text = variant.Barter == null ? "Can't be bought from traders" : $"Can be bought in {traderName} LL{variant.Barter.LoyalLevel}";
             var newItem = new NewItemFromCloneDetails
             {
+                NewItemName = variantName,
                 ItemTplToClone = itemTplToClone,
                 ParentId = variant.Changes?.Parent != null ? variant.Changes.Parent : copiedItem.Parent,
                 HandbookParentId = copiedItemHandbook != null ? copiedItemHandbook.ParentId : "5b5f6fa186f77409407a7eb7",
@@ -137,17 +136,17 @@ public class ItemGenerator(
                         }
                         else
                         {
-                            logger.LogWithColor($"[{GetType().Namespace}] Ammo for {variantName} is incorrect: {firstId}", LogTextColor.Red);
+                            logger.Error($"Ammo for {variantName} is incorrect: {firstId}");
                         }
                     }
                     else
                     {
-                        logger.LogWithColor($"[{GetType().Namespace}] Item '{variantName}' don't have any ammunition allowed in chambers!", LogTextColor.Red);
+                        logger.Error($"Item '{variantName}' don't have any ammunition allowed in chambers!");
                     }
                 }
                 else
                 {
-                    logger.LogWithColor($"[{GetType().Namespace}] Item '{variantName}' failed to generate new chambers", LogTextColor.Red);
+                    logger.Error($"Item '{variantName}' failed to generate new chambers");
                 }
             }
             if (variant?.Changes?.Slots != null)
@@ -171,7 +170,7 @@ public class ItemGenerator(
             return newItem.NewId;
         } else
         {
-            logger.LogWithColor($"[{GetType().Namespace}] Item '{variantName}' is missing one or more required properties!", LogTextColor.Red);
+            logger.Error($"Item '{variantName}' is missing one or more required properties!");
             return null;
         }
     }
