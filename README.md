@@ -19,7 +19,7 @@ Whether you want an automatic version of your favorite weapon, click scavs to de
 
 ## Compatibility with SPT versions
 
-~4.0.13 - current version  
+~4.1.2 - current version  
 
 ## Variant Qualities
 
