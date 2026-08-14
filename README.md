@@ -1,6 +1,6 @@
 # Szonszczyk - Definitive Weapon Variants
 
-Better description, download count and comments can be found on: [SPT Forge Link](https://forge.sp-tarkov.com/mod/2010/definitive-weapon-variants)
+Better description, download count and comments can be found on: [SPT Forge Link](https://sp-mod.com/mod/2010/definitive-weapon-variants)
 
 Server mod for Single Player Tarkov featuring over **600 weapon variants** based on existing guns.  
 Whether you want an automatic version of your favorite weapon, click scavs to death, tap bosses with anti-materiel rifles, troll friends with meme guns, or simply collect unique variants, this mod has it all!
