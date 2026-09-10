@@ -2,10 +2,8 @@
 using DefinitiveWeaponVariants.Interfaces;
 using DefinitiveWeaponVariants.Loaders;
 using SPTarkov.DI.Annotations;
-using SPTarkov.Server.Core.Helpers;
-using SPTarkov.Server.Core.Models.Logging;
+using SPTarkov.Server.Core.Helpers.Server;
 using SPTarkov.Server.Core.Models.Spt.Mod;
-using SPTarkov.Server.Core.Models.Utils;
 using SPTarkov.Server.Core.Utils;
 using System.Reflection;
 using Path = System.IO.Path;
@@ -14,15 +12,15 @@ namespace DefinitiveWeaponVariants.Compatibility;
 
 [Injectable(InjectionType.Singleton)]
 public class CompatibilityLayers(
-    ISptLogger<DefinitiveWeaponVariants> logger,
-    ConfigLoader configLoader,
+    CustomLogger logger,
+    ConfigData config,
     ModHelper modHelper,
     JsonUtil jsonUtil,
     IReadOnlyList<SptMod> modlist,
     ModDataStorage modDataStorage
 )
 {
-    private readonly ConfigData modConfig = configLoader.Config;
+    private readonly ConfigData modConfig = config;
 
     public void CheckMods()
     {
@@ -30,7 +28,7 @@ public class CompatibilityLayers(
         {
             if (!ModCheck("com.szonszczyk.amonya"))
             {
-                logger.LogWithColor($"[{GetType().Namespace}] Config option \"AmonyaTraderMode\" was enabled but Amonya mod is missing. Please download: https://forge.sp-tarkov.com/mod/2419/amonya-ammo-loving-trader-quester", LogTextColor.Yellow);
+                logger.Warning($"Config option \"AmonyaTraderMode\" was enabled but Amonya mod is missing");
                 modConfig.AmonyaTraderMode = false;
             }
             else
@@ -40,7 +38,7 @@ public class CompatibilityLayers(
         }
         if (modConfig.EnableAPBSBlacklistGeneration && !ModCheck("com.acidphantasm.progressivebotsystem", modConfig.APBSFolderName))
         {
-            logger.LogWithColor($"[{GetType().Namespace}] Config option \"EnableAPBSBlacklistGeneration\" was enabled but APBS mod is missing (or APBS folder was not found). Please download: https://forge.sp-tarkov.com/mod/1594/apbs-acids-progressive-bot-system", LogTextColor.Yellow);
+            logger.Warning($"Config option \"EnableAPBSBlacklistGeneration\" was enabled but APBS mod is missing (or APBS folder was not found)");
             modConfig.EnableAPBSBlacklistGeneration = false;
         }
     }
@@ -68,7 +66,7 @@ public class CompatibilityLayers(
         var modFolder = modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
         string? parentDirectory = Directory.GetParent(modFolder)?.FullName;
         if (parentDirectory is null) {
-            logger.LogWithColor($"[{GetType().Namespace}/APBS] Something went wrong in going back one level from {modFolder}", LogTextColor.Red);
+            logger.Error($"Something went wrong in going back one level from {modFolder}");
             return;
         }
         var filePath = Path.Combine(parentDirectory, modConfig.APBSFolderName, "blacklists.json");
@@ -77,14 +75,14 @@ public class CompatibilityLayers(
 
         if (rawBlacklist is null)
         {
-            logger.LogWithColor($"[{GetType().Namespace}/APBS] APBS blacklist not found in defauld directory: {filePath}", LogTextColor.Red);
+            logger.Error($"APBS blacklist not found in defauld directory: {filePath}");
             return;
         }
 
         rawBlacklist.TryGetValue("weaponBlacklist", out var weaponBlacklist);
         if (weaponBlacklist is null)
         {
-            logger.LogWithColor($"[{GetType().Namespace}/APBS] APBS blacklist is incorrect, missing weaponBlacklist property", LogTextColor.Red);
+            logger.Error($"APBS blacklist is incorrect, missing weaponBlacklist property");
             return;
         }
 
@@ -94,7 +92,7 @@ public class CompatibilityLayers(
         {
             if (!weaponBlacklist.TryGetValue($"tier{i}Blacklist", out var tierBlacklist) || tierBlacklist is null)
             {
-                logger.LogWithColor($"[{GetType().Namespace}/APBS] weaponBlacklist/tier{i}Blacklist is missing", LogTextColor.Red);
+                logger.Error($"weaponBlacklist/tier{i}Blacklist is missing");
                 continue;
             }
 
@@ -122,7 +120,7 @@ public class CompatibilityLayers(
                 }
                 else
                 {
-                    logger.LogWithColor($"[{GetType().Namespace}/APBS] Weapon {weap} in weaponBlacklist/tier{i}Blacklist is incorrect - removing", LogTextColor.Yellow);
+                    logger.Warning($"Weapon {weap} in weaponBlacklist/tier{i}Blacklist is incorrect - removing");
                 }
             }
             if (!weapInTier.SetEquals(tierBlacklist))
@@ -135,10 +133,10 @@ public class CompatibilityLayers(
         {
             string json = jsonUtil.Serialize(rawBlacklist, true);
             File.WriteAllText(filePath, json);
-            logger.LogWithColor($"[{GetType().Namespace}/APBS] APBS blacklist has been updated. Please reload config in APBS web app or restart server!", LogTextColor.Red, LogBackgroundColor.White);
+            logger.Error($"APBS blacklist has been updated. Please reload config in APBS web app or restart server!");
         } else
         {
-            logger.LogWithColor($"[{GetType().Namespace}/APBS] APBS blacklist is up to date", LogTextColor.Green);
+            logger.Ok($"APBS blacklist is up to date");
         }
     }
 }

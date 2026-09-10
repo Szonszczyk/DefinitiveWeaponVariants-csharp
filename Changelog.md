@@ -1,3 +1,8 @@
+# Version 4.3.2 for SPT ~4.1.2
+
+- Initial release for SPT 4.1.2
+
+----------
 # Version 4.3.1 for SPT ~4.0.13
 
 ### Bugfixes

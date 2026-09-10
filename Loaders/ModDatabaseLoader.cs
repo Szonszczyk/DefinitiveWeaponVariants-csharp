@@ -1,9 +1,8 @@
-﻿using DefinitiveWeaponVariants.Interfaces;
+﻿using DefinitiveWeaponVariants.Helpers;
+using DefinitiveWeaponVariants.Interfaces;
 using SPTarkov.DI.Annotations;
-using SPTarkov.Server.Core.Helpers;
-using SPTarkov.Server.Core.Models.Eft.Common;
-using SPTarkov.Server.Core.Models.Logging;
-using SPTarkov.Server.Core.Models.Utils;
+using SPTarkov.Server.Core.Helpers.Server;
+using SPTarkov.Server.Core.Models.Spt.Tables;
 using System.Reflection;
 
 namespace DefinitiveWeaponVariants.Loaders;
@@ -12,13 +11,13 @@ namespace DefinitiveWeaponVariants.Loaders;
 public class ModDatabaseLoader
 {
     private readonly string modFolder;
-    private readonly ISptLogger<DefinitiveWeaponVariants> _logger;
+    private readonly CustomLogger _logger;
     private readonly ModHelper _modHelper;
     public Dictionary<string, VariantConfiguration> DbVariants { get; private set; }
     public Dictionary<string, VariantConfiguration> DbItems { get; private set; }
     public Dictionary<string, string> DbShortnames { get; private set; }
     public Dictionary<string, Preset> DbPresets { get; private set; }
-    public ModDatabaseLoader(ISptLogger<DefinitiveWeaponVariants> logger, ModHelper modHelper) 
+    public ModDatabaseLoader(CustomLogger logger, ModHelper modHelper) 
     {
         modFolder = modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
         _logger = logger;
@@ -36,7 +35,7 @@ public class ModDatabaseLoader
 
         if (!Directory.Exists(directoryPath))
         {
-            _logger.LogWithColor($"[{GetType().Namespace}] Directory not found: {directoryPath}!", LogTextColor.Yellow);
+            _logger.Warning($"Directory not found: {directoryPath}!");
             return combinedData;
         }
 
@@ -58,7 +57,7 @@ public class ModDatabaseLoader
                         // Both have Description → log error and skip
                         if (!string.IsNullOrEmpty(existing.Description) && !string.IsNullOrEmpty(value.Description))
                         {
-                            _logger.LogWithColor($"[{GetType().Namespace}] Duplicate Description conflict for key '{key}' in {Path.GetFileName(file)}. Only one variant config should have 'Description' property!", LogTextColor.Red);
+                            _logger.Error($"Duplicate Description conflict for key '{key}' in {Path.GetFileName(file)}. Only one variant config should have 'Description' property!");
                             continue;
                         }
 
@@ -111,7 +110,7 @@ public class ModDatabaseLoader
             }
             catch (Exception ex)
             {
-                _logger.LogWithColor($"[{GetType().Namespace}] Error reading {Path.GetFileName(file)}: {ex.Message}", LogTextColor.Red);
+                _logger.Error($"Error reading {Path.GetFileName(file)}: {ex.Message}");
             }
         }
 
@@ -123,7 +122,7 @@ public class ModDatabaseLoader
 
         if (!Directory.Exists(directoryPath))
         {
-            _logger.LogWithColor($"[{GetType().Namespace}] Directory not found: {directoryPath}!", LogTextColor.Yellow);
+            _logger.Warning($"Directory not found: {directoryPath}!");
             return combinedData;
         }
 
@@ -145,7 +144,7 @@ public class ModDatabaseLoader
             }
             catch (Exception ex)
             {
-                _logger.LogWithColor($"[{GetType().Namespace}] Error reading {Path.GetFileName(file)}: {ex.Message}", LogTextColor.Red);
+                _logger.Error($"Error reading {Path.GetFileName(file)}: {ex.Message}");
             }
         }
         return combinedData;
@@ -156,7 +155,7 @@ public class ModDatabaseLoader
 
         if (!Directory.Exists(directoryPath))
         {
-            _logger.LogWithColor($"[{GetType().Namespace}] Directory not found: {directoryPath}!", LogTextColor.Yellow);
+            _logger.Warning($"Directory not found: {directoryPath}!");
             return combinedData;
         }
 
@@ -178,7 +177,7 @@ public class ModDatabaseLoader
             }
             catch (Exception ex)
             {
-                _logger.LogWithColor($"[{GetType().Namespace}] Error reading {Path.GetFileName(file)}: {ex.Message}", LogTextColor.Red);
+                _logger.Error($"Error reading {Path.GetFileName(file)}: {ex.Message}");
             }
         }
         return combinedData;

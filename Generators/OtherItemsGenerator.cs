@@ -4,22 +4,20 @@ using DefinitiveWeaponVariants.Helpers;
 using DefinitiveWeaponVariants.Interfaces;
 using DefinitiveWeaponVariants.Loaders;
 using SPTarkov.DI.Annotations;
-using SPTarkov.Server.Core.Helpers;
+using SPTarkov.Server.Core.Helpers.Items;
 using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
-using SPTarkov.Server.Core.Models.Logging;
 using SPTarkov.Server.Core.Models.Spt.Config;
-using SPTarkov.Server.Core.Models.Utils;
 using SPTarkov.Server.Core.Utils.Cloners;
 
 namespace DefinitiveWeaponVariants.Generators;
 
 [Injectable(InjectionType.Singleton)]
 public class OtherItemsGenerator(
-    ISptLogger<DefinitiveWeaponVariants> logger,
+    CustomLogger logger,
     IdDatabaseManager idDatabaseManager,
     CustomSlotsChanger customSlotsChanger,
-    ConfigLoader configLoader,
+    ConfigData config,
     ICloner cloner,
     ModDataStorage modDataStorage,
     ItemGenerator itemGenerator,
@@ -27,14 +25,14 @@ public class OtherItemsGenerator(
     CustomItemCreator customItemCreator
 )
 {
-    private readonly ConfigData modConfig = configLoader.Config;
+    private readonly ConfigData modConfig = config;
     private Dictionary<string, int> UnknownPackageLootpool { get; set; } = [];
 
     private Dictionary<MongoId, double> UnknownPackageLootpoolIds { get; set; } = [];
 
     private TemplateItemProperties VariantCorePropertiesOverride { get; } = new()
     {
-        StackMaxSize = configLoader.Config.VariantCores.General.StackMaxSize,
+        StackMaxSize = config.VariantCores.General.StackMaxSize,
         Prefab = new Prefab
         {
             Path = "assets/content/items/barter/cpu/item_cpu.bundle",

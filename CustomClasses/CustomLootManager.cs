@@ -3,14 +3,11 @@ using DefinitiveWeaponVariants.Helpers;
 using DefinitiveWeaponVariants.Interfaces;
 using DefinitiveWeaponVariants.Loaders;
 using SPTarkov.DI.Annotations;
-using SPTarkov.Server.Core.Helpers;
+using SPTarkov.Server.Core.Helpers.Items;
 using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Eft.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
-using SPTarkov.Server.Core.Models.Logging;
 using SPTarkov.Server.Core.Models.Spt.Config;
-using SPTarkov.Server.Core.Models.Utils;
-using SPTarkov.Server.Core.Services;
 using SPTarkov.Server.Core.Utils;
 using SPTarkov.Server.Core.Utils.Cloners;
 
@@ -18,17 +15,16 @@ namespace DefinitiveWeaponVariants.CustomClasses;
 
 [Injectable(InjectionType.Singleton)]
 public class CustomLootManager(
-    ISptLogger<DefinitiveWeaponVariants> logger,
-    DatabaseService databaseService,
+    CustomLogger logger,
     ICloner cloner,
-    ConfigLoader configLoader,
+    ConfigData config,
     ItemHelper itemHelper,
     RandomUtil randomUtil,
     IdDatabaseManager idDatabaseManager,
     ModDataStorage modDataStorage
 )
 {
-    private readonly ConfigData modConfig = configLoader.Config;
+    private readonly ConfigData modConfig = config;
 
     private class WeightDataForLoot
     {
@@ -108,13 +104,13 @@ public class CustomLootManager(
         var weights = GetWeightDataForLoot();
         if (weights["Marked"].Probability < 0 || weights["Marked"].Probability >= 1)
         {
-            logger.LogWithColor($"[{GetType().Namespace}] Config option of MarkedRoomsProbability is incorrect, is: {weights["Marked"].Probability}, should be between 0 and 1. Disabling adding variants to Marked rooms!", LogTextColor.Red);
+            logger.Error($"Config option of MarkedRoomsProbability is incorrect, is: {weights["Marked"].Probability}, should be between 0 and 1. Disabling adding variants to Marked rooms!");
             weights["Marked"].Probability = 0;
         }
-        var locations = databaseService.GetLocations().GetDictionary();
+        var locations = modDataStorage.LocationsData.GetDictionary();
 
         
-        logger.LogWithColor($"[{GetType().Namespace}] There are {weights["Marked"].TotalWeapons} possible weapons in Marked Rooms", LogTextColor.Cyan);
+        logger.Ok($"There are {weights["Marked"].TotalWeapons} possible weapons in Marked Rooms");
         foreach ((string locationId, Location location) in locations)
         {
             // Add info about 12.7x108 caliber
@@ -152,7 +148,7 @@ public class CustomLootManager(
                                     Key = composedKey
                                 }
                             });
-                            //logger.LogWithColor($"[{GetType().Namespace}] Added {composedKey}/{quality} with {Math.Floor(probabilityOfAddedItems * ((double)modConfig.QualityWeights[quality] / (double)weights["Marked"].TotalWeight))}(QWEIGHT:{modConfig.QualityWeights[quality]}/TOTALWEIGHT:{weights["Marked"].TotalWeight})(MAX:{totalProbability},ADDED:{probabilityOfAddedItems}) to {spawnpointId}", LogTextColor.Cyan);
+                            logger.Debug($"Added {composedKey}/{quality} with {Math.Floor(probabilityOfAddedItems * ((double)modConfig.QualityWeights[quality] / (double)weights["Marked"].TotalWeight))}(QWEIGHT:{modConfig.QualityWeights[quality]}/TOTALWEIGHT:{weights["Marked"].TotalWeight})(MAX:{totalProbability},ADDED:{probabilityOfAddedItems}) to {spawnpointId}");
                         }
 
                         // TODO: Add variants to loose loot
@@ -313,7 +309,7 @@ public class CustomLootManager(
     public void AddCoresToBotPockets()
     {
         if (!modConfig.VariantCoresEnabled) return;
-        var bots = databaseService.GetBots();
+        var bots = modDataStorage.Bots;
         foreach (var (botName, prob) in modConfig.VariantCores.Normal.FoundOnEnemies)
         {
             if (prob <= 0) continue;
@@ -321,7 +317,7 @@ public class CustomLootManager(
             bots.Types.TryGetValue(botName, out var bot);
             if (bot is null)
             {
-                logger.LogWithColor($"[{GetType().Namespace}] Bot name '{botName}' is incorrect. Bot names can be found in SPT_Data\\database\\bots\\types", LogTextColor.Cyan);
+                logger.Warning($"Bot name '{botName}' is incorrect. Bot names can be found in SPT_Data\\database\\bots\\types");
                 continue;
             }
             var pockets = bot.BotInventory.Items.Pockets;
@@ -339,7 +335,7 @@ public class CustomLootManager(
                     if (find && item is not null)
                     {
                         pockets.Add(idDatabaseId, Math.Ceiling(((float)modConfig.QualityWeights[quality] / (float)qualityTotal) * probabilityOfAddedItems)); 
-                        //logger.LogWithColor($"[{GetType().Namespace}] Added {quality} Quality Variant Core with {Math.Ceiling(((float)modConfig.QualityWeights[quality] / (float)qualityTotal) * probabilityOfAddedItems)}(QWEIGHT:{modConfig.QualityWeights[quality]}/TOTALWEIGHT:{qualityTotal})(MAX:{totalProbability},ADDED:{probabilityOfAddedItems}) to Scav pockets", LogTextColor.Cyan);
+                        logger.Debug($"Added {quality} Quality Variant Core with {Math.Ceiling(((float)modConfig.QualityWeights[quality] / (float)qualityTotal) * probabilityOfAddedItems)}(QWEIGHT:{modConfig.QualityWeights[quality]}/TOTALWEIGHT:{qualityTotal})(MAX:{totalProbability},ADDED:{probabilityOfAddedItems}) to Scav pockets");
                     }
                 }
             }

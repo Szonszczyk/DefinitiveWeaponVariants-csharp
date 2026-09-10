@@ -5,32 +5,30 @@ using DefinitiveWeaponVariants.Interfaces;
 using DefinitiveWeaponVariants.Loaders;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.Extensions;
-using SPTarkov.Server.Core.Helpers;
+using SPTarkov.Server.Core.Helpers.Items;
 using SPTarkov.Server.Core.Models.Common;
-using SPTarkov.Server.Core.Models.Eft.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
-using SPTarkov.Server.Core.Models.Logging;
 using SPTarkov.Server.Core.Models.Spt.Mod;
-using SPTarkov.Server.Core.Models.Utils;
+using SPTarkov.Server.Core.Models.Spt.Tables;
 using SPTarkov.Server.Core.Utils.Cloners;
 
 namespace DefinitiveWeaponVariants.Generators;
 
 [Injectable(InjectionType.Singleton)]
 public class WeaponGenerator(
-    ISptLogger<DefinitiveWeaponVariants> logger,
+    CustomLogger logger,
     ModDatabaseLoader modDatabaseLoader,
     IdDatabaseManager idDatabaseManager,
     CustomItemCreator customItemCreator,
     CustomPropertiesChanger customPropertiesChanger,
     CustomSlotsChanger customSlotsChanger,
     ICloner cloner,
-    ConfigLoader configLoader,
+    ConfigData config,
     ItemHelper itemHelper,
     ModDataStorage modDataStorage
 )
 {
-    private readonly ConfigData modConfig = configLoader.Config;
+    private readonly ConfigData modConfig = config;
     private readonly Dictionary<string, string> weaponDescriptions = [];
     private readonly Dictionary<string, List<string>> weaponListForKillQuests = [];
 
@@ -64,6 +62,7 @@ public class WeaponGenerator(
                     double? price = copiedItemHandbook!.Price;
                     var newWeapon = new NewItemFromCloneDetails
                     {
+                        NewItemName = variantName,
                         ItemTplToClone = copiedWeaponId,
                         ParentId = variant.Changes?.Parent != null ? variant.Changes.Parent : copiedItem.Parent, 
                         HandbookParentId = copiedItemHandbook!.ParentId,
@@ -161,7 +160,7 @@ public class WeaponGenerator(
                                     item.Template = presetItem.Id;
                                 } else
                                 {
-                                    logger.LogWithColor($"[{GetType().Namespace}] Preset for {variantShortName} have incorrect item: {item.Desc}!", LogTextColor.Yellow);
+                                    logger.Warning($"Preset for {variantShortName} have incorrect item: {item.Desc}!");
                                 }
                                 item.Desc = null;
                             }
@@ -179,7 +178,7 @@ public class WeaponGenerator(
                     }
                     else
                     {
-                        logger.LogWithColor($"[{GetType().Namespace}] Weapon {copiedItemName} is missing preset so it can't be added to {variantShortName}!", LogTextColor.Yellow);
+                        logger.Warning($"Weapon {copiedItemName} is missing preset so it can't be added to {variantShortName}!");
                     }
 
                     // Add to inventory slots
@@ -302,12 +301,12 @@ public class WeaponGenerator(
                                 }
                                 else
                                 {
-                                    logger.LogWithColor($"[{GetType().Namespace}] Ammo for {variantShortName} is incorrect: {firstId}", LogTextColor.Red);
+                                    logger.Error($"Ammo for {variantShortName} is incorrect: {firstId}");
                                 }
                             }
                             else
                             {
-                                logger.LogWithColor($"[{GetType().Namespace}] Weapon '{variantShortName}' don't have any ammunition allowed in chambers!", LogTextColor.Red);
+                                logger.Error($"Weapon '{variantShortName}' don't have any ammunition allowed in chambers!");
                             }
                         } else
                         {
@@ -323,12 +322,12 @@ public class WeaponGenerator(
                                 }
                                 else
                                 {
-                                    logger.LogWithColor($"[{GetType().Namespace}] Ammo for {variantShortName} is incorrect: {firstId}", LogTextColor.Red);
+                                    logger.Error($"Ammo for {variantShortName} is incorrect: {firstId}");
                                 }
                             } else
                             {
                                 // Weapon have chambers - but were not changed
-                                logger.LogWithColor($"[{GetType().Namespace}] Chambers in weapon '{variantShortName}' were not changed - unknown error!", LogTextColor.Red);
+                                logger.Error($"Chambers in weapon '{variantShortName}' were not changed - unknown error!");
                             }
                         }
                     }
@@ -406,11 +405,10 @@ public class WeaponGenerator(
 
     private List<string> GetAllowedWeaponsToGenerate(string variantName, VariantConfiguration variant)
     {
-        var modConfig = configLoader.Config;
         if (modConfig.NotGenerateVariantTypes.Contains(variantName)) return [];
 
         if (variant.Rarity == null || RaritySettings.GetByName(variant.Rarity) == null) {
-            logger.LogWithColor($"[{GetType().Namespace}] Rarity of {variantName} is missing or is incorrect: {variant.Rarity}", LogTextColor.Red);
+            logger.Error($"Rarity of {variantName} is missing or is incorrect: {variant.Rarity}");
             return [];
         }
         if (!modConfig.Generate[variant.Rarity]) return [];
@@ -428,19 +426,19 @@ public class WeaponGenerator(
             }
             if (string.IsNullOrEmpty(copiedWeaponId))
             {
-                logger.LogWithColor($"[{GetType().Namespace}] Weapon {weaponShortname} is missing shortname in db/03_Shortnames (or is incorrect)", LogTextColor.Red);
+                logger.Error($"Weapon {weaponShortname} is missing shortname in db/03_Shortnames (or is incorrect)");
                 continue;
             }
             modDataStorage.Items.TryGetValue(copiedWeaponId, out var copiedItem);
             if (copiedItem == null)
             {
-                logger.LogWithColor($"[{GetType().Namespace}] Base weapon '{weaponShortname}/{copiedWeaponId}' not found. Skipping", LogTextColor.Yellow);
+                logger.Warning($"Base weapon '{weaponShortname}/{copiedWeaponId}' not found. Skipping");
                 continue;
             }
             HandbookItem? copiedItemHandbook = modDataStorage.Handbook.Items.Find(t => t.Id == copiedWeaponId);
             if (copiedItemHandbook == null)
             {
-                logger.LogWithColor($"[{GetType().Namespace}] Handbook entry for '{weaponShortname}/{copiedWeaponId}' not found. Skipping", LogTextColor.Yellow);
+                logger.Warning($"Handbook entry for '{weaponShortname}/{copiedWeaponId}' not found. Skipping");
                 continue;
             }
             weaponsToGenerate.Add(weaponShortname);

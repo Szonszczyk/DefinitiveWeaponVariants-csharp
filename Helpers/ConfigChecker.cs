@@ -1,19 +1,16 @@
 ﻿using DefinitiveWeaponVariants.Constants;
 using DefinitiveWeaponVariants.Interfaces;
-using DefinitiveWeaponVariants.Loaders;
 using SPTarkov.DI.Annotations;
-using SPTarkov.Server.Core.Models.Logging;
-using SPTarkov.Server.Core.Models.Utils;
 
 namespace DefinitiveWeaponVariants.Helpers;
 
 [Injectable(InjectionType.Singleton)]
 public class ConfigChecker(
-    ISptLogger<DefinitiveWeaponVariants> logger,
-    ConfigLoader configLoader
+    CustomLogger logger,
+    ConfigData config
 )
 {
-    private readonly ConfigData modConfig = configLoader.Config;
+    private readonly ConfigData modConfig = config;
 
     // Add any missing values, change incorrect ones + false/zero all values if Generate is false for this quality
     public void CheckConfig()
@@ -57,7 +54,7 @@ public class ConfigChecker(
     private float CheckProbability(float value, string name)
     {
         var clamped = Math.Clamp(value, 0f, 0.99f);
-        if (value != clamped) logger.LogWithColor($"[{GetType().Namespace}] Config option for '{name}' is incorrect. Is {value}, should be between 0.99 and 0.", LogTextColor.Red);
+        if (value != clamped) logger.Error($"Config option for '{name}' is incorrect. Is {value}, should be between 0.99 and 0.");
         return clamped;
     }
 }

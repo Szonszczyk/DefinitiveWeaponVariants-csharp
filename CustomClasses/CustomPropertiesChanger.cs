@@ -1,9 +1,8 @@
-﻿using DefinitiveWeaponVariants.Interfaces;
+﻿using DefinitiveWeaponVariants.Helpers;
+using DefinitiveWeaponVariants.Interfaces;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
-using SPTarkov.Server.Core.Models.Logging;
-using SPTarkov.Server.Core.Models.Utils;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
@@ -12,7 +11,7 @@ namespace DefinitiveWeaponVariants.CustomClasses;
 
 [Injectable(InjectionType.Singleton)]
 public class CustomPropertiesChanger(
-    ISptLogger<DefinitiveWeaponVariants> logger
+    CustomLogger logger
 )
 {
     public TemplateItemProperties ChangeItemProperties(
@@ -31,7 +30,7 @@ public class CustomPropertiesChanger(
 
             if (originalProp == null)
             {
-                logger.LogWithColor($"[{GetType().Namespace}] Incorrect property '{propertyName}' in {variantShortName} variant!", LogTextColor.Red);
+                logger.Error($"Incorrect property '{propertyName}' in {variantShortName} variant!");
                 continue;
             }
 
@@ -50,7 +49,7 @@ public class CustomPropertiesChanger(
                     if (jsonPropertyValue.ValueKind == JsonValueKind.Number || jsonPropertyValue.ValueKind == JsonValueKind.String)
                         TrySetProperty(overrideProperties, propertyName, CalculateValue(d, jsonPropertyValue));
                     else
-                        logger.LogWithColor($"[{GetType().Namespace}] Value for '{variantShortName}' property '{propertyName}' is of incorrect type. Expected 'double/string', got '{newPropertyValue}'({jsonPropertyValue.ValueKind})!", LogTextColor.Red);
+                        logger.Error($"Value for '{variantShortName}' property '{propertyName}' is of incorrect type. Expected 'double/string', got '{newPropertyValue}'({jsonPropertyValue.ValueKind})!");
                     break;
                 case int i:
                     if (config?.Changes?.Minimum != null)
@@ -63,32 +62,32 @@ public class CustomPropertiesChanger(
                     if (jsonPropertyValue.ValueKind == JsonValueKind.Number || jsonPropertyValue.ValueKind == JsonValueKind.String)
                         TrySetProperty(overrideProperties, propertyName, (int)CalculateValue(i, jsonPropertyValue));
                     else
-                        logger.LogWithColor($"[{GetType().Namespace}] Value for '{variantShortName}' property '{propertyName}' is of incorrect type. Expected 'int/string', got '{newPropertyValue}'({jsonPropertyValue.ValueKind})!", LogTextColor.Red);
+                        logger.Error($"Value for '{variantShortName}' property '{propertyName}' is of incorrect type. Expected 'int/string', got '{newPropertyValue}'({jsonPropertyValue.ValueKind})!");
                     break;
                 case bool b:
                     if (jsonPropertyValue.ValueKind == JsonValueKind.False || jsonPropertyValue.ValueKind == JsonValueKind.True)
                         TrySetProperty(overrideProperties, propertyName, newPropertyValue);
                     else
-                        logger.LogWithColor($"[{GetType().Namespace}] Value for '{variantShortName}' property '{propertyName}' is of incorrect type. Expected 'bool', got '{newPropertyValue}'({jsonPropertyValue.ValueKind})!", LogTextColor.Red);
+                        logger.Error($"Value for '{variantShortName}' property '{propertyName}' is of incorrect type. Expected 'bool', got '{newPropertyValue}'({jsonPropertyValue.ValueKind})!");
                     break;
                 case string s:
                     if (jsonPropertyValue.ValueKind == JsonValueKind.String)
                         TrySetProperty(overrideProperties, propertyName, newPropertyValue);
                     else
-                        logger.LogWithColor($"[{GetType().Namespace}] Value for '{variantShortName}' property '{propertyName}' is of incorrect type. Expected 'string', got '{newPropertyValue}'({jsonPropertyValue.ValueKind})!", LogTextColor.Red);
+                        logger.Error($"Value for '{variantShortName}' property '{propertyName}' is of incorrect type. Expected 'string', got '{newPropertyValue}'({jsonPropertyValue.ValueKind})!");
                     break;
                 case MongoId id:
                     string? mongoIdString = jsonPropertyValue.GetString();
                     if (jsonPropertyValue.ValueKind == JsonValueKind.String && mongoIdString is not null && MongoId.IsValidMongoId(mongoIdString))
                         TrySetProperty(overrideProperties, propertyName, newPropertyValue);
                     else
-                        logger.LogWithColor($"[{GetType().Namespace}] Value for '{variantShortName}' property '{propertyName}' is of incorrect type. Expected 'MongoId', got '{newPropertyValue}'({jsonPropertyValue.ValueKind})!", LogTextColor.Red);
+                        logger.Error($"Value for '{variantShortName}' property '{propertyName}' is of incorrect type. Expected 'MongoId', got '{newPropertyValue}'({jsonPropertyValue.ValueKind})!");
                     break;
                 case HashSet<string> hSet:
                     if (jsonPropertyValue.ValueKind == JsonValueKind.Array)
                         TrySetProperty(overrideProperties, propertyName, newPropertyValue);
                     else
-                        logger.LogWithColor($"[{GetType().Namespace}] Value for '{variantShortName}' property '{propertyName}' is of incorrect type. Expected 'array<string>', got '{newPropertyValue.ToString}'({jsonPropertyValue.ValueKind})!", LogTextColor.Red);
+                        logger.Error($"Value for '{variantShortName}' property '{propertyName}' is of incorrect type. Expected 'array<string>', got '{newPropertyValue.ToString}'({jsonPropertyValue.ValueKind})!");
                     break;
                 case null:
                     break;
@@ -108,13 +107,13 @@ public class CustomPropertiesChanger(
 
         if (prop == null)
         {
-            logger.LogWithColor($"[{GetType().Namespace}] Property '{propertyName}' not found on type {type.Name}", LogTextColor.Red);
+            logger.Error($"Property '{propertyName}' not found on type {type.Name}");
             return;
         }
 
         if (!prop.CanWrite)
         {
-            logger.LogWithColor($"[{GetType().Namespace}] Property '{propertyName}' is read-only!", LogTextColor.Red);
+            logger.Error($"Property '{propertyName}' is read-only!");
             return;
         }
 
@@ -135,7 +134,7 @@ public class CustomPropertiesChanger(
 
                     if (string.IsNullOrWhiteSpace(idString))
                     {
-                        logger.LogWithColor($"[{GetType().Namespace}] MongoId value for '{propertyName}' is null or empty!", LogTextColor.Red);
+                        logger.Error($"MongoId value for '{propertyName}' is null or empty!");
                         return;
                     }
 
@@ -145,7 +144,7 @@ public class CustomPropertiesChanger(
                 }
                 catch (Exception ex)
                 {
-                    logger.LogWithColor($"[{GetType().Namespace}] Failed to convert value to MongoId for '{propertyName}': {ex.Message}", LogTextColor.Red);
+                    logger.Error($"Failed to convert value to MongoId for '{propertyName}': {ex.Message}");
                     return;
                 }
             }
@@ -160,7 +159,7 @@ public class CustomPropertiesChanger(
                 }
                 catch (Exception ex)
                 {
-                    logger.LogWithColor($"[{GetType().Namespace}] Failed to deserialize JsonElement to {propType.Name}: {ex.Message}", LogTextColor.Red);
+                    logger.Error($"Failed to deserialize JsonElement to {propType.Name}: {ex.Message}");
                     return;
                 }
             }
@@ -172,7 +171,7 @@ public class CustomPropertiesChanger(
                 }
                 catch
                 {
-                    logger.LogWithColor($"[{GetType().Namespace}] Cannot convert value of type {value.GetType().Name} to {propType.Name}", LogTextColor.Red);
+                    logger.Error($"Cannot convert value of type {value.GetType().Name} to {propType.Name}");
                     return;
                 }
             }
@@ -180,7 +179,7 @@ public class CustomPropertiesChanger(
         }
         catch (Exception ex)
         {
-            logger.LogWithColor($"[{GetType().Namespace}] Error setting '{propertyName}': {ex.Message}", LogTextColor.Red);
+            logger.Error($"Error setting '{propertyName}': {ex.Message}");
             return;
         }
     }

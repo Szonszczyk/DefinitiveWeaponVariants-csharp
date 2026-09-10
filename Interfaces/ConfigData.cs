@@ -28,6 +28,7 @@ public class ConfigData
     public CustomBarterConfig DWVCaliberBarter { get; set; } = new CustomBarterConfig(); // 14.1.
     public Dictionary<string, int> APBSTierConfig { get; set; } = [];  // 15.1.
     public List<string> APBSBlacklistedVariantTypes { get; set; } = [];  // 15.1.
+    public bool Debug { get; set; } = false;
 }
 
 public class VariantCoresTypesConfigData
