@@ -117,8 +117,11 @@ public class CustomLootManager(
         logger.LogWithColor($"[{GetType().Namespace}] There are {weights["Marked"].TotalWeapons} possible weapons in Marked Rooms", LogTextColor.Cyan);
         foreach ((string locationId, Location location) in locations)
         {
-            // Add info about 12.7x108 caliber
-            location.StaticAmmo?.Add("Caliber127x108", caliber127x108details);
+            // Add info about 12.7x108 caliber.
+            // TryAdd: another mod (e.g. Amonya) may have injected this caliber into
+            // StaticAmmo already; a plain Add would throw "An item with the same key
+            // has already been added" and crash the server at startup.
+            location.StaticAmmo?.TryAdd("Caliber127x108", caliber127x108details);
 
             if (!((weights["Marked"].Probability == 0 && weights["LooseLoot"].Probability == 0) || (weights["Marked"].TotalWeapons == 0 && weights["LooseLoot"].TotalWeapons == 0)))
             {
