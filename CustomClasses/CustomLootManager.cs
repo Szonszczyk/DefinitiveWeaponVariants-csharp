@@ -114,7 +114,7 @@ public class CustomLootManager(
         foreach ((string locationId, Location location) in locations)
         {
             // Add info about 12.7x108 caliber
-            location.StaticAmmo?.Add("Caliber127x108", caliber127x108details);
+            location.StaticAmmo?.TryAdd("Caliber127x108", caliber127x108details);
 
             if (!((weights["Marked"].Probability == 0 && weights["LooseLoot"].Probability == 0) || (weights["Marked"].TotalWeapons == 0 && weights["LooseLoot"].TotalWeapons == 0)))
             {
@@ -303,9 +303,6 @@ public class CustomLootManager(
             }
         }
     }
-
-    
-
     public void AddCoresToBotPockets()
     {
         if (!modConfig.VariantCoresEnabled) return;
