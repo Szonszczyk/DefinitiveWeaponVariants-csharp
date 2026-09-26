@@ -1,0 +1,11 @@
+/* Per-mod theme. Edit these colors to distinguish your mod's config page.
+   Ship this wwwroot directory next to the mod DLL (not inside config).
+   Changes to this file require a browser refresh, not a DLL rebuild.
+   Keep selectors scoped so they do not restyle SPT or other mods. */
+.mod-config-editor {
+    --mc-accent: #97dfc3;         /* Buttons, sliders, checkboxes, small heading. */
+    --mc-accent-text: #13291f;    /* Text on the accent button. */
+    --mc-highlight: #253d37;      /* Selected section background. */
+    --mc-background: #131a24;    /* Whole page background. */
+    --mc-panel: #1b2533;         /* Configuration panel background. */
+}

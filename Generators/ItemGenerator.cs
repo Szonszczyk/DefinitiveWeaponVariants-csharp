@@ -7,6 +7,7 @@ using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
 using SPTarkov.Server.Core.Models.Spt.Mod;
+using SPTarkov.Server.Core.Models.Spt.Tables;
 
 namespace DefinitiveWeaponVariants.Generators;
 
@@ -19,7 +20,9 @@ public class ItemGenerator(
     CustomPropertiesChanger customPropertiesChanger,
     CustomSlotsChanger customSlotsChanger,
     ConfigData config,
-    ModDataStorage modDataStorage
+    ModDataStorage modDataStorage,
+    TradersTable tradersTable,
+    TemplateTable templateTable
 )
 {
     private readonly ConfigData modConfig = config;
@@ -49,17 +52,17 @@ public class ItemGenerator(
                 return null;
             }
             MongoId itemTplToClone = (MongoId)variant.ItemTplToClone;
-            modDataStorage.Items.TryGetValue(itemTplToClone, out var copiedItem);
+            templateTable.Items.TryGetValue(itemTplToClone, out var copiedItem);
             if (copiedItem is null)
             {
                 logger.Warning($"ItemTplToClone {variant.ItemTplToClone} is not found (or you are missing some mod) ({variantName})! Skipping");
                 return null;
             }
 
-            HandbookItem? copiedItemHandbook = modDataStorage.Handbook.Items.Find(t => t.Id == itemTplToClone);
+            HandbookItem? copiedItemHandbook = templateTable.Handbook.Items.Find(t => t.Id == itemTplToClone);
             RarityData rarity = RaritySettings.GetByName(variant.Rarity);
             if (variant.Barter is not null && modConfig.AmonyaTraderMode) variant.Barter.TraderId = "ee840a5ba014e9c5478d5ccd";
-            var traderName = (variant.Barter == null || customItemCreator.GetTraderIdByName(variant.Barter.TraderId) == null) ? "N/A" : modDataStorage.Traders[(MongoId)customItemCreator.GetTraderIdByName(variant.Barter.TraderId)!].Base.Nickname;
+            var traderName = (variant.Barter == null || customItemCreator.GetTraderIdByName(variant.Barter.TraderId) == null) ? "N/A" : tradersTable[(MongoId)customItemCreator.GetTraderIdByName(variant.Barter.TraderId)!].Base.Nickname;
             var text = variant.Barter == null ? "Can't be bought from traders" : $"Can be bought in {traderName} LL{variant.Barter.LoyalLevel}";
             var newItem = new NewItemFromCloneDetails
             {
@@ -130,7 +133,7 @@ public class ItemGenerator(
                         var firstId = newChamberFilter.First();
                         newItem.OverrideProperties.DefAmmo = firstId;
 
-                        if (modDataStorage.Items.TryGetValue(firstId, out var item) && item?.Properties?.Caliber != null)
+                        if (templateTable.Items.TryGetValue(firstId, out var item) && item?.Properties?.Caliber != null)
                         {
                             newItem.OverrideProperties.AmmoCaliber = item.Properties.Caliber;
                         }

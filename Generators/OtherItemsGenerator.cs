@@ -14,7 +14,6 @@ namespace DefinitiveWeaponVariants.Generators;
 
 [Injectable(InjectionType.Singleton)]
 public class OtherItemsGenerator(
-    CustomLogger logger,
     IdDatabaseManager idDatabaseManager,
     CustomSlotsChanger customSlotsChanger,
     ConfigData config,
@@ -22,7 +21,8 @@ public class OtherItemsGenerator(
     ModDataStorage modDataStorage,
     ItemGenerator itemGenerator,
     ItemHelper itemHelper,
-    CustomItemCreator customItemCreator
+    CustomItemCreator customItemCreator,
+    InventoryConfig inventoryConfig
 )
 {
     private readonly ConfigData modConfig = config;
@@ -432,7 +432,7 @@ public class OtherItemsGenerator(
             (bool find, TemplateItem? item) = itemHelper.GetItem(idDatabaseId);
             if (find && item is not null)
             {
-                modDataStorage.InventoryConfigData.RandomLootContainers.Add(idDatabaseId, new RewardDetails
+                inventoryConfig.RandomLootContainers.Add(idDatabaseId, new RewardDetails
                 {
                     RewardCount = modConfig.VariantCores.UnknownPackage.CoresReceived,
                     FoundInRaid = false,

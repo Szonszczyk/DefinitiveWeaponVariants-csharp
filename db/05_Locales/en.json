@@ -1,0 +1,13 @@
+{
+    "en": {
+        "Desc.Start": "Weapons of this variant type can be found:",
+        "Desc.Airdrop": "in Airdrop",
+        "Desc.Fence": "in Airdrop",
+        "Desc.Flea": "on Flea Market",
+        "Desc.Marked": "in Marked Rooms (Customs, Reserve, Streets)",
+        "Desc.StaticLoot": "in Weapon Boxes, Duffle Bags, Wooden Crates and Caches",
+        "Desc.BlindBox": "in {0} Weapon Variant Blind Box",
+        "Desc.APBS": "on enemies of {0}-7 tiers",
+        "Desc.Barter": "Can be bought in {0} LL{1}"
+    }
+}

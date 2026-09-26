@@ -1,0 +1,124 @@
+@namespace ModConfigEditor.Components
+
+@* This component renders ONE property. Objects call it recursively, so another
+   nesting level or mod does not require another hand-written configuration page.
+   Every binding changes the draft only. OnChanged tells the page to mark dirty. *@
+@* Simple fields without descriptions share one row: label, editor, range, reset.
+   Collections/objects and raw repairs keep their necessary multiline layout. *@
+<div class="mc-field @(IsCompact ? "mc-field-compact" : null)" @key="Field">
+    <div class="mc-field-heading">
+        <label for="@_id"><strong>@Field.Definition.Label</strong></label>
+        <button type="button" class="mc-subtle" @onclick="Reset">Reset field</button>
+    </div>
+    @if (!string.IsNullOrWhiteSpace(Field.Definition.Description))
+    {
+        <p id="@(_id + "-description")">@Field.Definition.Description</p>
+    }
+    @if (Field.Notice is not null) { <p class="mc-notice">@Field.Notice</p> }
+
+    @if (Field.RawMode)
+    {
+        <label for="@_id">Existing value needs repair (JSON)</label>
+        <textarea id="@_id" rows="4" @bind="Field.Text" @bind:event="oninput" @bind:after="Changed"></textarea>
+        <button type="button" @onclick="Repair">Use repaired value</button>
+    }
+    else if (Field.Object is { } nested)
+    {
+        <details class="mc-object" open>
+            <summary>Open @Field.Definition.Label (@nested.Fields.Count settings)</summary>
+            @foreach (var child in nested.Fields)
+            {
+                <PropertyEditor @key="child" Field="child" OnChanged="Changed" ShowEmptyUnknown="ShowEmptyUnknown" />
+            }
+            <UnknownEditor Draft="nested" OnChanged="Changed" ShowEmpty="ShowEmptyUnknown" />
+        </details>
+    }
+    else if (Field.Definition.Type == "bool")
+    {
+        <label class="mc-toggle"><input id="@_id" type="checkbox" @bind="Field.BoolValue" @bind:after="Changed" /> Enabled</label>
+    }
+    else if (Field.Definition.Type == "list" && Field.Definition.AllowedValues is { } options)
+    {
+        @if (!Field.Definition.AllowMultiple)
+        {
+            <select id="@_id" @bind="Field.SelectedIndex" @bind:after="Changed">
+                <option value="-1" disabled>Choose a value</option>
+                @for (var i = 0; i < options.Count; i++) { <option value="@i">@OptionLabel(options[i])</option> }
+            </select>
+        }
+        else
+        {
+            <div class="mc-choices" role="group" aria-label="@Field.Definition.Label">
+                @for (var i = 0; i < options.Count; i++)
+                {
+                    // Capture this iteration's index; event handlers run later.
+                    var index = i;
+                    <label><input type="checkbox" @bind="Field.Selected[index]" @bind:after="Changed" /> @OptionLabel(options[index])</label>
+                }
+            </div>
+        }
+    }
+    else if (Field.Definition.Type is "list" or "dictionary")
+    {
+        <div class="mc-entries" role="group" aria-label="@Field.Definition.Label">
+            @foreach (var entry in Field.Entries)
+            {
+                <div class="mc-row" @key="entry">
+                    @if (Field.Definition.Type == "dictionary")
+                    {
+                        <label>Key <input @bind="entry.Name" @bind:event="oninput" @bind:after="Changed" /></label>
+                    }
+                    @if ((Field.Definition.ValueType ?? Field.Definition.ItemType) == "bool")
+                    {
+                        <label>Value <select @bind="entry.Text" @bind:after="Changed"><option value="true">true</option><option value="false">false</option></select></label>
+                    }
+                    else if ((Field.Definition.ValueType ?? Field.Definition.ItemType) is "int" or "float")
+                    {
+                        <label>Value <NumericEditor @bind-Value="entry.Text" @bind-Value:after="Changed"
+                            Type="@(Field.Definition.ValueType ?? Field.Definition.ItemType!)" Minimum="Field.Definition.Minimum" Maximum="Field.Definition.Maximum" /></label>
+                    }
+                    else
+                    {
+                        <label>Value <input @bind="entry.Text" @bind:event="oninput" @bind:after="Changed" /></label>
+                    }
+                    <button type="button" @onclick="() => Remove(entry)">Remove</button>
+                </div>
+            }
+            <button type="button" @onclick="Add">Add @(Field.Definition.Type == "dictionary" ? "entry" : "item")</button>
+        </div>
+    }
+    else if (Field.Definition.Type is "int" or "float")
+    {
+        <NumericEditor Id="@_id" Label="@Field.Definition.Label" @bind-Value="Field.Text" @bind-Value:after="Changed"
+            Type="@Field.Definition.Type" Minimum="Field.Definition.Minimum" Maximum="Field.Definition.Maximum" />
+    }
+    else
+    {
+        @* Text input preserves invalid numeric text so Save can explain the error.
+           Browser number inputs sometimes turn incomplete input into an empty value. *@
+        <input id="@_id" type="text" inputmode="@(Field.Definition.Type is "int" or "float" ? "decimal" : "text")"
+               aria-describedby="@(_id + "-description")" @bind="Field.Text" @bind:event="oninput" @bind:after="Changed" />
+    }
+    @if (Field.Definition.Minimum.HasValue || Field.Definition.Maximum.HasValue)
+    {
+        <small>Range: @(Field.Definition.Minimum?.ToString() ?? "unlimited") to @(Field.Definition.Maximum?.ToString() ?? "unlimited")</small>
+    }
+    @if (Field.Error is not null) { <p class="mc-error" role="alert">@Field.Error</p> }
+</div>
+
+@code {
+    [Parameter, EditorRequired] public FieldDraft Field { get; set; } = null!;
+    [Parameter] public EventCallback OnChanged { get; set; }
+    [Parameter] public bool ShowEmptyUnknown { get; set; }
+    private readonly string _id = "mc-" + Guid.NewGuid().ToString("N");
+    private bool IsCompact => !Field.RawMode && string.IsNullOrWhiteSpace(Field.Definition.Description)
+        && (Field.Definition.Type is "bool" or "int" or "float" or "string"
+            || (Field.Definition.Type == "list" && Field.Definition.AllowedValues is not null && !Field.Definition.AllowMultiple));
+    private Task Changed() => OnChanged.InvokeAsync();
+    private async Task Reset() { Field.Reset(); await Changed(); }
+    private async Task Repair() { Field.UseRawValue(); await Changed(); }
+    private async Task Add() { Field.Entries.Add(new RawEntry("", Field.NewEntryText)); await Changed(); }
+    private async Task Remove(RawEntry entry) { Field.Entries.Remove(entry); await Changed(); }
+    private static string OptionLabel(JsonNode? value) => value?.GetValueKind() == System.Text.Json.JsonValueKind.String
+        ? value.GetValue<string>() : JsonValues.Format(value);
+}

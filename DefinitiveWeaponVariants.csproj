@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -6,24 +6,97 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <OutputType>Library</OutputType>
-    <Version>4.3.2</Version>
+    <Version>5.0.0</Version>
     <!-- The two lines below will set the output path for the binaries -->
-    <OutputPath>bin\$(Configuration)\$(ProjectName)\$(AssemblyName)\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <Authors>Szonszczyk</Authors>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="config\newVariantCoresConfigOptions.json" />
+    <Compile Remove="CustomClasses\CustomLootEditor.cs" />
+    <!-- Checks are a developer-only console project, never part of the mod DLL. -->
+    <Compile Remove="BlazorConfig\Checks\**\*.cs" />
+    <Content Remove="BlazorConfig\Checks\**\*" />
+    <!-- SPT expects wwwroot beside the DLL, including local build outputs. -->
+    <Content Update="wwwroot\**\*" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="SPTarkov.Common" Version="4.1.2" />
     <PackageReference Include="SPTarkov.DI" Version="4.1.2" />
     <PackageReference Include="SPTarkov.Server.Core" Version="4.1.2" />
+    <PackageReference Include="SPTarkov.Server.Web" Version="4.1.2" />
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="echo f | xcopy /s /y /f &quot;C:\Programowanie\SPT 4.0 Mods\DefinitiveWeaponVariants\bin\Debug\DefinitiveWeaponVariants\DefinitiveWeaponVariants.dll&quot; &quot;C:\Games\SPT 4.1\SPT_Runtime\user\mods\DefinitiveWeaponVariants\DefinitiveWeaponVariants.dll&quot;&#xD;&#xA;echo f | xcopy /s /y /f &quot;C:\Programowanie\SPT 4.0 Mods\DefinitiveWeaponVariants\bin\Debug\DefinitiveWeaponVariants\DefinitiveWeaponVariants.pdb&quot; &quot;C:\Games\SPT 4.1\SPT_Runtime\user\mods\DefinitiveWeaponVariants\DefinitiveWeaponVariants.pdb&quot;&#xD;&#xA;echo f | xcopy /s /y /f &quot;C:\Programowanie\SPT 4.0 Mods\DefinitiveWeaponVariants\db\01_Variants&quot; &quot;C:\Games\SPT 4.0 DEV\SPT_Runtime\user\mods\DefinitiveWeaponVariants\db\01_Variants&quot;&#xD;&#xA;echo f | xcopy /s /y /f &quot;C:\Programowanie\SPT 4.0 Mods\DefinitiveWeaponVariants\db\02_Items&quot; &quot;C:\Games\SPT 4.1\SPT_Runtime\user\mods\DefinitiveWeaponVariants\db\02_Items&quot;" />
+
+  <ItemGroup>
+    <Folder Include="db\05_Locales\" />
+  </ItemGroup>
+
+	<Target Name="PackageModForDistribution" AfterTargets="Build" Condition="'$(SkipModPackaging)' != 'true'">
+		<PropertyGroup>
+			<ModName Condition="'$(ModName)' == ''">$(AssemblyName)</ModName>
+			<ZipFileName Condition="'$(ZipFileName)' == ''">$(ModName).zip</ZipFileName>
+			<TempPackageDir Condition="'$(TempPackageDir)' == ''">$(ProjectDir)obj\Package</TempPackageDir>
+			<ModPackageDir Condition="'$(ModPackageDir)' == ''">$(TempPackageDir)\SPT_Runtime\user\mods\$(ModName)</ModPackageDir>
+		</PropertyGroup>
+		<Message Text="--- Starting Mod packaging for distribution ---" Importance="high" />
+		<RemoveDir Directories="$(TempPackageDir)" />
+		<MakeDir Directories="$(ModPackageDir)" />
+		<MakeDir Directories="$(ModPackageDir)\config;$(ModPackageDir)\db\01_Variants;$(ModPackageDir)\db\02_Items;$(ModPackageDir)\db\03_Shortnames;$(ModPackageDir)\db\04_Presets;$(ModPackageDir)\db\05_Locales;$(ModPackageDir)\db\99_Ids" />
+		<Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ModPackageDir)" />
+		<Copy SourceFiles="$(ProjectDir)config\defaultConfig.jsonc" DestinationFolder="$(ModPackageDir)\config" />
+		<!-- Ship the UI schema next to the defaults. Never package a player's config. -->
+		<Copy SourceFiles="$(ProjectDir)config\configSchema.json" DestinationFolder="$(ModPackageDir)\config" />
+		<MakeDir Directories="$(ModPackageDir)\wwwroot" />
+		<ItemGroup>
+			<PackageWebFiles Include="$(ProjectDir)wwwroot\**\*" />
+		</ItemGroup>
+		<Copy SourceFiles="@(PackageWebFiles)" DestinationFiles="@(PackageWebFiles->'$(ModPackageDir)\wwwroot\%(RecursiveDir)%(Filename)%(Extension)')" />
+		<ItemGroup>
+			<PackageDbFiles Include="$(ProjectDir)db\01_Variants\**\*">
+				<PackageDirectory>01_Variants</PackageDirectory>
+			</PackageDbFiles>
+			<PackageDbFiles Include="$(ProjectDir)db\02_Items\**\*">
+				<PackageDirectory>02_Items</PackageDirectory>
+			</PackageDbFiles>
+			<PackageDbFiles Include="$(ProjectDir)db\03_Shortnames\**\*">
+				<PackageDirectory>03_Shortnames</PackageDirectory>
+			</PackageDbFiles>
+			<PackageDbFiles Include="$(ProjectDir)db\04_Presets\**\*">
+				<PackageDirectory>04_Presets</PackageDirectory>
+			</PackageDbFiles>
+			<PackageDbFiles Include="$(ProjectDir)db\05_Locales\**\*">
+				<PackageDirectory>05_Locales</PackageDirectory>
+			</PackageDbFiles>
+			<PackageDbFiles Include="$(ProjectDir)db\99_Ids\**\*">
+				<PackageDirectory>99_Ids</PackageDirectory>
+			</PackageDbFiles>
+		</ItemGroup>
+		<Copy SourceFiles="@(PackageDbFiles)" DestinationFiles="@(PackageDbFiles->'$(ModPackageDir)\db\%(PackageDirectory)\%(RecursiveDir)%(Filename)%(Extension)')" />
+		<ZipDirectory SourceDirectory="$(TempPackageDir)" DestinationFile="$(ProjectDir)$(ZipFileName)" Overwrite="true" />
+		<RemoveDir Directories="$(TempPackageDir)" />
+		<Message Text="--- Mod successfully packaged at: $(ProjectDir)$(ZipFileName) ---" Importance="high" />
+	</Target>
+
+  <!-- Preserve DWV's local deployment workflow, but use the actual build output
+       so Debug/Release and output-folder changes cannot deploy a stale DLL. -->
+  <PropertyGroup>
+    <ModDeployDirectory Condition="'$(ModDeployDirectory)' == ''">C:\Games\SPT 4.1\SPT_Runtime\user\mods\DefinitiveWeaponVariants</ModDeployDirectory>
+  </PropertyGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(SkipModDeploy)' != 'true'">
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ModDeployDirectory)" />
+    <Copy SourceFiles="$(TargetDir)$(TargetName).pdb" DestinationFolder="$(ModDeployDirectory)" Condition="Exists('$(TargetDir)$(TargetName).pdb')" />
+    <Copy SourceFiles="$(ProjectDir)config\configSchema.json;$(ProjectDir)config\defaultConfig.jsonc" DestinationFolder="$(ModDeployDirectory)\config" />
+    <ItemGroup>
+      <DeployVariantFiles Include="$(ProjectDir)db\01_Variants\**\*" />
+      <DeployItemFiles Include="$(ProjectDir)db\02_Items\**\*" />
+      <DeployWebFiles Include="$(ProjectDir)wwwroot\**\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(DeployVariantFiles)" DestinationFiles="@(DeployVariantFiles->'$(ModDeployDirectory)\db\01_Variants\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(DeployItemFiles)" DestinationFiles="@(DeployItemFiles->'$(ModDeployDirectory)\db\02_Items\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <MakeDir Directories="$(ModDeployDirectory)\wwwroot" />
+    <Copy SourceFiles="@(DeployWebFiles)" DestinationFiles="@(DeployWebFiles->'$(ModDeployDirectory)\wwwroot\%(RecursiveDir)%(Filename)%(Extension)')" />
   </Target>
 </Project>

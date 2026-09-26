@@ -1,3 +1,48 @@
+
+
+# Version 5.0.0 for SPT ~4.1.2
+
+# QoL and Trader Update
+Blazor web page, translation system, automatic APBS blacklist update and new trader with always available attachments and magazines and random Weapon Variants assort!
+
+## New trader
+- New trader is available from the start
+- X new tutorial quests that are explaining mod systems
+- Static/Dynamic assort
+    Almost all items added by this mod are available at any time
+    20 random variant weapons are available each trader refresh
+
+## New features
+- Added blazor web page for config changes
+    Available in /definitive-weapon-variants/config or from launcher
+- Added automatic APBS blacklist update
+    There is no need to restart server with each APBS blacklist update
+- Added translation system
+    Mod can now be translate to other languages
+    Added Polish translation
+
+## TODO:
+- Pass all weapon variants and add new magazines for some
+
+Anti-materiel rifle - 3-round
+"Blicky Special Magical Unbelievable Magazine" v2 with 45 rounds
+50Cal - 10-round
+"Karabin Spetsialniy" - 18-shell
+"Black Market" - 45-round, 55-round with increased ergonomics
+"Assault Rifle" - 20-round, 30-round "pistol sized" magazines
+Light Machine Gun - 50-round with the same ergo as the original, but cheaper and available from start
+"Sniper" - other barrel from other bolt-action
+FURY - 25-round early magazine
+World War II - 55-round 1x2 and 90-round 1x3
+Slav "Thing" - 25-round magazine with +25 ergo (Slavic Magazine)
+Freedom "Thing" - 99-round magazine with -100 ergo (Ultimate Freedom Mag)
+Smoothbore - 21-round 1x1 magazine and 27-round 1x2 magazine with special properties
+Quick-scope - 2 new "reflex" sights
+Early Prototype - 30-round late-game mag with 5 meme variant cores needed to buy
+
+- Remove trader config settings and Amonya mode
+
+----------
 # Version 4.3.2 for SPT ~4.1.2
 
 - Initial release for SPT 4.1.2

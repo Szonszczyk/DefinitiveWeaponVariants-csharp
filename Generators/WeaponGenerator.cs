@@ -10,6 +10,7 @@ using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
 using SPTarkov.Server.Core.Models.Spt.Mod;
 using SPTarkov.Server.Core.Models.Spt.Tables;
+using SPTarkov.Server.Core.Services.Locales;
 using SPTarkov.Server.Core.Utils.Cloners;
 
 namespace DefinitiveWeaponVariants.Generators;
@@ -25,7 +26,11 @@ public class WeaponGenerator(
     ICloner cloner,
     ConfigData config,
     ItemHelper itemHelper,
-    ModDataStorage modDataStorage
+    ModDataStorage modDataStorage,
+    GlobalTable globalTable,
+    TradersTable tradersTable,
+    TemplateTable templateTable,
+    LocaleService localeService
 )
 {
     private readonly ConfigData modConfig = config;
@@ -34,7 +39,7 @@ public class WeaponGenerator(
 
     public void GenerateWeaponsFromVariantConfig()
     {
-        
+        var LocaleEn = localeService.GetLocaleDb("en");
         foreach (var (variantName, config) in modDatabaseLoader.DbVariants)
         {
             if (config is { Description: not null, Explanation: not null, ShortName: not null, Rarity: not null } variant)
@@ -46,17 +51,17 @@ public class WeaponGenerator(
                 {
                     string variantShortName = $"{weaponShortname} {variant.ShortName}";
                     modDatabaseLoader.DbShortnames.TryGetValue(weaponShortname, out var copiedWeaponId);
-                    modDataStorage.Items.TryGetValue(copiedWeaponId ?? weaponShortname, out var copiedItem);
+                    templateTable.Items.TryGetValue(copiedWeaponId ?? weaponShortname, out var copiedItem);
                     if (copiedItem is null) continue;
                     copiedWeaponId ??= copiedItem.Id;
-                    HandbookItem? copiedItemHandbook = modDataStorage.Handbook.Items.Find(t => t.Id == copiedWeaponId);
-                    var copiedItemName = modDataStorage.LocaleEn[$"{copiedWeaponId} Name"];
+                    HandbookItem? copiedItemHandbook = templateTable.Handbook.Items.Find(t => t.Id == copiedWeaponId);
+                    var copiedItemName = LocaleEn[$"{copiedWeaponId} Name"];
                     var weaponCountsToward = copiedItemName;
                     if (variant.WeaponIdToUseAs is not null)
                     {
                         if (customSlotsChanger.GetItemFromString(variant.WeaponIdToUseAs) is not null)
                         {
-                            weaponCountsToward = modDataStorage.LocaleEn[$"{customSlotsChanger.GetItemFromString(variant.WeaponIdToUseAs)?.Id} Name"];
+                            weaponCountsToward = LocaleEn[$"{customSlotsChanger.GetItemFromString(variant.WeaponIdToUseAs)?.Id} Name"];
                         }
                     }
                     double? price = copiedItemHandbook!.Price;
@@ -99,7 +104,7 @@ public class WeaponGenerator(
                     };
                     // Add mastery
                     CustomItemConfig newWeaponConfig = new();
-                    var mastery = modDataStorage.GlobalsData.Configuration.Mastering.FirstOrDefault(t => t.Templates.Contains(copiedWeaponId));
+                    var mastery = globalTable.Configuration.Mastering.FirstOrDefault(t => t.Templates.Contains(copiedWeaponId));
                     if (mastery != null)
                     {
                         newWeaponConfig.MasteryName = mastery.Name;
@@ -135,7 +140,7 @@ public class WeaponGenerator(
                     Preset? originalPreset =
                         modDatabaseLoader.DbPresets.TryGetValue(weaponShortname, out var value) ? value :
                         modDatabaseLoader.DbPresets.TryGetValue(variantShortName, out var value2) ? value2 :
-                        modDataStorage.GlobalsData.ItemPresets.Values.FirstOrDefault(p => string.Equals(p.Encyclopedia, copiedWeaponId, StringComparison.OrdinalIgnoreCase));
+                        globalTable.ItemPresets.Values.FirstOrDefault(p => string.Equals(p.Encyclopedia, copiedWeaponId, StringComparison.OrdinalIgnoreCase));
 
                     if (originalPreset != null && originalPreset?.Items?.Count > 0)
                     {
@@ -295,7 +300,7 @@ public class WeaponGenerator(
                                 var firstId = newChamberFilter.First();
                                 newWeapon.OverrideProperties.DefAmmo = firstId;
 
-                                if (modDataStorage.Items.TryGetValue(firstId, out var item) && item?.Properties?.Caliber != null)
+                                if (templateTable.Items.TryGetValue(firstId, out var item) && item?.Properties?.Caliber != null)
                                 {
                                     newWeapon.OverrideProperties.AmmoCaliber = item.Properties.Caliber;
                                 }
@@ -316,7 +321,7 @@ public class WeaponGenerator(
                                 var allowedAmmo = customSlotsChanger.CreateFilterFromConfiguration(chamberConfig, "N/A", "Chambers", copiedItem);
                                 var firstId = allowedAmmo.First();
                                 newWeapon.OverrideProperties.DefAmmo = firstId;
-                                if (modDataStorage.Items.TryGetValue(firstId, out var item) && item?.Properties?.Caliber != null)
+                                if (templateTable.Items.TryGetValue(firstId, out var item) && item?.Properties?.Caliber != null)
                                 {
                                     newWeapon.OverrideProperties.AmmoCaliber = item.Properties.Caliber;
                                 }
@@ -422,20 +427,20 @@ public class WeaponGenerator(
             modDatabaseLoader.DbShortnames.TryGetValue(weaponShortname, out var copiedWeaponId);
             if (copiedWeaponId is null && weaponShortname.IsValidMongoId())
             {
-                if (modDataStorage.Items.TryGetValue(weaponShortname, out var item)) copiedWeaponId = item.Id;
+                if (templateTable.Items.TryGetValue(weaponShortname, out var item)) copiedWeaponId = item.Id;
             }
             if (string.IsNullOrEmpty(copiedWeaponId))
             {
                 logger.Error($"Weapon {weaponShortname} is missing shortname in db/03_Shortnames (or is incorrect)");
                 continue;
             }
-            modDataStorage.Items.TryGetValue(copiedWeaponId, out var copiedItem);
+            templateTable.Items.TryGetValue(copiedWeaponId, out var copiedItem);
             if (copiedItem == null)
             {
                 logger.Warning($"Base weapon '{weaponShortname}/{copiedWeaponId}' not found. Skipping");
                 continue;
             }
-            HandbookItem? copiedItemHandbook = modDataStorage.Handbook.Items.Find(t => t.Id == copiedWeaponId);
+            HandbookItem? copiedItemHandbook = templateTable.Handbook.Items.Find(t => t.Id == copiedWeaponId);
             if (copiedItemHandbook == null)
             {
                 logger.Warning($"Handbook entry for '{weaponShortname}/{copiedWeaponId}' not found. Skipping");
@@ -465,7 +470,7 @@ public class WeaponGenerator(
         }
         if (config.Barter is not null)
         {
-            var traderName = customItemCreator.GetTraderIdByName(config.Barter.TraderId) == null ? "N/A" : modDataStorage.Traders[(MongoId)customItemCreator.GetTraderIdByName(config.Barter.TraderId)!].Base.Nickname;
+            var traderName = customItemCreator.GetTraderIdByName(config.Barter.TraderId) == null ? "N/A" : tradersTable[(MongoId)customItemCreator.GetTraderIdByName(config.Barter.TraderId)!].Base.Nickname;
             return $"{weaponDescriptions[rarity]}/nCan be bought in {traderName} LL{config.Barter.LoyalLevel}";
         }
 
@@ -474,7 +479,7 @@ public class WeaponGenerator(
 
     private void AddVariantsToKillQuests()
     {
-        foreach (var (_, quest) in modDataStorage.Quests)
+        foreach (var (_, quest) in templateTable.Quests)
         {
             var affs = quest.Conditions.AvailableForFinish;
             if (affs is null) continue;

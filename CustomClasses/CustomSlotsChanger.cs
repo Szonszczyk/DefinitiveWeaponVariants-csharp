@@ -6,6 +6,7 @@ using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
 using SPTarkov.Server.Core.Models.Enums;
 using SPTarkov.Server.Core.Models.Spt.Mod;
+using SPTarkov.Server.Core.Models.Spt.Tables;
 using SPTarkov.Server.Core.Utils.Cloners;
 using System.Reflection;
 
@@ -17,6 +18,7 @@ public class CustomSlotsChanger(
     ModDatabaseLoader modDatabaseLoader,
     ICloner cloner,
     IdDatabaseManager idDatabaseManager,
+    TemplateTable templateTable,
     ModDataStorage modDataStorage
 )
 {
@@ -238,22 +240,22 @@ public class CustomSlotsChanger(
     {
         if (MongoId.IsValidMongoId(text))
         {
-            if (modDataStorage.Items.TryGetValue(text, out var mongoIdItem)) return mongoIdItem;
+            if (templateTable.Items.TryGetValue(text, out var mongoIdItem)) return mongoIdItem;
         }
         else
         {
             if (modDatabaseLoader.DbShortnames.TryGetValue(text, out var weaponId))
             {
-                if (modDataStorage.Items.TryGetValue(weaponId, out var weaponItem)) return weaponItem;
+                if (templateTable.Items.TryGetValue(weaponId, out var weaponItem)) return weaponItem;
             }
             if (idDatabaseManager.DbIds.TryGetValue($"{text}:ID", out var idDatabaseId))
             {
-                if (modDataStorage.Items.TryGetValue(idDatabaseId, out var idDatabaseItem)) return idDatabaseItem;
+                if (templateTable.Items.TryGetValue(idDatabaseId, out var idDatabaseItem)) return idDatabaseItem;
             }
             var field = typeof(ItemTpl).GetField(text, BindingFlags.Public | BindingFlags.Static);
             if (field != null && field.GetValue(null) is MongoId id)
             {
-                if (modDataStorage.Items.TryGetValue(id, out var idFromTemplate)) return idFromTemplate;
+                if (templateTable.Items.TryGetValue(id, out var idFromTemplate)) return idFromTemplate;
             }
         }
         logger.Error($"Item '{text}' not found");
