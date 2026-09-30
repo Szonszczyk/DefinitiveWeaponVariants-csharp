@@ -1,3 +1,9 @@
+# Version 5.0.0 for SPT ~4.1.6
+
+- Changed minimum SPT requirements to 4.1.6
+- Added automatic APBS blacklist refresh
+- Added translation system
+
 # Version 4.3.2 for SPT ~4.1.2
 
 - Initial release for SPT 4.1.2

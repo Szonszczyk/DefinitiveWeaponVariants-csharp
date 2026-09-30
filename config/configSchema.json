@@ -1,0 +1,1510 @@
+{
+  "Sections": [
+    {
+      "Name": "QualityGeneration",
+      "DisplayName": "Quality Generation",
+      "Description": "Choose which quality tiers are generated",
+      "Properties": [
+        {
+          "Property": "Generate",
+          "DisplayName": "Weaon generation",
+          "Description": "Controls which weapon-variant qualities are generated",
+          "Type": "object",
+          "Properties": [
+            {
+              "Property": "Unique",
+              "DisplayName": "Unique",
+              "Type": "bool",
+              "Default": true
+            },
+            {
+              "Property": "Ultimate",
+              "DisplayName": "Ultimate",
+              "Type": "bool",
+              "Default": true
+            },
+            {
+              "Property": "Superior",
+              "DisplayName": "Superior",
+              "Type": "bool",
+              "Default": true
+            },
+            {
+              "Property": "Advanced",
+              "DisplayName": "Advanced",
+              "Type": "bool",
+              "Default": true
+            },
+            {
+              "Property": "Niche",
+              "DisplayName": "Niche",
+              "Type": "bool",
+              "Default": true
+            },
+            {
+              "Property": "Baseline",
+              "DisplayName": "Baseline",
+              "Type": "bool",
+              "Default": true
+            },
+            {
+              "Property": "Flawed",
+              "DisplayName": "Flawed",
+              "Type": "bool",
+              "Default": true
+            },
+            {
+              "Property": "Meme",
+              "DisplayName": "Meme",
+              "Type": "bool",
+              "Default": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "QualityWeights",
+      "DisplayName": "Quality Weights",
+      "Description": "Weights used whenever something is choosing the item quality",
+      "Properties": [
+        {
+          "Property": "QualityWeights",
+          "DisplayName": "Quality Weights",
+          "Description": "Determinates the exact rarity of quality type, smaller numbers has lower probability of appearing",
+          "Type": "object",
+          "Properties": [
+            {
+              "Property": "Unique",
+              "DisplayName": "Unique",
+              "Type": "int",
+              "Default": 1,
+              "Minimum": 1,
+              "Maximum": 100
+            },
+            {
+              "Property": "Ultimate",
+              "DisplayName": "Ultimate",
+              "Type": "int",
+              "Default": 2,
+              "Minimum": 1,
+              "Maximum": 100
+            },
+            {
+              "Property": "Superior",
+              "DisplayName": "Superior",
+              "Type": "int",
+              "Default": 4,
+              "Minimum": 1,
+              "Maximum": 100
+            },
+            {
+              "Property": "Advanced",
+              "DisplayName": "Advanced",
+              "Type": "int",
+              "Default": 8,
+              "Minimum": 1,
+              "Maximum": 100
+            },
+            {
+              "Property": "Niche",
+              "DisplayName": "Niche",
+              "Type": "int",
+              "Default": 6,
+              "Minimum": 1,
+              "Maximum": 100
+            },
+            {
+              "Property": "Baseline",
+              "DisplayName": "Baseline",
+              "Type": "int",
+              "Default": 12,
+              "Minimum": 1,
+              "Maximum": 100
+            },
+            {
+              "Property": "Flawed",
+              "DisplayName": "Flawed",
+              "Type": "int",
+              "Default": 16,
+              "Minimum": 1,
+              "Maximum": 100
+            },
+            {
+              "Property": "Meme",
+              "DisplayName": "Meme",
+              "Type": "int",
+              "Default": 20,
+              "Minimum": 1,
+              "Maximum": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "LootSources",
+      "DisplayName": "Loot Sources",
+      "Description": "Configure where variant quality tiers can appear",
+      "Properties": [
+        {
+          "Property": "Airdrop",
+          "DisplayName": "Airdrop",
+          "Description": "Controls which variant qualities can appear in airdrops",
+          "Type": "object",
+          "Properties": [
+            {
+              "Property": "Unique",
+              "DisplayName": "Unique",
+              "Type": "bool",
+              "Default": false
+            },
+            {
+              "Property": "Ultimate",
+              "DisplayName": "Ultimate",
+              "Type": "bool",
+              "Default": true
+            },
+            {
+              "Property": "Superior",
+              "DisplayName": "Superior",
+              "Type": "bool",
+              "Default": true
+            },
+            {
+              "Property": "Advanced",
+              "DisplayName": "Advanced",
+              "Type": "bool",
+              "Default": true
+            },
+            {
+              "Property": "Niche",
+              "DisplayName": "Niche",
+              "Type": "bool",
+              "Default": true
+            },
+            {
+              "Property": "Baseline",
+              "DisplayName": "Baseline",
+              "Type": "bool",
+              "Default": true
+            },
+            {
+              "Property": "Flawed",
+              "DisplayName": "Flawed",
+              "Type": "bool",
+              "Default": true
+            },
+            {
+              "Property": "Meme",
+              "DisplayName": "Meme",
+              "Type": "bool",
+              "Default": false
+            }
+          ]
+        },
+        {
+          "Property": "Fence",
+          "DisplayName": "Fence",
+          "Description": "Controls which variant qualities can appear in Fence trader stock",
+          "Type": "object",
+          "Properties": [
+            {
+              "Property": "Unique",
+              "DisplayName": "Unique",
+              "Type": "bool",
+              "Default": false
+            },
+            {
+              "Property": "Ultimate",
+              "DisplayName": "Ultimate",
+              "Type": "bool",
+              "Default": false
+            },
+            {
+              "Property": "Superior",
+              "DisplayName": "Superior",
+              "Type": "bool",
+              "Default": false
+            },
+            {
+              "Property": "Advanced",
+              "DisplayName": "Advanced",
+              "Type": "bool",
+              "Default": false
+            },
+            {
+              "Property": "Niche",
+              "DisplayName": "Niche",
+              "Type": "bool",
+              "Default": false
+            },
+            {
+              "Property": "Baseline",
+              "DisplayName": "Baseline",
+              "Type": "bool",
+              "Default": true
+            },
+            {
+              "Property": "Flawed",
+              "DisplayName": "Flawed",
+              "Type": "bool",
+              "Default": true
+            },
+            {
+              "Property": "Meme",
+              "DisplayName": "Meme",
+              "Type": "bool",
+              "Default": true
+            }
+          ]
+        },
+        {
+          "Property": "Flea",
+          "DisplayName": "Flea",
+          "Description": "Controls which variant qualities can be bought or sold on the flea market",
+          "Type": "object",
+          "Properties": [
+            {
+              "Property": "Unique",
+              "DisplayName": "Unique",
+              "Type": "bool",
+              "Default": false
+            },
+            {
+              "Property": "Ultimate",
+              "DisplayName": "Ultimate",
+              "Type": "bool",
+              "Default": false
+            },
+            {
+              "Property": "Superior",
+              "DisplayName": "Superior",
+              "Type": "bool",
+              "Default": false
+            },
+            {
+              "Property": "Advanced",
+              "DisplayName": "Advanced",
+              "Type": "bool",
+              "Default": false
+            },
+            {
+              "Property": "Niche",
+              "DisplayName": "Niche",
+              "Type": "bool",
+              "Default": false
+            },
+            {
+              "Property": "Baseline",
+              "DisplayName": "Baseline",
+              "Type": "bool",
+              "Default": true
+            },
+            {
+              "Property": "Flawed",
+              "DisplayName": "Flawed",
+              "Type": "bool",
+              "Default": true
+            },
+            {
+              "Property": "Meme",
+              "DisplayName": "Meme",
+              "Type": "bool",
+              "Default": true
+            }
+          ]
+        },
+        {
+          "Property": "Marked",
+          "DisplayName": "Marked",
+          "Description": "Controls which variant qualities can spawn in marked rooms.",
+          "Type": "object",
+          "Properties": [
+            {
+              "Property": "Unique",
+              "DisplayName": "Unique",
+              "Type": "bool",
+              "Default": true
+            },
+            {
+              "Property": "Ultimate",
+              "DisplayName": "Ultimate",
+              "Type": "bool",
+              "Default": true
+            },
+            {
+              "Property": "Superior",
+              "DisplayName": "Superior",
+              "Type": "bool",
+              "Default": true
+            },
+            {
+              "Property": "Advanced",
+              "DisplayName": "Advanced",
+              "Type": "bool",
+              "Default": true
+            },
+            {
+              "Property": "Niche",
+              "DisplayName": "Niche",
+              "Type": "bool",
+              "Default": true
+            },
+            {
+              "Property": "Baseline",
+              "DisplayName": "Baseline",
+              "Type": "bool",
+              "Default": false
+            },
+            {
+              "Property": "Flawed",
+              "DisplayName": "Flawed",
+              "Type": "bool",
+              "Default": false
+            },
+            {
+              "Property": "Meme",
+              "DisplayName": "Meme",
+              "Type": "bool",
+              "Default": false
+            }
+          ]
+        },
+        {
+          "Property": "MarkedRoomsProbability",
+          "DisplayName": "Marked Rooms Probability",
+          "Description": "Probability of finding a variant weapon per marked-room spawn point.",
+          "Type": "float",
+          "Default": 0.3,
+          "Minimum": 0,
+          "Maximum": 0.99
+        },
+        {
+          "Property": "StaticLoot",
+          "DisplayName": "Static Loot",
+          "Description": "Controls which variant qualities can spawn in containers.",
+          "Type": "object",
+          "Properties": [
+            {
+              "Property": "Unique",
+              "DisplayName": "Unique",
+              "Type": "bool",
+              "Default": false
+            },
+            {
+              "Property": "Ultimate",
+              "DisplayName": "Ultimate",
+              "Type": "bool",
+              "Default": true
+            },
+            {
+              "Property": "Superior",
+              "DisplayName": "Superior",
+              "Type": "bool",
+              "Default": true
+            },
+            {
+              "Property": "Advanced",
+              "DisplayName": "Advanced",
+              "Type": "bool",
+              "Default": true
+            },
+            {
+              "Property": "Niche",
+              "DisplayName": "Niche",
+              "Type": "bool",
+              "Default": false
+            },
+            {
+              "Property": "Baseline",
+              "DisplayName": "Baseline",
+              "Type": "bool",
+              "Default": true
+            },
+            {
+              "Property": "Flawed",
+              "DisplayName": "Flawed",
+              "Type": "bool",
+              "Default": true
+            },
+            {
+              "Property": "Meme",
+              "DisplayName": "Meme",
+              "Type": "bool",
+              "Default": true
+            }
+          ]
+        },
+        {
+          "Property": "StaticLootProbability",
+          "DisplayName": "Static Loot Probability",
+          "Description": "Probability of finding a variant weapon in a container.",
+          "Type": "float",
+          "Default": 0.3,
+          "Minimum": 0,
+          "Maximum": 0.99
+        }
+      ]
+    },
+    {
+      "Name": "SpecialAmmo",
+      "DisplayName": "Special Ammunition",
+      "Description": "Toggle and trader barter settings for 12.7x108mm ammunition used by some variant types",
+      "Properties": [
+        {
+          "Property": "SpecialAmmoBuyableEnabled",
+          "DisplayName": "Special Ammo Buyable Enabled",
+          "Description": "Makes 12.7x108mm B-32 ammunition available to buy from a trader",
+          "Type": "bool",
+          "Default": true
+        },
+        {
+          "Property": "DWVCaliberBarter",
+          "DisplayName": "Barter Configuration",
+          "Description": "Trader barter setup for buyable 12.7x108mm ammunition",
+          "Type": "object",
+          "Properties": [
+            {
+              "Property": "TraderId",
+              "DisplayName": "Trader",
+              "Type": "list",
+              "Default": "SKIER",
+              "AllowedValues": [ "PRAPOR", "THERAPIST", "FENCE", "SKIER", "PEACEKEEPER", "MECHANIC", "RAGMAN", "JAEGER", "REF" ],
+              "AllowMultiple": false
+            },
+            {
+              "Property": "LoyalLevel",
+              "DisplayName": "Loyal Level",
+              "Description": "Required trader loyalty level",
+              "Type": "int",
+              "Default": 1,
+              "Minimum": 1,
+              "Maximum": 4
+            },
+            {
+              "Property": "BarterPrice",
+              "DisplayName": "Price in roubles",
+              "Type": "object",
+              "Properties": [
+                {
+                  "Property": "MONEY_ROUBLES",
+                  "DisplayName": "Roubles",
+                  "Type": "int",
+                  "Default": 2500
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Features",
+      "DisplayName": "Features",
+      "Description": "Enable Variant Core system and blind box features",
+      "Properties": [
+        {
+          "Property": "VariantCoresEnabled",
+          "DisplayName": "Variant Cores Enabled",
+          "Description": "Enables a Variant Cores system and adds a special slot for Variant Core items on variant weapons",
+          "Type": "bool",
+          "Default": true
+        },
+        {
+          "Property": "BlindBoxesEnabled",
+          "DisplayName": "Blind Boxes Enabled",
+          "Description": "Adds weapon cases containing a random variant weapon of the same quality",
+          "Type": "bool",
+          "Default": true
+        }
+      ]
+    },
+    {
+      "Name": "VariantCores",
+      "DisplayName": "Variant Cores",
+      "Description": "Advanced Variant Core, case, and blind-box settings",
+      "Properties": [
+        {
+          "Property": "VariantCores",
+          "DisplayName": "Variant Cores",
+          "Description": "Advanced configuration for Variant Cores",
+          "Type": "object",
+          "Properties": [
+            {
+              "Property": "General",
+              "DisplayName": "General",
+              "Description": "General Variant Core settings",
+              "Type": "object",
+              "Properties": [
+                {
+                  "Property": "Price",
+                  "DisplayName": "Price",
+                  "Description": "Base price in roubles for each core quality. Used to calculate prices of cores and core-related items",
+                  "Type": "object",
+                  "Properties": [
+                    {
+                      "Property": "Unique",
+                      "DisplayName": "Unique",
+                      "Type": "int",
+                      "Default": 15000
+                    },
+                    {
+                      "Property": "Ultimate",
+                      "DisplayName": "Ultimate",
+                      "Type": "int",
+                      "Default": 10000
+                    },
+                    {
+                      "Property": "Superior",
+                      "DisplayName": "Superior",
+                      "Type": "int",
+                      "Default": 8000
+                    },
+                    {
+                      "Property": "Advanced",
+                      "DisplayName": "Advanced",
+                      "Type": "int",
+                      "Default": 5000
+                    },
+                    {
+                      "Property": "Niche",
+                      "DisplayName": "Niche",
+                      "Type": "int",
+                      "Default": 6000
+                    },
+                    {
+                      "Property": "Baseline",
+                      "DisplayName": "Baseline",
+                      "Type": "int",
+                      "Default": 4000
+                    },
+                    {
+                      "Property": "Flawed",
+                      "DisplayName": "Flawed",
+                      "Type": "int",
+                      "Default": 3000
+                    },
+                    {
+                      "Property": "Meme",
+                      "DisplayName": "Meme",
+                      "Type": "int",
+                      "Default": 2000
+                    }
+                  ]
+                },
+                {
+                  "Property": "Required",
+                  "DisplayName": "Required",
+                  "Description": "Requires cores for a weapon to work. If this option is enabled, you won't be able to remove Variant Cores from weapons while in raid, unless you use \"UI Fixes\" mod with \"Modify Weapons In Raid\" option changed to \"Always\" or \"With Multitool\", it will also fix variant weapons equipped by APBS bots not having Variant Cores in their usual slot",
+                  "Type": "bool",
+                  "Default": false
+                }
+              ]
+            },
+            {
+              "Property": "Normal",
+              "DisplayName": "Normal",
+              "Description": "Normal Variant Core settings.",
+              "Type": "object",
+              "Properties": [
+                {
+                  "Property": "Properties",
+                  "DisplayName": "Properties",
+                  "Description": "Stats added to the weapon while this core is installed",
+                  "Type": "object",
+                  "Properties": [
+                    {
+                      "Property": "Ergonomics",
+                      "DisplayName": "Ergonomics",
+                      "Description": "Ergonomics added to the weapon by the core",
+                      "Type": "int",
+                      "Default": 5,
+                      "Minimum": 0,
+                      "Maximum": 100
+                    }
+                  ]
+                },
+                {
+                  "Property": "Buyable",
+                  "DisplayName": "Buyable",
+                  "Description": "Allows cores to be bought from a trader",
+                  "Type": "bool",
+                  "Default": false
+                },
+                {
+                  "Property": "Barter",
+                  "DisplayName": "Barter",
+                  "Description": "Trader barter setup for buyable cores",
+                  "Type": "object",
+                  "Properties": [
+                    {
+                      "Property": "TraderId",
+                      "DisplayName": "Trader",
+                      "Description": "Trader name",
+                      "Type": "list",
+                      "Default": "SKIER",
+                      "AllowedValues": [ "PRAPOR", "THERAPIST", "FENCE", "SKIER", "PEACEKEEPER", "MECHANIC", "RAGMAN", "JAEGER", "REF" ],
+                      "AllowMultiple": false
+                    },
+                    {
+                      "Property": "LoyalLevel",
+                      "DisplayName": "Loyal Level",
+                      "Description": "Required trader loyalty level.",
+                      "Type": "int",
+                      "Default": 1,
+                      "Minimum": 1,
+                      "Maximum": 4
+                    },
+                    {
+                      "Property": "UnlimitedCount",
+                      "DisplayName": "Unlimited Count",
+                      "Description": "Makes trader stock for this item unlimited.",
+                      "Type": "bool",
+                      "Default": false
+                    },
+                    {
+                      "Property": "StackObjectsCount",
+                      "DisplayName": "Stack Objects Count",
+                      "Description": "Number of items that can be bought at one time.",
+                      "Type": "int",
+                      "Default": 5
+                    }
+                  ]
+                },
+                {
+                  "Property": "Upgradable",
+                  "DisplayName": "Upgradable",
+                  "Description": "Allows cores to be exchanged for a higher-quality counterpart",
+                  "Type": "bool",
+                  "Default": true
+                },
+                {
+                  "Property": "UpgradableOptions",
+                  "DisplayName": "Upgradable Options",
+                  "Description": "Core upgrade setup",
+                  "Type": "object",
+                  "Properties": [
+                    {
+                      "Property": "UpToQuality",
+                      "DisplayName": "Up To Quality",
+                      "Description": "Highest core quality eligible for upgrading",
+                      "Type": "list",
+                      "Default": "Baseline",
+                      "AllowedValues": [ "Meme", "Flawed", "Baseline", "Niche", "Advanced", "Superior", "Ultimate", "Unique" ],
+                      "AllowMultiple": false
+
+                    },
+                    {
+                      "Property": "Ratio",
+                      "DisplayName": "Ratio",
+                      "Description": "Number of lower-quality cores required for one higher-quality core.",
+                      "Type": "int",
+                      "Default": 3,
+                      "Minimum": 2,
+                      "Maximum": 10
+                    },
+                    {
+                      "Property": "Barter",
+                      "DisplayName": "Barter",
+                      "Description": "Trader barter setup for core upgrades",
+                      "Type": "object",
+                      "Properties": [
+                        {
+                          "Property": "TraderId",
+                          "DisplayName": "Trader",
+                          "Description": "Trader name",
+                          "Type": "list",
+                          "Default": "SKIER",
+                          "AllowedValues": [ "PRAPOR", "THERAPIST", "FENCE", "SKIER", "PEACEKEEPER", "MECHANIC", "RAGMAN", "JAEGER", "REF" ],
+                          "AllowMultiple": false
+                        },
+                        {
+                          "Property": "LoyalLevel",
+                          "DisplayName": "Loyal Level",
+                          "Description": "Required trader loyalty level.",
+                          "Type": "int",
+                          "Default": 1,
+                          "Minimum": 1,
+                          "Maximum": 4
+                        },
+                        {
+                          "Property": "UnlimitedCount",
+                          "DisplayName": "Unlimited Count",
+                          "Description": "Makes trader stock for this item unlimited.",
+                          "Type": "bool",
+                          "Default": false
+                        },
+                        {
+                          "Property": "StackObjectsCount",
+                          "DisplayName": "Stack Objects Count",
+                          "Description": "Number of items that can be bought at one time.",
+                          "Type": "int",
+                          "Default": 5
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Property": "FoundOnEnemies",
+                  "DisplayName": "Found On Enemies",
+                  "Description": "Core spawn probabilities in bot pockets. Use bot names found in\nSPT/SPT_Data/database/bots/types",
+                  "Type": "dictionary",
+                  "ValueType": "float",
+                  "Default": {
+                    "assault": 0.33
+                  },
+                  "Minimum": 0,
+                  "Maximum": 0.99
+                },
+                {
+                  "Property": "PriceMultiplier",
+                  "DisplayName": "Price Multiplier",
+                  "Description": "Multiplier applied to the default rouble price",
+                  "Type": "int",
+                  "Default": 1
+                }
+              ]
+            },
+            {
+              "Property": "Locked",
+              "DisplayName": "Locked",
+              "Description": "Locked Variant Core settings.",
+              "Type": "object",
+              "Properties": [
+                {
+                  "Property": "Properties",
+                  "DisplayName": "Properties",
+                  "Description": "Item stat properties.",
+                  "Type": "object",
+                  "Properties": [
+                    {
+                      "Property": "Ergonomics",
+                      "DisplayName": "Ergonomics",
+                      "Description": "Ergonomics added to the weapon by the core.",
+                      "Type": "int",
+                      "Default": 7,
+                      "Minimum": 0,
+                      "Maximum": 100
+                    },
+                    {
+                      "Property": "Accuracy",
+                      "DisplayName": "Accuracy",
+                      "Description": "Accuracy added to the weapon by the core.",
+                      "Type": "int",
+                      "Default": 3,
+                      "Minimum": 0,
+                      "Maximum": 100
+                    }
+                  ]
+                },
+                {
+                  "Property": "Upgradable",
+                  "DisplayName": "Upgradable",
+                  "Description": "Allows cores to be exchanged for a higher-quality counterpart.",
+                  "Type": "bool",
+                  "Default": true
+                },
+                {
+                  "Property": "UpgradableOptions",
+                  "DisplayName": "Upgradable Options",
+                  "Description": "Core upgrade setup.",
+                  "Type": "object",
+                  "Properties": [
+                    {
+                      "Property": "Ratio",
+                      "DisplayName": "Ratio",
+                      "Description": "Number of lower-quality cores required for one higher-quality core.",
+                      "Type": "int",
+                      "Default": 3
+                    },
+                    {
+                      "Property": "Barter",
+                      "DisplayName": "Barter",
+                      "Description": "Trader barter setup.",
+                      "Type": "object",
+                      "Properties": [
+                        {
+                          "Property": "TraderId",
+                          "DisplayName": "Trader",
+                          "Description": "Trader name",
+                          "Type": "list",
+                          "Default": "SKIER",
+                          "AllowedValues": [ "PRAPOR", "THERAPIST", "FENCE", "SKIER", "PEACEKEEPER", "MECHANIC", "RAGMAN", "JAEGER", "REF" ],
+                          "AllowMultiple": false
+                        },
+                        {
+                          "Property": "LoyalLevel",
+                          "DisplayName": "Loyal Level",
+                          "Description": "Required trader loyalty level.",
+                          "Type": "int",
+                          "Default": 2,
+                          "Minimum": 1,
+                          "Maximum": 4
+                        },
+                        {
+                          "Property": "UnlimitedCount",
+                          "DisplayName": "Unlimited Count",
+                          "Description": "Makes trader stock for this item unlimited.",
+                          "Type": "bool",
+                          "Default": false
+                        },
+                        {
+                          "Property": "StackObjectsCount",
+                          "DisplayName": "Stack Objects Count",
+                          "Description": "Number of items that can be bought at one time.",
+                          "Type": "int",
+                          "Default": 5
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Property": "PriceMultiplier",
+                  "DisplayName": "Price Multiplier",
+                  "Description": "Multiplier applied to the default rouble price.",
+                  "Type": "int",
+                  "Default": 6
+                }
+              ]
+            },
+            {
+              "Property": "Universal",
+              "DisplayName": "Universal",
+              "Description": "Universal Variant Core settings",
+              "Type": "object",
+              "Properties": [
+                {
+                  "Property": "Properties",
+                  "DisplayName": "Properties",
+                  "Description": "Item stat properties",
+                  "Type": "object",
+                  "Properties": [
+                    {
+                      "Property": "Ergonomics",
+                      "DisplayName": "Ergonomics",
+                      "Description": "Ergonomics added to the weapon by the core. Individual Universal Cores may add to or subtract from these values",
+                      "Type": "int",
+                      "Default": 7,
+                      "Minimum": 0,
+                      "Maximum": 100
+                    },
+                    {
+                      "Property": "Recoil",
+                      "DisplayName": "Recoil",
+                      "Description": "Recoil added to the weapon by the core. Individual Universal Cores may add to or subtract from these values",
+                      "Type": "int",
+                      "Default": 0,
+                      "Minimum": 0,
+                      "Maximum": 100
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Property": "BlindBoxes",
+              "DisplayName": "Blind Boxes",
+              "Description": "Variant Blind Box settings.",
+              "Type": "object",
+              "Properties": [
+                {
+                  "Property": "Properties",
+                  "DisplayName": "Properties",
+                  "Description": "Item stat properties.",
+                  "Type": "object",
+                  "Properties": [
+                    {
+                      "Property": "Width",
+                      "DisplayName": "Width",
+                      "Description": "Item width in inventory",
+                      "Type": "int",
+                      "Default": 3,
+                      "Minimum": 1,
+                      "Maximum": 10
+                    },
+                    {
+                      "Property": "Height",
+                      "DisplayName": "Height",
+                      "Description": "Item height in inventory",
+                      "Type": "int",
+                      "Default": 2,
+                      "Minimum": 1,
+                      "Maximum": 10
+                    }
+                  ]
+                },
+                {
+                  "Property": "CoresPrice",
+                  "DisplayName": "Cores Price",
+                  "Description": "Number of cores used as the price",
+                  "Type": "int",
+                  "Default": 3,
+                  "Minimum": 1,
+                  "Maximum": 100
+                },
+                {
+                  "Property": "Barter",
+                  "DisplayName": "Barter",
+                  "Description": "Trader barter setup.",
+                  "Type": "object",
+                  "Properties": [
+                    {
+                      "Property": "TraderId",
+                      "DisplayName": "Trader",
+                      "Description": "Trader name",
+                      "Type": "list",
+                      "Default": "SKIER",
+                      "AllowedValues": [ "PRAPOR", "THERAPIST", "FENCE", "SKIER", "PEACEKEEPER", "MECHANIC", "RAGMAN", "JAEGER", "REF" ],
+                      "AllowMultiple": false
+                    },
+                    {
+                      "Property": "LoyalLevel",
+                      "DisplayName": "Loyal Level",
+                      "Description": "Required trader loyalty level.",
+                      "Type": "int",
+                      "Default": 1,
+                      "Minimum": 1,
+                      "Maximum": 4
+                    },
+                    {
+                      "Property": "UnlimitedCount",
+                      "DisplayName": "Unlimited Count",
+                      "Description": "Makes trader stock for this item unlimited.",
+                      "Type": "bool",
+                      "Default": false
+                    },
+                    {
+                      "Property": "StackObjectsCount",
+                      "DisplayName": "Stack Objects Count",
+                      "Description": "Number of items that can be bought at one time.",
+                      "Type": "int",
+                      "Default": 20
+                    }
+                  ]
+                },
+                {
+                  "Property": "PriceMultiplier",
+                  "DisplayName": "Price Multiplier",
+                  "Description": "Multiplier applied to the default rouble price. If Variant Cores System is disabled, this will determinate Blind Box price in trader",
+                  "Type": "int",
+                  "Default": 25
+                }
+              ]
+            },
+            {
+              "Property": "UnknownPackage",
+              "DisplayName": "Unknown Package",
+              "Description": "Unknown Package settings",
+              "Type": "object",
+              "Properties": [
+                {
+                  "Property": "Properties",
+                  "DisplayName": "Properties",
+                  "Description": "Item stat properties",
+                  "Type": "object",
+                  "Properties": [
+                    {
+                      "Property": "Width",
+                      "DisplayName": "Width",
+                      "Description": "Item width in inventory",
+                      "Type": "int",
+                      "Default": 2,
+                      "Minimum": 1,
+                      "Maximum": 10
+                    },
+                    {
+                      "Property": "Height",
+                      "DisplayName": "Height",
+                      "Description": "Item height in inventory",
+                      "Type": "int",
+                      "Default": 1,
+                      "Minimum": 1,
+                      "Maximum": 10
+                    },
+                    {
+                      "Property": "Weight",
+                      "DisplayName": "Weight",
+                      "Description": "Item weight",
+                      "Type": "float",
+                      "Default": 1.2
+                    }
+                  ]
+                },
+                {
+                  "Property": "PriceInRoubles",
+                  "DisplayName": "Price In Roubles",
+                  "Type": "int",
+                  "Default": 250000
+                },
+                {
+                  "Property": "Barter",
+                  "DisplayName": "Barter",
+                  "Description": "Trader barter setup",
+                  "Type": "object",
+                  "Properties": [
+                    {
+                      "Property": "TraderId",
+                      "DisplayName": "Trader",
+                      "Description": "Trader name",
+                      "Type": "list",
+                      "Default": "SKIER",
+                      "AllowedValues": [ "PRAPOR", "THERAPIST", "FENCE", "SKIER", "PEACEKEEPER", "MECHANIC", "RAGMAN", "JAEGER", "REF" ],
+                      "AllowMultiple": false
+                    },
+                    {
+                      "Property": "LoyalLevel",
+                      "DisplayName": "Loyal Level",
+                      "Description": "Required trader loyalty level.",
+                      "Type": "int",
+                      "Default": 1,
+                      "Minimum": 1,
+                      "Maximum": 4
+                    },
+                    {
+                      "Property": "UnlimitedCount",
+                      "DisplayName": "Unlimited Count",
+                      "Description": "Makes trader stock for this item unlimited.",
+                      "Type": "bool",
+                      "Default": false
+                    },
+                    {
+                      "Property": "StackObjectsCount",
+                      "DisplayName": "Stack Objects Count",
+                      "Description": "Number of items that can be bought at one time.",
+                      "Type": "int",
+                      "Default": 20
+                    }
+                  ]
+                },
+                {
+                  "Property": "CoresReceived",
+                  "DisplayName": "Cores Received",
+                  "Description": "Number of cores received when opening",
+                  "Type": "int",
+                  "Default": 5,
+                  "Minimum": 1,
+                  "Maximum": 100
+                },
+                {
+                  "Property": "Probability",
+                  "DisplayName": "Probability",
+                  "Description": "Probability of finding the Unknown Package in loot containers",
+                  "Type": "float",
+                  "Default": 0.33,
+                  "Minimum": 0,
+                  "Maximum": 0.99
+                }
+              ]
+            },
+            {
+              "Property": "ExpeditionaryCase",
+              "DisplayName": "Expeditionary Case",
+              "Description": "Expeditionary Case settings.",
+              "Type": "object",
+              "Properties": [
+                {
+                  "Property": "GridProperties",
+                  "DisplayName": "Grid Properties",
+                  "Type": "object",
+                  "Properties": [
+                    {
+                      "Property": "CellsH",
+                      "DisplayName": "Case inventory width",
+                      "Description": "Horizontal grid cells per Variant Core quality",
+                      "Type": "int",
+                      "Default": 1,
+                      "Minimum": 1,
+                      "Maximum": 10
+                    },
+                    {
+                      "Property": "CellsV",
+                      "DisplayName": "Case inventory height",
+                      "Description": "Vertical grid cells per Variant Core quality",
+                      "Type": "int",
+                      "Default": 2,
+                      "Minimum": 1,
+                      "Maximum": 10
+                    }
+                  ]
+                },
+                {
+                  "Property": "Properties",
+                  "DisplayName": "Properties",
+                  "Description": "Item stat properties",
+                  "Type": "object",
+                  "Properties": [
+                    {
+                      "Property": "Width",
+                      "DisplayName": "Width",
+                      "Description": "Item width in inventory",
+                      "Type": "int",
+                      "Default": 1,
+                      "Minimum": 1,
+                      "Maximum": 10
+                    },
+                    {
+                      "Property": "Height",
+                      "DisplayName": "Height",
+                      "Description": "Item height in inventory",
+                      "Type": "int",
+                      "Default": 1,
+                      "Minimum": 1,
+                      "Maximum": 10
+                    },
+                    {
+                      "Property": "Weight",
+                      "DisplayName": "Weight",
+                      "Description": "Item weight.",
+                      "Type": "float",
+                      "Default": 1.2
+                    }
+                  ]
+                },
+                {
+                  "Property": "PriceCoreQuality",
+                  "DisplayName": "Price Core Quality",
+                  "Description": "Core quality used for the price",
+                  "Type": "list",
+                  "Default": "Baseline",
+                  "AllowedValues": [ "Meme", "Flawed", "Baseline", "Niche", "Advanced", "Superior", "Ultimate", "Unique" ],
+                  "AllowMultiple": false
+                },
+                {
+                  "Property": "PriceCoreAmount",
+                  "DisplayName": "Price Core Amount",
+                  "Description": "Number of cores used for the price.",
+                  "Type": "int",
+                  "Default": 12,
+                  "Minimum": 1,
+                  "Maximum": 100
+                },
+                {
+                  "Property": "Barter",
+                  "DisplayName": "Barter",
+                  "Description": "Trader barter setup.",
+                  "Type": "object",
+                  "Properties": [
+                    {
+                      "Property": "TraderId",
+                      "DisplayName": "Trader",
+                      "Description": "Trader name",
+                      "Type": "list",
+                      "Default": "SKIER",
+                      "AllowedValues": [ "PRAPOR", "THERAPIST", "FENCE", "SKIER", "PEACEKEEPER", "MECHANIC", "RAGMAN", "JAEGER", "REF" ],
+                      "AllowMultiple": false
+                    },
+                    {
+                      "Property": "LoyalLevel",
+                      "DisplayName": "Loyal Level",
+                      "Description": "Required trader loyalty level.",
+                      "Type": "int",
+                      "Default": 1,
+                      "Minimum": 1,
+                      "Maximum": 4
+                    },
+                    {
+                      "Property": "UnlimitedCount",
+                      "DisplayName": "Unlimited Count",
+                      "Description": "Makes trader stock for this item unlimited.",
+                      "Type": "bool",
+                      "Default": false
+                    },
+                    {
+                      "Property": "StackObjectsCount",
+                      "DisplayName": "Stack Objects Count",
+                      "Description": "Number of items that can be bought at one time.",
+                      "Type": "int",
+                      "Default": 5
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Property": "CarryCase",
+              "DisplayName": "Carry Case",
+              "Description": "Carry Case settings.",
+              "Type": "object",
+              "Properties": [
+                {
+                  "Property": "GridTypesWidth",
+                  "DisplayName": "Grid Types Width",
+                  "Description": "Grid width by core type",
+                  "Type": "object",
+                  "Properties": [
+                    {
+                      "Property": "normal",
+                      "DisplayName": "Normal and Locked Cores",
+                      "Description": "Grid width for Normal and Locked Cores",
+                      "Type": "int",
+                      "Default": 4,
+                      "Minimum": 1,
+                      "Maximum": 10
+                    },
+                    {
+                      "Property": "universal",
+                      "DisplayName": "Universal Cores",
+                      "Description": "Grid width for Universal Cores",
+                      "Type": "int",
+                      "Default": 1,
+                      "Minimum": 1,
+                      "Maximum": 10
+                    },
+                    {
+                      "Property": "other",
+                      "DisplayName": "Blind Boxes and Unknown Packages",
+                      "Description": "Grid width for Blind Boxes and Unknown Packages",
+                      "Type": "int",
+                      "Default": 5,
+                      "Minimum": 1,
+                      "Maximum": 10
+                    }
+                  ]
+                },
+                {
+                  "Property": "GridHeight",
+                  "DisplayName": "Grid Height",
+                  "Description": "Grid height",
+                  "Type": "int",
+                  "Default": 10,
+                  "Minimum": 1,
+                  "Maximum": 10
+                },
+                {
+                  "Property": "Properties",
+                  "DisplayName": "Properties",
+                  "Description": "Item stat properties.",
+                  "Type": "object",
+                  "Properties": [
+                    {
+                      "Property": "Width",
+                      "DisplayName": "Width",
+                      "Description": "Item width in inventory",
+                      "Type": "int",
+                      "Default": 5,
+                      "Minimum": 1,
+                      "Maximum": 10
+                    },
+                    {
+                      "Property": "Height",
+                      "DisplayName": "Height",
+                      "Description": "Item height in inventory",
+                      "Type": "int",
+                      "Default": 2,
+                      "Minimum": 1,
+                      "Maximum": 10
+                    }
+                  ]
+                },
+                {
+                  "Property": "PriceCoreQuality",
+                  "DisplayName": "Price Core Quality",
+                  "Description": "Core quality used for the price.",
+                  "Type": "list",
+                  "Default": "Baseline",
+                  "AllowedValues": [ "Meme", "Flawed", "Baseline", "Niche", "Advanced", "Superior", "Ultimate", "Unique" ],
+                  "AllowMultiple": false
+                },
+                {
+                  "Property": "PriceCoreAmount",
+                  "DisplayName": "Price Core Amount",
+                  "Description": "Number of cores used for the price.",
+                  "Type": "int",
+                  "Default": 30,
+                  "Minimum": 1,
+                  "Maximum": 100
+                },
+                {
+                  "Property": "Barter",
+                  "DisplayName": "Barter",
+                  "Description": "Trader barter setup.",
+                  "Type": "object",
+                  "Properties": [
+                    {
+                      "Property": "TraderId",
+                      "DisplayName": "Trader",
+                      "Description": "Trader name",
+                      "Type": "list",
+                      "Default": "SKIER",
+                      "AllowedValues": [ "PRAPOR", "THERAPIST", "FENCE", "SKIER", "PEACEKEEPER", "MECHANIC", "RAGMAN", "JAEGER", "REF" ],
+                      "AllowMultiple": false
+                    },
+                    {
+                      "Property": "LoyalLevel",
+                      "DisplayName": "Loyal Level",
+                      "Description": "Required trader loyalty level.",
+                      "Type": "int",
+                      "Default": 1,
+                      "Minimum": 1,
+                      "Maximum": 4
+                    },
+                    {
+                      "Property": "UnlimitedCount",
+                      "DisplayName": "Unlimited Count",
+                      "Description": "Makes trader stock for this item unlimited.",
+                      "Type": "bool",
+                      "Default": false
+                    },
+                    {
+                      "Property": "StackObjectsCount",
+                      "DisplayName": "Stack Objects Count",
+                      "Description": "Number of items that can be bought at one time.",
+                      "Type": "int",
+                      "Default": 10
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Amonya",
+      "DisplayName": "Compatibility - Amonya",
+      "Description": "Settings for extended compatibility with Amonya mod",
+      "Properties": [
+        {
+          "Property": "AmonyaTraderMode",
+          "DisplayName": "Amonya Trader Mode",
+          "Description": "Adds items to Amonya instead of vanilla traders",
+          "Type": "bool",
+          "Default": false
+        }
+      ]
+    },
+    {
+      "Name": "APBS",
+      "DisplayName": "Compatibility - APBS",
+      "Description": "Compatibility settings and toggle for APBS - Acid's Progressive Bot System",
+      "Properties": [
+        {
+          "Property": "EnableAPBSBlacklistGeneration",
+          "DisplayName": "Enable APBS Blacklist Generation",
+          "Description": "Enables automatic creation and updating of the APBS blacklist.",
+          "Type": "bool",
+          "Default": false
+        },
+        {
+          "Property": "APBSFolderName",
+          "DisplayName": "APBS Folder Name",
+          "Description": "Folder name of the APBS mod.",
+          "Type": "string",
+          "Default": "acidphantasm-progressivebotsystem"
+        },
+        {
+          "Property": "APBSTierConfig",
+          "DisplayName": "APBS Tier Config",
+          "Description": "Minimum APBS bot tier at which each quality begins to appear; zero disables it.",
+          "Type": "object",
+          "Properties": [
+            {
+              "Property": "Unique",
+              "DisplayName": "Unique",
+              "Type": "int",
+              "Default": 0,
+              "Minimum": 0,
+              "Maximum": 7
+            },
+            {
+              "Property": "Ultimate",
+              "DisplayName": "Ultimate",
+              "Type": "int",
+              "Default": 7,
+              "Minimum": 0,
+              "Maximum": 7
+            },
+            {
+              "Property": "Superior",
+              "DisplayName": "Superior",
+              "Type": "int",
+              "Default": 6,
+              "Minimum": 0,
+              "Maximum": 7
+            },
+            {
+              "Property": "Advanced",
+              "DisplayName": "Advanced",
+              "Type": "int",
+              "Default": 5,
+              "Minimum": 0,
+              "Maximum": 7
+            },
+            {
+              "Property": "Niche",
+              "DisplayName": "Niche",
+              "Type": "int",
+              "Default": 4,
+              "Minimum": 0,
+              "Maximum": 7
+            },
+            {
+              "Property": "Baseline",
+              "DisplayName": "Baseline",
+              "Type": "int",
+              "Default": 3,
+              "Minimum": 0,
+              "Maximum": 7
+            },
+            {
+              "Property": "Flawed",
+              "DisplayName": "Flawed",
+              "Type": "int",
+              "Default": 2,
+              "Minimum": 0,
+              "Maximum": 7
+            },
+            {
+              "Property": "Meme",
+              "DisplayName": "Meme",
+              "Type": "int",
+              "Default": 1,
+              "Minimum": 0,
+              "Maximum": 7
+            }
+          ]
+        },
+        {
+          "Property": "APBSBlacklistedVariantTypes",
+          "DisplayName": "APBS Blacklisted Variant Types",
+          "Description": "Variant types blacklisted for APBS.",
+          "Type": "list",
+          "Default": [
+            "Rifle Grenade Launcher"
+          ],
+          "ItemType": "string",
+          "AllowMultiple": true
+        }
+      ]
+    },
+    {
+      "Name": "GenerationExclusions",
+      "DisplayName": "Generation Exclusions",
+      "Description": "Exclude selected variant types or weapons from generation",
+      "Properties": [
+        {
+          "Property": "NotGenerateVariantTypes",
+          "DisplayName": "Not Generate Variant Types",
+          "Description": "Variant type names to exclude from generation (e.g. \"Meta\"/\"SMG\")",
+          "Type": "list",
+          "Default": [],
+          "ItemType": "string",
+          "AllowMultiple": true
+        },
+        {
+          "Property": "NotGenerateWeapons",
+          "DisplayName": "Not Generate Weapons",
+          "Description": "Weapon and variant short names to exclude from generation (e.g. \"AKM Meta\")",
+          "Type": "list",
+          "Default": [],
+          "ItemType": "string",
+          "AllowMultiple": true
+        }
+      ]
+    }
+  ]
+}

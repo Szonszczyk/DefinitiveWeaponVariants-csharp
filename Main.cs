@@ -1,7 +1,7 @@
-﻿using DefinitiveWeaponVariants.Compatibility;
-using DefinitiveWeaponVariants.CustomClasses;
+﻿using DefinitiveWeaponVariants.CustomClasses;
 using DefinitiveWeaponVariants.Generators;
 using DefinitiveWeaponVariants.Helpers;
+using DefinitiveWeaponVariants.Integrations;
 using DefinitiveWeaponVariants.Interfaces;
 using DefinitiveWeaponVariants.Loaders;
 using SPTarkov.DI.Annotations;
@@ -13,37 +13,40 @@ namespace DefinitiveWeaponVariants;
 public class DefinitiveWeaponVariants(
     ConfigData config,
     ConfigChecker configChecker,
-    CompatibilityLayers compatibilityLayers,
+    ModCheck compatibilityLayers,
     IdDatabaseManager idDatabaseManager,
     CustomItemCreator customItemCreator,
     CustomLootManager customLootManager,
     ItemGenerator itemGenerator,
     OtherItemsGenerator otherItemsGenerator,
     WeaponGenerator weaponGenerator,
-    ModDataStorage modDataStorage,
-    CustomLogger logger
+    CustomLogger logger,
+    APBSIntegration apbsIntegration,
+    CustomLocales customLocales
 ) : IOnLoad
 {
     public Task OnLoadAsync(CancellationToken cancellationToken)
     {
         configChecker.CheckConfig();
-        modDataStorage.Initialize();
 
         compatibilityLayers.CheckMods();
+        apbsIntegration.CheckModInstall();
 
+        customLocales.Initialize();
         otherItemsGenerator.GenerateOtherItems();
+        logger.Ok("Generated other items");
         itemGenerator.GenerateAllItems();
+        logger.Ok("Generated items");
         weaponGenerator.GenerateWeaponsFromVariantConfig();
-        customLootManager.AddVariantsToLooseLoot();
-        customLootManager.CreateLootpoolForBlindBoxes();
-        customLootManager.AddCoresToBotPockets();
-        compatibilityLayers.RunCompatibilityLayers();
+        customLootManager.EditLoot();
+        apbsIntegration.RunIntegration();
         idDatabaseManager.SaveDatabase();
 
         // Add 12.7x108mm B-32 to trader
         if (config.SpecialAmmoBuyableEnabled)
             customItemCreator.AddItemToTrader("5cde8864d7f00c0010373be1", config.DWVCaliberBarter);
 
+        customLocales.RegisterLocales();
         logger.Ok($"Mod finished loading. Created {customItemCreator.ItemsAdded.Count} custom items!");
 
         return Task.CompletedTask;
@@ -51,11 +54,15 @@ public class DefinitiveWeaponVariants(
 }
 
 [Injectable(TypePriority = OnLoadOrder.PostLoad + 102)]
-public class DefinitiveWeaponVariantsFixBackgrounds(ModDataStorage modDataStorage) : IOnLoad
+public class DefinitiveWeaponVariantsFixBackgrounds(
+    ModDataStorage modDataStorage,
+    APBSIntegration apbsIntegration
+) : IOnLoad
 {
     public Task OnLoadAsync(CancellationToken cancellationToken)
     {
         modDataStorage.FixBackgroundColors();
+        apbsIntegration.RefreshBlacklist(cancellationToken);
         return Task.CompletedTask;
     }
 }

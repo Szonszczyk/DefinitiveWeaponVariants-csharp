@@ -17,7 +17,8 @@ public class ModDatabaseLoader
     public Dictionary<string, VariantConfiguration> DbItems { get; private set; }
     public Dictionary<string, string> DbShortnames { get; private set; }
     public Dictionary<string, Preset> DbPresets { get; private set; }
-    public ModDatabaseLoader(CustomLogger logger, ModHelper modHelper) 
+    public Dictionary<string, Dictionary<string, string>> DbLocales { get; private set; }
+    public ModDatabaseLoader(CustomLogger logger, ModHelper modHelper)
     {
         modFolder = modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
         _logger = logger;
@@ -27,6 +28,7 @@ public class ModDatabaseLoader
         DbItems = LoadDbVariants(Path.Combine(modFolder, "db", "02_Items"));
         DbShortnames = LoadDbShortnames(Path.Combine(modFolder, "db", "03_Shortnames"));
         DbPresets = LoadDbPresets(Path.Combine(modFolder, "db", "04_Presets"));
+        DbLocales = LoadDbLocales(Path.Combine(modFolder, "db", "05_Locales"));
     }
 
     private Dictionary<string, VariantConfiguration> LoadDbVariants(string directoryPath)
@@ -173,6 +175,44 @@ public class ModDatabaseLoader
                 foreach (var kvp in data)
                 {
                     combinedData[kvp.Key] = kvp.Value; // overwrite duplicates
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Error($"Error reading {Path.GetFileName(file)}: {ex.Message}");
+            }
+        }
+        return combinedData;
+    }
+
+    private Dictionary<string, Dictionary<string, string>> LoadDbLocales(string directoryPath)
+    {
+        var combinedData = new Dictionary<string, Dictionary<string, string>>(StringComparer.OrdinalIgnoreCase);
+        if (!Directory.Exists(directoryPath))
+        {
+            _logger.Warning($"Directory not found: {directoryPath}!");
+            return combinedData;
+        }
+        var files = Directory.GetFiles(directoryPath, "*.json", SearchOption.TopDirectoryOnly);
+        foreach (var file in files)
+        {
+            try
+            {
+                var data = _modHelper.GetJsonDataFromFile<Dictionary<string, Dictionary<string, string>>>(modFolder, file);
+                if (data == null) continue;
+                foreach (var kvp in data)
+                {
+                    if (combinedData.TryGetValue(kvp.Key, out var existingData))
+                    {
+                        foreach (var innerKvp in kvp.Value)
+                        {
+                            existingData[innerKvp.Key] = innerKvp.Value; // overwrite duplicates
+                        }
+                    }
+                    else
+                    {
+                        combinedData[kvp.Key] = kvp.Value;
+                    }
                 }
             }
             catch (Exception ex)

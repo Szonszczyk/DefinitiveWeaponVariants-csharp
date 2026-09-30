@@ -7,6 +7,7 @@ using SPTarkov.Server.Core.Models.Eft.Common.Tables;
 using SPTarkov.Server.Core.Models.Enums;
 using SPTarkov.Server.Core.Models.Spt.Config;
 using SPTarkov.Server.Core.Models.Spt.Mod;
+using SPTarkov.Server.Core.Models.Spt.Tables;
 using SPTarkov.Server.Core.Services.Modding.Custom;
 using SPTarkov.Server.Core.Utils.Cloners;
 using System.Reflection;
@@ -18,39 +19,44 @@ public class CustomItemCreator(
     CustomLogger logger,
     CustomItemService customItemService,
     ICloner cloner,
-    ModDataStorage modDataStorage,
-    ItemHelper itemHelper
+    ItemHelper itemHelper,
+    TemplateTable templateTable,
+    TradersTable tradersTable,
+    AirdropConfig airdropConfig,
+    TraderConfig traderConfig,
+    RagfairConfig ragfairConfig,
+    GlobalTable globalTable,
+    HideoutTable hideoutTable,
+    HideoutConfig hideoutConfig
 )
 {
     public Dictionary<MongoId, TemplateItem> ItemsAdded { get; set; } = [];
 
     public void AddItemToDatabase(NewItemFromCloneDetails item, CustomItemConfig itemConfig, CustomBarterConfig barterConfig)
     {
-        if (item.NewId == null) return;
-
         var newItem = customItemService.CreateItemFromClone(item);
 
         if (newItem?.ItemId == null) return;
 
-        modDataStorage.Items.TryGetValue((MongoId)newItem.ItemId, out var newItemTemplate);
+        templateTable.Items.TryGetValue((MongoId)newItem.ItemId, out var newItemTemplate);
 
         if (newItemTemplate is not null)
             ItemsAdded.Add((MongoId)newItem.ItemId, newItemTemplate);
 
-        if (itemConfig.AirdropBlacklisted && modDataStorage.ConfigServerAirdropConfig is not null)
+        if (itemConfig.AirdropBlacklisted)
         {
-            foreach (var (_, airdrop) in modDataStorage.ConfigServerAirdropConfig.Loot)
+            foreach (var (_, airdrop) in airdropConfig.Loot)
             {
                 airdrop.ItemBlacklist.Add(item.NewId);
             }
         }
-        if (itemConfig.FenceBlacklisted && modDataStorage.ConfigServerTraderConfig is not null)
+        if (itemConfig.FenceBlacklisted)
         {
-            modDataStorage.ConfigServerTraderConfig.Fence.Blacklist.Add(item.NewId);
+            traderConfig.Fence.Blacklist.Add(item.NewId);
         }
-        if (itemConfig.FleaBlacklisted && modDataStorage.ConfigServerRagfairConfig is not null)
+        if (itemConfig.FleaBlacklisted)
         {
-            modDataStorage.ConfigServerRagfairConfig.Dynamic.Blacklist.Custom.Add(item.NewId);
+            ragfairConfig.Dynamic.Blacklist.Custom.Add(item.NewId);
         }
         if (itemConfig.AddToInventorySlots.Count > 0)
         {
@@ -60,11 +66,11 @@ public class CustomItemCreator(
         {
             AddItemToMasteries(item.NewId, itemConfig);
         }
-        if (itemConfig.Presets.Count > 0 && modDataStorage.GlobalsData is not null)
+        if (itemConfig.Presets.Count > 0)
         {
             foreach (var (presetId, preset) in itemConfig.Presets)
             {
-                modDataStorage.GlobalsData.ItemPresets[presetId] = preset;
+                globalTable.ItemPresets[presetId] = preset;
             }
         }
         if (barterConfig.LoyalLevel != 0 && barterConfig.BarterPrice.Count > 0)
@@ -74,7 +80,7 @@ public class CustomItemCreator(
     }
     private void AddItemToInventorySlots(string itemId, CustomItemConfig itemConfig)
     {
-        TemplateItem defaultInventory = modDataStorage.Items["55d7217a4bdc2d86028b456d"];
+        TemplateItem defaultInventory = templateTable.Items["55d7217a4bdc2d86028b456d"];
         if (defaultInventory.Properties == null) return;
         IEnumerable<Slot>? defaultInventorySlots = defaultInventory.Properties.Slots;
         if (defaultInventorySlots != null && defaultInventorySlots.Any())
@@ -96,14 +102,14 @@ public class CustomItemCreator(
                             }
                         }
                     }
-                    
+
                 }
             }
         }
     }
     private void AddItemToMasteries(string itemId, CustomItemConfig itemConfig)
     {
-        var mastering = modDataStorage.GlobalsData.Configuration.Mastering;
+        var mastering = globalTable.Configuration.Mastering;
         var existingMastery = mastering.FirstOrDefault(existing => existing.Name == itemConfig.MasteryName);
         if (existingMastery != null)
         {
@@ -122,7 +128,7 @@ public class CustomItemCreator(
             logger.Error($"Trader name / Trader ID '{traderId}' is incorrect!");
             return;
         }
-        var trader = modDataStorage.Traders[(MongoId)traderId];
+        var trader = tradersTable[(MongoId)traderId];
 
         foreach (var (addBarterId, _) in barterConfig.BarterPrice)
         {
@@ -173,7 +179,7 @@ public class CustomItemCreator(
 
     public void CreateHideoutCraft(MongoId id, string craftIdToCopy, Dictionary<string, int> requiredItems, int productionTime, string newCraftId)
     {
-        var recipes = modDataStorage.HideoutData?.Production?.Recipes;
+        var recipes = hideoutTable.Production?.Recipes;
         if (recipes == null)
         {
             logger.Error("Cannot add craft: Recipes collection is null.");
@@ -221,7 +227,7 @@ public class CustomItemCreator(
             CraftTimeSeconds = craftTimeSeconds,
             Repeatable = repeatable
         };
-        modDataStorage.HideoutConfigData.CultistCircle.DirectRewards.Add(newdirectReward);
+        hideoutConfig.CultistCircle.DirectRewards.Add(newdirectReward);
     }
 
     public void AddItemToSecureContainer(string id)
@@ -229,15 +235,15 @@ public class CustomItemCreator(
         var allContainers = itemHelper.GetItemTplsOfBaseType("5448bf274bdc2dfc2f8b456a");
         foreach (var containerId in allContainers)
         {
-            modDataStorage.Items.TryGetValue(containerId, out var container);
-            if (container is null || container?.Properties?.Grids is null) { continue; }
-            foreach(var grid in container.Properties.Grids)
+            templateTable.Items.TryGetValue(containerId, out var container);
+            if (container == null || container?.Properties?.Grids == null) { continue; }
+            foreach (var grid in container.Properties.Grids)
             {
-                if (grid?.Properties?.Filters is not null && grid.Properties.Filters.Any())
+                if (grid?.Properties?.Filters != null && grid.Properties.Filters.Any())
                 {
-                    grid.Properties.Filters.FirstOrDefault().Filter.Add(id);
+                    grid.Properties.Filters.FirstOrDefault()?.Filter?.Add(id);
                 }
-                
+
             }
         }
     }
@@ -249,7 +255,7 @@ public class CustomItemCreator(
         {
             return id;
         }
-        if (!MongoId.IsValidMongoId(name) || !modDataStorage.Traders.TryGetValue(name, out _)) return null;
+        if (!MongoId.IsValidMongoId(name) || !tradersTable.TryGetValue(name, out _)) return null;
 
         return name;
     }
@@ -261,7 +267,7 @@ public class CustomItemCreator(
         {
             return id;
         }
-        if (!MongoId.IsValidMongoId(name) || !modDataStorage.Items.TryGetValue(name, out _)) return null;
+        if (!MongoId.IsValidMongoId(name) || !templateTable.Items.TryGetValue(name, out _)) return null;
 
         return name;
     }

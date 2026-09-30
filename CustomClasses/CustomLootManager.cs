@@ -8,6 +8,7 @@ using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Eft.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
 using SPTarkov.Server.Core.Models.Spt.Config;
+using SPTarkov.Server.Core.Models.Spt.Tables;
 using SPTarkov.Server.Core.Utils;
 using SPTarkov.Server.Core.Utils.Cloners;
 
@@ -21,10 +22,20 @@ public class CustomLootManager(
     ItemHelper itemHelper,
     RandomUtil randomUtil,
     IdDatabaseManager idDatabaseManager,
-    ModDataStorage modDataStorage
+    ModDataStorage modDataStorage,
+    LocationTable locationTable,
+    InventoryConfig inventoryConfig,
+    BotTable botTable
 )
 {
     private readonly ConfigData modConfig = config;
+
+    public void EditLoot()
+    {
+        AddVariantsToLooseLoot();
+        CreateLootpoolForBlindBoxes();
+        AddCoresToBotPockets();
+    }
 
     private class WeightDataForLoot
     {
@@ -107,9 +118,9 @@ public class CustomLootManager(
             logger.Error($"Config option of MarkedRoomsProbability is incorrect, is: {weights["Marked"].Probability}, should be between 0 and 1. Disabling adding variants to Marked rooms!");
             weights["Marked"].Probability = 0;
         }
-        var locations = modDataStorage.LocationsData.GetDictionary();
+        var locations = locationTable.GetDictionary();
 
-        
+
         logger.Ok($"There are {weights["Marked"].TotalWeapons} possible weapons in Marked Rooms");
         foreach ((string locationId, Location location) in locations)
         {
@@ -150,9 +161,6 @@ public class CustomLootManager(
                             });
                             logger.Debug($"Added {composedKey}/{quality} with {Math.Floor(probabilityOfAddedItems * ((double)modConfig.QualityWeights[quality] / (double)weights["Marked"].TotalWeight))}(QWEIGHT:{modConfig.QualityWeights[quality]}/TOTALWEIGHT:{weights["Marked"].TotalWeight})(MAX:{totalProbability},ADDED:{probabilityOfAddedItems}) to {spawnpointId}");
                         }
-
-                        // TODO: Add variants to loose loot
-                        //      We need to get spawn point IDs of only weapon vanilla spawns - hardcoded to not replace other modded weapons
                         spawnpoint.Template.Items = spawnpointTemplateItems;
                         spawnpoint.ItemDistribution = itemDistribution;
                     }
@@ -217,7 +225,7 @@ public class CustomLootManager(
                             if (containersForPackage.Contains(containerId) && modConfig.VariantCoresEnabled)
                             {
                                 var probabilityOfAddedItems = modConfig.VariantCores.UnknownPackage.Probability / (1 - modConfig.VariantCores.UnknownPackage.Probability) * totalProbability;
-                                
+
                                 itemDistribution.Add(new ItemDistribution
                                 {
                                     Tpl = unknownPackageId,
@@ -254,7 +262,8 @@ public class CustomLootManager(
             caliberList = (from x in (defaultWeapon?.Properties?.Chambers?.First().Properties?.Filters?.First().Filter)?.Where((x) => itemHelper.GetItem(x).Key) select itemHelper.GetItem(x).Value?.Properties?.Caliber).ToList();
         }
 
-        try {
+        try
+        {
             itemHelper.FillMagazineWithRandomCartridge(
                 magazineWithCartridges,
                 magTemplate,
@@ -264,7 +273,9 @@ public class CustomLootManager(
                 defaultWeapon?.Properties?.DefAmmo,
                 defaultWeapon
             );
-        } catch {
+        }
+        catch
+        {
             return items;
         }
 
@@ -291,7 +302,7 @@ public class CustomLootManager(
                 (bool find, TemplateItem? item) = itemHelper.GetItem(idDatabaseId);
                 if (find && item is not null)
                 {
-                    modDataStorage.InventoryConfigData.RandomLootContainers.Add(idDatabaseId, new RewardDetails
+                    inventoryConfig.RandomLootContainers.Add(idDatabaseId, new RewardDetails
                     {
                         RewardCount = 1,
                         FoundInRaid = false,
@@ -306,12 +317,11 @@ public class CustomLootManager(
     public void AddCoresToBotPockets()
     {
         if (!modConfig.VariantCoresEnabled) return;
-        var bots = modDataStorage.Bots;
         foreach (var (botName, prob) in modConfig.VariantCores.Normal.FoundOnEnemies)
         {
             if (prob <= 0) continue;
 
-            bots.Types.TryGetValue(botName, out var bot);
+            botTable.Types.TryGetValue(botName, out var bot);
             if (bot is null)
             {
                 logger.Warning($"Bot name '{botName}' is incorrect. Bot names can be found in SPT_Data\\database\\bots\\types");
@@ -328,10 +338,10 @@ public class CustomLootManager(
                 if (idDatabaseManager.DbIds.TryGetValue($"{quality} Quality Variant Core:ID", out var idDatabaseId))
                 {
                     (bool find, TemplateItem? item) = itemHelper.GetItem(idDatabaseId);
-                    
+
                     if (find && item is not null)
                     {
-                        pockets.Add(idDatabaseId, Math.Ceiling(((float)modConfig.QualityWeights[quality] / (float)qualityTotal) * probabilityOfAddedItems)); 
+                        pockets.Add(idDatabaseId, Math.Ceiling(((float)modConfig.QualityWeights[quality] / (float)qualityTotal) * probabilityOfAddedItems));
                         logger.Debug($"Added {quality} Quality Variant Core with {Math.Ceiling(((float)modConfig.QualityWeights[quality] / (float)qualityTotal) * probabilityOfAddedItems)}(QWEIGHT:{modConfig.QualityWeights[quality]}/TOTALWEIGHT:{qualityTotal})(MAX:{totalProbability},ADDED:{probabilityOfAddedItems}) to Scav pockets");
                     }
                 }
