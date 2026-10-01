@@ -1,7 +1,7 @@
 ﻿using DefinitiveWeaponVariants.Constants;
 using DefinitiveWeaponVariants.CustomClasses;
 using DefinitiveWeaponVariants.Helpers;
-using DefinitiveWeaponVariants.Interfaces;
+using DefinitiveWeaponVariants.Models;
 using DefinitiveWeaponVariants.Loaders;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.Helpers.Items;

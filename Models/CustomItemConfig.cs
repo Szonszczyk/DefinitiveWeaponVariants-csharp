@@ -1,7 +1,7 @@
 ﻿using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Spt.Tables;
 
-namespace DefinitiveWeaponVariants.Interfaces;
+namespace DefinitiveWeaponVariants.Models;
 
 public class CustomItemConfig
 {

@@ -1,7 +1,8 @@
 ﻿using DefinitiveWeaponVariants.Constants;
 using DefinitiveWeaponVariants.CustomClasses;
 using DefinitiveWeaponVariants.Helpers;
-using DefinitiveWeaponVariants.Interfaces;
+using DefinitiveWeaponVariants.Integrations;
+using DefinitiveWeaponVariants.Models;
 using DefinitiveWeaponVariants.Loaders;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.Extensions;
@@ -30,7 +31,8 @@ public class WeaponGenerator(
     GlobalTable globalTable,
     TemplateTable templateTable,
     LocaleService localeService,
-    CustomLocales customLocales
+    CustomLocales customLocales,
+    ModCheck modCheck
 )
 {
     private readonly ConfigData modConfig = config;
@@ -44,7 +46,8 @@ public class WeaponGenerator(
         {
             if (config is { Description: not null, Explanation: not null, ShortName: not null, Rarity: not null } variant)
             {
-                
+                foreach (var modGUID in variant.ModGUIDs ?? []) if (!modCheck.CheckInstalledMod(modGUID)) continue; // Mod check
+
                 var rarity = RaritySettings.GetByName(variant.Rarity);
                 var weaponsToGenerate = GetAllowedWeaponsToGenerate(variantName, variant);
 
@@ -415,8 +418,12 @@ public class WeaponGenerator(
         }
         if (!modConfig.Generate[variant.Rarity]) return [];
 
+        var weaponsToCheck = cloner.Clone(variant.Weapons);
+        if (weaponsToCheck == null) return [];
+        foreach(var (weapon, modGUID) in variant.ModWeapons) if (modCheck.CheckInstalledMod(modGUID)) weaponsToCheck.Add(weapon); // Weapon mod check
+
         var weaponsToGenerate = new HashSet<string>();
-        foreach (var weaponShortname in variant.Weapons)
+        foreach (var weaponShortname in weaponsToCheck)
         {
             var variantShortName = $"{weaponShortname} {variant.ShortName}";
             if (modConfig.NotGenerateWeapons.Contains(variantShortName)) continue;

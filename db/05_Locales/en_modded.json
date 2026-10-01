@@ -1,0 +1,31 @@
+{
+  "en": {
+    // Weapon variants
+    "Dragunov.Name": "Dragunov",
+    "Dragunov.Description": "A modification for various bolt-action rifles rumored to be crafted by Podderzhki Dragunov",
+    "Dragunov.Explanation": "Weapon variant chambered in 9.3x64mm caliber with matching TKPD magazines",
+    "Dragunov.ShortName": "Dragunov",
+    "MXLR Unique.Name": ">Endless Quick-scope<",
+    "MXLR Unique.Description": "Even if you are not the best when shooting using iron sights, you have a lot of bullets in the magazine!",
+    "MXLR Unique.Explanation": "MXLR >Endless Quick-scope<\nThis unique variant blends the best traits of Endless and Quick-scope variant types. Despite missing a rail slot for attaching scope, it has max ergonomics, very good muzzle velocity, decreased heat factor and malfuntion chance, and, of course, massive magazine!",
+    "MXLR Unique.ShortName": ">Endless Quick-scope<",
+    "AK-308 Unique.Name": ">Meta HMG<",
+    "AK-308 Unique.Description": "It is not even that heavy!",
+    "AK-308 Unique.Explanation": "AK-308 >Meta HMG<\nThis unique variant blends the best traits of Meta and Heavy Machine Gun variant types. Full-auto fire mode only, meta stats, increased fire rate and reduced vertical recoil, but increased visible recoil",
+    "AK-308 Unique.ShortName": ">Meta HMG<",
+    "NL545 GP Unique.Name": ">Larger Laser Rifle<",
+    "NL545 GP Unique.Description": "When Meta gun receives Meme variant type without a downside it becomes... this:",
+    "NL545 GP Unique.Explanation": "NL545 GP >Larger caliber Laser Rifle<\nThis unique variant has a larger caliber than its basic version and statistics from the Laser Rifle variant type. 3-shot burst mode only, insane fire rate, muzzle velocity and no recoil, chambered in 7.62x39 with AKM magazines",
+    "NL545 GP Unique.ShortName": ">Larger Laser Rifle<",
+
+    // Items
+    "M1895/MXLR Ranger Point Precision RHINO 5 inch Quick-scope rail.Name": "M1895/MXLR Ranger Point Precision RHINO 5 inch Quick-scope rail",
+    "M1895/MXLR Ranger Point Precision RHINO 5 inch Quick-scope rail.Description": "A 5 inch top rail for M1895 Quick-scope rifles. Allows installation of the reflex sight. Manufactured by [REDACTED]",
+    "M1895/MXLR Ranger Point Precision RHINO 5 inch Quick-scope rail.ShortName": "RHINO Q",
+    "M1895/MXLR Ranger Point Precision RHINO 5 inch Quick-scope rail.VariantType": "Quick-scope",
+    "MXLR .308 ME 100-round endless magazine.Name": "MXLR .308 ME 100-round endless magazine",
+    "MXLR .308 ME 100-round endless magazine.Description": "A unique 100-round .308 ME tube magazine for the Marlin MXLR rifle Unique Variant.",
+    "MXLR .308 ME 100-round endless magazine.ShortName": "MXLR 100",
+    "MXLR .308 ME 100-round endless magazine.VariantType": "MXLR >Endless Quick-scope<"
+  }
+}

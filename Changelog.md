@@ -1,5 +1,11 @@
 # Version 5.0.0 for SPT ~4.1.6
 
+- Added a "ReplaceExisting" key for easier variants and items changes
+    Just copy an existing variant or item, add "ReplaceExisting": true and you are good to go!
+- Added a mod check to variant types and weapons
+    This should be used only for modded items shipped with this mod
+- Added items from Backport AddOn to the main mod
+
 - Initial Blazor deploy
 
 - Changed minimum SPT requirements to 4.1.6

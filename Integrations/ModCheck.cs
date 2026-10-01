@@ -1,5 +1,5 @@
 ﻿using DefinitiveWeaponVariants.Helpers;
-using DefinitiveWeaponVariants.Interfaces;
+using DefinitiveWeaponVariants.Models;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.Helpers.Server;
 using SPTarkov.Server.Core.Models.Spt.Mod;
@@ -33,7 +33,6 @@ public class ModCheck(
             }
         }
     }
-
     public bool CheckInstalledMod(string guid, string? modfolder = null)
     {
         var mod = modlist.ToList().Find(t => t.ModMetadata.ModGuid == guid);

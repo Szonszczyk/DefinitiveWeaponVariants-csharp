@@ -1,0 +1,21 @@
+{
+  "MXLR .308 ME 100-round endless magazine": {
+    "Description": "A unique 100-round .308 ME tube magazine for the Marlin MXLR rifle Unique Variant.",
+    "ShortName": "MXLR 100",
+    "ItemTplToClone": "67c5424826265106dd0697a4",
+    "Properties": {
+      "Height": 5,
+      "Width": 5
+    },
+    "Changes": {
+      "Cartridges": {
+        "Count": 100,
+        "FromWeapons": [ "MXLR" ]
+      }
+    },
+    "HandbookPriceRoubles": 9999,
+    "VariantType": "MXLR >Endless Quick-scope<",
+    "Rarity": "Unique",
+    "ModGUIDs": [ "com.wtt.contentbackport" ]
+  }
+}

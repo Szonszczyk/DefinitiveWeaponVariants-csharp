@@ -2,7 +2,7 @@
 using DefinitiveWeaponVariants.Generators;
 using DefinitiveWeaponVariants.Helpers;
 using DefinitiveWeaponVariants.Integrations;
-using DefinitiveWeaponVariants.Interfaces;
+using DefinitiveWeaponVariants.Models;
 using DefinitiveWeaponVariants.Loaders;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.DI;

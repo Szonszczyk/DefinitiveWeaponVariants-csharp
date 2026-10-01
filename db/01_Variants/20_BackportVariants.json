@@ -1,0 +1,64 @@
+{
+	"Dragunov": {
+		"Description": "A modification for various bolt-action rifles rumored to be crafted by Podderzhki Dragunov",
+		"Explanation": "Weapon variant chambered in 9.3x64mm caliber with matching TKPD magazines",
+		"ShortName": "Dragunov",
+		"Changes": {
+			"Slots": {
+				"mod_magazine": {
+					"FromWeapons": ["TKPD"]
+				}
+			},
+			"Chambers": {
+				"FromWeapons": [ "TKPD" ]
+			}
+		},
+		"Weapons": [
+			"T-5000M", "SV-98", "DVL-10", "M700", "VPO-215",
+			"TRG M10", "Mosin Infantry", "Mosin Sniper"
+		],
+		"Rarity": "Baseline",
+		"ModGUIDs": [ "com.wtt.contentbackport" ]
+	},
+	"No-Bolt": { "ModWeapons": { "MXLR": "com.wtt.contentbackport" } },
+	"50Cal": { "ModWeapons": { "MXLR": "com.wtt.contentbackport" } },
+	"Handy": { "ModWeapons": { "MXLR": "com.wtt.contentbackport" } },
+	"Quick-scope": {
+		"IndividualChanges": {
+			"MXLR": { "Slots": { "mod_mount": { "Filter": [ "M1895/MXLR Ranger Point Precision RHINO 5 inch Quick-scope rail" ] } } }
+		},
+		"ModWeapons": { "MXLR": "com.wtt.contentbackport" }
+	},
+
+	"Freedom \"Thing\"": { "ModWeapons": { "AS VAL MOD.4": "com.wtt.contentbackport" } },
+	"Unbreakable": { "ModWeapons": { "AS VAL MOD.4": "com.wtt.contentbackport" } },
+	"SMG": { "ModWeapons": { "AS VAL MOD.4": "com.wtt.contentbackport" } },
+
+	"Marksman": { "ModWeapons": { "AK-308": "com.wtt.contentbackport" } },
+	"Light Machine Gun": { "ModWeapons": { "AK-308": "com.wtt.contentbackport" } },
+	"Experimental": { "ModWeapons": { "AK-308": "com.wtt.contentbackport" } },
+
+	"The Unheard Edition": { "ModWeapons": { "TKPD": "com.wtt.contentbackport" } },
+	"Control-Fire": { "ModWeapons": { "TKPD": "com.wtt.contentbackport" } },
+	"Hypersonic": { "ModWeapons": { "TKPD": "com.wtt.contentbackport" } },
+
+	"Meta": { "ModWeapons": { "NL545 GP": "com.wtt.contentbackport" } },
+	"Lawn Mower": { "ModWeapons": { "NL545 GP": "com.wtt.contentbackport" } },
+	"Slowed": { "ModWeapons": { "NL545 GP": "com.wtt.contentbackport" } },
+
+	"Pay to Win": { "ModWeapons": { "NL545 DI": "com.wtt.contentbackport" } },
+	"World War II": { "ModWeapons": { "NL545 DI": "com.wtt.contentbackport" } },
+	"Modified": { "ModWeapons": { "NL545 DI": "com.wtt.contentbackport" } },
+
+	"Black Market": { "ModWeapons": { "Model 1": "com.wtt.contentbackport" } },
+	"Laser Rifle": { "ModWeapons": { "Model 1": "com.wtt.contentbackport" } },
+	"Speedy": { "ModWeapons": { "Model 1": "com.wtt.contentbackport" } },
+
+	"Endless": { "ModWeapons": { "M16A1": "com.wtt.contentbackport" } },
+	"Upgraded": { "ModWeapons": { "M16A1": "com.wtt.contentbackport" } },
+	"Converted": { "ModWeapons": { "M16A1": "com.wtt.contentbackport" } },
+
+	"Rifle Grenade Launcher": { "ModWeapons": { "M16A2": "com.wtt.contentbackport" } },
+	"Fullburst": { "ModWeapons": { "M16A2": "com.wtt.contentbackport" } },
+	"Overclocked": { "ModWeapons": { "M16A2": "com.wtt.contentbackport" } }
+}

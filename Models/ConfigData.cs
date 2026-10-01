@@ -1,6 +1,6 @@
 ﻿using SPTarkov.Server.Core.Models.Eft.Common.Tables;
 
-namespace DefinitiveWeaponVariants.Interfaces;
+namespace DefinitiveWeaponVariants.Models;
 
 public class ConfigData
 {

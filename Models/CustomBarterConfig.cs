@@ -1,4 +1,4 @@
-﻿namespace DefinitiveWeaponVariants.Interfaces;
+﻿namespace DefinitiveWeaponVariants.Models;
 
 public class CustomBarterConfig
 {

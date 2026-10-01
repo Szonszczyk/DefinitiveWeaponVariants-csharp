@@ -1,7 +1,8 @@
 ﻿using DefinitiveWeaponVariants.Constants;
 using DefinitiveWeaponVariants.CustomClasses;
 using DefinitiveWeaponVariants.Helpers;
-using DefinitiveWeaponVariants.Interfaces;
+using DefinitiveWeaponVariants.Integrations;
+using DefinitiveWeaponVariants.Models;
 using DefinitiveWeaponVariants.Loaders;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.Models.Common;
@@ -22,7 +23,8 @@ public class ItemGenerator(
     ConfigData config,
     ModDataStorage modDataStorage,
     TemplateTable templateTable,
-    CustomLocales customLocales
+    CustomLocales customLocales,
+    ModCheck modCheck
 )
 {
     private readonly ConfigData modConfig = config;
@@ -48,6 +50,7 @@ public class ItemGenerator(
     {
         if (config is { Description: not null, ShortName: not null, ItemTplToClone: not null, Rarity: not null, HandbookPriceRoubles: not null, VariantType: not null } variant)
         {
+            foreach (var modGUID in variant.ModGUIDs ?? []) if (!modCheck.CheckInstalledMod(modGUID)) continue; // Mod check
             if (!MongoId.IsValidMongoId(variant.ItemTplToClone))
             {
                 logger.Error($"ItemTplToClone {variant.ItemTplToClone} is incorrect ({variantName})!");

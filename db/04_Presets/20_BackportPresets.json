@@ -1,0 +1,144 @@
+{
+	"MXLR Quick": {
+		"_items": [
+    {
+      "_id": "69721b710a49934600576e25",
+      "_tpl": "696d2494db6534808871e862",
+      "upd": {
+        "Repairable": {
+          "Durability": 100,
+          "MaxDurability": 100
+        },
+        "FireMode": {
+          "FireMode": "single"
+        },
+        "SpawnedInSession": true
+      }
+    },
+    {
+      "_id": "69721b710a49934600576e26",
+      "_tpl": "67c5424826265106dd0697a4",
+      "parentId": "69721b710a49934600576e25",
+      "slotId": "mod_magazine",
+      "upd": {
+        "SpawnedInSession": true
+      }
+    },
+    {
+      "_id": "69721b710a49934600576e27",
+      "_tpl": "67c541ba5b84f7f36c03e555",
+      "parentId": "69721b710a49934600576e25",
+      "slotId": "mod_stock",
+      "upd": {
+        "SpawnedInSession": true
+      }
+    },
+    {
+      "_id": "69721b710a49934600576e28",
+      "_tpl": "67c5425e26265106dd0697a7",
+      "parentId": "69721b710a49934600576e25",
+      "slotId": "mod_barrel",
+      "upd": {
+        "SpawnedInSession": true
+      }
+    },
+    {
+      "_id": "69721b710a49934600576e29",
+      "_tpl": "697218e097f9c362b4918846",
+      "parentId": "69721b710a49934600576e25",
+      "slotId": "mod_mount",
+      "desc": "M1895/MXLR Ranger Point Precision RHINO 5 inch Quick-scope rail"
+    },
+    {
+      "_id": "69721b710a49934600576e2a",
+      "_tpl": "67c54114d0538d12ec036c0a",
+      "parentId": "69721b710a49934600576e25",
+      "slotId": "mod_trigger",
+      "upd": {
+        "SpawnedInSession": true
+      }
+    },
+    {
+      "_id": "69721b710a49934600576e2b",
+      "_tpl": "67c5412bb032bbdb530201ba",
+      "parentId": "69721b710a49934600576e25",
+      "slotId": "mod_hammer",
+      "upd": {
+        "SpawnedInSession": true
+      }
+    },
+    {
+      "_id": "69721b710a49934600576e2c",
+      "_tpl": "67c54183b032bbdb530201bc",
+      "parentId": "69721b710a49934600576e25",
+      "slotId": "mod_charge",
+      "upd": {
+        "SpawnedInSession": true
+      }
+    },
+    {
+      "_id": "69721b710a49934600576e2e",
+      "_tpl": "67c542c126265106dd0697ab",
+      "parentId": "69721b710a49934600576e28",
+      "slotId": "mod_handguard",
+      "upd": {
+        "SpawnedInSession": true
+      }
+    },
+    {
+      "_id": "69721b710a49934600576e2f",
+      "_tpl": "67c54270b032bbdb530201c2",
+      "parentId": "69721b710a49934600576e28",
+      "slotId": "mod_sight_front",
+      "upd": {
+        "SpawnedInSession": true,
+        "Sight": {
+          "ScopesCurrentCalibPointIndexes": [
+            0
+          ],
+          "ScopesSelectedModes": [
+            0
+          ],
+          "SelectedScope": 0,
+          "ScopeZoomValue": 0
+        }
+      }
+    },
+    {
+      "_id": "69721b710a49934600576e30",
+      "_tpl": "67c5428ab032bbdb530201c4",
+      "parentId": "69721b710a49934600576e28",
+      "slotId": "mod_sight_rear",
+      "upd": {
+        "SpawnedInSession": true,
+        "Sight": {
+          "ScopesCurrentCalibPointIndexes": [
+            0
+          ],
+          "ScopesSelectedModes": [
+            0
+          ],
+          "SelectedScope": 0,
+          "ScopeZoomValue": 0
+        }
+      }
+    },
+    {
+      "_id": "69721b710a49934600576e31",
+      "_tpl": "692066c72a67c15014e82143",
+      "parentId": "69721b710a49934600576e29",
+      "slotId": "mod_scope",
+      "desc": "Quick-scope special \"reflex\" sight"
+    },
+    {
+      "_id": "69721b710a49934600576e32",
+      "_tpl": "67c5414ed0538d12ec036c0c",
+      "parentId": "69721b710a49934600576e2b",
+      "slotId": "mod_tactical",
+      "upd": {
+        "SpawnedInSession": true
+      }
+    }
+  ]
+	}
+}

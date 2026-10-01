@@ -1,5 +1,5 @@
 ﻿using DefinitiveWeaponVariants.Helpers;
-using DefinitiveWeaponVariants.Interfaces;
+using DefinitiveWeaponVariants.Models;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.Helpers.Server;
 using SPTarkov.Server.Core.Models.Spt.Tables;
@@ -56,52 +56,67 @@ public class ModDatabaseLoader
                 {
                     if (combinedData.TryGetValue(key, out var existing))
                     {
-                        // Both have Description → log error and skip
-                        if (!string.IsNullOrEmpty(existing.Description) && !string.IsNullOrEmpty(value.Description))
+                        // Merge-only records extend the other record, including replacements.
+                        var existingIsMergeOnly = IsMergeOnly(existing);
+                        var valueIsMergeOnly = IsMergeOnly(value);
+                        if (!existingIsMergeOnly && !valueIsMergeOnly)
                         {
-                            _logger.Error($"Duplicate Description conflict for key '{key}' in {Path.GetFileName(file)}. Only one variant config should have 'Description' property!");
+                            if (existing.ReplaceExisting == true && value.ReplaceExisting == true)
+                            {
+                                _logger.Error($"Duplicate ReplaceExisting conflict for key '{key}' in {Path.GetFileName(file)}. Only one variant config should have 'ReplaceExisting' set to true!");
+                                continue;
+                            }
+
+                            if (value.ReplaceExisting == true)
+                            {
+                                combinedData[key] = value;
+                                continue;
+                            }
+                            else if (existing.ReplaceExisting != true)
+                            {
+                                _logger.Error($"Duplicate variant conflict for key '{key}' in {Path.GetFileName(file)}. A replacement variant config must have 'ReplaceExisting' set to true!");
+                            }
+
                             continue;
                         }
 
-                        // Determine which is the "original" (the one with Description)
-                        var original = !string.IsNullOrEmpty(existing.Description) ? existing : value;
+                        var original = valueIsMergeOnly ? existing : value;
                         var duplicate = ReferenceEquals(original, existing) ? value : existing;
 
                         // --- Merge Weapons ---
                         if (duplicate.Weapons?.Count > 0)
                         {
-                            original.Weapons ??= new List<string>();
-
-                            original.Weapons = original.Weapons
-                                .Union(duplicate.Weapons, StringComparer.OrdinalIgnoreCase)
-                                .ToList();
+                            original.Weapons = new HashSet<string>(original.Weapons ?? [], StringComparer.OrdinalIgnoreCase);
+                            original.Weapons.UnionWith(duplicate.Weapons);
                         }
-
+                        // --- Merge ModWeapons ---
+                        if (duplicate.ModWeapons != null)
+                        {
+                            original.ModWeapons ??= new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                            foreach (var kv in duplicate.ModWeapons)
+                            {
+                                // Replace duplicates with the merge-only entry
+                                original.ModWeapons[kv.Key] = kv.Value;
+                            }
+                        }
                         // --- Merge IndividualChanges ---
                         if (duplicate.IndividualChanges != null)
                         {
                             original.IndividualChanges ??= new Dictionary<string, IndividualChangeSet>(StringComparer.OrdinalIgnoreCase);
-
                             foreach (var kv in duplicate.IndividualChanges)
                             {
-                                // Replace duplicates with newer entry
                                 original.IndividualChanges[kv.Key] = kv.Value;
                             }
                         }
-
                         // --- Merge Properties ---
                         if (duplicate.Properties != null)
                         {
                             original.Properties ??= new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
-
                             foreach (var kv in duplicate.Properties)
                             {
-                                // Replace duplicates with newer entry
                                 original.Properties[kv.Key] = kv.Value;
                             }
                         }
-
-                        // Replace combined version back into main dictionary
                         combinedData[key] = original;
                     }
                     else
@@ -118,6 +133,21 @@ public class ModDatabaseLoader
 
         return combinedData;
     }
+
+    private static bool IsMergeOnly(VariantConfiguration configuration)
+    {
+        return string.IsNullOrEmpty(configuration.Description)
+            && string.IsNullOrEmpty(configuration.Explanation)
+            && string.IsNullOrEmpty(configuration.ShortName)
+            && configuration.ItemTplToClone == null
+            && configuration.Changes == null
+            && configuration.Barter == null
+            && configuration.WeaponIdToUseAs == null
+            && configuration.HandbookPriceRoubles == null
+            && string.IsNullOrEmpty(configuration.VariantType)
+            && string.IsNullOrEmpty(configuration.Rarity);
+    }
+
     private Dictionary<string, string> LoadDbShortnames(string directoryPath)
     {
         var combinedData = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);

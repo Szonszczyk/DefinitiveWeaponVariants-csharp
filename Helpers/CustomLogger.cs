@@ -1,4 +1,4 @@
-using DefinitiveWeaponVariants.Interfaces;
+using DefinitiveWeaponVariants.Models;
 using SPTarkov.Common.Models.Logging;
 using SPTarkov.DI.Annotations;
 using System.Diagnostics;

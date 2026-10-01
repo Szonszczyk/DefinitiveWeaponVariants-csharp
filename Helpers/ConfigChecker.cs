@@ -1,5 +1,5 @@
 ﻿using DefinitiveWeaponVariants.Constants;
-using DefinitiveWeaponVariants.Interfaces;
+using DefinitiveWeaponVariants.Models;
 using SPTarkov.DI.Annotations;
 
 namespace DefinitiveWeaponVariants.Helpers;

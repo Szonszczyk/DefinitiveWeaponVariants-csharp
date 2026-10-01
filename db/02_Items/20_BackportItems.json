@@ -1,0 +1,21 @@
+{
+  "M1895/MXLR Ranger Point Precision RHINO 5 inch Quick-scope rail": {
+    "Description": "A 5 inch top rail for M1895 Quick-scope rifles. Allows installation of the reflex sight. Manufactured by [REDACTED]",
+    "ShortName": "RHINO Q",
+    "ItemTplToClone": "67c541fcb032bbdb530201be",
+    "Properties": {
+      "Weight": 0
+    },
+    "Changes": {
+      "Slots": {
+        "mod_scope": {
+          "Filter": [ "Quick-scope special \"reflex\" sight" ]
+        }
+      }
+    },
+    "HandbookPriceRoubles": 7260,
+    "VariantType": "Quick-scope",
+    "Rarity": "Flawed",
+    "ModGUIDs": [ "com.wtt.contentbackport" ]
+  }
+}

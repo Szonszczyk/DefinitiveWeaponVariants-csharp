@@ -1,4 +1,4 @@
-using DefinitiveWeaponVariants.Interfaces;
+using DefinitiveWeaponVariants.Models;
 using SPTarkov.Server.Core.DI;
 using System.Reflection;
 using System.Text.Json;
