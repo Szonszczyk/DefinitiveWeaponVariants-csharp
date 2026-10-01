@@ -34,9 +34,7 @@ public class DefinitiveWeaponVariants(
 
         customLocales.Initialize();
         otherItemsGenerator.GenerateOtherItems();
-        logger.Ok("Generated other items");
         itemGenerator.GenerateAllItems();
-        logger.Ok("Generated items");
         weaponGenerator.GenerateWeaponsFromVariantConfig();
         customLootManager.EditLoot();
         apbsIntegration.RunIntegration();

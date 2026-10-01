@@ -1,0 +1,50 @@
+/* Per-mod theme. Edit these colors to distinguish your mod's config page.
+   Ship this wwwroot directory next to the mod DLL (not inside config).
+   Changes to this file require a browser refresh, not a DLL rebuild.
+   Keep selectors scoped so they do not restyle SPT or other mods. */
+.mod-config-editor {
+    /* Page backgrounds and separators */
+    --mc-background: #131a24; /* Background of the whole config page. */
+    --mc-panel: #1b2533; /* Background of the settings panel. */
+    --mc-divider: #354256; /* Lines below the header and between settings. */
+
+    /* Text and links */
+    --mc-text: #e6eaf0; /* Default page text. */
+    --mc-heading: #fff; /* Page title and section headings. */
+    --mc-muted: #b9c5d5; /* Descriptions, status text, and expandable summaries. */
+    --mc-help-text: #bac6d4; /* Small helper text below settings. */
+    --mc-link: #8fd8ed; /* Regular links within the config page. */
+
+    /* Accent and keyboard focus */
+    --mc-accent: #97dfc3; /* Save button, sliders, checkboxes, and selected navigation text/borders. */
+    --mc-accent-text: #13291f; /* Text on the Save button. */
+    --mc-focus: #8bd7f0; /* Outline around keyboard-focused controls. */
+
+    /* Buttons */
+    --mc-button-background: #283649; /* Background of ordinary buttons. */
+    --mc-button-text: #edf2f8; /* Ordinary button and unselected navigation text. */
+    --mc-button-border: #46566c; /* Ordinary button borders and the sidebar divider. */
+    --mc-button-hover: #34475d; /* Background of ordinary buttons when hovered. */
+
+    /* Sidebar navigation */
+    --mc-highlight: #253d37; /* Background of the selected sidebar section. */
+    --mc-nav-link: #72b7ff; /* Text and border of the Back to SPT link. */
+    --mc-nav-link-hover: #203650; /* Background of the Back to SPT link when hovered. */
+
+    /* Inputs and nested settings */
+    --mc-input-background: #101925; /* Background of text inputs, dropdowns, and text areas. */
+    --mc-input-text: #edf3fc; /* Text inside text inputs, dropdowns, and text areas. */
+    --mc-input-border: #607086; /* Borders around text inputs, dropdowns, and text areas. */
+    --mc-object-border: #547065; /* Left border beside nested object settings. */
+    --mc-unknown-border: #63728a; /* Dashed border around unknown-property editors. */
+
+    /* Status messages and feedback */
+    --mc-save-confirmation: #ff6262; /* Successful-save confirmation in the header. */
+    --mc-banner-background: #20372e; /* Background of unsaved-edit and discard-confirmation banners. */
+    --mc-banner-text: #d6eee4; /* Text inside those banners. */
+    --mc-banner-border: #49675c; /* Borders around those banners. */
+    --mc-error-background: #46282e; /* Background of error messages. */
+    --mc-error-text: #ffccd2; /* Text inside error messages. */
+    --mc-error-border: #a45e69; /* Borders around error messages. */
+    --mc-notice: #f0d795; /* Warning and validation notice text. */
+}

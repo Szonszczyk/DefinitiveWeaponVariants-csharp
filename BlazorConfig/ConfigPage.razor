@@ -1,0 +1,189 @@
+@namespace ModConfigEditor
+@attribute [Route(ModEditorSettings.Route)]
+@attribute [Authorize(Policy = ModEditorSettings.AuthorizationPolicy)]
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+@inject AuthenticationStateProvider Authentication
+@inject IAuthorizationService Authorization
+
+@* SPT discovers this routable component in the mod DLL. It supplies Blazor,
+   authentication and the connection to the browser; we do not start another host.
+   Prerendering is disabled to avoid loading a second draft during the initial GET.
+   AuthorizeView protects rendering; handlers ALSO authorize before file access. *@
+<PageTitle>@ModEditorSettings.Title — Configuration</PageTitle>
+<AuthorizeView Policy="@ModEditorSettings.AuthorizationPolicy">
+    <Authorized>
+        <div class="mod-config-editor">
+            <EditorStyles />
+            @* SPT serves each mod's wwwroot under its assembly name by default.
+               This CSS contains editable theme colors and is shipped beside the DLL. *@
+            <link rel="stylesheet" href="@ModEditorSettings.ThemeUrl" />
+            @* Two compact rows: title/actions, then status/change count. Save
+               stays last in the action group, at the top-right corner. *@
+            <header class="mc-header">
+                <div class="mc-header-brand">
+                    <img class="mc-header-thumbnail" src="@ModEditorSettings.ThumbnailUrl" alt="" width="64" height="64" />
+                    <h1 title="@ModEditorSettings.Description">@ModEditorSettings.Title</h1>
+                </div>
+                <div class="mc-header-actions">
+                    <button type="button" disabled="@_busy" @onclick="RequestReload">Reload from disk</button>
+                    <button type="button" class="mc-primary" disabled="@(_busy || _session is null)" @onclick="Save">Save configuration</button>
+                </div>
+                <p class="mc-header-status @(_message is not null ? "mc-save-confirmation" : null)" role="status">@(_message ?? "Configuration · Changes apply after restarting SPT.")</p>
+                <span class="mc-change-count" aria-live="polite">@(_busy ? "Working…" : $"Unsaved changes: {_changeCount}")</span>
+            </header>
+            <NavigationLock ConfirmExternalNavigation="@_dirty" OnBeforeInternalNavigation="BeforeNavigation" />
+            @if (_navigationBlocked)
+            {
+                <div class="mc-banner" role="alert">Unsaved edits: save or reload the configuration before leaving this page.</div>
+            }
+            @if (_error is not null) { <div class="mc-error" role="alert">@_error</div> }
+            @if (_confirmReload)
+            {
+                <div class="mc-banner" role="alert">
+                    Discard your unsaved edits and load the files again?
+                    <button type="button" @onclick="Load">Discard and reload</button>
+                    <button type="button" @onclick="() => _confirmReload = false">Keep editing</button>
+                </div>
+            }
+            @if (_session is { } session)
+            {
+                <div class="mc-layout">
+                    <nav aria-label="Configuration sections">
+                        @foreach (var section in session.Schema.Sections)
+                        {
+                            <button type="button" aria-current="@(!_advancedOptions && _section == section ? "page" : null)" @onclick="() => SelectSection(section)">
+                                @(string.IsNullOrWhiteSpace(section.DisplayName) ? section.Name : section.DisplayName)
+                            </button>
+                        }
+                        @if (session.Draft.Unknown.Count > 0 || _showEmptyUnknown)
+                        {
+                            <button type="button" aria-current="@(!_advancedOptions && _section is null ? "page" : null)" @onclick="() => SelectSection(null)">Unknown properties (@session.Draft.Unknown.Count)</button>
+                        }
+                        @* Utility navigation follows the mod's settings, separated
+                           visually so it never looks like another schema property. *@
+                        <hr class="mc-nav-divider" />
+                        <button type="button" aria-current="@(_advancedOptions ? "page" : null)" @onclick="() => _advancedOptions = true">Advanced options</button>
+                        <a class="mc-nav-link" href="/"><span aria-hidden="true">←</span> Back to SPT</a>
+                    </nav>
+                    <main>
+                        @* Sections are display groups only. All root fields write
+                           at config's root, never under a section-name object. *@
+                        <fieldset disabled="@_busy">
+                            @if (_advancedOptions)
+                            {
+                                <h2>Advanced options</h2>
+                                <label class="mc-toggle"><input type="checkbox" @bind="_showEmptyUnknown" @bind:after="UnknownVisibilityChanged" /> Show empty unknown-property editors</label>
+                                <p>Reveal empty Unknown editors to add properties not covered by the schema.</p>
+                            }
+                            else if (_section is { } active)
+                            {
+                                <h2>@(string.IsNullOrWhiteSpace(active.DisplayName) ? active.Name : active.DisplayName)</h2>
+                                <p>@active.Description</p>
+                                @foreach (var definition in active.Properties)
+                                {
+                                    var field = session.Draft.Fields.Single(f => ReferenceEquals(f.Definition, definition));
+                                    <PropertyEditor @key="field" Field="field" OnChanged="MarkDirty" ShowEmptyUnknown="_showEmptyUnknown" />
+                                }
+                            }
+                            else
+                            {
+                                <h2>Unknown properties</h2>
+                                <UnknownEditor Draft="session.Draft" OnChanged="MarkDirty" ShowEmpty="_showEmptyUnknown" />
+                            }
+                        </fieldset>
+                    </main>
+                </div>
+            }
+        </div>
+    </Authorized>
+    <NotAuthorized><p>Sign in to SPT with an administrator account to edit this configuration. <a href="/">Return to SPT</a></p></NotAuthorized>
+</AuthorizeView>
+
+@code {
+    // Page fields belong to this browser circuit, never to a static/global config.
+    private readonly ConfigFileStore _store = new(ModEditorSettings.ConfigDirectory, ModEditorSettings.ConfigFile, ModEditorSettings.DefaultFile);
+    private EditorSession? _session;
+    private SchemaSection? _section;
+    private bool _busy, _confirmReload, _navigationBlocked, _showEmptyUnknown, _advancedOptions;
+    private int _changeCount;
+    private bool _dirty => _changeCount > 0;
+    private string? _message, _error;
+
+    protected override Task OnInitializedAsync() => Load();
+
+    private async Task RequireAdministrator()
+    {
+        var state = await Authentication.GetAuthenticationStateAsync();
+        if (!(await Authorization.AuthorizeAsync(state.User, null, ModEditorSettings.AuthorizationPolicy)).Succeeded)
+            throw new UnauthorizedAccessException("An SPT administrator account is required.");
+    }
+
+    private async Task Load()
+    {
+        if (_busy) return;
+        _busy = true;
+        _error = _message = null;
+        _confirmReload = false;
+        try
+        {
+            await RequireAdministrator();
+            var loaded = await _store.LoadAsync();
+            _session = loaded; // Failed loading leaves the previous draft intact.
+            _section = loaded.Schema.Sections.FirstOrDefault();
+            _advancedOptions = false;
+            _changeCount = 0;
+            _navigationBlocked = false;
+        }
+        catch (Exception ex) when (IsExpected(ex)) { _error = ex.Message; }
+        finally { _busy = false; }
+    }
+
+    private async Task Save()
+    {
+        if (_busy || _session is null) return;
+        _busy = true;
+        _error = _message = null;
+        try
+        {
+            await RequireAdministrator();
+            var result = await _store.SaveAsync(_session);
+            _changeCount = 0;
+            _navigationBlocked = false;
+            _message = "Configuration saved. Restart SPT manually to apply it.";
+            // Rebuild from the SAVED tree, without another disk read that could
+            // accidentally adopt somebody else's later edits as this tab's draft.
+            var selectedName = _section?.Name;
+            var saved = result.SavedConfiguration;
+            _session = new EditorSession(_session.Schema, new ObjectDraft(_session.Schema.RootProperties, saved, _session.Defaults), _session.Defaults,
+                _session.ConfigFingerprint, _session.SchemaFingerprint, _session.DefaultFingerprint);
+            _section = _session.Schema.Sections.FirstOrDefault(s => s.Name == selectedName);
+        }
+        catch (Exception ex) when (IsExpected(ex)) { _error = ex.Message; }
+        finally { _busy = false; }
+    }
+
+    private static bool IsExpected(Exception ex) => ex is IOException or UnauthorizedAccessException or System.Text.Json.JsonException or InvalidDataException;
+    private void MarkDirty()
+    {
+        _changeCount = _session?.Changes.CountChanges() ?? 0;
+        _message = null;
+        UnknownVisibilityChanged();
+    }
+    private void UnknownVisibilityChanged()
+    {
+        if (!_showEmptyUnknown && _section is null && _session?.Draft.Unknown.Count == 0)
+            _section = _session.Schema.Sections.FirstOrDefault();
+    }
+    private void SelectSection(SchemaSection? section)
+    {
+        _advancedOptions = false;
+        _section = section;
+    }
+    private async Task RequestReload() { if (_dirty) _confirmReload = true; else await Load(); }
+    private void BeforeNavigation(LocationChangingContext context)
+    {
+        if (!_dirty) return;
+        context.PreventNavigation();
+        _navigationBlocked = true;
+    }
+}

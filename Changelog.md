@@ -1,5 +1,7 @@
 # Version 5.0.0 for SPT ~4.1.6
 
+- Initial Blazor deploy
+
 - Changed minimum SPT requirements to 4.1.6
 - Added automatic APBS blacklist refresh
 - Added translation system

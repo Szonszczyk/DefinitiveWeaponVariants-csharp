@@ -7,16 +7,25 @@
     <Nullable>enable</Nullable>
     <OutputType>Library</OutputType>
     <Version>5.0.0</Version>
-    <!-- The two lines below will set the output path for the binaries -->
     <OutputPath>bin\$(Configuration)\$(ProjectName)\$(AssemblyName)\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <Authors>Szonszczyk</Authors>
   </PropertyGroup>
 
+	<ItemGroup>
+		<Compile Remove="CustomClasses\CustomLootEditor.cs" />
+		<!-- Checks are a developer-only console project, never part of the mod DLL. -->
+		<Compile Remove="BlazorConfig\Checks\**\*.cs" />
+		<Content Remove="BlazorConfig\Checks\**\*" />
+		<!-- SPT expects wwwroot beside the DLL, including local build outputs. -->
+		<Content Update="wwwroot\**\*" CopyToOutputDirectory="PreserveNewest" />
+	</ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="SPTushonka.Common" Version="4.1.6" />
     <PackageReference Include="SPTushonka.DI" Version="4.1.6" />
     <PackageReference Include="SPTushonka.Server.Core" Version="4.1.6" />
+    <PackageReference Include="SPTushonka.Server.Web" Version="4.1.6" />
   </ItemGroup>
 
 	<Target Name="PackageModForDistribution" AfterTargets="Build" Condition="'$(SkipModPackaging)' != 'true'">
@@ -65,7 +74,7 @@
 		<Message Text="--- Mod successfully packaged at: $(ProjectDir)$(ZipFileName) ---" Importance="high" />
 	</Target>
 
-  <Target Name="CopyModToGame" AfterTargets="Build">
+  <Target Name="CopyModToGame" AfterTargets="Build" Condition="'$(SkipModDeploy)' != 'true'">
     <PropertyGroup>
       <GameModDir>C:\Games\SPT 4.1\SPT_Runtime\user\mods\DefinitiveWeaponVariants</GameModDir>
     </PropertyGroup>
@@ -74,7 +83,9 @@
     <Copy SourceFiles="$(TargetDir)$(TargetName).pdb" DestinationFolder="$(GameModDir)" SkipUnchangedFiles="true" Condition="Exists('$(TargetDir)$(TargetName).pdb')" />
     <ItemGroup>
       <GameModDbFiles Include="$(ProjectDir)db\**\*" />
+      <GameModWebFiles Include="$(ProjectDir)wwwroot\**\*" />
     </ItemGroup>
     <Copy SourceFiles="@(GameModDbFiles)" DestinationFiles="@(GameModDbFiles->'$(GameModDir)\db\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(GameModWebFiles)" DestinationFiles="@(GameModWebFiles->'$(GameModDir)\wwwroot\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
   </Target>
 </Project>

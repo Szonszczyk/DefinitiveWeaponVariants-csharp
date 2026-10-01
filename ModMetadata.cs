@@ -1,9 +1,14 @@
 using SPTarkov.Server.Core.Models.Spt.Mod;
+using SPTarkov.Server.Web;
+using ModConfigEditor;
 
 namespace DefinitiveWeaponVariants;
 
-public record ModMetadata : IModMetadata
+public record ModMetadata : IModMetadata, IModBlazorMetadata
 {
+    public string? WWWRootUrl { get; init; }
+    public string? HomePage { get; init; } = ModEditorSettings.Route;
+    public string? HomePageDescription { get; init; } = ModEditorSettings.Description;
     public string ModGuid { get; init; } = "com.szonszczyk.definitiveweaponvariants";
     public string Name { get; init; } = "DefinitiveWeaponVariants";
     public string Author { get; init; } = "Szonszczyk";

@@ -7,7 +7,7 @@
       "Properties": [
         {
           "Property": "Generate",
-          "DisplayName": "Weaon generation",
+          "DisplayName": "Weapon generation",
           "Description": "Controls which weapon-variant qualities are generated",
           "Type": "object",
           "Properties": [

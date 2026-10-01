@@ -1,0 +1,36 @@
+@namespace ModConfigEditor.Components
+@using System.Globalization
+
+@* A single text value backs BOTH controls. Typing invalid or out-of-range text
+   is preserved for Save validation. Only the slider's displayed thumb is clamped;
+   it never silently changes the text. This also works for list/dictionary rows. *@
+<div class="mc-number">
+    @if (HasSlider)
+    {
+        <input type="range" min="@Format(SliderMinimum)" max="@Format(SliderMaximum)"
+               step="@(Type == "int" ? "1" : "any")" value="@SliderValue"
+               aria-label="@(Label + " slider")" disabled="@(SliderMinimum == SliderMaximum)" @oninput="Edit" />
+    }
+    <input id="@Id" type="text" inputmode="decimal" aria-label="@Label"
+           value="@Value" @oninput="Edit" />
+</div>
+
+@code {
+    [Parameter] public string? Id { get; set; }
+    [Parameter] public string Label { get; set; } = "Value";
+    [Parameter] public string Value { get; set; } = "";
+    [Parameter] public EventCallback<string> ValueChanged { get; set; }
+    [Parameter] public string Type { get; set; } = "float";
+    [Parameter] public double? Minimum { get; set; }
+    [Parameter] public double? Maximum { get; set; }
+
+    // An unbounded side has no meaningful slider endpoint. Keep the field in
+    // that case; ranges with both endpoints get a slider and a text field.
+    private double SliderMinimum => Type == "int" ? Math.Ceiling(Minimum ?? 0) : Minimum ?? 0;
+    private double SliderMaximum => Type == "int" ? Math.Floor(Maximum ?? 0) : Maximum ?? 0;
+    private bool HasSlider => Minimum.HasValue && Maximum.HasValue && SliderMinimum <= SliderMaximum;
+    private string SliderValue => Format(double.TryParse(Value, NumberStyles.Float, CultureInfo.InvariantCulture, out var value) && double.IsFinite(value)
+        ? Math.Clamp(value, SliderMinimum, SliderMaximum) : SliderMinimum);
+    private static string Format(double value) => value.ToString("R", CultureInfo.InvariantCulture);
+    private Task Edit(ChangeEventArgs args) => ValueChanged.InvokeAsync(args.Value?.ToString() ?? "");
+}
