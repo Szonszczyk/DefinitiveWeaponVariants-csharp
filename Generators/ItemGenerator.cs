@@ -66,7 +66,6 @@ public class ItemGenerator(
 
             HandbookItem? copiedItemHandbook = templateTable.Handbook.Items.Find(t => t.Id == itemTplToClone);
             RarityData rarity = RaritySettings.GetByName(variant.Rarity);
-            if (variant.Barter is not null && modConfig.AmonyaTraderMode) variant.Barter.TraderId = "ee840a5ba014e9c5478d5ccd";
             var traderName = (variant.Barter == null || customItemCreator.GetTraderIdByName(variant.Barter.TraderId) == null) ? customItemCreator.GetTraderIdByName("PEACEKEEPER") : customItemCreator.GetTraderIdByName(variant.Barter.TraderId);
             var text = variant.Barter == null ? "{Desc.NoBarter}" : $"{{Desc.Barter}} {{{traderName} Nickname}} LL{variant.Barter.LoyalLevel}";
             var newItem = new NewItemFromCloneDetails

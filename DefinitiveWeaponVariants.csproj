@@ -38,7 +38,7 @@
 		<Message Text="--- Starting Mod packaging for distribution ---" Importance="high" />
 		<RemoveDir Directories="$(TempPackageDir)" />
 		<MakeDir Directories="$(ModPackageDir)" />
-		<MakeDir Directories="$(ModPackageDir)\config;$(ModPackageDir)\db\01_Variants;$(ModPackageDir)\db\02_Items;$(ModPackageDir)\db\03_Shortnames;$(ModPackageDir)\db\04_Presets;$(ModPackageDir)\db\05_Locales;$(ModPackageDir)\db\06_Cores;$(ModPackageDir)\db\99_Ids" />
+		<MakeDir Directories="$(ModPackageDir)\config;$(ModPackageDir)\db\01_Variants;$(ModPackageDir)\db\02_Items;$(ModPackageDir)\db\03_Shortnames;$(ModPackageDir)\db\04_Presets;$(ModPackageDir)\db\05_Locales;$(ModPackageDir)\db\06_Cores;$(ModPackageDir)\db\07_Trader;$(ModPackageDir)\db\99_Ids" />
 		<Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ModPackageDir)" />
 		<Copy SourceFiles="$(ProjectDir)config\defaultConfig.jsonc" DestinationFolder="$(ModPackageDir)\config" />
 		<Copy SourceFiles="$(ProjectDir)config\configSchema.json" DestinationFolder="$(ModPackageDir)\config" />
@@ -65,6 +65,9 @@
 			</PackageDbFiles>
 			<PackageDbFiles Include="$(ProjectDir)db\06_Cores\**\*">
 				<PackageDirectory>06_Cores</PackageDirectory>
+			</PackageDbFiles>
+			<PackageDbFiles Include="$(ProjectDir)db\07_Trader\**\*">
+				<PackageDirectory>07_Trader</PackageDirectory>
 			</PackageDbFiles>
 			<PackageDbFiles Include="$(ProjectDir)db\99_Ids\**\*">
 				<PackageDirectory>99_Ids</PackageDirectory>

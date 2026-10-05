@@ -2,8 +2,10 @@
 using DefinitiveWeaponVariants.Models;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.Helpers.Server;
+using SPTarkov.Server.Core.Models.Eft.Common.Tables;
 using SPTarkov.Server.Core.Models.Spt.Tables;
 using System.Reflection;
+using Path = System.IO.Path;
 
 namespace DefinitiveWeaponVariants.Loaders;
 
@@ -19,6 +21,7 @@ public class ModDatabaseLoader
     public Dictionary<string, Preset> DbPresets { get; private set; }
     public Dictionary<string, Dictionary<string, string>> DbLocales { get; private set; }
     public Dictionary<string, CoreConfiguration> DbCores { get; private set; }
+    public TraderBase TraderBase { get; private set; }
     public ModDatabaseLoader(CustomLogger logger, ModHelper modHelper)
     {
         modFolder = modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
@@ -31,6 +34,7 @@ public class ModDatabaseLoader
         DbPresets = LoadDbPresets(Path.Combine(modFolder, "db", "04_Presets"));
         DbLocales = LoadDbLocales(Path.Combine(modFolder, "db", "05_Locales"));
         DbCores = LoadDbCores(Path.Combine(modFolder, "db", "06_Cores"));
+        TraderBase = LoadTraderBase(Path.Combine(modFolder, "db", "07_Trader"));
     }
 
     private Dictionary<string, VariantConfiguration> LoadDbVariants(string directoryPath)
@@ -288,5 +292,13 @@ public class ModDatabaseLoader
             }
         }
         return combinedData;
+    }
+    private TraderBase LoadTraderBase(string directoryPath)
+    {
+        var file = Path.Combine(directoryPath, "base.json");
+        var data = _modHelper.GetJsonDataFromFile<TraderBase>(modFolder, file);
+        if (data != null) return data;
+        _logger.Error($"Could not read {file}!");
+        return new TraderBase();
     }
 }

@@ -113,12 +113,18 @@
  "EnableAPBSBlacklistGeneration": false,  // true/false - default: false
  "APBSFolderName": "acidphantasm-progressivebotsystem", // text - default: "acidphantasm-progressivebotsystem"
 
- // ### 5.2. Amonya
- // All items added to vanilla traders will be added to Amonya instead
- // Requires: Amonya >=2.0.3
- "AmonyaTraderMode": false,
- // Enabling this option will disable "SpecialAmmoBuyableEnabled" option
 
+	"Trader": {
+		"Traders": [
+			{
+        "DynamicOfferCount": 15,
+				"RefreshSeconds": {
+					"Min": 900,
+					"Max": 1800
+				}
+			}
+		]
+	},
 
 
  // ##############################
@@ -183,7 +189,6 @@
 			},
 			"Buyable": false, // If cores can be bought via trader
 			"Barter": { // Barter setup
-				"TraderId": "SKIER", // Trader name uppercased - default: "SKIER"
 				"LoyalLevel": 1, // Number 1-4 - default: 1
 				"UnlimitedCount": false, // Is trader stock for this item unlimited?
 				"StackObjectsCount": 5 // How many items you can buy at one time
@@ -193,7 +198,6 @@
 				"UpToQuality": "Baseline", // Highest quality obtainable through upgrading. Example: "Baseline" allows Meme → Flawed → Baseline
 				"Ratio": 3, // Number of lower-quality cores required to obtain one higher-quality core
 				"Barter": { // Barter setup
-					"TraderId": "SKIER", // Trader name uppercased - default: "SKIER"
 					"LoyalLevel": 1, // Number 1-4 - default: 1
 					"UnlimitedCount": false, // Is trader stock for this item unlimited?
 					"StackObjectsCount": 5 // How many items you can buy at one time
@@ -213,7 +217,6 @@
 			"UpgradableOptions": {
 				"Ratio": 3, // How many normal cores needs to be exchanged for one Locked
 				"Barter": {
-					"TraderId": "SKIER", // Trader name uppercased - default: "SKIER"
 					"LoyalLevel": 2, // Number 1-4 - default: 1
 					"UnlimitedCount": false, // Is trader stock for this item unlimited?
 					"StackObjectsCount": 5 // How many items you can buy at one time
@@ -235,7 +238,6 @@
 			},
 			"CoresPrice": 3, // Number of the same quality cores needed to buy 1 Blind Box of the same quality
 			"Barter": {
-				"TraderId": "SKIER", // Trader name uppercased - default: "SKIER"
 				"LoyalLevel": 1, // Number 1-4 - default: 1
 				"UnlimitedCount": false, // Is trader stock for this item unlimited?
 				"StackObjectsCount": 20 // How many items you can buy at one time
@@ -250,7 +252,6 @@
 			},
 			"PriceInRoubles": 250000,
 			"Barter": {
-				"TraderId": "SKIER", // Trader name uppercased - default: "SKIER"
 				"LoyalLevel": 1, // Number 1-4 - default: 1
 				"UnlimitedCount": false, // Is trader stock for this item unlimited?
 				"StackObjectsCount": 20 // How many items you can buy at one time
@@ -275,7 +276,6 @@
 			"PriceCoreQuality": "Baseline", // Quality of cores used for price
 			"PriceCoreAmount": 12, // Number of cores used for price
 			"Barter": {
-				"TraderId": "SKIER", // Trader name uppercased - default: "SKIER"
 				"LoyalLevel": 1, // Number 1-4 - default: 1
 				"UnlimitedCount": false, // Is trader stock for this item unlimited?
 				"StackObjectsCount": 5 // How many items you can buy at one time
@@ -295,7 +295,6 @@
 			"PriceCoreQuality": "Baseline", // Quality of cores used for price
 			"PriceCoreAmount": 30, // Number of cores used for price
 			"Barter": {
-				"TraderId": "SKIER", // Trader name uppercased - default: "SKIER"
 				"LoyalLevel": 1, // Number 1-4 - default: 1
 				"UnlimitedCount": false, // Is trader stock for this item unlimited?
 				"StackObjectsCount": 10 // How many items you can buy at one time
@@ -306,7 +305,6 @@
  // ### 14.1. BUYABLE 12.7x108 CALIBER AMMO
  // Advanced configuration for section 4.1.
  "DWVCaliberBarter": {
-	 "TraderId": "SKIER", //Trader name uppercased - default: "SKIER"
 	 "LoyalLevel": 1, //Number 1-4 - default: 1
 	 "BarterPrice": {
 		 "MONEY_ROUBLES": 2500 //Number - default: 2500

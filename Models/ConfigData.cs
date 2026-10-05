@@ -17,6 +17,7 @@ public class ConfigData
     public bool EnableAPBSBlacklistGeneration { get; set; } = false;  // 5.1.
     public string APBSFolderName { get; set; } = "acidphantasm-progressivebotsystem";  // 5.1.
     public bool AmonyaTraderMode { get; set; } = false;  // 5.2.
+    public TraderDynamicAssortConfig Trader { get; set; } = new();
 
     // ADVANCED
     public List<string> NotGenerateVariantTypes { get; set; } = []; // 10.1.

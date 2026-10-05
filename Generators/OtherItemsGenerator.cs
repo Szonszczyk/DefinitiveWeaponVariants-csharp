@@ -29,7 +29,6 @@ public class OtherItemsGenerator(
 {
     private readonly ConfigData modConfig = config;
     private Dictionary<string, int> UnknownPackageLootpool { get; set; } = [];
-
     private Dictionary<MongoId, double> UnknownPackageLootpoolIds { get; set; } = [];
 
     private TemplateItemProperties VariantCorePropertiesOverride { get; } = new()
@@ -101,6 +100,7 @@ public class OtherItemsGenerator(
                 corePropertiesOverride
             );
             if (newId is null) { continue; }
+            modDataStorage.CoreIDsByQuality.Add(quality, newId);
             modDataStorage.AddCoreToStorage(newId, quality, "normal");
             RarityData rarity = RaritySettings.GetByName(variant.Rarity);
             UnknownPackageLootpool.Add($"<color={rarity.Color}><b>{{Quality.{quality}.Name}} {{CoreItem.Normal.Name}} (90%/10% {{CoreItem.Locked.ShortName}})</b></color>", modConfig.QualityWeights[quality] * 9);
@@ -115,13 +115,12 @@ public class OtherItemsGenerator(
                 modConfig.Generate.TryGetValue(qualityNow, out var qualityNowEnabled);
                 modConfig.Generate.TryGetValue(qualityPrev, out var qualityPrevEnabled);
                 if (!qualityNowEnabled || !qualityPrevEnabled) { continue; }
-                var nowCore = customSlotsChanger.GetItemFromString($"{qualityNow} Quality Variant Core")!;
-                var prevCore = customSlotsChanger.GetItemFromString($"{qualityPrev} Quality Variant Core")!;
+                modDataStorage.CoreIDsByQuality.TryGetValue(qualityNow, out var nowCore);
+                modDataStorage.CoreIDsByQuality.TryGetValue(qualityPrev, out var prevCore);
                 var barterConfig = cloner.Clone(modConfig.VariantCores.Normal.UpgradableOptions.Barter);
-                if (barterConfig is null) continue;
-                barterConfig.BarterPrice.Add((string)prevCore.Id, modConfig.VariantCores.Normal.UpgradableOptions.Ratio);
-                if (modConfig.AmonyaTraderMode) barterConfig.TraderId = "ee840a5ba014e9c5478d5ccd";
-                customItemCreator.AddItemToTrader(nowCore.Id, barterConfig);
+                if (barterConfig == null || nowCore == null || prevCore == null) continue;
+                barterConfig.BarterPrice.Add(prevCore, modConfig.VariantCores.Normal.UpgradableOptions.Ratio);
+                customItemCreator.AddItemToTrader(nowCore, barterConfig);
                 if (qualityNow == modConfig.VariantCores.Normal.UpgradableOptions.UpToQuality) break;
             }
         }

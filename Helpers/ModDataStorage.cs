@@ -34,6 +34,9 @@ public class ModDataStorage(
         }
     }
 
+    // Database Quality <> Core ID
+    public Dictionary<string, string> CoreIDsByQuality { get; private set; } = [];
+
     // Database of items in preset 
     public Dictionary<string, List<List<Item>>> VariantPresets { get; private set; } = [];
     // Database of all variant Ids

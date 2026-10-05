@@ -2,8 +2,8 @@
 using DefinitiveWeaponVariants.CustomClasses;
 using DefinitiveWeaponVariants.Helpers;
 using DefinitiveWeaponVariants.Integrations;
-using DefinitiveWeaponVariants.Models;
 using DefinitiveWeaponVariants.Loaders;
+using DefinitiveWeaponVariants.Models;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.Extensions;
 using SPTarkov.Server.Core.Helpers.Items;
@@ -208,7 +208,7 @@ public class WeaponGenerator(
 
                         if (parentIdsToChange.Contains(newWeapon.ParentId))
                         {
-                            if (copiedItem?.Properties?.WeapUseType == "secondary")
+                            if (copiedItem.Properties?.WeapUseType == "secondary")
                                 newWeaponConfig.AddToInventorySlots.Add("Holster");
                             else
                             {
@@ -219,7 +219,7 @@ public class WeaponGenerator(
                     }
 
                     // Change slots
-                    var slotConfig = GetCombinedSlotConfig(variant, newWeapon.NewItemName);
+                    var slotConfig = GetCombinedSlotConfig(variant, internalShortname);
                     var newSlots = customSlotsChanger.SlotsChanger(slotConfig, copiedItem, newWeapon);
                     if (newSlots != null)
                     {
@@ -227,33 +227,39 @@ public class WeaponGenerator(
                         // Change item in slot in preset(s)
                         if (slotConfig != null)
                         {
-                            foreach (var slot in newWeapon.OverrideProperties.Slots)
+                            foreach (var slotName in slotConfig.Keys)
                             {
-                                if (slot.Name == null) continue;
-                                if (slotConfig.TryGetValue(slot.Name, out FilterSlotExtendedConfiguration? newFilterConfig))
+                                var slot = newSlots.FirstOrDefault(s => s.Name == slotName);
+                                var newFilter = slot?.Properties?.Filters?.FirstOrDefault()?.Filter;
+                                if (slotName == "mod_magazine" && newFilter?.Count > 0 && copiedItem.Properties?.DefMagType != null)
                                 {
-                                    var newFilter = slot?.Properties?.Filters?.First().Filter;
-                                    if (slot!.Name == "mod_magazine" && newFilter?.Count > 0 && copiedItem?.Properties?.DefMagType != null)
+                                    newWeapon.OverrideProperties!.DefMagType = newFilter.First();
+                                }
+                                foreach (var preset in newWeaponConfig.Presets.Values)
+                                {
+                                    var item = preset.Items.FirstOrDefault(i => i.SlotId == slotName);
+                                    if (item == null) continue;
+                                    if (newFilter?.Count > 0)
                                     {
-                                        newWeapon.OverrideProperties!.DefMagType = newFilter.First();
+                                        if (!newFilter.Contains(item.Template)) item.Template = newFilter.First();
                                     }
-                                    foreach (var (presetId, preset) in newWeaponConfig.Presets)
-                                    {
-                                        Item? item = preset.Items.FirstOrDefault(t => t.SlotId == slot.Name);
-                                        if (item != null)
-                                        {
-                                            if (newFilter?.Count > 0)
+                                    else {
+                                        // Remove the attachment and its descendants.
+                                        var removedIds = new HashSet<MongoId> { item.Id };
+                                        bool foundChildren;
+                                        do {
+                                            foundChildren = false;
+                                            foreach (var child in preset.Items)
                                             {
-                                                if (!newFilter.Contains(item.Template))
+                                                if (child.ParentId != null
+                                                    && removedIds.Any(id => id.ToString() == child.ParentId)
+                                                    && removedIds.Add(child.Id))
                                                 {
-                                                    item.Template = newFilter.First();
+                                                    foundChildren = true;
                                                 }
                                             }
-                                            else
-                                            {
-                                                preset.Items.Remove(item);
-                                            }
-                                        }
+                                        } while (foundChildren);
+                                        preset.Items.RemoveAll(i => removedIds.Contains(i.Id));
                                     }
                                 }
                             }
@@ -364,8 +370,22 @@ public class WeaponGenerator(
                         }
                     }
                     modDataStorage.AddVariantToStorage(newWeapon.NewId, variant.Rarity, variantName, newWeaponConfig.Presets);
-                    if (config.Barter is not null && modConfig.AmonyaTraderMode) config.Barter.TraderId = "ee840a5ba014e9c5478d5ccd";
-                    customItemCreator.AddItemToDatabase(newWeapon, newWeaponConfig, config.Barter ?? new CustomBarterConfig());
+
+                    modDataStorage.CoreIDsByQuality.TryGetValue(variant.Rarity, out var coreID);
+
+                    if (modConfig.QualityWeights.TryGetValue(variant.Rarity, out var qualityWeight))
+                    {
+                        var barter = coreID == null ? null : new CustomBarterConfig()
+                        {
+                            LoyalLevel = 1,
+                            UnlimitedCount = false,
+                            StackObjectsCount = 1,
+                            BarterPrice = { [coreID] = 3 }
+                        };
+                        barter?.RandomAssortWeight = qualityWeight;
+                        customItemCreator.AddPresetToTrader(newWeapon.NewId, newWeaponConfig.Presets.FirstOrDefault().Value.Items, barter ?? new CustomBarterConfig());
+                    }
+                    customItemCreator.AddItemToDatabase(newWeapon, newWeaponConfig, new CustomBarterConfig());
                     modDataStorage.AddItemToQuality(newWeapon.NewId, variant.Rarity);
                     //if (variant.Rarity == "Unique")
                     //    customItemCreator.CreateCultistCircleCraft(

@@ -12,8 +12,7 @@ namespace DefinitiveWeaponVariants;
 [Injectable(TypePriority = OnLoadOrder.Preload + 54000)]
 public class DefinitiveWeaponVariants(
     ConfigData config,
-    ConfigChecker configChecker,
-    ModCheck compatibilityLayers,
+    ConfigHelper configHelper,
     IdDatabaseManager idDatabaseManager,
     CustomItemCreator customItemCreator,
     CustomLootManager customLootManager,
@@ -22,17 +21,18 @@ public class DefinitiveWeaponVariants(
     WeaponGenerator weaponGenerator,
     CustomLogger logger,
     APBSIntegration apbsIntegration,
-    CustomLocales customLocales
+    CustomLocales customLocales,
+    CustomTraderCreator customTraderCreator
 ) : IOnLoad
 {
     public Task OnLoadAsync(CancellationToken cancellationToken)
     {
-        configChecker.CheckConfig();
+        configHelper.CheckConfig();
 
-        compatibilityLayers.CheckMods();
         apbsIntegration.CheckModInstall();
 
         customLocales.Initialize();
+        customTraderCreator.Initialize();
         otherItemsGenerator.GenerateOtherItems();
         itemGenerator.GenerateAllItems();
         weaponGenerator.GenerateWeaponsFromVariantConfig();
@@ -42,7 +42,7 @@ public class DefinitiveWeaponVariants(
 
         // Add 12.7x108mm B-32 to trader
         if (config.SpecialAmmoBuyableEnabled)
-            customItemCreator.AddItemToTrader("5cde8864d7f00c0010373be1", config.DWVCaliberBarter);
+            customItemCreator.AddItemToTrader("ee840a5ba014e9c5478e2137", config.DWVCaliberBarter);
 
         customLocales.RegisterLocales();
         logger.Ok($"Mod finished loading. Created {customItemCreator.ItemsAdded.Count} custom items!");

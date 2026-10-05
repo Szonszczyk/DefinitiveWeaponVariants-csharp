@@ -1,5 +1,9 @@
 # Version 5.0.0 for SPT ~4.1.6
 
+- Moved 12.7x108 barter to new trader
+- Removed TraderId from all config options
+- Removed AmonyaTraderMode
+
 - Changed Universal Cores system to UCores
 - Added Themes to UCores
 - Added Order Theme utilizing existing Universal cores and added 1 new one

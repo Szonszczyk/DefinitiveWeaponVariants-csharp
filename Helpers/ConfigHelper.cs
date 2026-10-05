@@ -1,35 +1,39 @@
 ﻿using DefinitiveWeaponVariants.Constants;
+using DefinitiveWeaponVariants.Loaders;
 using DefinitiveWeaponVariants.Models;
 using SPTarkov.DI.Annotations;
 
 namespace DefinitiveWeaponVariants.Helpers;
 
 [Injectable(InjectionType.Singleton)]
-public class ConfigChecker(
+public class ConfigHelper(
     CustomLogger logger,
-    ConfigData config
+    ConfigData config,
+    ModDatabaseLoader modDatabaseLoader
 )
 {
-    private readonly ConfigData modConfig = config;
 
     // Add any missing values, change incorrect ones + false/zero all values if Generate is false for this quality
     public void CheckConfig()
     {
-        CheckDictionaryStringBool(modConfig.Generate);
-        CheckDictionaryStringBool(modConfig.Airdrop);
-        CheckDictionaryStringBool(modConfig.Fence);
-        CheckDictionaryStringBool(modConfig.Flea);
-        CheckDictionaryStringBool(modConfig.Marked);
-        CheckDictionaryStringBool(modConfig.StaticLoot);
+        CheckDictionaryStringBool(config.Generate);
+        CheckDictionaryStringBool(config.Airdrop);
+        CheckDictionaryStringBool(config.Fence);
+        CheckDictionaryStringBool(config.Flea);
+        CheckDictionaryStringBool(config.Marked);
+        CheckDictionaryStringBool(config.StaticLoot);
 
-        CheckDictionaryStringInt(modConfig.QualityWeights);
+        CheckDictionaryStringInt(config.QualityWeights);
 
-        CheckDictionaryStringInt(modConfig.VariantCores.General.Price);
+        CheckDictionaryStringInt(config.VariantCores.General.Price);
 
-        CheckDictionaryStringInt(modConfig.APBSTierConfig);
+        CheckDictionaryStringInt(config.APBSTierConfig);
 
-        modConfig.StaticLootProbability = CheckProbability(modConfig.StaticLootProbability, nameof(modConfig.StaticLootProbability));
-        modConfig.MarkedRoomsProbability = CheckProbability(modConfig.MarkedRoomsProbability, nameof(modConfig.MarkedRoomsProbability));
+        config.StaticLootProbability = CheckProbability(config.StaticLootProbability, nameof(config.StaticLootProbability));
+        config.MarkedRoomsProbability = CheckProbability(config.MarkedRoomsProbability, nameof(config.MarkedRoomsProbability));
+
+        var traderDynamicAssortConfig = config.Trader.Traders.FirstOrDefault();
+        traderDynamicAssortConfig?.TraderId = modDatabaseLoader.TraderBase.Id;
     }
     
     private void CheckDictionaryStringBool(Dictionary<string, bool> dict)
@@ -38,7 +42,7 @@ public class ConfigChecker(
         {
             if (!dict.TryGetValue(q, out bool _))
                 dict.Add(q, false);
-            if (!modConfig.Generate[q]) dict[q] = false;
+            if (!config.Generate[q]) dict[q] = false;
         }
     }
     private void CheckDictionaryStringInt(Dictionary<string, int> dict)
@@ -48,7 +52,7 @@ public class ConfigChecker(
             if (!dict.TryGetValue(q, out int value))
                 dict.Add(q, 0);
             else if (value < 0) dict[q] = 0;
-            if (!modConfig.Generate[q]) dict[q] = 0;
+            if (!config.Generate[q]) dict[q] = 0;
         }
     }
     private float CheckProbability(float value, string name)

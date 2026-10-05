@@ -18,7 +18,6 @@
             }
         },
         "Barter": {
-            "TraderId": "PEACEKEEPER",
             "LoyalLevel": 1,
             "UnlimitedCount": true,
             "StackObjectsCount": 99,

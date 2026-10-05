@@ -1,5 +1,6 @@
 ﻿using DefinitiveWeaponVariants.Helpers;
 using DefinitiveWeaponVariants.Models;
+using SPTarkov.Common.Extensions;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.Helpers.Items;
 using SPTarkov.Server.Core.Models.Common;
@@ -122,6 +123,8 @@ public class CustomItemCreator(
     }
     public void AddItemToTrader(string itemId, CustomBarterConfig barterConfig)
     {
+        if (barterConfig.LoyalLevel == 0) return;
+
         var traderId = GetTraderIdByName(barterConfig.TraderId);
         if (traderId == null)
         {
@@ -130,14 +133,10 @@ public class CustomItemCreator(
         }
         var trader = tradersTable[(MongoId)traderId];
 
-        foreach (var (addBarterId, _) in barterConfig.BarterPrice)
+        if (!CheckBarterPrice(barterConfig.BarterPrice))
         {
-            var addBarter = GetItemIdByName(addBarterId);
-            if (addBarter == null)
-            {
-                logger.Error($"Barter item of id '{addBarterId}' is incorrect! Item {itemId} was not added to trader");
-                return;
-            }
+            logger.Error($"Item {itemId} was not added to trader");
+            return;
         }
 
         var newItem = new Item
@@ -152,6 +151,9 @@ public class CustomItemCreator(
                 StackObjectsCount = barterConfig.StackObjectsCount
             }
         };
+
+        if (barterConfig.RandomAssortWeight != null ) newItem.AddToExtensionData(RandomAssortWeight.PropertyName, barterConfig.RandomAssortWeight);
+
         var assort = trader.Assort.Items;
         assort?.Add(newItem);
 
@@ -175,6 +177,66 @@ public class CustomItemCreator(
             assortBarterScheme[itemId].Add(newBarterSchemes);
         }
         trader.Assort.LoyalLevelItems[itemId] = barterConfig.LoyalLevel;
+    }
+
+    public void AddPresetToTrader(string itemId, List<Item> presetItems, CustomBarterConfig barterConfig)
+    {
+        if (barterConfig.LoyalLevel == 0) return;
+        var traderId = GetTraderIdByName(barterConfig.TraderId);
+        if (traderId == null)
+        {
+            logger.Error($"Trader name / Trader ID '{traderId}' is incorrect!");
+            return;
+        }
+        var trader = tradersTable[(MongoId)traderId];
+        var assort = trader.Assort;
+        if (!CheckBarterPrice(barterConfig.BarterPrice))
+        {
+            logger.Error($"Item {itemId} was not added to trader");
+            return;
+        }
+        var items = cloner.Clone(presetItems)!;
+        items = itemHelper.ReplaceIDs(items, null).ToList();
+        var rootItem = items.First();
+        var tradeID = rootItem.Id;
+
+        foreach (var item in items)
+        {
+            if (item.Id == tradeID)
+            {
+                var newItem = new Item()
+                {
+                    Id = item.Id,
+                    Template = item.Template,
+                    ParentId = "hideout",
+                    SlotId = "hideout",
+                    Upd = new Upd
+                    {
+                        UnlimitedCount = barterConfig.UnlimitedCount,
+                        StackObjectsCount = barterConfig.StackObjectsCount
+                    }
+                };
+                if (barterConfig.RandomAssortWeight != null) newItem.AddToExtensionData(RandomAssortWeight.PropertyName, barterConfig.RandomAssortWeight);
+                assort.Items.Add(newItem);
+            }
+            else assort.Items.Add(item);
+        }
+
+        List<BarterScheme> newBarterSchemes = [];
+
+        foreach (var (addBarterId, price) in barterConfig.BarterPrice)
+        {
+            var id = GetItemIdByName(addBarterId)!;
+            var newBarterScheme = new BarterScheme
+            {
+                Count = price,
+                Template = (MongoId)id
+            };
+            newBarterSchemes.Add(newBarterScheme);
+
+        }
+        assort.BarterScheme[tradeID] = [newBarterSchemes];
+        assort.LoyalLevelItems[tradeID] = barterConfig.LoyalLevel;
     }
 
     public void CreateHideoutCraft(MongoId id, string craftIdToCopy, Dictionary<string, int> requiredItems, int productionTime, string newCraftId)
@@ -270,5 +332,19 @@ public class CustomItemCreator(
         if (!MongoId.IsValidMongoId(name) || !templateTable.Items.TryGetValue(name, out _)) return null;
 
         return name;
+    }
+
+    public bool CheckBarterPrice(Dictionary<string, int> barterPrice)
+    {
+        foreach (var (addBarterId, _) in barterPrice)
+        {
+            var addBarter = GetItemIdByName(addBarterId);
+            if (addBarter == null)
+            {
+                logger.Error($"Barter item of id '{addBarterId}' is incorrect!");
+                return false;
+            }
+        }
+        return true;
     }
 }

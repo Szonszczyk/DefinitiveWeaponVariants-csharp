@@ -730,6 +730,14 @@
     "UCore.Chaos_06.Name": "Havoc",
     "UCore.Chaos_07.Name": "Disaster",
     "UCore.Chaos_08.Name": "Total Collapse",
-    "UCore.Chaos_09.Name": "Critical Failure"
+    "UCore.Chaos_09.Name": "Critical Failure",
+
+    //Trader
+    "Trader.FullName": "Your homie",
+    "Trader.FirstName": "Homie",
+    "Trader.Nickname": "Your Father",
+    "Trader.Location": "Your home",
+    "Trader.Description": "This is PLACEHOLDER details for trader of Definitive Weapon Variants"
+
   }
 }
