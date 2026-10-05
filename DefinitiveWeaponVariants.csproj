@@ -5,17 +5,14 @@
     <RootNamespace>DefinitiveWeaponVariants</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <DefaultItemExcludes>$(DefaultItemExcludes);**\bin\**;**\obj\**</DefaultItemExcludes>
     <OutputType>Library</OutputType>
-    <Version>4.3.2</Version>
+    <Version>4.3.3</Version>
     <!-- The two lines below will set the output path for the binaries -->
     <OutputPath>bin\$(Configuration)\$(ProjectName)\$(AssemblyName)\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <Authors>Szonszczyk</Authors>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Content Remove="config\newVariantCoresConfigOptions.json" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="SPTarkov.Common" Version="4.1.2" />

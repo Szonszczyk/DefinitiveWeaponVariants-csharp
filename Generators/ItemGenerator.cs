@@ -61,6 +61,7 @@ public class ItemGenerator(
             if (variant.Barter is not null && modConfig.AmonyaTraderMode) variant.Barter.TraderId = "ee840a5ba014e9c5478d5ccd";
             var traderName = (variant.Barter == null || customItemCreator.GetTraderIdByName(variant.Barter.TraderId) == null) ? "N/A" : modDataStorage.Traders[(MongoId)customItemCreator.GetTraderIdByName(variant.Barter.TraderId)!].Base.Nickname;
             var text = variant.Barter == null ? "Can't be bought from traders" : $"Can be bought in {traderName} LL{variant.Barter.LoyalLevel}";
+            if (variant.HandbookPriceRoubles == 0) variant.HandbookPriceRoubles = 1;
             var newItem = new NewItemFromCloneDetails
             {
                 NewItemName = variantName,

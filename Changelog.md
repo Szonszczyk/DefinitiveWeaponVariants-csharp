@@ -1,3 +1,7 @@
+# Version 4.3.3 for SPT ~4.1.2
+
+- Fixed disabling generation of any variant quality causing mod to stop working
+
 # Version 4.3.2 for SPT ~4.1.2
 
 - Initial release for SPT 4.1.2
