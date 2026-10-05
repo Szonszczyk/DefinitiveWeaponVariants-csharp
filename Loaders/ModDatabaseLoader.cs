@@ -18,6 +18,7 @@ public class ModDatabaseLoader
     public Dictionary<string, string> DbShortnames { get; private set; }
     public Dictionary<string, Preset> DbPresets { get; private set; }
     public Dictionary<string, Dictionary<string, string>> DbLocales { get; private set; }
+    public Dictionary<string, CoreConfiguration> DbCores { get; private set; }
     public ModDatabaseLoader(CustomLogger logger, ModHelper modHelper)
     {
         modFolder = modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
@@ -29,6 +30,7 @@ public class ModDatabaseLoader
         DbShortnames = LoadDbShortnames(Path.Combine(modFolder, "db", "03_Shortnames"));
         DbPresets = LoadDbPresets(Path.Combine(modFolder, "db", "04_Presets"));
         DbLocales = LoadDbLocales(Path.Combine(modFolder, "db", "05_Locales"));
+        DbCores = LoadDbCores(Path.Combine(modFolder, "db", "06_Cores"));
     }
 
     private Dictionary<string, VariantConfiguration> LoadDbVariants(string directoryPath)
@@ -146,6 +148,41 @@ public class ModDatabaseLoader
             && configuration.HandbookPriceRoubles == null
             && string.IsNullOrEmpty(configuration.VariantType)
             && string.IsNullOrEmpty(configuration.Rarity);
+    }
+
+    private Dictionary<string, CoreConfiguration> LoadDbCores(string directoryPath)
+    {
+        var combinedData = new Dictionary<string, CoreConfiguration>(StringComparer.OrdinalIgnoreCase);
+
+        if (!Directory.Exists(directoryPath))
+        {
+            _logger.Warning($"Directory not found: {directoryPath}!");
+            return combinedData;
+        }
+
+        var files = Directory.GetFiles(directoryPath, "*.json", SearchOption.TopDirectoryOnly);
+
+        foreach (var file in files)
+        {
+            try
+            {
+                var data = _modHelper.GetJsonDataFromFile<Dictionary<string, CoreConfiguration>>(modFolder, file);
+
+                if (data == null)
+                    continue;
+
+                foreach (var kvp in data)
+                {
+                    combinedData[kvp.Key] = kvp.Value; // overwrite duplicates
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Error($"Error reading {Path.GetFileName(file)}: {ex.Message}");
+            }
+        }
+
+        return combinedData;
     }
 
     private Dictionary<string, string> LoadDbShortnames(string directoryPath)

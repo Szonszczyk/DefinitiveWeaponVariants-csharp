@@ -23,7 +23,8 @@ public class OtherItemsGenerator(
     ItemHelper itemHelper,
     CustomItemCreator customItemCreator,
     InventoryConfig inventoryConfig,
-    CustomLocales customLocales
+    CustomLocales customLocales,
+    UCoresGenerator uCoresGenerator
 )
 {
     private readonly ConfigData modConfig = config;
@@ -51,7 +52,14 @@ public class OtherItemsGenerator(
         GenerateNormalCores();
         GenerateLockedCores();
         GenerateBlindBoxes();
-        GenerateUniversalCores();
+        var uCoreIDs = uCoresGenerator.GenerateUniversalCores();
+        var rarity = RaritySettings.GetByName("Unknown");
+        foreach (var uCoreID in uCoreIDs)
+        {
+            modDataStorage.AddCoreToStorage(uCoreID, "Unknown", "universal");
+            UnknownPackageLootpoolIds.Add(uCoreID, 2);
+        }
+        UnknownPackageLootpool.Add($"<color={rarity.Color}><b>{{UCore.FullName}}</b></color>", uCoreIDs.Count*2);
 
         GenerateUnknownPackage();
 
@@ -202,44 +210,6 @@ public class OtherItemsGenerator(
             );
             if (newId is null) { continue; }
             modDataStorage.AddCoreToStorage(newId, quality, "other");
-        }
-    }
-
-    private void GenerateUniversalCores()
-    {
-        var corePropertiesOverride = cloner.Clone(VariantCorePropertiesOverride);
-        if (corePropertiesOverride is null) return;
-        corePropertiesOverride.Ergonomics = modConfig.VariantCores.Universal.Properties.Ergonomics;
-        corePropertiesOverride.Recoil = modConfig.VariantCores.Universal.Properties.Recoil;
-        for (int i = 0; i < 8; i++)
-        {
-            var universalCorePropertiesOverride = cloner.Clone(corePropertiesOverride);
-            if (universalCorePropertiesOverride is null) { continue; }
-
-            universalCorePropertiesOverride.Ergonomics += (i - 3);
-            universalCorePropertiesOverride.Recoil -= (8 - i);
-
-            var newId = itemGenerator.GenerateItem(
-                $"Universal Variant Weapon Core v1.{i}",
-                $"{{CoreItem.UCore.Name}}{i}",
-                new VariantConfiguration
-                {
-                    Description = "{CoreItem.UCore.Description}",
-                    ShortName = $"{{CoreItem.UCore.ShortName}}{i}",
-                    ItemTplToClone = "58d2912286f7744e27117493",
-                    HandbookPriceRoubles = modConfig.VariantCores.General.Price["Unique"] * 5,
-                    Rarity = "Unknown",
-                    VariantType = "Unknown"
-                },
-                "<color={rarity.Color}><b>{CoreItem.UCore.AddDesc}</b></color>",
-                "{CoreItem.UCore.Explanation}",
-                universalCorePropertiesOverride
-            );
-            if (newId is null) { continue; }
-            modDataStorage.AddCoreToStorage(newId, "Unknown", "universal");
-            RarityData rarity = RaritySettings.GetByName("Unknown");
-            UnknownPackageLootpool.Add($"<color={rarity.Color}><b>{{CoreItem.UCore.Name}}{i} ({{Other.Word.Ergonomics}} +{universalCorePropertiesOverride.Ergonomics}, {{Other.Word.Recoil}} {universalCorePropertiesOverride.Recoil}%)</b></color>", 3);
-            UnknownPackageLootpoolIds.Add(newId, 3);
         }
     }
     private void GenerateCoreHolder()

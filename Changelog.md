@@ -1,5 +1,10 @@
 # Version 5.0.0 for SPT ~4.1.6
 
+- Changed Universal Cores system to UCores
+- Added Themes to UCores
+- Added Order Theme utilizing existing Universal cores and added 1 new one
+- Added Chaos Theme UCores utilizing tradeoff mechanic and added 10 new UCores to this theme
+
 - Added a "ReplaceExisting" key for easier variants and items changes
     Just copy an existing variant or item, add "ReplaceExisting": true and you are good to go!
 - Added a mod check to variant types and weapons

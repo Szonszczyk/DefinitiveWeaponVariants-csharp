@@ -50,7 +50,7 @@ public class ItemGenerator(
     {
         if (config is { Description: not null, ShortName: not null, ItemTplToClone: not null, Rarity: not null, HandbookPriceRoubles: not null, VariantType: not null } variant)
         {
-            foreach (var modGUID in variant.ModGUIDs ?? []) if (!modCheck.CheckInstalledMod(modGUID)) continue; // Mod check
+            foreach (var modGUID in variant.ModGUIDs ?? []) if (!modCheck.CheckInstalledMod(modGUID)) return null; // Mod check
             if (!MongoId.IsValidMongoId(variant.ItemTplToClone))
             {
                 logger.Error($"ItemTplToClone {variant.ItemTplToClone} is incorrect ({variantName})!");
@@ -82,8 +82,15 @@ public class ItemGenerator(
                 Locales = []
             };
             newItem.OverrideProperties.BackgroundColor = ModDataStorage.IsPluginLoaded() ? $"{rarity.Color}ff" : rarity.BgColor;
+            string localizedName = coreItem ? variantName : $"{{{internalName}.Name}}";
+            if (!localizedName.Contains("<dwv-gradient="))
+            {
+                localizedName = variant.Rarity == "Unique"
+                    ? $"<b><dwv-rainbow>{localizedName}</dwv-rainbow></b>"
+                    : $"<b><color={rarity.Color}>{localizedName}</color></b>";
+            }
             newItem.Locales = customLocales.CreateItemLocale(
-                coreItem ? variantName : $"{{{internalName}.Name}}",
+                localizedName,
                 coreItem ? config.ShortName : $"{{{internalName}.ShortName}}",
                 string.Join("\n", new[] {
                     $"<align=\"center\">{variant.Description}",
@@ -93,9 +100,7 @@ public class ItemGenerator(
                     explanation,
                     $"{text}</align>"
                 }),
-                newItem.NewId,
-                variant.Rarity,
-                rarity
+                newItem.NewId
             );
 
             if (variant.Properties != null)

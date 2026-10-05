@@ -171,7 +171,7 @@ namespace DefinitiveWeaponVariants.CustomClasses
             return Regex.Replace(input, "<.*?>", string.Empty);
         }
 
-        public Dictionary<string, LocaleDetails> CreateItemLocale(string Name, string ShortName, string Description, string id, string rarityName, RarityData rarity)
+        public Dictionary<string, LocaleDetails> CreateItemLocale(string Name, string ShortName, string Description, string id)
         {
             var itemLocale = new Dictionary<string, LocaleDetails>();
 
@@ -179,17 +179,10 @@ namespace DefinitiveWeaponVariants.CustomClasses
             {
                 var newItemLocale = new LocaleDetails
                 {
-                    Name = ReplaceTags(Name, langId),
-                    ShortName = ReplaceTags(ShortName, langId),
-                    Description = ReplaceTags(Description, langId)
+                    Name = TextColoring.ApplyColorTags(ReplaceTags(Name, langId)),
+                    ShortName = TextColoring.ApplyColorTags(ReplaceTags(ShortName, langId)),
+                    Description = TextColoring.ApplyColorTags(ReplaceTags(Description, langId))
                 };
-                if (rarityName == "Unique")
-                {
-                    newItemLocale.Name = $"<b>{RainbowText.RainbowUnityRichText(newItemLocale.Name)}</b>";
-                } else
-                {
-                    newItemLocale.Name = $"<b><color={rarity.Color}>{newItemLocale.Name}</color></b>";
-                }
                 OriginalLocale[langId].Add($"{id} Name", newItemLocale.Name);
                 OriginalLocale[langId].Add($"{id} ShortName", newItemLocale.ShortName);
                 OriginalLocale[langId].Add($"{id} Description", newItemLocale.Description);

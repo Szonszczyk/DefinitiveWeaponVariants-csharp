@@ -85,8 +85,12 @@ public class WeaponGenerator(
                     customLocales.RegisterTag("Quality", $"{{Quality.{variant.Rarity}.Name}}");
                     customLocales.RegisterTag("APBSMinTier", $"{{APBSMinTier.{variant.Rarity}}}");
                     customLocales.RegisterTag("WeaponCountsToward", weaponCountsToward);
+                    string localizedName = $"{{{copiedWeaponId} Name}} {{{variantName}.Name}}";
+                    localizedName = variant.Rarity == "Unique"
+                        ? $"<b><dwv-rainbow>{localizedName}</dwv-rainbow></b>"
+                        : $"<b><color={rarity.Color}>{localizedName}</color></b>";
                     newWeapon.Locales = customLocales.CreateItemLocale(
-                        $"{{{copiedWeaponId} Name}} {{{variantName}.Name}}",
+                        localizedName,
                         $"{{{copiedWeaponId} ShortName}} {{{variantName}.ShortName}}",
                         string.Join("\n", new[] {
                             $"<align=\"center\">{{{variantName}.Description}}",
@@ -101,9 +105,7 @@ public class WeaponGenerator(
                             $"{CreateWeaponDescription(variant)}",
                             "{Desc.CountToward}</align>"
                         }),
-                        newWeapon.NewId,
-                        variant.Rarity,
-                        rarity
+                        newWeapon.NewId
                     );
 
 

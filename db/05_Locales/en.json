@@ -688,11 +688,6 @@
     "CoreItem.BBox.Description": "Open to receive one random Weapon Variant of <b>{Quality}</b> Quality",
     "CoreItem.BBox.Explanation": "This item can be opened to receive one random Weapon Variant of <b>{Quality}</b> Quality",
     "CoreItem.BBox.AddDesc": "Contains one weapon of",
-    "CoreItem.UCore.Name": "Universal Variant Weapon Core v1.",
-    "CoreItem.UCore.ShortName": "Univ C.v1.",
-    "CoreItem.UCore.Description": "A rare, highly adaptable chip used in Variant Weapons. Unlike other variant cores, it can interface with any variant regardless of quality",
-    "CoreItem.UCore.Explanation": "A rare core component compatible with all Variant Weapons, regardless of quality. Provides increased ergonomics and reduces recoil when installed\nOnly obtainable from Unknown Variant Weapon Core Packages",
-    "CoreItem.UCore.AddDesc": "Special attachment for Mod Core slot only available on Weapon Variants",
     "Other.Word.Ergonomics": "Ergonomics",
     "Other.Word.Recoil": "Recoil",
     "CoreItem.ExpCase.Name": "Expeditionary Variant Core Case",
@@ -707,6 +702,34 @@
     "CoreItem.UPackage.ShortName": "Unknown Package",
     "CoreItem.UPackage.Description": "A sealed bundle of Variant Weapon Cores of unknown quality. Only one is visible from the outside-open it to reveal the rest",
     "CoreItem.UPackage.Explanation": "Open it to receive {UPackage.CoresReceived} random Variant Weapon Cores\nThis is the only way to obtain rare Universal Variant Weapon Cores\n\n>>> Lootpool <<<\n{UPackage.Lootpool}\nCan be found in Jackets/Dead scavs/PC Blocks/Plastic Suitcases and Safes on all maps",
-    "CoreItem.UPackage.AddDesc": "Package of {UPackage.CoresReceived} random Variant Weapon Cores"
+    "CoreItem.UPackage.AddDesc": "Package of {UPackage.CoresReceived} random Variant Weapon Cores",
+
+    // UCores items
+    "UCore.Name": "UCore Codename",
+    "UCore.FullName": "Universal Variant Core",
+    "UCore.Description": "A rare, highly adaptable chip used in Variant Weapons. Unlike other variant cores, it can interface with any variant regardless of quality",
+    "UCore.Explanation": "Special attachment for Mod Core slot only available on Weapon Variants\nOnly obtainable from Unknown Variant Weapon Core Packages",
+
+    "UCore.OrderTheme.Name": "Order",
+    "UCore.Order_01.Name": "Precision",
+    "UCore.Order_02.Name": "Discipline",
+    "UCore.Order_03.Name": "Symmetry",
+    "UCore.Order_04.Name": "Equilibrium",
+    "UCore.Order_05.Name": "Law",
+    "UCore.Order_06.Name": "Control",
+    "UCore.Order_07.Name": "Supremacy",
+    "UCore.Order_08.Name": "Measured Response",
+    "UCore.Order_09.Name": "Perfect Design",
+
+    "UCore.ChaosTheme.Name": "Chaos",
+    "UCore.Chaos_01.Name": "Entropy",
+    "UCore.Chaos_02.Name": "Anarchy",
+    "UCore.Chaos_03.Name": "Discord",
+    "UCore.Chaos_04.Name": "Mayhem",
+    "UCore.Chaos_05.Name": "Pandemonium",
+    "UCore.Chaos_06.Name": "Havoc",
+    "UCore.Chaos_07.Name": "Disaster",
+    "UCore.Chaos_08.Name": "Total Collapse",
+    "UCore.Chaos_09.Name": "Critical Failure"
   }
 }
