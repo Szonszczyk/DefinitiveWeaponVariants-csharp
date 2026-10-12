@@ -72,7 +72,7 @@
       "repair_price_coef": 0
     },
     {
-      "minLevel": 35,
+      "minLevel": 45,
       "minSalesSum": 0,
       "minStanding": 0,
       "buy_price_coef": 33.33,
