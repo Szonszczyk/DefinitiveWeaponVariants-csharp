@@ -20,25 +20,24 @@ public class ItemGenerator(
     CustomItemCreator customItemCreator,
     CustomPropertiesChanger customPropertiesChanger,
     CustomSlotsChanger customSlotsChanger,
-    ConfigData config,
     ModDataStorage modDataStorage,
     TemplateTable templateTable,
     CustomLocales customLocales,
     ModCheck modCheck
 )
 {
-    private readonly ConfigData modConfig = config;
-
     public void GenerateAllItems()
     {
         // Generate all items from jsons
-        foreach (var (variantName, config) in modDatabaseLoader.DbItems)
+        foreach (var (internalItemName, config) in modDatabaseLoader.DbItems)
         {
+            config.ShortName = $"{{{internalItemName}.ShortName}}";
+            config.Description = $"{{{internalItemName}.Description}}";
             GenerateItem(
-                variantName,
-                "{variantName.Name}",
+                internalItemName,
+                $"{{{internalItemName}.Name}}",
                 config,
-                "{Desc.PartOf} <color={rarity.Color}><b>{variant.VariantType} {Other.Word.Variant}</b></color>",
+                $"{{Desc.PartOf}} <color={{rarity.Color}}><b>{{{internalItemName}.VariantType}} {{Other.Word.Variant}}</b></color>",
                 "{Desc.Item}",
                 new TemplateItemProperties(),
                 false
@@ -53,14 +52,14 @@ public class ItemGenerator(
             foreach (var modGUID in variant.ModGUIDs ?? []) if (!modCheck.CheckInstalledMod(modGUID)) return null; // Mod check
             if (!MongoId.IsValidMongoId(variant.ItemTplToClone))
             {
-                logger.Error($"ItemTplToClone {variant.ItemTplToClone} is incorrect ({variantName})!");
+                logger.Error($"ItemTplToClone {variant.ItemTplToClone} is incorrect ({internalName})!");
                 return null;
             }
             MongoId itemTplToClone = (MongoId)variant.ItemTplToClone;
             templateTable.Items.TryGetValue(itemTplToClone, out var copiedItem);
             if (copiedItem is null)
             {
-                logger.Warning($"ItemTplToClone {variant.ItemTplToClone} is not found (or you are missing some mod) ({variantName})! Skipping");
+                logger.Warning($"ItemTplToClone {variant.ItemTplToClone} is not found (or you are missing some mod) ({internalName})! Skipping");
                 return null;
             }
 
@@ -70,7 +69,7 @@ public class ItemGenerator(
             var text = variant.Barter == null ? "{Desc.NoBarter}" : $"{{Desc.Barter}} {{{traderName} Nickname}} LL{variant.Barter.LoyalLevel}";
             var newItem = new NewItemFromCloneDetails
             {
-                NewItemName = variantName,
+                NewItemName = internalName,
                 ItemTplToClone = itemTplToClone,
                 ParentId = variant.Changes?.Parent != null ? variant.Changes.Parent : copiedItem.Parent,
                 HandbookParentId = copiedItemHandbook != null ? copiedItemHandbook.ParentId : "5b5f6fa186f77409407a7eb7",
@@ -81,7 +80,7 @@ public class ItemGenerator(
                 Locales = []
             };
             newItem.OverrideProperties.BackgroundColor = ModDataStorage.IsPluginLoaded() ? $"{rarity.Color}ff" : rarity.BgColor;
-            string localizedName = coreItem ? variantName : $"{{{internalName}.Name}}";
+            string localizedName = variantName;
             if (!localizedName.Contains("<dwv-gradient="))
             {
                 localizedName = variant.Rarity == "Unique"
@@ -90,11 +89,11 @@ public class ItemGenerator(
             }
             newItem.Locales = customLocales.CreateItemLocale(
                 localizedName,
-                coreItem ? config.ShortName : $"{{{internalName}.ShortName}}",
+                config.ShortName,
                 string.Join("\n", new[] {
                     $"<align=\"center\">{variant.Description}",
                     $"",
-                    additionalDescription.Replace("{rarity.Color}", rarity.Color).Replace("{variant.VariantType}", $"{{{internalName}.VariantType}}"),
+                    additionalDescription.Replace("{rarity.Color}", rarity.Color),
                     $"",
                     explanation,
                     $"{text}</align>"
