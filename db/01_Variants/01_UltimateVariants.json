@@ -95,7 +95,7 @@
 		"Changes": {
 			"Slots": {
 				"mod_magazine": {
-					"Filter": [ "AMR_Mag", "AMR Extended Mag" ],
+					"Filter": [ "AMR_Mag", "AMR_Mag_Ext" ],
 					"FromWeapons": [],
 					"Add": []
 				}

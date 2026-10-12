@@ -229,5 +229,65 @@
     "HandbookPriceRoubles": 12000,
     "VariantType": "Freedom \"Thing\"",
     "Rarity": "Baseline"
+  },
+  "Stendo_Mag_Small": {
+    "ItemTplToClone": "669927203c4fda6471005cbe",
+    "Changes": {
+      "Cartridges": {
+        "Count": 40,
+        "FromWeapons": [ "APB", "Glock 17", "USP .45" ]
+      }
+    },
+    "Barter": {
+      "LoyalLevel": 1,
+      "UnlimitedCount": true,
+      "StackObjectsCount": 99,
+      "BarterPrice": {
+        "MONEY_ROUBLES": 6000
+      }
+    },
+    "HandbookPriceRoubles": 3000,
+    "VariantType": "Stendo",
+    "Rarity": "Baseline"
+  },
+  "Stendo_Mag_Medium": {
+    "ItemTplToClone": "66992725ae08c5c29e0c4f9a",
+    "Changes": {
+      "Cartridges": {
+        "Count": 50,
+        "FromWeapons": [ "APB", "Glock 17", "USP .45" ]
+      }
+    },
+    "Barter": {
+      "LoyalLevel": 2,
+      "UnlimitedCount": true,
+      "StackObjectsCount": 99,
+      "BarterPrice": {
+        "MONEY_ROUBLES": 8000
+      }
+    },
+    "HandbookPriceRoubles": 4000,
+    "VariantType": "Stendo",
+    "Rarity": "Baseline"
+  },
+  "Stendo_Mag_Large": {
+    "ItemTplToClone": "6699272a3c4fda6471005cc1",
+    "Changes": {
+      "Cartridges": {
+        "Count": 70,
+        "FromWeapons": [ "APB", "Glock 17", "USP .45" ]
+      }
+    },
+    "Barter": {
+      "LoyalLevel": 3,
+      "UnlimitedCount": true,
+      "StackObjectsCount": 99,
+      "BarterPrice": {
+        "Baseline Quality Variant Core": 1
+      }
+    },
+    "HandbookPriceRoubles": 12000,
+    "VariantType": "Stendo",
+    "Rarity": "Baseline"
   }
 }

@@ -19,7 +19,7 @@
     "VariantType": "Quick-scope",
     "Rarity": "Flawed"
   },
-  "Quick_sight_2": {
+  "Quick_Sight_2": {
     "ItemTplToClone": "570fd721d2720bc5458b4596",
     "Properties": {
       "Weight": 0
@@ -36,7 +36,7 @@
     "VariantType": "Quick-scope",
     "Rarity": "Flawed"
   },
-  "Quick_sight_3": {
+  "Quick_Sight_3": {
     "ItemTplToClone": "570fd721d2720bc5458b4596",
     "Properties": {
       "Weight": 0
@@ -64,8 +64,8 @@
         "mod_scope": {
           "Filter": [
             "Quick_Sight_1",
-            "Quick_sight_2",
-            "Quick_sight_3"
+            "Quick_Sight_2",
+            "Quick_Sight_3"
           ]
         }
       }
@@ -84,8 +84,8 @@
         "mod_scope": {
           "Filter": [
             "Quick_Sight_1",
-            "Quick_sight_2",
-            "Quick_sight_3"
+            "Quick_Sight_2",
+            "Quick_Sight_3"
           ]
         }
       }
@@ -104,8 +104,8 @@
         "mod_scope": {
           "Filter": [
             "Quick_Sight_1",
-            "Quick_sight_2",
-            "Quick_sight_3"
+            "Quick_Sight_2",
+            "Quick_Sight_3"
           ]
         }
       }
@@ -156,8 +156,8 @@
         "mod_scope": {
           "Filter": [
             "Quick_Sight_1",
-            "Quick-scope_sight_2",
-            "Quick-scope_sight_3"
+            "Quick_Sight_2",
+            "Quick_Sight_3"
           ]
         }
       }
@@ -192,8 +192,8 @@
         "mod_scope": {
           "Filter": [
             "Quick_Sight_1",
-            "Quick-scope_sight_2",
-            "Quick-scope_sight_3"
+            "Quick_Sight_2",
+            "Quick_Sight_3"
           ]
         }
       }
@@ -244,8 +244,8 @@
         "mod_scope": {
           "Filter": [
             "Quick_Sight_1",
-            "Quick-scope_sight_2",
-            "Quick-scope_sight_3"
+            "Quick_Sight_2",
+            "Quick_Sight_3"
           ]
         }
       }

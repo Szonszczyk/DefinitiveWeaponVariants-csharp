@@ -408,26 +408,11 @@
 		"Changes": {
 			"Slots": {
 				"mod_magazine": {
-					"BasedOn": {
-						"Property": "AmmoCaliber",
-						"Cases": {
-							"Caliber9x18PM": {
-								"Filter": [
-
-								]
-							},
-							"Caliber9x19PARA": {
-								"Filter": [
-
-								]
-							},
-							"Caliber1143x23ACP": {
-								"Filter": [
-
-								]
-							}
-						}
-					}
+					"Add": [
+						"Stendo_Mag_Small",
+						"Stendo_Mag_Medium",
+						"Stendo_Mag_Large"
+					]
 				}
 			}
 		},
@@ -442,10 +427,10 @@
 			"M1911A1",
 			"MP-443 Grach",
 			"P226R",
-			"PB pistol",
+			"PB",
 			"PL-15",
-			"PM (t) pistol",
-			"PM pistol",
+			"PM (t)",
+			"PM",
 			"USP .45"
 		],
 		"Rarity": "Baseline"
