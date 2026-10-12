@@ -1,7 +1,5 @@
 {
 	"Overclocked": {
-		"Description": "By harnessing water-cooling technology from high-performance PCs, this variant pushes your weapon to fire faster than ever before, delivering unmatched speed at the cost of increased complexity",
-		"Explanation": "Weapon variant with an increased fire rate and enhanced cooling capabilities, but slightly reduced ergonomics",
 		"ShortName": "OC",
 		"Properties": {
 			"CoolFactorGun": "+50%",
@@ -12,22 +10,33 @@
 			"Weight": "+20%"
 		},
 		"Weapons": [
-			"AK-12", "AK-104", "AUG A1", "HK 416A5", "MCX .300 BLK",
-			"SPEAR 6.8", "SA-58", "AS VAL", "MP7A2", "MPX",
-			"P90", "PPSh-41", "Vector .45ACP", "PKM", "RPD",
-			"RPDN", "UZI PRO Pistol"
+			"AK-12",
+			"AK-104",
+			"AUG A1",
+			"HK 416A5",
+			"MCX .300 BLK",
+			"SPEAR 6.8",
+			"SA-58",
+			"AS VAL",
+			"MP7A2",
+			"MPX",
+			"P90",
+			"PPSh-41",
+			"Vector .45ACP",
+			"PKM",
+			"RPD",
+			"RPDN",
+			"UZI PRO Pistol"
 		],
 		"Rarity": "Baseline"
 	},
-    "Modified": {
-		"Description": "Upgraded to be a slightly better weapon, but its improved statistics come at the cost of sacrificing others",
-		"Explanation": "Weapon variant in equilibrium with the universe, featuring adjustments to various aspects: reduced vertical recoil but increased horizontal recoil, improved ergonomics, lowered fire rate, increased heat buildup, and reduced weight",
+	"Modified": {
 		"ShortName": "Modified",
 		"Properties": {
 			"RecoilForceUp": "+15%",
 			"RecoilForceBack": "-60%",
 			"RecoilDampingHandRotation": "+7%",
-		    "RecoilReturnSpeedHandRotation": "-7%",
+			"RecoilReturnSpeedHandRotation": "-7%",
 			"Ergonomics": "+25",
 			"SingleFireRate": "-25%",
 			"BFirerate": "-25%",
@@ -36,14 +45,18 @@
 			"RecoilCamera": "-25%"
 		},
 		"Weapons": [
-			"TX-15 DML", "VSK-94", "AK-74N", "AK-104", "AUG A3",
-			"Mk47", "RD-704", "MP7A2"
+			"TX-15 DML",
+			"VSK-94",
+			"AK-74N",
+			"AK-104",
+			"AUG A3",
+			"Mk47",
+			"RD-704",
+			"MP7A2"
 		],
 		"Rarity": "Baseline"
 	},
 	"SMG": {
-		"Description": "A weapon for true gamblers—its fire rate depends entirely on how fast you can pull the trigger. Keep pulling, and eventually, you'll win",
-		"Explanation": "Weapon variant chambered in 4.6x30mm HK caliber, featuring reduced recoil and an exceptionally high single-fire rate",
 		"ShortName": "SMG",
 		"Properties": {
 			"WeapFireType": [ "single" ],
@@ -61,7 +74,7 @@
 				"SingleFireRate": 450
 			},
 			"Slots": {
-			    "mod_magazine": {
+				"mod_magazine": {
 					"FromWeapons": [
 						"MP7A2"
 					]
@@ -74,17 +87,24 @@
 			}
 		},
 		"Weapons": [
-			"TX-15 DML", "G28", "M1A", "Mk-18 Mjölnir", "RSASS",
-			"SR-25", "SVDS", "AK-105", "AUG A1", "AKS-74",
-			"VPO-209", "G36"
+			"TX-15 DML",
+			"G28",
+			"M1A",
+			"Mk-18 Mjölnir",
+			"RSASS",
+			"SR-25",
+			"SVDS",
+			"AK-105",
+			"AUG A1",
+			"AKS-74",
+			"VPO-209",
+			"G36"
 		],
-        "Rarity": "Baseline"
-    },
-    "Close Quarters": {
-    	"Description": "PLACEHOLDER",
-    	"Explanation": "Weapon variant chambered in 12.7x55mm caliber, featuring reduced recoil, fire rate and muzzle velocity",
-    	"ShortName": "CQ",
-    	"Properties": {
+		"Rarity": "Baseline"
+	},
+	"Close Quarters": {
+		"ShortName": "CQ",
+		"Properties": {
 			"RecoilForceUp": "-33%",
 			"RecoilForceBack": "-33%",
 			"BFirerate": "-33%",
@@ -96,34 +116,42 @@
 					"ASh-12"
 				]
 			},
-        	"Slots": {
-			    "mod_magazine": {
+			"Slots": {
+				"mod_magazine": {
 					"FromWeapons": [
 						"ASh-12"
 					],
 					"Add": [
-						"Close Quarters 12.7x55 30-round magazine",
-						"Close Quarters 12.7x55 40-round magazine"
+						"CQ_Mag",
+						"CQ_Mag_Extended"
 					]
 				}
 			}
 		},
 		"Weapons": [
-			"SVDS", "SV-98", "DVL-10", "AKM", "AK-74N",
-			"VPO-215", "OP-SKS", "VSS Vintorez", "AK-545","AK-101",
-			"AK-104", "AVT-40", "X-17"
+			"SVDS",
+			"SV-98",
+			"DVL-10",
+			"AKM",
+			"AK-74N",
+			"VPO-215",
+			"OP-SKS",
+			"VSS Vintorez",
+			"AK-545",
+			"AK-101",
+			"AK-104",
+			"AVT-40",
+			"X-17"
 		],
-        "Rarity": "Baseline"
-    },
-    "20/70": {
-    	"Description": "A typo in the weapon's description, left uncorrected out of sheer laziness. And now? Well, it's stuck like this-for better or for worse",
-    	"Explanation": "Shotgun variant chambered in 20ga shotgun cartridges",
-    	"ShortName": "20/70",
-    	"Properties": {},
-    	"Changes": {
+		"Rarity": "Baseline"
+	},
+	"20/70": {
+		"ShortName": "20/70",
+		"Properties": {},
+		"Changes": {
 			"Slots": {
-        		"mod_magazine": {
-			    	"BasedOn": {
+				"mod_magazine": {
+					"BasedOn": {
 						"Property": "ReloadMode",
 						"Cases": {
 							"ExternalMagazine": {
@@ -132,11 +160,11 @@
 								]
 							},
 							"InternalMagazine": {
-								"Filter": [ "TOZ-106 20ga MTs 20-01 Sb.3 Internal 5-shot magazine" ]
+								"Filter": [ "2070_Mag_Internal" ]
 							}
 						}
 					}
-			    }
+				}
 			},
 			"Chambers": {
 				"FromWeapons": [
@@ -145,15 +173,22 @@
 			}
 		},
 		"Weapons": [
-			"KS-23M", "M3 Super 90", "590A1", "M870", "MP-43-1C",
-			"MP-133", "MP-153", "MP-155", "Sawed-off", "Saiga-12K",
-			"AA-12 Gen 2", "Saiga-12K FA"
+			"KS-23M",
+			"M3 Super 90",
+			"590A1",
+			"M870",
+			"MP-43-1C",
+			"MP-133",
+			"MP-153",
+			"MP-155",
+			"Sawed-off",
+			"Saiga-12K",
+			"AA-12 Gen 2",
+			"Saiga-12K FA"
 		],
-        "Rarity": "Baseline"
-    },
+		"Rarity": "Baseline"
+	},
 	"Shotgun-o-Revolver": {
-		"Description": "Somewhere, deep in the void of forbidden weapon concepts, someone asked: 'What if revolvers... but shotguns?",
-		"Explanation": "Revolver variant converted to fire shotgun shells. Because sometimes six big booms are better than six small ones",
 		"ShortName": "Shotgun-o",
 		"Properties": {
 			"ShotgunDispersion": 10
@@ -166,7 +201,7 @@
 				},
 				"Slots": {
 					"mod_magazine": {
-						"Filter": [ "CR 200DS 20/70 6-round cylinder" ]
+						"Filter": [ "ShotgunO_Mag_CR200DS" ]
 					}
 				}
 			},
@@ -177,7 +212,7 @@
 				},
 				"Slots": {
 					"mod_magazine": {
-						"Filter": [ "CR 50DS 12/70 6-round cylinder" ]
+						"Filter": [ "ShotgunO_Mag_CR50DS" ]
 					}
 				}
 			},
@@ -188,7 +223,7 @@
 				},
 				"Slots": {
 					"mod_magazine": {
-						"Filter": [ "RSh-12 23x75mm 5-round cylinder" ]
+						"Filter": [ "ShotgunO_Mag_RSh12" ]
 					}
 				}
 			},
@@ -199,38 +234,43 @@
 				},
 				"Slots": {
 					"mod_magazine": {
-						"Filter": [ "MTs-255-12 7.62x51mm cylinder" ]
+						"Filter": [ "ShotgunO_Mag_MTs255" ]
 					}
 				}
 			}
 		},
 		"Weapons": [
-			"CR 200DS", "CR 50DS", "RSh-12", "MTs-255-12"
+			"CR 200DS",
+			"CR 50DS",
+			"RSh-12",
+			"MTs-255-12"
 		],
 		"Rarity": "Baseline"
 	},
 	"World War II": {
-    	"Description": "If your goal isn't to kill your enemies but to seriously injure them, this is the perfect weapon for you. Now with occasional WW2 flashbacks!",
-    	"Explanation": "Bootleg of the PPSh-41. It even has the same fire rate and immunity to malfunctions! On top of that, it boasts low recoil",
-    	"ShortName": "WW2",
-    	"Properties": {
+		"ShortName": "WW2",
+		"Properties": {
 			"BFirerate": 1250,
-    		"SingleFireRate": 625,
-    		"WeapFireType": [ "single", "fullauto" ],
+			"SingleFireRate": 625,
+			"WeapFireType": [ "single", "fullauto" ],
 			"RecoilForceUp": "-60%",
-    		"RecoilForceBack": "-70%",
-			"RecoilCamera": "-60%",	
+			"RecoilForceBack": "-70%",
+			"RecoilCamera": "-60%",
 			"RecoilReturnSpeedHandRotation": "+40%",
 			"RecoilDampingHandRotation": "-50%",
 			"AllowJam": false,
 			"AllowFeed": false,
 			"AllowMisfire": false,
 			"AllowSlide": false
-    	},
-    	"Changes": {
+		},
+		"Changes": {
 			"Slots": {
-			    "mod_magazine": {
-					"FromWeapons": [ "PPSh-41" ]
+				"mod_magazine": {
+					"FromWeapons": [ "PPSh-41" ],
+					"Add": [
+						"WW2_Mag_Late",
+						"WW2_Mag_Extended"
+					]
 				}
 			},
 			"Chambers": {
@@ -241,81 +281,101 @@
 			"Blicky": {
 				"Slots": {
 					"mod_magazine": {
-						"Filter": [ "Blicky Special Magical Unbelievable Magazine" ]
+						"Filter": [ "Blicky_SMUM", "Blicky_SMUM_v2" ]
 					}
 				}
 			}
 		},
 		"Weapons": [
-			"MCX .300 BLK", "TX-15 DML", "VSK-94", "Vector 9x19", "SPEAR 6.8",
-			"Mk-18 Mjölnir", "ASh-12", "RSASS", "AK-74N", "AK-101",
+			"MCX .300 BLK",
+			"TX-15 DML",
+			"VSK-94",
+			"Vector 9x19",
+			"SPEAR 6.8",
+			"Mk-18 Mjölnir",
+			"ASh-12",
+			"RSASS",
+			"AK-74N",
+			"AK-101",
 			"Blicky"
 		],
-        "Rarity": "Baseline"
-    },
+		"Rarity": "Baseline"
+	},
 	"Slav \"Thing\"": {
-		"Description": "If it works, don't question it. If it doesn't work, hit it with a wrench. Classic Slav engineering",
-    	"Explanation": "Weapon variant chambered in 7.62x39mm with increased stabilization point, increased recoil, dispersion and decreased ergonomics",
-    	"ShortName": "v2.0-Slav",
+		"ShortName": "v2.0-Slav",
 		"Properties": {
 			"RecoilStableIndexShot": 10,
 			"RecolDispersion": 25,
 			"RecoilForceUp": "+45%",
 			"Ergonomics": "-25"
-    	},
+		},
 		"Changes": {
 			"Minimum": {
 				"BFirerate": 650
 			},
 			"Slots": {
-			    "mod_magazine": {
+				"mod_magazine": {
 					"FromWeapons": [
 						"RPD",
 						"AKM"
+					],
+					"Add": [
+						"Slavic_Mag_Ultimate"
 					]
 				}
 			},
 			"Chambers": {
 				"FromWeapons": [ "AKM" ]
 			}
-    	},
+		},
 		"Weapons": [
-			"HK 416A5", "AUG A3", "MDR 5.56x45", "M4A1", "G36",
-			"ADAR 2-15", "TX-15 DML"
+			"HK 416A5",
+			"AUG A3",
+			"MDR 5.56x45",
+			"M4A1",
+			"G36",
+			"ADAR 2-15",
+			"TX-15 DML"
 		],
-        "Rarity": "Baseline"
+		"Rarity": "Baseline"
 	},
 	"Freedom \"Thing\"": {
-		"Description": "If it works, don't question it. If it doesn't work, shoot it until it does. Classic American engineering",
-    	"Explanation": "Weapon variant chambered in 5.56x45mm NATO with decreased recoil, increased ergonomics and fire rate but with increased stabilization point",
-    	"ShortName": "v2.0-Freedom",
+		"ShortName": "v2.0-Freedom",
 		"Properties": {
 			"RecoilForceUp": "-22%",
 			"RecoilForceBack": "-22%",
 			"Ergonomics": "+22",
 			"RecoilStableIndexShot": 10,
 			"BFirerate": 800
-    	},
+		},
 		"Changes": {
 			"Slots": {
-			    "mod_magazine": {
-					"FromWeapons": [ "M4A1" ]
+				"mod_magazine": {
+					"FromWeapons": [ "M4A1" ],
+					"Add": [ "Freedom_Mag_Ultimate" ]
 				}
 			},
 			"Chambers": {
 				"FromWeapons": [ "M4A1" ]
 			}
-    	},
+		},
 		"Weapons": [
-			"VPO-209", "AKS-74UB", "AK-105", "AK-545", "RPK-16",
-			"AK-12", "AK-74N", "RPDN", "AKMS", "VPO-136 Vepr-KM",
-			"AKM", "VSS Vintorez"
+			"VPO-209",
+			"AKS-74UB",
+			"AK-105",
+			"AK-545",
+			"RPK-16",
+			"AK-12",
+			"AK-74N",
+			"RPDN",
+			"AKMS",
+			"VPO-136 Vepr-KM",
+			"AKM",
+			"VSS Vintorez"
 		],
-        "Rarity": "Baseline"
+		"Rarity": "Baseline"
 	},
 	"Smoothbore": {
-		"Description": "Technically not a rifle - at least according to someone’s paperwork. Modified to support civilian smoothbore cartridges while retaining most of the platform’s original handling. Whether that makes it legal, practical, or safe is another question entirely",
-		"Explanation": "Weapon variant capable of using both .366 TKM and 7.62x39mm ammunition",
 		"ShortName": "Smoothbore",
 		"Changes": {
 			"Chambers": {
@@ -323,6 +383,11 @@
 					"VPO-209",
 					"AKM"
 				]
+			},
+			"Slots": {
+				"mod_magazine": {
+					"Add": [ "Smoothbore_Mag_SmallExtended" ]
+				}
 			}
 		},
 		"Weapons": [
@@ -335,6 +400,53 @@
 			"Mk47",
 			"RD-704",
 			"VPO-209"
+		],
+		"Rarity": "Baseline"
+	},
+	"Stendo": {
+		"ShortName": "Stendo",
+		"Changes": {
+			"Slots": {
+				"mod_magazine": {
+					"BasedOn": {
+						"Property": "AmmoCaliber",
+						"Cases": {
+							"Caliber9x18PM": {
+								"Filter": [
+
+								]
+							},
+							"Caliber9x19PARA": {
+								"Filter": [
+
+								]
+							},
+							"Caliber1143x23ACP": {
+								"Filter": [
+
+								]
+							}
+						}
+					}
+				}
+			}
+		},
+		"Weapons": [
+			"APB",
+			"APS",
+			"Glock 17",
+			"Glock 18C",
+			"Glock 19X",
+			"M9A3",
+			"M45A1",
+			"M1911A1",
+			"MP-443 Grach",
+			"P226R",
+			"PB pistol",
+			"PL-15",
+			"PM (t) pistol",
+			"PM pistol",
+			"USP .45"
 		],
 		"Rarity": "Baseline"
 	}

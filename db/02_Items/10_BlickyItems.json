@@ -1,24 +1,54 @@
 {
-    "Blicky Special Magical Unbelievable Magazine": {
-        "Description": "A Special Magical Unbelievable Magazine for toy gun named Blicky. It can store rounds of calibers: \n- 12.7x108mm (Anti-materiel Rifle)\n- 7.62x54r (Light Machine Gun)\n- 40x46mm grenades (Rifle Grenade Launcher)\n- 7.62x25TT (World War II)\n- 5.56x45 NATO (Assault Rifle)\n- 12/70 (Panic)\n- 9x21 (Laser)",
-        "ShortName": "SMUM",
-        "ItemTplToClone": "66015dc4aaad2f54cb04c56a",
-        "Changes": {
-            "Cartridges": {
-                "Count": 35,
-                "FromWeapons": [
-                    "NSV Utyos",
-                    "SVDS",
-                    "FN40GL",
-                    "TT",
-                    "M4A1",
-                    "Saiga-12K",
-                    "SR-2M"
-                ]
-            }
-        },
-        "HandbookPriceRoubles": 99999,
-        "VariantType": "Anti-materiel Rifle/Light Machine Gun/Rifle Grenade Launcher/World War II/Assault Rifle/Panic/Laser",
-        "Rarity": "Unknown"
-    }
+  "Blicky_SMUM": {
+    "ItemTplToClone": "66015dc4aaad2f54cb04c56a",
+    "Changes": {
+      "Cartridges": {
+        "Count": 35,
+        "FromWeapons": [
+          "NSV Utyos",
+          "AXMC",
+          "SVDS",
+          "FN40GL",
+          "TT",
+          "M4A1",
+          "Saiga-12K",
+          "SR-2M"
+        ]
+      }
+    },
+    "HandbookPriceRoubles": 99999,
+    "VariantType": "Anti-materiel Rifle/Lapua/Light Machine Gun/Rifle Grenade Launcher/World War II/Assault Rifle/Panic/Laser",
+    "Rarity": "Unknown"
+  },
+  "Blicky_SMUM_v2": {
+    "ItemTplToClone": "66015dc4aaad2f54cb04c56a",
+    "Changes": {
+      "Cartridges": {
+        "Count": 45,
+        "FromWeapons": [
+          "NSV Utyos",
+          "AXMC",
+          "SVDS",
+          "FN40GL",
+          "TT",
+          "M4A1",
+          "Saiga-12K",
+          "SR-2M"
+        ]
+      }
+    },
+    "Barter": {
+      "LoyalLevel": 4,
+      "UnlimitedCount": false,
+      "StackObjectsCount": 1,
+      "BarterPrice": {
+        "Superior Quality Variant Core": 1,
+        "Ultimate Quality Variant Core": 1,
+        "Unique Quality Variant Core": 1
+      }
+    },
+    "HandbookPriceRoubles": 149999,
+    "VariantType": "Anti-materiel Rifle/Lapua/Light Machine Gun/Rifle Grenade Launcher/World War II/Assault Rifle/Panic/Laser",
+    "Rarity": "Unknown"
+  }
 }

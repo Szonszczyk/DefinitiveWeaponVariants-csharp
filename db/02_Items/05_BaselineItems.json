@@ -1,122 +1,233 @@
 {
-    "TOZ-106 20ga MTs 20-01 Sb.3 Internal 5-shot magazine": {
-        "Description": "Special TOZ-106 20ga MTs 20-01 Sb.3 5-shot magazine for 20/70 Variant weapons with internal magazine",
-        "ShortName": "Sb.3x5 Internal",
-        "ItemTplToClone": "5c6161fb2e221600113fbde5",
-        "Properties": {
-            "ReloadMagType": "InternalMagazine",
-			"RaidModdable": false
-        },
-        "HandbookPriceRoubles": 1410,
-        "VariantType": "20/70",
-        "Rarity": "Baseline"
+  "CQ_Mag": {
+    "ItemTplToClone": "5caf1109ae9215753c44119f",
+    "Properties": {
+      "Ergonomics": -9
     },
-    "CR 200DS 20/70 6-round cylinder": {
-        "Description": "A 6-round cylinder 20/70 cylinder for Chiappa Rhino 200DS Shotgun-o-Revolver Variant",
-        "ShortName": "CR 20/70",
-        "ItemTplToClone": "624c3074dbbd335e8e6becf3",
-        "Changes": {
-            "Cartridges": {
-                "Count": 6,
-                "FromWeapons": [ "TOZ-106" ]
-            }
-        },
-        "HandbookPriceRoubles": 1600,
-        "VariantType": "Shotgun-o-Revolver",
-        "Rarity": "Baseline"
+    "Changes": {
+      "Cartridges": {
+        "Count": 30,
+        "FromWeapons": [ "ASh-12" ]
+      }
     },
-    "CR 50DS 12/70 6-round cylinder": {
-        "Description": "A 6-round 12/70 cylinder for Chiappa Rhino 50DS Shotgun-o-Revolver Variant",
-        "ShortName": "CR 12/70",
-        "ItemTplToClone": "619f54a1d25cbd424731fb99",
-        "Changes": {
-            "Cartridges": {
-                "Count": 6,
-                "FromWeapons": [ "MP-155" ]
-            }
-        },
-        "HandbookPriceRoubles": 1600,
-        "VariantType": "Shotgun-o-Revolver",
-        "Rarity": "Baseline"
+    "Barter": {
+      "LoyalLevel": 1,
+      "UnlimitedCount": true,
+      "StackObjectsCount": 99,
+      "BarterPrice": {
+        "MONEY_ROUBLES": 19000
+      }
     },
-    "RSh-12 23x75mm 5-round cylinder": {
-        "Description": "A 5-round 23x75mm cylinder for RSh-12 Shotgun-o-Revolver Variant",
-        "ShortName": "RSh 23x75",
-        "ItemTplToClone": "633ec6ee025b096d320a3b15",
-        "Changes": {
-            "Cartridges": {
-                "Count": 5,
-                "FromWeapons": [ "KS-23M" ]
-            }
-        },
-        "HandbookPriceRoubles": 12000,
-        "VariantType": "Shotgun-o-Revolver",
-        "Rarity": "Baseline"
+    "HandbookPriceRoubles": 14000,
+    "VariantType": "Close Quarters",
+    "Rarity": "Baseline"
+  },
+  "CQ_Mag_Extended": {
+    "ItemTplToClone": "5caf1109ae9215753c44119f",
+    "Properties": {
+      "Ergonomics": -11
     },
-    "MTs-255-12 7.62x51mm cylinder": {
-        "Description": "A standard-issue 7.62x51mm cylinder for MTs-255-12 Shotgun-o-Revolver Variant",
-        "ShortName": "MTs 7.62x51",
-        "ItemTplToClone": "60dc519adf4c47305f6d410d",
-        "Changes": {
-            "Cartridges": {
-                "Count": 5,
-                "FromWeapons": [ "RSASS" ]
-            }
-        },
-        "HandbookPriceRoubles": 4500,
-        "VariantType": "Shotgun-o-Revolver",
-        "Rarity": "Baseline"
+    "Changes": {
+      "Cartridges": {
+        "Count": 40,
+        "FromWeapons": [ "ASh-12" ]
+      }
     },
-    "Close Quarters 12.7x55 30-round magazine": {
-        "Description": "A standard 30-round magazine for the Close Quarters Variant weapons",
-        "ShortName": "30r 12.7x55",
-        "ItemTplToClone": "5caf1109ae9215753c44119f",
-        "Properties": {
-            "Ergonomics": -9
-        },
-        "Changes": {
-            "Cartridges": {
-                "Count": 30,
-                "FromWeapons": [ "ASh-12" ]
-            }
-        },
-        "Barter": {
-            "LoyalLevel": 1,
-            "UnlimitedCount": true,
-            "StackObjectsCount": 99,
-            "BarterPrice": {
-                "MONEY_ROUBLES": 19000
-            }
-        },
-        "HandbookPriceRoubles": 14000,
-        "VariantType": "Close Quarters",
-        "Rarity": "Baseline"
-    },
-    "Close Quarters 12.7x55 40-round magazine": {
-        "Description": "A standard 40-round magazine for the Close Quarters Variant weapons",
-        "ShortName": "40r 12.7x55",
-        "ItemTplToClone": "5caf1109ae9215753c44119f",
-        "Properties": {
-            "Ergonomics": -11
-        },
-        "Changes": {
-            "Cartridges": {
-                "Count": 40,
-                "FromWeapons": [ "ASh-12" ]
-            }
-        },
-        "Barter": {
-            "LoyalLevel": 1,
-            "UnlimitedCount": true,
-            "StackObjectsCount": 99,
-            "BarterPrice": {
-                "MONEY_ROUBLES": 24000,
-                "Baseline Quality Variant Core": 1
+    "Barter": {
+      "LoyalLevel": 1,
+      "UnlimitedCount": true,
+      "StackObjectsCount": 99,
+      "BarterPrice": {
+        "MONEY_ROUBLES": 24000,
+        "Baseline Quality Variant Core": 1
 
-            }
-        },
-        "HandbookPriceRoubles": 24000,
-        "VariantType": "Close Quarters",
-        "Rarity": "Baseline"
-    }
+      }
+    },
+    "HandbookPriceRoubles": 24000,
+    "VariantType": "Close Quarters",
+    "Rarity": "Baseline"
+  },
+  "2070_Mag_Internal": {
+    "ItemTplToClone": "5c6161fb2e221600113fbde5",
+    "Properties": {
+      "ReloadMagType": "InternalMagazine",
+      "RaidModdable": false
+    },
+    "HandbookPriceRoubles": 1410,
+    "VariantType": "20/70",
+    "Rarity": "Baseline"
+  },
+  "ShotgunO_Mag_CR200DS": {
+    "ItemTplToClone": "624c3074dbbd335e8e6becf3",
+    "Changes": {
+      "Cartridges": {
+        "Count": 6,
+        "FromWeapons": [ "TOZ-106" ]
+      }
+    },
+    "HandbookPriceRoubles": 1600,
+    "VariantType": "Shotgun-o-Revolver",
+    "Rarity": "Baseline"
+  },
+  "ShotgunO_Mag_CR50DS": {
+    "ItemTplToClone": "619f54a1d25cbd424731fb99",
+    "Changes": {
+      "Cartridges": {
+        "Count": 6,
+        "FromWeapons": [ "MP-155" ]
+      }
+    },
+    "HandbookPriceRoubles": 1600,
+    "VariantType": "Shotgun-o-Revolver",
+    "Rarity": "Baseline"
+  },
+  "ShotgunO_Mag_RSh12": {
+    "ItemTplToClone": "633ec6ee025b096d320a3b15",
+    "Changes": {
+      "Cartridges": {
+        "Count": 5,
+        "FromWeapons": [ "KS-23M" ]
+      }
+    },
+    "HandbookPriceRoubles": 12000,
+    "VariantType": "Shotgun-o-Revolver",
+    "Rarity": "Baseline"
+  },
+  "ShotgunO_Mag_MTs255": {
+    "ItemTplToClone": "60dc519adf4c47305f6d410d",
+    "Changes": {
+      "Cartridges": {
+        "Count": 5,
+        "FromWeapons": [ "RSASS" ]
+      }
+    },
+    "HandbookPriceRoubles": 4500,
+    "VariantType": "Shotgun-o-Revolver",
+    "Rarity": "Baseline"
+  },
+  "WW2_Mag_Late": {
+    "ItemTplToClone": "6699272a3c4fda6471005cc1",
+    "Properties": {
+      "Width": 1,
+      "Height": 2
+    },
+    "Changes": {
+      "Cartridges": {
+        "Count": 55,
+        "FromWeapons": [ "TT" ]
+      }
+    },
+    "Barter": {
+      "LoyalLevel": 4,
+      "UnlimitedCount": true,
+      "StackObjectsCount": 99,
+      "BarterPrice": {
+        "Baseline Quality Variant Core": 1
+      }
+    },
+    "HandbookPriceRoubles": 12000,
+    "VariantType": "World War II",
+    "Rarity": "Baseline"
+  },
+  "WW2_Mag_Extended": {
+    "ItemTplToClone": "564ca9df4bdc2d35148b4569",
+    "Properties": {
+      "Width": 1,
+      "Height": 3
+    },
+    "Changes": {
+      "Cartridges": {
+        "Count": 90,
+        "FromWeapons": [ "TT" ]
+      }
+    },
+    "Barter": {
+      "LoyalLevel": 2,
+      "UnlimitedCount": true,
+      "StackObjectsCount": 99,
+      "BarterPrice": {
+        "Baseline Quality Variant Core": 1
+      }
+    },
+    "HandbookPriceRoubles": 12000,
+    "VariantType": "World War II",
+    "Rarity": "Baseline"
+  },
+
+  "Slavic_Mag_Ultimate": {
+    "ItemTplToClone": "5a0060fc86f7745793204432",
+    "Properties": {
+      "Ergonomics": 25
+    },
+    "Changes": {
+      "Cartridges": {
+        "Count": 25,
+        "FromWeapons": [ "AKM" ]
+      }
+    },
+    "Barter": {
+      "LoyalLevel": 2,
+      "UnlimitedCount": true,
+      "StackObjectsCount": 99,
+      "BarterPrice": {
+        "Baseline Quality Variant Core": 1
+      }
+    },
+    "HandbookPriceRoubles": 12000,
+    "VariantType": "Slav \"Thing\"",
+    "Rarity": "Baseline"
+  },
+  "Freedom_Mag_Ultimate": {
+    "ItemTplToClone": "5c6592372e221600133e47d7",
+    "Properties": {
+      "Ergonomics": -100,
+      "Width": 1,
+      "Height": 2
+    },
+    "Changes": {
+      "Cartridges": {
+        "Count": 99,
+        "FromWeapons": [ "M4A1" ]
+      }
+    },
+    "Barter": {
+      "LoyalLevel": 2,
+      "UnlimitedCount": true,
+      "StackObjectsCount": 99,
+      "BarterPrice": {
+        "Baseline Quality Variant Core": 1
+      }
+    },
+    "HandbookPriceRoubles": 12000,
+    "VariantType": "Freedom \"Thing\"",
+    "Rarity": "Baseline"
+  },
+  "Smoothbore_Mag_SmallExtended": {
+    "ItemTplToClone": "59e5d83b86f7745aed03d262",
+    "Properties": {
+      "Ergonomics": 0,
+      "Width": 1,
+      "Height": 1
+    },
+    "Changes": {
+      "Cartridges": {
+        "Count": 21,
+        "FromWeapons": [
+          "VPO-209",
+          "AKM"
+        ]
+      }
+    },
+    "Barter": {
+      "LoyalLevel": 1,
+      "UnlimitedCount": true,
+      "StackObjectsCount": 99,
+      "BarterPrice": {
+        "Baseline Quality Variant Core": 1
+      }
+    },
+    "HandbookPriceRoubles": 12000,
+    "VariantType": "Freedom \"Thing\"",
+    "Rarity": "Baseline"
+  }
 }

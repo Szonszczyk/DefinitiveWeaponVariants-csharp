@@ -1,33 +1,180 @@
 {
-    "Sniper Variant 28 inch barrel": {
-        "Description": "Special 28 inch barrel for Sniper Variant Weapons",
-        "ShortName": "Sniper 28\"",
-        "ItemTplToClone": "628121434fa03b6b6c35dc6a",
-        "HandbookPriceRoubles": 39876,
-        "VariantType": "Sniper",
-        "Rarity": "Advanced"
+  "AR_Mag_PistolSized_Medium": {
+    "ItemTplToClone": "571a29dc2459771fb2755a6a",
+    "Changes": {
+      "Cartridges": {
+        "Count": 20,
+        "FromWeapons": [ "M4A1" ]
+      }
     },
-    "Shotgun Variant 35-round drum magazine": {
-        "Description": "A 35-round 12-gauge drum magazine for the Shotgun Variant Weapons",
-        "ShortName": "Shotgun 35-round",
-        "ItemTplToClone": "6709133fa532466d5403fb7c",
-        "Changes": {
-            "Cartridges": {
-                "Count": 35,
-                "FromWeapons": [ "Saiga-12K" ]
-            }
-        },
-        "Barter": {
-            "LoyalLevel": 1,
-            "UnlimitedCount": true,
-            "StackObjectsCount": 99,
-            "BarterPrice": {
-                "MONEY_ROUBLES": 36000,
-                "Advanced Quality Variant Core": 1
-            }
-        },
-        "HandbookPriceRoubles": 36000,
-        "VariantType": "Shotgun",
-        "Rarity": "Advanced"
-    }
+    "Barter": {
+      "LoyalLevel": 1,
+      "UnlimitedCount": true,
+      "StackObjectsCount": 99,
+      "BarterPrice": {
+        "Advanced Quality Variant Core": 1
+      }
+    },
+    "HandbookPriceRoubles": 12000,
+    "VariantType": "Assault Rifle",
+    "Rarity": "Advanced"
+  },
+  "AR_Mag_PistolSized_Large": {
+    "ItemTplToClone": "5448c12b4bdc2d02308b456f",
+    "Changes": {
+      "Cartridges": {
+        "Count": 30,
+        "FromWeapons": [ "M4A1" ]
+      }
+    },
+    "Barter": {
+      "LoyalLevel": 3,
+      "UnlimitedCount": true,
+      "StackObjectsCount": 99,
+      "BarterPrice": {
+        "MONEY_ROUBLES": 18000,
+        "Advanced Quality Variant Core": 1
+      }
+    },
+    "HandbookPriceRoubles": 25000,
+    "VariantType": "Assault Rifle",
+    "Rarity": "Advanced"
+  },
+  "LMG_Mag_Early": {
+    "ItemTplToClone": "646372518610c40fc20204e8",
+    "Changes": {
+      "Cartridges": {
+        "Count": 50,
+        "FromWeapons": [ "PKP" ]
+      }
+    },
+    "Barter": {
+      "LoyalLevel": 1,
+      "UnlimitedCount": true,
+      "StackObjectsCount": 99,
+      "BarterPrice": {
+        "MONEY_ROUBLES": 25000
+      }
+    },
+    "HandbookPriceRoubles": 18000,
+    "VariantType": "Light Machine Gun",
+    "Rarity": "Advanced"
+  },
+  "LMG_Mag_Late": {
+    "ItemTplToClone": "646372518610c40fc20204e8",
+    "Properties": {
+      "Width": 1,
+      "Ergonomics": "+5"
+    },
+    "Changes": {
+      "Cartridges": {
+        "Count": 77,
+        "FromWeapons": [ "PKP" ]
+      }
+    },
+    "Barter": {
+      "LoyalLevel": 4,
+      "UnlimitedCount": true,
+      "StackObjectsCount": 99,
+      "BarterPrice": {
+        "MONEY_ROUBLES": 25000,
+        "Advanced Quality Variant Core": 1
+      }
+    },
+    "HandbookPriceRoubles": 39000,
+    "VariantType": "Light Machine Gun",
+    "Rarity": "Advanced"
+  },
+  "Sniper_Barrel_AXMC": {
+    "ItemTplToClone": "628121434fa03b6b6c35dc6a",
+    "Properties": {
+      "ExtraSizeForceAdd": true,
+      "ExtraSizeLeft": 2
+    },
+    "HandbookPriceRoubles": 39876,
+    "VariantType": "Sniper",
+    "Rarity": "Advanced"
+  },
+  "Sniper_Barrel_T5000M": {
+    "ItemTplToClone": "5df256570dee1b22f862e9c4",
+    "Properties": {
+      "ExtraSizeForceAdd": true,
+      "ExtraSizeLeft": 1
+    },
+    "Barter": {
+      "LoyalLevel": 2,
+      "UnlimitedCount": true,
+      "StackObjectsCount": 99,
+      "BarterPrice": {
+        "MONEY_ROUBLES": 23000
+      }
+    },
+    "HandbookPriceRoubles": 17672,
+    "VariantType": "Sniper",
+    "Rarity": "Advanced"
+  },
+  "Shotgun_Mag_Large": {
+    "ItemTplToClone": "6709133fa532466d5403fb7c",
+    "Changes": {
+      "Cartridges": {
+        "Count": 35,
+        "FromWeapons": [ "Saiga-12K" ]
+      }
+    },
+    "Barter": {
+      "LoyalLevel": 1,
+      "UnlimitedCount": true,
+      "StackObjectsCount": 99,
+      "BarterPrice": {
+        "MONEY_ROUBLES": 36000,
+        "Advanced Quality Variant Core": 1
+      }
+    },
+    "HandbookPriceRoubles": 36000,
+    "VariantType": "Shotgun",
+    "Rarity": "Advanced"
+  },
+  "Shotgun_Mag_HalfDrum": {
+    "ItemTplToClone": "6709133fa532466d5403fb7c",
+    "Properties": {
+      "Width": 1
+    },
+    "Changes": {
+      "Cartridges": {
+        "Count": 15,
+        "FromWeapons": [ "Saiga-12K" ]
+      }
+    },
+    "Barter": {
+      "LoyalLevel": 2,
+      "UnlimitedCount": true,
+      "StackObjectsCount": 99,
+      "BarterPrice": {
+        "Advanced Quality Variant Core": 1
+      }
+    },
+    "HandbookPriceRoubles": 15000,
+    "VariantType": "Shotgun",
+    "Rarity": "Advanced"
+  },
+  "FURY_Mag_Early": {
+    "ItemTplToClone": "65293c7a17e14363030ad308",
+    "Changes": {
+      "Cartridges": {
+        "Count": 19,
+        "FromWeapons": [ "SPEAR 6.8" ]
+      }
+    },
+    "Barter": {
+      "LoyalLevel": 1,
+      "UnlimitedCount": true,
+      "StackObjectsCount": 99,
+      "BarterPrice": {
+        "MONEY_ROUBLES": 17000
+      }
+    },
+    "HandbookPriceRoubles": 13000,
+    "VariantType": "FURY",
+    "Rarity": "Advanced"
+  }
 }

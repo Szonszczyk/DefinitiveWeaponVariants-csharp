@@ -9,7 +9,7 @@
     "Changes": {
       "Slots": {
         "mod_scope": {
-          "Filter": [ "Quick-scope special \"reflex\" sight" ]
+          "Filter": [ "Quick_Sight_1" ]
         }
       }
     },

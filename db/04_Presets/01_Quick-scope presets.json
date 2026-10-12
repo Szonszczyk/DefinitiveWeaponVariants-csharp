@@ -34,14 +34,14 @@
                 "_tpl": "67d416e19bd76ef20f0e743b",
                 "parentId": "690a06bc6c65be6d001b4cd1",
                 "slotId": "mod_reciever",
-                "desc": "AK-50 dust cover Q"
+                "desc": "Quick_AK50_Cover"
             },
             {
                 "_id": "690a06bc6c65be6d001b4d43",
                 "_tpl": "5aa66a9be5b5b0214e506e89",
                 "parentId": "690a06bc6c65be6d001b4d3b",
                 "slotId": "mod_scope",
-                "desc": "Quick-scope special \"reflex\" sight"
+                "desc": "Quick_Sight_1"
             },
             {
                 "_id": "690a06bc6c65be6d001b4d5c",
@@ -88,7 +88,7 @@
                         "Folded": false
                     }
                 },
-                "desc": "AI AXMC pistol grip Q"
+                "desc": "Quick_AXMC_PitolGrip"
             },
             {
                 "_id": "6888a84b0612580568000f27",
@@ -101,7 +101,7 @@
                 "_tpl": "68875f304e084d6804001118",
                 "parentId": "6888a84b0612580568000f26",
                 "slotId": "mod_reciever",
-                "desc": "AI AXMC .338 LM chassis Q"
+                "desc": "Quick_AXMC_Chassis"
             },
             {
                 "_id": "6888a84b0612580568000f29",
@@ -144,7 +144,7 @@
                 "_tpl": "68875f304e084d680400111c",
                 "parentId": "6888a84b0612580568000f28",
                 "slotId": "mod_reciever",
-                "desc": "AI AXMC upper receiver Q"
+                "desc": "Quick_AXMC_Receiver"
             },
             {
                 "_id": "6888a84b0612580568000f30",
@@ -175,7 +175,7 @@
                 "_tpl": "688503e1872439568c001100",
                 "parentId": "6888a84b0612580568000f2f",
                 "slotId": "mod_scope",
-                "desc": "Quick-scope special \"reflex\" sight"
+                "desc": "Quick_Sight_1"
             }
         ]
     },
@@ -235,7 +235,7 @@
                 "_tpl": "688503e1872439568c001100",
                 "parentId": "6828a3cf3c599b2cd4000110",
                 "slotId": "mod_scope",
-                "desc": "Quick-scope special \"reflex\" sight"
+                "desc": "Quick_Sight_1"
             }
         ]
     },
@@ -280,14 +280,14 @@
                 "_tpl": "b836b7e203aecb0d89e3e23e",
                 "parentId": "66b5e61d19a3ab39b7175bbf",
                 "slotId": "mod_mount",
-                "desc": "M700 AB Arms MOD*X rail Quick-scope mount"
+                "desc": "Quick_MODX_mount"
             },
             {
                 "_id": "85f698cf151d1ce3a3a25c1b",
                 "_tpl": "688503e1872439568c001100",
                 "parentId": "74811b67305292557b86199c",
                 "slotId": "mod_scope",
-                "desc": "Quick-scope special \"reflex\" sight"
+                "desc": "Quick_Sight_1"
             }
         ]
     },
@@ -323,7 +323,7 @@
                 "_tpl": "6888a84b0612580568001126",
                 "parentId": "6828a3cf3c599b2cd4000115",
                 "slotId": "mod_barrel",
-                "desc": "Mosin Rifle 7.62x54R 730mm regular barrel Infantry Q"
+                "desc": "Quick_MosinInf_Barrel"
             },
             {
                 "_id": "6888a84b0612580568000f12",
@@ -365,7 +365,7 @@
                 "_tpl": "5ae09bff5acfc4001562219d",
                 "parentId": "5bbf1d5988a45017b431dafb",
                 "slotId": "mod_barrel",
-                "desc": "Mosin Rifle 7.62x54R 730mm regular barrel Sniper Q"
+                "desc": "Quick_MosinSniper_Barrel"
             },
             {
                 "_id": "5bbf1d5988a45017b431daff",
@@ -378,14 +378,14 @@
                 "_tpl": "5ae099925acfc4001a5fc7b3",
                 "parentId": "5bbf1d5988a45017b431dafe",
                 "slotId": "mod_sight_rear",
-                "desc": "Mosin Rifle AIM Sports MNG rail mount Q"
+                "desc": "Quick_Mosin_RailMount"
             },
             {
                 "_id": "979dc36c8f325edc3eac22e4",
                 "_tpl": "688503e1872439568c001100",
                 "parentId": "5bbf1d5988a45017b431db00",
                 "slotId": "mod_scope",
-                "desc": "Quick-scope special \"reflex\" sight"
+                "desc": "Quick_Sight_1"
             }
         ]
     },
@@ -445,7 +445,7 @@
                 "_tpl": "688503e1872439568c001100",
                 "parentId": "6828a3cf3c599b2cd400010b",
                 "slotId": "mod_scope",
-                "desc": "Quick-scope special \"reflex\" sight"
+                "desc": "Quick_Sight_1"
             }
         ]
     },
@@ -546,14 +546,14 @@
                 "_tpl": "50ec2a1072a192680a499f2a",
                 "parentId": "6828a3cf3c599b2cd400011f",
                 "slotId": "mod_mount",
-                "desc": "ORSIS T-5000M Quick-scope mount"
+                "desc": "Quick_T5000M_mount"
             },
             {
                 "_id": "a48a0faa7e90cc7a0494fe60",
                 "_tpl": "688503e1872439568c001100",
                 "parentId": "688bac46fb1f8a67e4000fbc",
                 "slotId": "mod_scope",
-                "desc": "Quick-scope special \"reflex\" sight"
+                "desc": "Quick_Sight_1"
             }
         ]
     },
@@ -595,21 +595,21 @@
                 "_tpl": "6887608e62561c5b44001120",
                 "parentId": "6887608e62561c5b44000f2c",
                 "slotId": "mod_mount_000",
-                "desc": "TOZ-106 dovetail mount Q"
+                "desc": "Quick_TOZ_Dovetail"
             },
             {
                 "_id": "c7c34b353989d2571fbefa8c",
                 "_tpl": "6887608e62561c5b44001122",
                 "parentId": "4bcd47fe8365b1311f17eb46",
                 "slotId": "mod_mount_000",
-                "desc": "TOZ-106 rail scope mount Q"
+                "desc": "Quick_TOZ_ScopeMount"
             },
             {
                 "_id": "c417856bcc9aa36ccadbda3f",
                 "_tpl": "688503e1872439568c001100",
                 "parentId": "c7c34b353989d2571fbefa8c",
                 "slotId": "mod_scope",
-                "desc": "Quick-scope special \"reflex\" sight"
+                "desc": "Quick_Sight_1"
             }
         ]
     }

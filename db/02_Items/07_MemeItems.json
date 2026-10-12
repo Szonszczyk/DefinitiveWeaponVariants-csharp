@@ -1,7 +1,5 @@
 {
-  "RFB No-scope rail mount": {
-    "Description": "A universal rail for mounting various front and back sights on to the RFB rifle, manufactured by >REDACTED<",
-    "ShortName": "Quick-sight",
+  "NoScope_RailMount": {
     "ItemTplToClone": "5f2aa49f9b44de6b1b4e68d4",
     "Changes": {
       "Slots": {
@@ -14,9 +12,7 @@
     "VariantType": "No-Scope",
     "Rarity": "Meme"
   },
-  "Glass Cannon .50BMG 1-shell magazine": {
-    "Description": "A non-standard 1-round magazine for the Glass Cannon Variant shotguns",
-    "ShortName": "GC .50",
+  "GlassCannon_Mag": {
     "ItemTplToClone": "55d485804bdc2d8c2f8b456b",
     "Changes": {
       "Cartridges": {
@@ -26,6 +22,26 @@
     },
     "HandbookPriceRoubles": 5555,
     "VariantType": "Glass Cannon",
+    "Rarity": "Meme"
+  },
+  "EarlyPrototype_LateGame_Mag": {
+    "ItemTplToClone": "5c88f24b2e22160bc12c69a6",
+    "Changes": {
+      "Cartridges": {
+        "Count": 30,
+        "FromWeapons": [ "AVT-40" ]
+      }
+    },
+    "Barter": {
+      "LoyalLevel": 3,
+      "UnlimitedCount": true,
+      "StackObjectsCount": 99,
+      "BarterPrice": {
+        "Meme Quality Variant Core": 5
+      }
+    },
+    "HandbookPriceRoubles": 30000,
+    "VariantType": "Early Prototype",
     "Rarity": "Meme"
   }
 }

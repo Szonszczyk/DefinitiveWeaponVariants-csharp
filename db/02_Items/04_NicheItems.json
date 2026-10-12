@@ -1,63 +1,55 @@
 {
-    "Multi-caliber Rifle Grenade Launcher 7-round internal magazine": {
-        "Description": "7-round magazine for AXMC, OP-SKS, Mosin Infantry and TRG M10 Rifle Grenade Launcher Variant weapons\nCan store 7.62x39mm, 7.62x54r, .338 Lapua Magnum and 40x46mm caliber bullets/granades",
-        "ShortName": "R.Gre mag",
-        "ItemTplToClone": "587df3a12459772c28142567",
-        "Changes": {
-            "Cartridges": {
-                "Count": 7,
-                "FromWeapons": [
-                    "AXMC",
-                    "OP-SKS",
-                    "Mosin Infantry",
-                    "FN40GL",
-                    "AGS-30"
-                ]
-            }
-        },
-        "HandbookPriceRoubles": 21937,
-        "VariantType": "Rifle Grenade Launcher",
-        "Rarity": "Niche"
+  "RGrenade_Mag_Internal": {
+    "ItemTplToClone": "587df3a12459772c28142567",
+    "Changes": {
+      "Cartridges": {
+        "Count": 7,
+        "FromWeapons": [
+          "AXMC",
+          "OP-SKS",
+          "Mosin Infantry",
+          "FN40GL",
+          "AGS-30"
+        ]
+      }
     },
-    "M32A1 40mm 6-round Bombardier cylinder": {
-        "Description": "A standard-issue 6-round cylinder for the Bombardier Variant revolvers",
-        "ShortName": "MSGL B.6",
-        "ItemTplToClone": "627bce33f21bc425b06ab967",
-        "Changes": {
-            "Parent": "610720f290b75a49ff2e5e25"
-        },
-        "HandbookPriceRoubles": 15000,
-        "VariantType": "Bombardier",
-        "Rarity": "Niche"
+    "HandbookPriceRoubles": 21937,
+    "VariantType": "Rifle Grenade Launcher",
+    "Rarity": "Niche"
+  },
+  "Bombardier_Mag_6": {
+    "ItemTplToClone": "627bce33f21bc425b06ab967",
+    "Changes": {
+      "Parent": "610720f290b75a49ff2e5e25"
     },
-    "M32A1 40mm 5-round Bombardier cylinder": {
-        "Description": "A standard-issue 5-round cylinder for the Bombardier Variant revolvers",
-        "ShortName": "MSGL B.5",
-        "ItemTplToClone": "627bce33f21bc425b06ab967",
-        "Changes": {
-            "Parent": "610720f290b75a49ff2e5e25",
-            "Slots": {
-                "camora_004": {
-                    "Filter": []
-                }
-            }
-        },
-        "HandbookPriceRoubles": 15000,
-        "VariantType": "Bombardier",
-        "Rarity": "Niche"
+    "HandbookPriceRoubles": 15000,
+    "VariantType": "Bombardier",
+    "Rarity": "Niche"
+  },
+  "Bombardier_Mag_5": {
+    "ItemTplToClone": "627bce33f21bc425b06ab967",
+    "Changes": {
+      "Parent": "610720f290b75a49ff2e5e25",
+      "Slots": {
+        "camora_004": {
+          "Filter": []
+        }
+      }
     },
-    "Railgun Variant 40x46mm grenade 7-round magazine": {
-        "Description": "A standard 40x46mm grenade 7-round magazine designed for the Railgun Variant weapons",
-        "ShortName": "RailMag",
-        "ItemTplToClone": "641074a07fd350b98c0b3f96",
-        "Changes": {
-            "Cartridges": {
-                "Count": 7,
-                "FromWeapons": [ "FN40GL" ]
-            }
-        },
-        "HandbookPriceRoubles": 11234,
-        "VariantType": "Rifle Grenade Launcher",
-        "Rarity": "Niche"
-    }
+    "HandbookPriceRoubles": 15000,
+    "VariantType": "Bombardier",
+    "Rarity": "Niche"
+  },
+  "Railgun_Mag": {
+    "ItemTplToClone": "641074a07fd350b98c0b3f96",
+    "Changes": {
+      "Cartridges": {
+        "Count": 7,
+        "FromWeapons": [ "FN40GL" ]
+      }
+    },
+    "HandbookPriceRoubles": 11234,
+    "VariantType": "Railgun",
+    "Rarity": "Niche"
+  }
 }

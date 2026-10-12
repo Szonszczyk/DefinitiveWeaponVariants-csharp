@@ -1,195 +1,242 @@
 {
-    "Panic": {
-        "Description": "Don't panic-it's just a cockroach... *bang* *bang* *bang*",
-        "Explanation": "Shotguns limited to a MaxRounds Powermag 20-round magazine, featuring a full-auto fire mode, increased recoil, and a higher fire rate",
-        "ShortName": "Panic",
-        "Properties": {
-            "BFirerate": "+20%",
-            "WeapFireType": [ "fullauto" ],
-            "RecoilForceBack": "+59%",
-            "RecoilForceUp": "+59%",
-            "RecoilCamera": "+50%",
-            "AllowJam": false
-        },
-        "Changes": {
-            "Minimum": {
-                "BFirerate": 250
-            },
-            "Slots": {
-                "mod_magazine": {
-                    "BasedOn": {
-                        "Property": "ReloadMode",
-                        "Cases": {
-                            "ExternalMagazine": {
-                                "Filter": [ "5cf8f3b0d7f00c00217872ef" ]
-                            },
-                            "InternalMagazine": {
-                                "Filter": [ "SOK-12 12ga MD Arms Internal 20-round magazine" ]
-                            }
-                        }
-                    }
-                }
-            },
-            "Chambers": {
-				"FromWeapons": [ "Saiga-12K" ]
-			}
-        },
-        "IndividualChanges": {
-            "M3 Super 90": {
-                "Properties": {
-                    "WeapFireType": [ "semiauto", "single" ]
-                }
-            },
-            "Blicky": {
-				"Slots": {
-        			"mod_magazine": {
-						"Filter": [ "Blicky Special Magical Unbelievable Magazine" ]
-					}
-        		}
-			}
-        },
-        "Weapons": [
-            "KS-23M", "M3 Super 90", "590A1", "M870", "MP-133",
-            "MP-153", "MP-155", "TOZ-106", "AA-12 Gen 1", "Blicky"
-        ],
-        "Rarity": "Flawed"
+  "Panic": {
+    "ShortName": "Panic",
+    "Properties": {
+      "BFirerate": "+20%",
+      "WeapFireType": [ "fullauto" ],
+      "RecoilForceBack": "+59%",
+      "RecoilForceUp": "+59%",
+      "RecoilCamera": "+50%",
+      "AllowJam": false
     },
-    "Control-Fire": {
-        "Description": "A practice weapon for newly appointed PMCs eager to try legendary 'fullauto' fire mode. Unfortunately, they end up disappointed",
-        "Explanation": "Weapon variant with only a full-auto fire mode but offering better controllability due to a low fire rate and no recoil",
-        "ShortName": "Control",
-        "Properties": {
-            "BFirerate": 80,
-            "WeapFireType": [ "fullauto" ],
-            "RecoilStableIndexShot": 0,
-            "RecoilForceBack": "+100%"
-        },
-        "Weapons": [
-            "TX-15 DML", "G28", "M1A", "Mk-18 Mjölnir", "RSASS",
-            "SR-25", "SVDS", "OP-SKS", "RFB", "AK-545",
-            "VPO-101 Vepr-Hunter"
-        ],
-        "Rarity": "Flawed"
-    },
-    "Slowed": {
-        "Description": "A gun once tossed into a swamp... now fished out, but not without consequences. Its action speed has suffered a serious debuff",
-        "Explanation": "Weapon variant with extremely low ergonomics, fire rate, and velocity. Full-auto only, but with reduced recoil when sustained",
-        "ShortName": "Slowed",
-        "Properties": {
-            "WeapFireType": [ "fullauto" ],
-            "Ergonomics": "-200",
-            "SingleFireRate": "-30%",
-            "BFirerate": "-30%",
-            "Velocity": "-50",
-            "RecoilStableIndexShot": 2,
-            "HeatFactorByShot": 0
-        },
-        "Changes": {
-    		"Minimum": {
-    			"BFirerate": 450
-    		}
-    	},
-        "Weapons": [
-            "Mk47", "Mk 16", "SPEAR 6.8", "AK-74N", "AK-103",
-            "AKS-74U", "AKS-74N", "PM", "PB", "APS",
-            "PP-91-01 Kedr-B", "PP-91 Kedr", "Glock 17", "MP5K-N", "Saiga-9",
-            "MP7A1", "SR-3M"
-        ],
-        "Rarity": "Flawed"
-    },
-    "Quick-scope": {
-		"Description": "Quick! Use this bolt-action as a close-quarters weapon, we don't have time!\nDon't ask any questions",
-		"Explanation": "Weapon variant with maximum ergonomics and extremely high velocity, restricted to one special reflex sight",
-		"ShortName": "Quick",
-		"Properties": {
-            "Velocity": 250
-		},
-		"Changes": {
-            "Minimum": {
-				"Ergonomics": 200
-			},
-            "Slots": {
-    			"mod_scope": {
-                    "Filter": [ "Quick-scope special \"reflex\" sight" ]
-                }
-    		}
-		},
-        "IndividualChanges": {
-            "T-5000M": { "Slots": { "mod_mount": { "Filter": [ "ORSIS T-5000M Quick-scope mount" ] } } },
-            "M700": { "Slots": { "mod_mount": { "Filter": [ "M700 AB Arms MOD*X rail Quick-scope mount" ] } } },
-            "AXMC": { "Slots": { "mod_pistol_grip": { "Filter": [ "AI AXMC pistol grip Q" ] } } },
-            "TOZ-106": { "Slots": { "mod_mount_000": { "Filter": [ "TOZ-106 dovetail mount Q" ] } } },
-            "Mosin Infantry": { "Slots": { "mod_barrel": { "Filter": [ "Mosin Rifle 7.62x54R 730mm regular barrel Infantry Q" ] } } },
-            "Mosin Sniper": { "Slots": { "mod_barrel": { "Filter": [ "Mosin Rifle 7.62x54R 730mm regular barrel Sniper Q" ] } } },
-            "AK-50": { "Slots": { "mod_reciever": { "Filter": [ "AK-50 dust cover Q" ] } } }
-        },
-		"Weapons": [
-			 "Mosin Sniper", "SV-98", "DVL-10", "Mosin Infantry", "M700",
-             "T-5000M", "AXMC", "TOZ-106", "AK-50"
-		],
-		"Rarity": "Flawed"
-	},
-	"Converted": {
-    	"Description": "We have successfully converted your weak-ass shotguns and pistols to the medium-ass assault rifles, or something, I don't care...",
-    	"Explanation": "Weapon variant chambered in 9x39mm caliber with increased durability burn",
-    	"ShortName": "Converted",
-    	"Changes": {
-			"Minimum": {
-				"DurabilityBurnRatio": 1.15,
-				"HeatFactorByShot": 2.17,
-				"HeatFactorGun": 1.11
-			},
-            "Slots": {
-				"mod_magazine": {
-			    	"BasedOn": {
-						"Property": "ReloadMode",
-						"Cases": {
-							"ExternalMagazine": {
-								"FromWeapons": [ "VSS Vintorez" ]
-							},
-							"InternalMagazine": {
-								"Filter": [ "Converted Variant 9x39 Shotgun 15-round magazine" ]
-							}
-						}
-					}
-			    }
-			},
-            "Chambers": {
-				"FromWeapons": [ "VSS Vintorez" ]
-			}
-		},
-		"Weapons": [
-			"MP-133", "M870", "M3 Super 90", "MP-43-1C", "MP-153",
-			"MP-155", "TOZ-106", "SR-25", "MP-18", "Glock 19X",
-			"M9A3", "M45A1", "Desert Eagle L5 .50 AE"
-		],
-        "Rarity": "Flawed"
-    },
-    "BFG-50": {
-		"Description": "\"The BFG-50 was Mark Serbu's first rifle design, coming into production in late 1999. It is on the civilian market for a price of $2,000-$3,000 USD, but is not intended to be used by any armed forces in the world\"\n~https://guns.fandom.com/wiki/Serbu_BFG-50",
-        "Explanation": "Weapon variant chambered in .50 BMG with significantly increased recoil, slightly increased ergonomics and with only a 1-round magazine",
-		"ShortName": "BFG-50",
-		"Properties": {
-			"RecoilForceUp": "+400%",
-            "RecoilForceBack": "+400%",
-			"Ergonomics": "+20",
-			"ReloadMode": "OnlyBarrel"
-        },
-        "Changes": {
-			"Slots": {
-        		"mod_magazine": {
-					"Filter": []
-				}
-        	},
-            "Chambers": {
-                "FromWeapons": [ "AK-50" ]
+    "Changes": {
+      "Minimum": {
+        "BFirerate": 250
+      },
+      "Slots": {
+        "mod_magazine": {
+          "BasedOn": {
+            "Property": "ReloadMode",
+            "Cases": {
+              "ExternalMagazine": {
+                "Filter": [ "5cf8f3b0d7f00c00217872ef" ]
+              },
+              "InternalMagazine": {
+                "Filter": [ "Panic_Mag_Internal" ]
+              }
             }
-        },
-		"Weapons": [
-			"Mosin Sniper", "AXMC", "M700", "OP-SKS", "SVT-40",
-			"AVT-40", "FN40GL", "TRG M10", "SKS", "M1A",
-			"RFB", "AK-104" 
-		],
-		"Rarity": "Flawed"
-	}
+          }
+        }
+      },
+      "Chambers": {
+        "FromWeapons": [ "Saiga-12K" ]
+      }
+    },
+    "IndividualChanges": {
+      "M3 Super 90": {
+        "Properties": {
+          "WeapFireType": [ "semiauto", "single" ]
+        }
+      },
+      "Blicky": {
+        "Slots": {
+          "mod_magazine": {
+            "Filter": [ "Blicky_SMUM" ]
+          }
+        }
+      }
+    },
+    "Weapons": [
+      "KS-23M",
+      "M3 Super 90",
+      "590A1",
+      "M870",
+      "MP-133",
+      "MP-153",
+      "MP-155",
+      "TOZ-106",
+      "AA-12 Gen 1",
+      "Blicky"
+    ],
+    "Rarity": "Flawed"
+  },
+  "Control-Fire": {
+    "ShortName": "Control",
+    "Properties": {
+      "BFirerate": 80,
+      "WeapFireType": [ "fullauto" ],
+      "RecoilStableIndexShot": 0,
+      "RecoilForceBack": "+100%"
+    },
+    "Weapons": [
+      "TX-15 DML",
+      "G28",
+      "M1A",
+      "Mk-18 Mjölnir",
+      "RSASS",
+      "SR-25",
+      "SVDS",
+      "OP-SKS",
+      "RFB",
+      "AK-545",
+      "VPO-101 Vepr-Hunter"
+    ],
+    "Rarity": "Flawed"
+  },
+  "Slowed": {
+   "ShortName": "Slowed",
+    "Properties": {
+      "WeapFireType": [ "fullauto" ],
+      "Ergonomics": "-200",
+      "SingleFireRate": "-30%",
+      "BFirerate": "-30%",
+      "Velocity": "-50",
+      "RecoilStableIndexShot": 2,
+      "HeatFactorByShot": 0
+    },
+    "Changes": {
+      "Minimum": {
+        "BFirerate": 450
+      }
+    },
+    "Weapons": [
+      "Mk47",
+      "Mk 16",
+      "SPEAR 6.8",
+      "AK-74N",
+      "AK-103",
+      "AKS-74U",
+      "AKS-74N",
+      "PM",
+      "PB",
+      "APS",
+      "PP-91-01 Kedr-B",
+      "PP-91 Kedr",
+      "Glock 17",
+      "MP5K-N",
+      "Saiga-9",
+      "MP7A1",
+      "SR-3M"
+    ],
+    "Rarity": "Flawed"
+  },
+  "Quick-scope": {
+    "ShortName": "Quick",
+    "Properties": {
+      "Velocity": 250
+    },
+    "Changes": {
+      "Minimum": {
+        "Ergonomics": 200
+      },
+      "Slots": {
+        "mod_scope": {
+          "Filter": [
+            "Quick_Sight_1",
+            "Quick_sight_2",
+            "Quick_sight_3"
+          ]
+        }
+      }
+    },
+    "IndividualChanges": {
+      "T-5000M": { "Slots": { "mod_mount": { "Filter": [ "Quick_T5000M_mount" ] } } },
+      "M700": { "Slots": { "mod_mount": { "Filter": [ "Quick_MODX_mount" ] } } },
+      "AXMC": { "Slots": { "mod_pistol_grip": { "Filter": [ "Quick_AXMC_PitolGrip" ] } } },
+      "TOZ-106": { "Slots": { "mod_mount_000": { "Filter": [ "Quick_TOZ_Dovetail" ] } } },
+      "Mosin Infantry": { "Slots": { "mod_barrel": { "Filter": [ "Quick_MosinInf_Barrel" ] } } },
+      "Mosin Sniper": { "Slots": { "mod_barrel": { "Filter": [ "Quick_MosinSniper_Barrel" ] } } },
+      "AK-50": { "Slots": { "mod_reciever": { "Filter": [ "Quick_AK50_Cover" ] } } }
+    },
+    "Weapons": [
+      "Mosin Sniper",
+      "SV-98",
+      "DVL-10",
+      "Mosin Infantry",
+      "M700",
+      "T-5000M",
+      "AXMC",
+      "TOZ-106",
+      "AK-50"
+    ],
+    "Rarity": "Flawed"
+  },
+  "Converted": {
+    "ShortName": "Converted",
+    "Changes": {
+      "Minimum": {
+        "DurabilityBurnRatio": 1.15,
+        "HeatFactorByShot": 2.17,
+        "HeatFactorGun": 1.11
+      },
+      "Slots": {
+        "mod_magazine": {
+          "BasedOn": {
+            "Property": "ReloadMode",
+            "Cases": {
+              "ExternalMagazine": {
+                "FromWeapons": [ "VSS Vintorez" ]
+              },
+              "InternalMagazine": {
+                "Filter": [ "Converted_Mag_Shotgun" ]
+              }
+            }
+          }
+        }
+      },
+      "Chambers": {
+        "FromWeapons": [ "VSS Vintorez" ]
+      }
+    },
+    "Weapons": [
+      "MP-133",
+      "M870",
+      "M3 Super 90",
+      "MP-43-1C",
+      "MP-153",
+      "MP-155",
+      "TOZ-106",
+      "SR-25",
+      "MP-18",
+      "Glock 19X",
+      "M9A3",
+      "M45A1",
+      "Desert Eagle L5 .50 AE"
+    ],
+    "Rarity": "Flawed"
+  },
+  "BFG-50": {
+    "ShortName": "BFG-50",
+    "Properties": {
+      "RecoilForceUp": "+400%",
+      "RecoilForceBack": "+400%",
+      "Ergonomics": "+20",
+      "ReloadMode": "OnlyBarrel"
+    },
+    "Changes": {
+      "Slots": {
+        "mod_magazine": {
+          "Filter": []
+        }
+      },
+      "Chambers": {
+        "FromWeapons": [ "AK-50" ]
+      }
+    },
+    "Weapons": [
+      "Mosin Sniper",
+      "AXMC",
+      "M700",
+      "OP-SKS",
+      "SVT-40",
+      "AVT-40",
+      "FN40GL",
+      "TRG M10",
+      "SKS",
+      "M1A",
+      "RFB",
+      "AK-104"
+    ],
+    "Rarity": "Flawed"
+  }
 }

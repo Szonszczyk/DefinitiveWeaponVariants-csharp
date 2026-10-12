@@ -1,19 +1,16 @@
-
 {
 	"Lapua": {
-        "Description": "A highly requested weapon variant, crafted for all you devoted Lapua enthusiasts",
-        "Explanation": "Weapon variant chambered with .338 Lapua Magnum caliber and compatible with all .338 magazines but with increased recoil and heat buildup",
-        "ShortName": ".338",
-        "Properties": {
+		"ShortName": ".338",
+		"Properties": {
 			"RecoilForceUp": "+25%",
-            "RecoilForceBack": "+50%",
-            "RecoilCamera": "+30%",
-            "RecoilReturnPathDampingHandRotation": "-30%",
-            "RecoilDampingHandRotation": "+5%",
+			"RecoilForceBack": "+50%",
+			"RecoilCamera": "+30%",
+			"RecoilReturnPathDampingHandRotation": "-30%",
+			"RecoilDampingHandRotation": "+5%",
 			"RecoilReturnSpeedHandRotation": "-30%",
 			"RecoilReturnPathOffsetHandRotation": "+30%",
 			"HeatFactorByShot": "+100%"
-        },
+		},
 		"Changes": {
 			"Slots": {
 				"mod_magazine": {
@@ -22,8 +19,8 @@
 						"AXMC"
 					],
 					"Add": [
-						"Lapua Variant 20-round magazine",
-						"Lapua Variant 30-round magazine"
+						"Lapua_Mag",
+						"Lapua_Mag_Extended"
 					]
 				}
 			},
@@ -31,15 +28,35 @@
 				"FromWeapons": [ "AXMC" ]
 			}
 		},
+		"IndividualChanges": {
+			"Blicky": {
+				"Slots": {
+					"mod_magazine": {
+						"Filter": [
+							"Blicky_SMUM",
+							"Blicky_SMUM_v2"
+						]
+					}
+				}
+			}
+		},
 		"Weapons": [
-			"AK-545", "TX-15 DML", "G28", "M1A", "RSASS",
-			"AS VAL", "AK-74", "T-5000M", "VSK-94", "X-17"
+			"AK-545",
+			"TX-15 DML",
+			"G28",
+			"M1A",
+			"RSASS",
+			"AS VAL",
+			"AK-74",
+			"T-5000M",
+			"VSK-94",
+			"X-17",
+			"Blicky"
+
 		],
-        "Rarity": "Superior"
+		"Rarity": "Superior"
 	},
-    "Automatic": {
-		"Description": "The fire selector is stuck on a non-existent setting",
-		"Explanation": "Weapon variant with only a full-auto fire mode, featuring an increased fire rate but reduced ergonomics",
+	"Automatic": {
 		"ShortName": "Auto",
 		"Properties": {
 			"WeapFireType": [ "fullauto" ],
@@ -59,30 +76,48 @@
 			}
 		},
 		"Weapons": [
-			"TX-15 DML", "G28", "M1A", "Mk-18 Mjölnir", "RSASS",
-			"SR-25", "SVDS", "OP-SKS", "RFB", "AK-545",
-			"AK-545 Short", "VPO-101 Vepr-Hunter", "VPO-209", "ADAR 2-15", "STM-9",
-			"FN 5-7", "M9A3", "M45A1", "PL-15", "TT",
-			"Desert Eagle L5 .357", "Desert Eagle Mk XIX", "Saiga-12K", "Glock 17", "AK-50"
+			"TX-15 DML",
+			"G28",
+			"M1A",
+			"Mk-18 Mjölnir",
+			"RSASS",
+			"SR-25",
+			"SVDS",
+			"OP-SKS",
+			"RFB",
+			"AK-545",
+			"AK-545 Short",
+			"VPO-101 Vepr-Hunter",
+			"VPO-209",
+			"ADAR 2-15",
+			"STM-9",
+			"FN 5-7",
+			"M9A3",
+			"M45A1",
+			"PL-15",
+			"TT",
+			"Desert Eagle L5 .357",
+			"Desert Eagle Mk XIX",
+			"Saiga-12K",
+			"Glock 17",
+			"AK-50"
 		],
 		"Rarity": "Superior"
 	},
 	"Marksman": {
-		"Description": "To combat the high prices of ammunition, this weapon has been modified to remove its full-auto fire mode. As a result, it now excels in medium-distance engagements",
-		"Explanation": "Weapon variant with the fire mode changed to Single/Burst, featuring reduced recoil and no weapon malfunctions",
 		"ShortName": "Marksman",
 		"Properties": {
 			"WeapFireType": [
-		        "single",
-		        "burst"
-		    ],
-		    "SingleFireRate": 400,
-		    "RecoilForceBack": "-30%",
-		    "RecoilForceUp": "-20%",
-		    "RecoilDampingHandRotation": "-30%",
-		    "RecoilReturnSpeedHandRotation": "-30%",
-		    "BurstShotsCount": 2,
-		    "AllowJam": false,
+				"single",
+				"burst"
+			],
+			"SingleFireRate": 400,
+			"RecoilForceBack": "-30%",
+			"RecoilForceUp": "-20%",
+			"RecoilDampingHandRotation": "-30%",
+			"RecoilReturnSpeedHandRotation": "-30%",
+			"BurstShotsCount": 2,
+			"AllowJam": false,
 			"AllowFeed": false,
 			"AllowMisfire": false,
 			"AllowSlide": false
@@ -95,16 +130,27 @@
 			}
 		},
 		"Weapons": [
-			"MCX .300 BLK", "SPEAR 6.8", "Mk47", "SA-58", "Mk 17", 
-			"Mk 16", "AK-12", "AK-74N", "AK-103", "MDR 7.62x51", 
-			"VSS Vintorez", "P90", "M4A1", "AK-105", "AKM",
-			"ASh-12", "M60E6"
+			"MCX .300 BLK",
+			"SPEAR 6.8",
+			"Mk47",
+			"SA-58",
+			"Mk 17",
+			"Mk 16",
+			"AK-12",
+			"AK-74N",
+			"AK-103",
+			"MDR 7.62x51",
+			"VSS Vintorez",
+			"P90",
+			"M4A1",
+			"AK-105",
+			"AKM",
+			"ASh-12",
+			"M60E6"
 		],
 		"Rarity": "Superior"
 	},
 	"Handy": {
-		"Description": "Due to changes in how you can hold the weapon, using it is now as natural as walking",
-		"Explanation": "Weapon variant with significantly enhanced ergonomics, allowing for improved handling, faster aim transitions, and reduced fatigue during prolonged use",
 		"ShortName": "Handy",
 		"Properties": {
 			"Ergonomics": "+25"
@@ -115,31 +161,41 @@
 			}
 		},
 		"Weapons": [
-			"T-5000M", "Mosin Sniper", "SV-98", "DVL-10", "AXMC",
-			"Mk 17", "M700", "Mosin Infantry", "VPO-215", "PPSh-41",
-			"Vector .45ACP", "AK-74", "AKMSN", "TRG M10", "AK-50"
+			"T-5000M",
+			"Mosin Sniper",
+			"SV-98",
+			"DVL-10",
+			"AXMC",
+			"Mk 17",
+			"M700",
+			"Mosin Infantry",
+			"VPO-215",
+			"PPSh-41",
+			"Vector .45ACP",
+			"AK-74",
+			"AKMSN",
+			"TRG M10",
+			"AK-50"
 		],
 		"Rarity": "Superior"
 	},
 	"Karabin Spetsialniy": {
-		"Description": "The KS-23 'Special Carbine' is a shotgun officially designated as a carbine by the Russian military\nSo we made even more of them",
-    	"Explanation": "A shotgun variant chambered in 23x75mmR, featuring a special 12-round magazine and no interclip reload-for that true carbine experience!",
-    	"ShortName": "KS+23mm",
+		"ShortName": "KS+23mm",
 		"Properties": {
 			"WeapFireType": [ "burst" ],
-    		"BurstShotsCount": 1,
+			"BurstShotsCount": 1,
 			"BFirerate": 420
 		},
 		"Changes": {
 			"Chambers": {
 				"FromWeapons": [ "KS-23M" ]
 			},
-    		"Slots": {
-			    "mod_magazine": {
-					"Filter": [ "KS-23M 23x75 12-shell magazine cap" ]
+			"Slots": {
+				"mod_magazine": {
+					"Filter": [ "KS23_Mag", "KS23_Mag_Extended" ]
 				}
 			}
-    	},
+		},
 		"IndividualChanges": {
 			"M3 Super 90": {
 				"Properties": {
@@ -148,83 +204,106 @@
 			}
 		},
 		"Weapons": [
-			"M3 Super 90", "590A1", "M870", "MP-133", "MP-153",
-			"MP-155" 
+			"M3 Super 90",
+			"590A1",
+			"M870",
+			"MP-133",
+			"MP-153",
+			"MP-155"
 		],
 		"Rarity": "Superior"
 	},
 	"Endless": {
-		"Description": "Do you really need THAT many rounds in one raid? Probably not\nBut this weapon was built differently… so here we are",
-		"Explanation": "Weapon variant with a magazine that's heavy and bulky, but incredibly spacious",
 		"ShortName": "Endless",
 		"Properties": {
 			"HeatFactorByShot": "-33%",
 			"BaseMalfunctionChance": "-33%"
 		},
 		"Changes": {
-    		"Slots": {
-			    "mod_magazine": {
-			    	"BasedOn": {
+			"Slots": {
+				"mod_magazine": {
+					"BasedOn": {
 						"Property": "WeapClass",
 						"Cases": {
-			    			"assaultRifle": {
-								"Filter": [ "M60 500-round \"Endless\" ammo box" ]
+							"assaultRifle": {
+								"Filter": [ "Endless_Mag_Assault" ]
 							},
 							"smg": {
-								"Filter": [ "M60 800-round \"Endless\" ammo box" ]
+								"Filter": [ "Endless_Mag_SMG" ]
 							},
 							"marksmanRifle": {
-								"Filter": [ "M60 500-round \"Endless\" ammo box" ]
+								"Filter": [ "Endless_Mag_Assault" ]
 							},
 							"assaultCarbine": {
-								"Filter": [ "M60 500-round \"Endless\" ammo box" ]
+								"Filter": [ "Endless_Mag_Assault" ]
 							},
 							"shotgun": {
-								"Filter": [ "M60 100-round \"Endless\" ammo box" ]
+								"Filter": [ "Endless_Mag_Shotgun" ]
 							},
 							"sniperRifle": {
-								"Filter": [ "M60 40-round \"Endless\" ammo box" ]
+								"Filter": [ "Endless_Mag_Sniper" ]
 							}
-			    		}
+						}
 					}
-			    }
+				}
 			}
-    	},
+		},
 		"Weapons": [
-			"SA-58", "RFB", "RSASS", "AKM", "RD-704",
-			"OP-SKS", "AUG A3", "M4A1", "TX-15 DML", "P90", 
-			"STM-9", "Vector 9x19", "MPX", "Vector .45ACP", "UMP 45",
-			"MP7A2", "M3 Super 90", "590A1", "M870", "MP-133",
-			"MP-153", "MP-155", "KS-23M", "AXMC", "SV-98",
-			"Mosin Sniper", "M700", "TRG M10"
+			"SA-58",
+			"RFB",
+			"RSASS",
+			"AKM",
+			"RD-704",
+			"OP-SKS",
+			"AUG A3",
+			"M4A1",
+			"TX-15 DML",
+			"P90",
+			"STM-9",
+			"Vector 9x19",
+			"MPX",
+			"Vector .45ACP",
+			"UMP 45",
+			"MP7A2",
+			"M3 Super 90",
+			"590A1",
+			"M870",
+			"MP-133",
+			"MP-153",
+			"MP-155",
+			"KS-23M",
+			"AXMC",
+			"SV-98",
+			"Mosin Sniper",
+			"M700",
+			"TRG M10"
 		],
 		"Rarity": "Superior"
 	},
 	"Anti-materiel revolver": {
-		"Description": "Using quantum physics—and perhaps a touch of black magic—this revolver fires rounds typically reserved for combating lightly armored vehicles",
-		"Explanation": "A revolver variant chambered in the 12.7x108mm caliber with increased horizontal recoil. Uses normal 12.7x108mm caliber ammo, available from Skier LL1",
 		"ShortName": "AMR",
 		"Properties": {
 			"RecoilForceBack": "+300%",
 			"AmmoCaliber": "Caliber127x108",
 			"DefAmmo": "5cde8864d7f00c0010373be1"
-        },
-        "Changes": {
-        	"Slots": {
-        		"mod_magazine": {
-					"Filter": [ "Anti-materiel revolver 12.7x108 5-round cylinder" ]
+		},
+		"Changes": {
+			"Slots": {
+				"mod_magazine": {
+					"Filter": [ "AMRR_Cylinder" ]
 				}
-        	}
-        },
+			}
+		},
 		"Weapons": [
-			"RSh-12", "CR 50DS", "CR 200DS", "MTs-255-12"
+			"RSh-12",
+			"CR 50DS",
+			"CR 200DS",
+			"MTs-255-12"
 		],
-        "Rarity": "Superior"
+		"Rarity": "Superior"
 	},
 	"Black Market": {
-		"Description": "\"It's a Black Market-certified weapon because it can shoot Black-out rounds\"\n~Some mafia boss somewhere, probably",
-    	"Explanation": "Weapon variant chambered in both .300 Blackout and 5.56x45mm NATO rounds, featuring reduced recoil and improved ergonomics",
-    	"ShortName": "B.Market",
+		"ShortName": "B.Market",
 		"Properties": {
 			"RecoilForceUp": "-12%",
 			"RecoilForceBack": "-7%",
@@ -240,102 +319,129 @@
 				"FromWeapons": [
 					"MCX .300 BLK",
 					"M4A1"
+				],
+				"Add": [
+					"BlackMarket_Mag_Medium_Ergo",
+					"BlackMarket_Mag_Large_Ergo"
 				]
 			}
-    	},
+		},
 		"Weapons": [
-			"HK 416A5", "AUG A1", "Mk 16", "AUG A3", "MDR 5.56x45",
-			"M4A1", "G36", "ADAR 2-15", "TX-15 DML", "MCX .300 BLK",
-			"Velociraptor .300 BLK", "AK-101", "AK-102"
+			"HK 416A5",
+			"AUG A1",
+			"Mk 16",
+			"AUG A3",
+			"MDR 5.56x45",
+			"M4A1",
+			"G36",
+			"ADAR 2-15",
+			"TX-15 DML",
+			"MCX .300 BLK",
+			"Velociraptor .300 BLK",
+			"AK-101",
+			"AK-102"
 		],
 		"Rarity": "Superior"
 	},
 	"Off-Meta": {
-        "Description": "A passionate modder's dream: made with care, time, and professional tools - on weapons long forgotten by the community",
-        "Explanation": "Weapon variant with reduced recoil and increased ergonomics. Some now support a wider variety of magazines, while others feature a no-bolt mode",
-        "ShortName": "Off-Meta",
-        "Properties": {
-            "RecoilForceBack": "-20%",
-            "RecoilForceUp": "-20%",
-            "RecoilCamera": "-20%",
-            "AimPlane": "-20%",
-            "RecolDispersion": "-20%",
-            "RecoilReturnPathDampingHandRotation": "-20%",
-            "RecoilDampingHandRotation": "-20%",
-            "RecoilReturnSpeedHandRotation": "+20%",
-            "Ergonomics": "+15"
-        },
-        "Changes": {
-            "Minimum": {
-                "BFirerate": 240
-            }
-        },
+		"ShortName": "Off-Meta",
+		"Properties": {
+			"RecoilForceBack": "-20%",
+			"RecoilForceUp": "-20%",
+			"RecoilCamera": "-20%",
+			"AimPlane": "-20%",
+			"RecolDispersion": "-20%",
+			"RecoilReturnPathDampingHandRotation": "-20%",
+			"RecoilDampingHandRotation": "-20%",
+			"RecoilReturnSpeedHandRotation": "+20%",
+			"Ergonomics": "+15"
+		},
+		"Changes": {
+			"Minimum": {
+				"BFirerate": 240
+			}
+		},
 		"IndividualChanges": {
 			"VPO-215": {
 				"Properties": {
 					"WeapFireType": [ "burst" ],
 					"BurstShotsCount": 1
 				},
-                "Slots": {
-                    "mod_magazine": {
-                        "FromWeapons": [ "VPO-215", "AKM" ]
-                    }
-                }
-            },
-            "TOZ-106": {
+				"Slots": {
+					"mod_magazine": {
+						"FromWeapons": [ "VPO-215", "AKM" ]
+					}
+				}
+			},
+			"TOZ-106": {
 				"Properties": {
 					"WeapFireType": [ "burst" ],
 					"BurstShotsCount": 1,
 					"ShotgunDispersion": "-75%"
 				}
-            },
-            "Mosin Infantry": {
+			},
+			"Mosin Infantry": {
 				"Properties": {
 					"WeapFireType": [ "burst" ],
 					"BurstShotsCount": 1
 				},
-                "Slots": {
-                    "mod_magazine": {
-                        "FromWeapons": [ "Mosin Infantry", "SVDS", "AVT-40" ],
-                        "Add": [ "5bae13ded4351e44f824bf38" ]
-                    }
-                }
-            },
-            "Mosin Sniper": {
+				"Slots": {
+					"mod_magazine": {
+						"FromWeapons": [ "Mosin Infantry", "SVDS", "AVT-40" ],
+						"Add": [ "5bae13ded4351e44f824bf38" ]
+					}
+				}
+			},
+			"Mosin Sniper": {
 				"Properties": {
 					"WeapFireType": [ "burst" ],
 					"BurstShotsCount": 1
 				},
-                "Slots": {
-                    "mod_magazine": {
-                        "FromWeapons": [ "Mosin Infantry", "SVDS", "AVT-40" ],
-                        "Add": [ "5bae13ded4351e44f824bf38" ]
-                    }
-                }
-            },
-            "CR 200DS": {
+				"Slots": {
+					"mod_magazine": {
+						"FromWeapons": [ "Mosin Infantry", "SVDS", "AVT-40" ],
+						"Add": [ "5bae13ded4351e44f824bf38" ]
+					}
+				}
+			},
+			"CR 200DS": {
 				"Properties": {
 					"WeapFireType": [ "burst" ],
 					"BurstShotsCount": 1
 				}
-            },
-            "VPO-101 Vepr-Hunter": { "Slots": { "mod_magazine": { "FromWeapons": [ "VPO-101 Vepr-Hunter", "SA-58" ] } } },
-            "PP-91-01 Kedr-B": { "Slots": { "mod_magazine": { "FromWeapons": [ "PP-91-01 Kedr-B", "PM" ] } } },
-            "PP-91 Kedr": { "Slots": { "mod_magazine": { "FromWeapons": [ "PP-91 Kedr", "PM" ] } } },
-            "PP-9 Klin": { "Slots": { "mod_magazine": { "FromWeapons": [ "PP-9 Klin", "PM" ] } } },
-            "OP-SKS": { "Slots": { "mod_magazine": { "FromWeapons": [ "OP-SKS", "AKM" ] } } },
-            "SKS": { "Slots": { "mod_magazine": { "FromWeapons": [ "SKS", "AKM" ] } } },
-            "UZI": { "Slots": { "mod_magazine": { "FromWeapons": [ "UZI", "UZI PRO Pistol", "UZI PRO SMG" ] } } },
-            "UZI PRO Pistol": { "Slots": { "mod_magazine": { "FromWeapons": [ "UZI", "UZI PRO Pistol", "UZI PRO SMG" ] } } },
-            "UZI PRO SMG": { "Slots": { "mod_magazine": { "FromWeapons": [ "UZI", "UZI PRO Pistol", "UZI PRO SMG" ] } } },
-            "RFB": { "Slots": { "mod_magazine": { "FromWeapons": [ "RFB", "M1A" ] } } }
+			},
+			"VPO-101 Vepr-Hunter": { "Slots": { "mod_magazine": { "FromWeapons": [ "VPO-101 Vepr-Hunter", "SA-58" ] } } },
+			"PP-91-01 Kedr-B": { "Slots": { "mod_magazine": { "FromWeapons": [ "PP-91-01 Kedr-B", "PM" ] } } },
+			"PP-91 Kedr": { "Slots": { "mod_magazine": { "FromWeapons": [ "PP-91 Kedr", "PM" ] } } },
+			"PP-9 Klin": { "Slots": { "mod_magazine": { "FromWeapons": [ "PP-9 Klin", "PM" ] } } },
+			"OP-SKS": { "Slots": { "mod_magazine": { "FromWeapons": [ "OP-SKS", "AKM" ] } } },
+			"SKS": { "Slots": { "mod_magazine": { "FromWeapons": [ "SKS", "AKM" ] } } },
+			"UZI": { "Slots": { "mod_magazine": { "FromWeapons": [ "UZI", "UZI PRO Pistol", "UZI PRO SMG" ] } } },
+			"UZI PRO Pistol": { "Slots": { "mod_magazine": { "FromWeapons": [ "UZI", "UZI PRO Pistol", "UZI PRO SMG" ] } } },
+			"UZI PRO SMG": { "Slots": { "mod_magazine": { "FromWeapons": [ "UZI", "UZI PRO Pistol", "UZI PRO SMG" ] } } },
+			"RFB": { "Slots": { "mod_magazine": { "FromWeapons": [ "RFB", "M1A" ] } } }
 		},
-        "Weapons": [
-            "RFB", "OP-SKS", "SKS", "SR-3M", "VPO-101 Vepr-Hunter",
-            "VPO-209", "VPO-215", "ASh-12", "Velociraptor .300 BLK", "TOZ-106",
-            "Mosin Infantry", "Mosin Sniper", "PP-91-01 Kedr-B", "PP-91 Kedr", "PP-9 Klin",
-            "UZI", "UZI PRO Pistol", "UZI PRO SMG", "CR 200DS"
-        ],
-        "Rarity": "Superior"
-    }
+		"Weapons": [
+			"RFB",
+			"OP-SKS",
+			"SKS",
+			"SR-3M",
+			"VPO-101 Vepr-Hunter",
+			"VPO-209",
+			"VPO-215",
+			"ASh-12",
+			"Velociraptor .300 BLK",
+			"TOZ-106",
+			"Mosin Infantry",
+			"Mosin Sniper",
+			"PP-91-01 Kedr-B",
+			"PP-91 Kedr",
+			"PP-9 Klin",
+			"UZI",
+			"UZI PRO Pistol",
+			"UZI PRO SMG",
+			"CR 200DS"
+		],
+		"Rarity": "Superior"
+	}
 }

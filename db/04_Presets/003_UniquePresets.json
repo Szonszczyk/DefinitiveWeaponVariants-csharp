@@ -25,7 +25,7 @@
         "_tpl": "692066c72a67c15014e82128",
         "parentId": "6a4fd2853da0e83ccc698645",
         "slotId": "mod_magazine",
-        "desc": "M60 100-round \"Endless\" ammo box"
+        "desc": "Endless_Mag_Shotgun"
       },
       {
         "_id": "6a4fd2853da0e83ccc698648",
@@ -145,7 +145,7 @@
         "_tpl": "676177591f08ed5e8800b7a9",
         "parentId": "6a4fd3033da0e83ccc698946",
         "slotId": "mod_mount",
-        "desc": "RFB No-scope rail mount"
+        "desc": "NoScope_RailMount"
       },
       {
         "_id": "6a4fd3033da0e83ccc69894c",
@@ -211,7 +211,7 @@
         "_tpl": "6a15bc008e4deb6830a8a451",
         "parentId": "6a4fd3843da0e83ccc699d6c",
         "slotId": "mod_magazine",
-        "desc": "Lapua Variant 30-round magazine"
+        "desc": "Lapua_Mag_Extended"
       },
       {
         "_id": "6a4fd3843da0e83ccc699d6e",

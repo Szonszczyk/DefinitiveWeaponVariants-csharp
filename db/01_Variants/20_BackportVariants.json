@@ -1,12 +1,10 @@
 {
 	"Dragunov": {
-		"Description": "A modification for various bolt-action rifles rumored to be crafted by Podderzhki Dragunov",
-		"Explanation": "Weapon variant chambered in 9.3x64mm caliber with matching TKPD magazines",
 		"ShortName": "Dragunov",
 		"Changes": {
 			"Slots": {
 				"mod_magazine": {
-					"FromWeapons": ["TKPD"]
+					"FromWeapons": [ "TKPD" ]
 				}
 			},
 			"Chambers": {
@@ -14,8 +12,14 @@
 			}
 		},
 		"Weapons": [
-			"T-5000M", "SV-98", "DVL-10", "M700", "VPO-215",
-			"TRG M10", "Mosin Infantry", "Mosin Sniper"
+			"T-5000M",
+			"SV-98",
+			"DVL-10",
+			"M700",
+			"VPO-215",
+			"TRG M10",
+			"Mosin Infantry",
+			"Mosin Sniper"
 		],
 		"Rarity": "Baseline",
 		"ModGUIDs": [ "com.wtt.contentbackport" ]
