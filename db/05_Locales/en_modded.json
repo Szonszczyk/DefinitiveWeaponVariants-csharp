@@ -19,13 +19,13 @@
     "NL545 GP Unique.ShortName": ">Larger Laser Rifle<",
 
     // Items
-    "M1895/MXLR Ranger Point Precision RHINO 5 inch Quick-scope rail.Name": "M1895/MXLR Ranger Point Precision RHINO 5 inch Quick-scope rail",
-    "M1895/MXLR Ranger Point Precision RHINO 5 inch Quick-scope rail.Description": "A 5 inch top rail for M1895 Quick-scope rifles. Allows installation of the reflex sight. Manufactured by [REDACTED]",
-    "M1895/MXLR Ranger Point Precision RHINO 5 inch Quick-scope rail.ShortName": "RHINO Q",
-    "M1895/MXLR Ranger Point Precision RHINO 5 inch Quick-scope rail.VariantType": "Quick-scope",
-    "MXLR_Unique_mag.Name": "MXLR_Unique_mag",
-    "MXLR_Unique_mag.Description": "A unique 100-round .308 ME tube magazine for the Marlin MXLR rifle Unique Variant.",
-    "MXLR_Unique_mag.ShortName": "MXLR 100",
-    "MXLR_Unique_mag.VariantType": "MXLR >Endless Quick-scope<"
+    "Quick_MXLR_Rail.Name": "M1895/MXLR Ranger Point Precision RHINO 5 inch Quick-scope ra il",
+    "Quick_MXLR_Rail.Description": "A 5 inch top rail for MXLR {Quick-scope.Name}. It allows scopes designed specifically for {Quick-scope.Name} to be installed. Manufactured by {Trader.Nickname}",
+    "Quick_MXLR_Rail.ShortName": "RHINO Q",
+    "Quick_MXLR_Rail.VariantType": "Quick-scope",
+    "MXLR_Unique_mag.Name": "{MXLR Unique.Name} .308 ME 100-round magazine",
+    "MXLR_Unique_mag.Description": "A 100-round .308 ME magazine for the Marlin MXLR rifle Unique Variant.",
+    "MXLR_Unique_mag.ShortName": "MXLR-100",
+    "MXLR_Unique_mag.VariantType": "{MXLR Unique.Name}"
   }
 }

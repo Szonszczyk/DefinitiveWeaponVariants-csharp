@@ -193,6 +193,9 @@
         "mod_magazine": {
           "FromWeapons": [
             "Desert Eagle Mk XIX"
+          ],
+          "Add": [
+            "Desert_Mag_Drum"
           ]
         }
       },

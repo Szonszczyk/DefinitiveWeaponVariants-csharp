@@ -37,12 +37,11 @@ public class DefinitiveWeaponVariants(
         itemGenerator.GenerateAllItems();
         weaponGenerator.GenerateWeaponsFromVariantConfig();
         customLootManager.EditLoot();
-        apbsIntegration.RunIntegration();
         idDatabaseManager.SaveDatabase();
 
         // Add 12.7x108mm B-32 to trader
         if (config.SpecialAmmoBuyableEnabled)
-            customItemCreator.AddItemToTrader("ee840a5ba014e9c5478e2137", config.DWVCaliberBarter);
+            customItemCreator.AddItemToTrader("5cde8864d7f00c0010373be1", config.DWVCaliberBarter);
 
         customLocales.RegisterLocales();
         logger.Ok($"Mod finished loading. Created {customItemCreator.ItemsAdded.Count} custom items!");
@@ -57,10 +56,9 @@ public class DefinitiveWeaponVariantsFixBackgrounds(
     APBSIntegration apbsIntegration
 ) : IOnLoad
 {
-    public Task OnLoadAsync(CancellationToken cancellationToken)
+    public async Task OnLoadAsync(CancellationToken cancellationToken)
     {
         modDataStorage.FixBackgroundColors();
-        apbsIntegration.RefreshBlacklist(cancellationToken);
-        return Task.CompletedTask;
+        await apbsIntegration.InitializeAsync(cancellationToken);
     }
 }

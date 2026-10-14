@@ -13,11 +13,6 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<Compile Remove="CustomClasses\CustomLootEditor.cs" />
-		<!-- Checks are a developer-only console project, never part of the mod DLL. -->
-		<Compile Remove="BlazorConfig\Checks\**\*.cs" />
-		<Content Remove="BlazorConfig\Checks\**\*" />
-		<!-- SPT expects wwwroot beside the DLL, including local build outputs. -->
 		<Content Update="wwwroot\**\*" CopyToOutputDirectory="PreserveNewest" />
 	</ItemGroup>
 

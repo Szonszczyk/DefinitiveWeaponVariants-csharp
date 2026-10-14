@@ -29,6 +29,17 @@ public class ConfigHelper(
 
         CheckDictionaryStringInt(config.APBSTierConfig);
 
+        if (config.APBSWeaponsAvailable <= 0)
+        {
+            logger.Warning("APBSWeaponsAvailable must be positive; using 75. Disable EnableAPBSWeaponRotation to remove temporary restrictions.");
+            config.APBSWeaponsAvailable = 75;
+        }
+        if (config.APBSWeaponRotationIntervalMinutes <= 0)
+        {
+            logger.Warning("APBSWeaponRotationIntervalMinutes must be positive; using 60 minutes.");
+            config.APBSWeaponRotationIntervalMinutes = 60;
+        }
+
         config.StaticLootProbability = CheckProbability(config.StaticLootProbability, nameof(config.StaticLootProbability));
         config.MarkedRoomsProbability = CheckProbability(config.MarkedRoomsProbability, nameof(config.MarkedRoomsProbability));
 

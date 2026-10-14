@@ -29,7 +29,7 @@
 	"Handy": { "ModWeapons": { "MXLR": "com.wtt.contentbackport" } },
 	"Quick-scope": {
 		"IndividualChanges": {
-			"MXLR": { "Slots": { "mod_mount": { "Filter": [ "M1895/MXLR Ranger Point Precision RHINO 5 inch Quick-scope rail" ] } } }
+			"MXLR": { "Slots": { "mod_mount": { "Filter": [ "Quick_MXLR_Rail" ] } } }
 		},
 		"ModWeapons": { "MXLR": "com.wtt.contentbackport" }
 	},
@@ -38,8 +38,18 @@
 	"Unbreakable": { "ModWeapons": { "AS VAL MOD.4": "com.wtt.contentbackport" } },
 	"SMG": { "ModWeapons": { "AS VAL MOD.4": "com.wtt.contentbackport" } },
 
-	"Marksman": { "ModWeapons": { "AK-308": "com.wtt.contentbackport" } },
-	"Light Machine Gun": { "ModWeapons": { "AK-308": "com.wtt.contentbackport" } },
+	"Marksman": {
+		"ModWeapons": {
+			"AK-308": "com.wtt.contentbackport",
+			"QBZ-191": "com.wtt.contentbackport"
+		}
+	},
+	"Light Machine Gun": {
+		"ModWeapons": {
+			"AK-308": "com.wtt.contentbackport",
+			"QBZ-191": "com.wtt.contentbackport"
+		}
+	},
 	"Experimental": { "ModWeapons": { "AK-308": "com.wtt.contentbackport" } },
 
 	"The Unheard Edition": { "ModWeapons": { "TKPD": "com.wtt.contentbackport" } },
@@ -64,5 +74,7 @@
 
 	"Rifle Grenade Launcher": { "ModWeapons": { "M16A2": "com.wtt.contentbackport" } },
 	"Fullburst": { "ModWeapons": { "M16A2": "com.wtt.contentbackport" } },
-	"Overclocked": { "ModWeapons": { "M16A2": "com.wtt.contentbackport" } }
+	"Overclocked": { "ModWeapons": { "M16A2": "com.wtt.contentbackport" } },
+
+	"Heavy Machine Gun": { "ModWeapons": { "QBZ-191": "com.wtt.contentbackport" } }
 }

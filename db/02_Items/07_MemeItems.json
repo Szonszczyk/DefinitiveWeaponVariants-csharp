@@ -43,5 +43,25 @@
     "HandbookPriceRoubles": 30000,
     "VariantType": "Early Prototype",
     "Rarity": "Meme"
+  },
+  "Desert_Mag_Drum": {
+    "ItemTplToClone": "55d485be4bdc2d962f8b456f",
+    "Changes": {
+      "Cartridges": {
+        "Count": 84,
+        "FromWeapons": [ "Desert Eagle Mk XIX" ]
+      }
+    },
+    "Barter": {
+      "LoyalLevel": 2,
+      "UnlimitedCount": true,
+      "StackObjectsCount": 99,
+      "BarterPrice": {
+        "Meme Quality Variant Core": 3
+      }
+    },
+    "HandbookPriceRoubles": 13000,
+    "VariantType": "Desert",
+    "Rarity": "Meme"
   }
 }

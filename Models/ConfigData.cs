@@ -16,6 +16,9 @@ public class ConfigData
     public bool SpecialAmmoBuyableEnabled { get; set; } = true;  // 4.1.
     public bool EnableAPBSBlacklistGeneration { get; set; } = false;  // 5.1.
     public string APBSFolderName { get; set; } = "acidphantasm-progressivebotsystem";  // 5.1.
+    public bool EnableAPBSWeaponRotation { get; set; } = false;
+    public int APBSWeaponsAvailable { get; set; } = 75;
+    public int APBSWeaponRotationIntervalMinutes { get; set; } = 60;
     public bool AmonyaTraderMode { get; set; } = false;  // 5.2.
     public TraderDynamicAssortConfig Trader { get; set; } = new();
 

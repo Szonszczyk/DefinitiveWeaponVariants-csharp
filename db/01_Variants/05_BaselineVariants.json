@@ -408,11 +408,47 @@
 		"Changes": {
 			"Slots": {
 				"mod_magazine": {
-					"Add": [
-						"Stendo_Mag_Small",
-						"Stendo_Mag_Medium",
-						"Stendo_Mag_Large"
-					]
+					"BasedOn": {
+						"Property": "AmmoCaliber",
+						"Cases": {
+							"Caliber9x18PM": {
+								"FromWeapons": [
+									"PM",
+									"APS",
+									"PP-9 Klin"
+								],
+								"Add": [
+									"Stendo_Mag_Small",
+									"Stendo_Mag_Medium",
+									"Stendo_Mag_Large"
+								]
+							},
+							"Caliber9x19PARA": {
+								"FromWeapons": [
+									"Glock 17",
+									"MP-443 Grach",
+									"MP5"
+								],
+								"Add": [
+									"Stendo_Mag_Small",
+									"Stendo_Mag_Medium",
+									"Stendo_Mag_Large"
+								]
+							},
+							"Caliber1143x23ACP": {
+								"FromWeapons": [
+									"M1911A1",
+									"USP .45",
+									"UMP 45"
+								],
+								"Add": [
+									"Stendo_Mag_Small",
+									"Stendo_Mag_Medium",
+									"Stendo_Mag_Large"
+								]
+							}
+						}
+					}
 				}
 			}
 		},

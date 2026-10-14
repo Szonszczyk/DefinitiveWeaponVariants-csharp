@@ -112,6 +112,11 @@
  // Requires: APBS >=2.1.0
  "EnableAPBSBlacklistGeneration": false,  // true/false - default: false
  "APBSFolderName": "acidphantasm-progressivebotsystem", // text - default: "acidphantasm-progressivebotsystem"
+ // Timed random weapon rotation requires APBS >=2.4.1. See APBS_Weapon_Rotation.md.
+ // Type bans and qualities with APBSTierConfig = 0 always apply; minimum tiers 1-7 require EnableAPBSBlacklistGeneration.
+ "EnableAPBSWeaponRotation": false,
+ "APBSWeaponsAvailable": 75, // Positive allowance, not a spawn percentage. 75 is a starting point.
+ "APBSWeaponRotationIntervalMinutes": 60, // Positive minutes; refresh on the next generation/start request after expiry.
 
 
 	"Trader": {
