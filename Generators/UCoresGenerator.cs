@@ -1,4 +1,5 @@
-﻿using DefinitiveWeaponVariants.Loaders;
+﻿using DefinitiveWeaponVariants.Helpers;
+using DefinitiveWeaponVariants.Loaders;
 using DefinitiveWeaponVariants.Models;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
@@ -11,7 +12,9 @@ public class UCoresGenerator(
     ConfigData config,
     ICloner cloner,
     ModDatabaseLoader modDatabaseLoader,
-    ItemGenerator itemGenerator
+    ItemGenerator itemGenerator,
+    RandomBoxesHelper randomBoxesHelper,
+    ModDataStorage modDataStorage
 )
 {
     private TemplateItemProperties VariantCorePropertiesOverride { get; } = new()
@@ -29,9 +32,8 @@ public class UCoresGenerator(
         Slots = []
     };
 
-    public HashSet<string> GenerateUniversalCores()
+    public void GenerateUniversalCores()
     {
-        var newIds = new HashSet<string>();
         foreach(var (themeName, themeConfig) in modDatabaseLoader.DbCores)
         {
             foreach (var (internalName, coreConfig) in themeConfig.Items)
@@ -57,10 +59,20 @@ public class UCoresGenerator(
                     coreProperties
                 );
                 if (newId is null) { continue; }
-                newIds.Add(newId);
+
+                modDataStorage.AddCoreToStorage(newId, "Unknown", "universal");
+                randomBoxesHelper.UnknownPackageItems.Add(newId, new() { Probability = 1, Quality = "universal" });
             }
+            randomBoxesHelper.UnknownPackageDisplayItems.Add(
+                $"universal_{themeName}",
+                new()
+                {
+                    Description = $"<b><dwv-gradient={themeConfig.Theme.Color1},{themeConfig.Theme.Color2}>{{UCore.FullName}} | {{UCore.{themeName}Theme.Name}}</dwv-gradient></b>",
+                    Probability = themeConfig.Items.Count,
+                    Quality = "universal"
+                }
+            );
         }
-        return newIds;
     }
 
     private static void MergeTemplateItemProperties(

@@ -31,7 +31,7 @@
 - Added 11 new UCores accross 2 themes: Order and Chaos
 - Order theme UCores are provided Ergonomics and decreasing recoil
 - Chao theme UCores are more for providing a lot of one stat with the price of the other
-- UCores drop from Unknown Packages are tied to Unique Cores and can changes in the config
+- UCores drop rate from Unknown Packages are tied to Unique Cores and can be increased in the config
 
 ## Extended APBS integration
 - Added automatic swapping of blacklist based on time
@@ -113,6 +113,7 @@ Available from Merchant LL2 for 5 Meme Variant Cores
 
 ### Bugfixes
 - Fixed disabling generation of any variant quality causing mod to stop working
+- Fixed missing Close Quarters description
 
 # Version 4.3.2 for SPT ~4.1.2
 

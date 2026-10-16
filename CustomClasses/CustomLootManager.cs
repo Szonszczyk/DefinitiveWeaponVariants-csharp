@@ -24,7 +24,6 @@ public class CustomLootManager(
     IdDatabaseManager idDatabaseManager,
     ModDataStorage modDataStorage,
     LocationTable locationTable,
-    InventoryConfig inventoryConfig,
     BotTable botTable
 )
 {
@@ -33,7 +32,6 @@ public class CustomLootManager(
     public void EditLoot()
     {
         AddVariantsToLooseLoot();
-        CreateLootpoolForBlindBoxes();
         AddCoresToBotPockets();
     }
 
@@ -283,36 +281,6 @@ public class CustomLootManager(
         items.RemoveAt(magIndex);
         items.InsertRange(magIndex, magazineWithCartridges);
         return items;
-    }
-
-    public void CreateLootpoolForBlindBoxes()
-    {
-        foreach (var (quality, enabled) in modConfig.Generate)
-        {
-            if (!enabled) continue;
-            var allWeaponsInData = modDataStorage.VariantPresets[quality];
-            Dictionary<MongoId, double> weapons = [];
-            foreach (var weapon in allWeaponsInData)
-            {
-                var rootItem = weapon.First();
-                weapons.Add(rootItem.Template, 1);
-            }
-            if (idDatabaseManager.DbIds.TryGetValue($"{quality} Quality Variant Weapon Blind Box:ID", out var idDatabaseId))
-            {
-                (bool find, TemplateItem? item) = itemHelper.GetItem(idDatabaseId);
-                if (find && item is not null)
-                {
-                    inventoryConfig.RandomLootContainers.Add(idDatabaseId, new RewardDetails
-                    {
-                        RewardCount = 1,
-                        FoundInRaid = false,
-                        RewardTplPool = weapons
-                    });
-                    // Fix found on MoxoPixel-Painter
-                    item.Name = idDatabaseId;
-                }
-            }
-        }
     }
     public void AddCoresToBotPockets()
     {

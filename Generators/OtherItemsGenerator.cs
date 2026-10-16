@@ -4,10 +4,7 @@ using DefinitiveWeaponVariants.Helpers;
 using DefinitiveWeaponVariants.Models;
 using DefinitiveWeaponVariants.Loaders;
 using SPTarkov.DI.Annotations;
-using SPTarkov.Server.Core.Helpers.Items;
-using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
-using SPTarkov.Server.Core.Models.Spt.Config;
 using SPTarkov.Server.Core.Utils.Cloners;
 
 namespace DefinitiveWeaponVariants.Generators;
@@ -16,24 +13,19 @@ namespace DefinitiveWeaponVariants.Generators;
 public class OtherItemsGenerator(
     IdDatabaseManager idDatabaseManager,
     CustomSlotsChanger customSlotsChanger,
-    ConfigData config,
+    ConfigData modConfig,
     ICloner cloner,
     ModDataStorage modDataStorage,
     ItemGenerator itemGenerator,
-    ItemHelper itemHelper,
     CustomItemCreator customItemCreator,
-    InventoryConfig inventoryConfig,
     CustomLocales customLocales,
-    UCoresGenerator uCoresGenerator
+    UCoresGenerator uCoresGenerator,
+    RandomBoxesHelper randomBoxesHelper
 )
 {
-    private readonly ConfigData modConfig = config;
-    private Dictionary<string, int> UnknownPackageLootpool { get; set; } = [];
-    private Dictionary<MongoId, double> UnknownPackageLootpoolIds { get; set; } = [];
-
     private TemplateItemProperties VariantCorePropertiesOverride { get; } = new()
     {
-        StackMaxSize = config.VariantCores.General.StackMaxSize,
+        StackMaxSize = modConfig.VariantCores.General.StackMaxSize,
         Prefab = new Prefab
         {
             Path = "assets/content/items/barter/cpu/item_cpu.bundle",
@@ -51,21 +43,12 @@ public class OtherItemsGenerator(
         GenerateNormalCores();
         GenerateLockedCores();
         GenerateBlindBoxes();
-        var uCoreIDs = uCoresGenerator.GenerateUniversalCores();
-        var rarity = RaritySettings.GetByName("Unknown");
-        foreach (var uCoreID in uCoreIDs)
-        {
-            modDataStorage.AddCoreToStorage(uCoreID, "Unknown", "universal");
-            UnknownPackageLootpoolIds.Add(uCoreID, 2);
-        }
-        UnknownPackageLootpool.Add($"<color={rarity.Color}><b>{{UCore.FullName}}</b></color>", uCoreIDs.Count*2);
-
+        uCoresGenerator.GenerateUniversalCores();
         GenerateUnknownPackage();
-
         GenerateCoreHolder();
         GenerateCoreCase();
 
-        CreateLootpoolForUnknownPackage();
+        randomBoxesHelper.AddUnknownPackageLootpool();
     }
 
     private void GenerateNormalCores()
@@ -103,8 +86,24 @@ public class OtherItemsGenerator(
             modDataStorage.CoreIDsByQuality.Add(quality, newId);
             modDataStorage.AddCoreToStorage(newId, quality, "normal");
             RarityData rarity = RaritySettings.GetByName(variant.Rarity);
-            UnknownPackageLootpool.Add($"<color={rarity.Color}><b>{{Quality.{quality}.Name}} {{CoreItem.Normal.Name}} (90%/10% {{CoreItem.Locked.ShortName}})</b></color>", modConfig.QualityWeights[quality] * 9);
-            UnknownPackageLootpoolIds.Add(newId, modConfig.QualityWeights[quality] * 9);
+
+            randomBoxesHelper.UnknownPackageDisplayItems.Add(
+                newId,
+                new()
+                {
+                    Description = $"<color={rarity.Color}><b>{{Quality.{quality}.Name}} {{CoreItem.Normal.Name}} (90%/10% {{CoreItem.Locked.ShortName}})</b></color>",
+                    Probability = modConfig.QualityWeights[quality] * 10,
+                    Quality = quality
+                }
+            );
+            randomBoxesHelper.UnknownPackageItems.Add(
+                newId,
+                new()
+                {
+                    Probability = modConfig.QualityWeights[quality] * 9,
+                    Quality = quality
+                }
+            );
         }
         if (modConfig.VariantCores.Normal.Upgradable && modConfig.VariantCoresEnabled)
         {
@@ -160,7 +159,15 @@ public class OtherItemsGenerator(
             );
             if (newId is null) { continue; }
             modDataStorage.AddCoreToStorage(newId, quality, "normal");
-            UnknownPackageLootpoolIds.Add(newId, modConfig.QualityWeights[quality] * 1);
+
+            randomBoxesHelper.UnknownPackageItems.Add(
+                newId,
+                new()
+                {
+                    Probability = modConfig.QualityWeights[quality] * 1,
+                    Quality = quality
+                }
+            );
             customItemCreator.CreateCultistCircleCraft(
                 [normalCoreId, normalCoreId, normalCoreId],
                 [newId],
@@ -209,6 +216,7 @@ public class OtherItemsGenerator(
             );
             if (newId is null) { continue; }
             modDataStorage.AddCoreToStorage(newId, quality, "other");
+            randomBoxesHelper.BlindBoxPerQuality.Add(quality, newId);
         }
     }
     private void GenerateCoreHolder()
@@ -361,19 +369,6 @@ public class OtherItemsGenerator(
             unknownPackageOverride.StackMaxSize = 1;
             unknownPackageOverride.Weight = modConfig.VariantCores.UnknownPackage.Properties.Weight;
 
-            var totalWeight = UnknownPackageLootpool.Values.Sum();
-            var formatted = UnknownPackageLootpool
-                .Select(kvp => new
-                {
-                    Name = kvp.Key,
-                    Percentage = (double)kvp.Value / totalWeight * 100
-                })
-                .OrderBy(x => x.Percentage);
-            var descText = "";
-            foreach (var item in formatted)
-            {
-                descText += $"{item.Percentage:F2}% - {item.Name}\n";
-            }
             var barter = modConfig.VariantCores.UnknownPackage.Barter;
             if (modConfig.VariantCoresEnabled)
             {
@@ -384,7 +379,7 @@ public class OtherItemsGenerator(
                 barter.LoyalLevel = 0;
             }
             customLocales.RegisterTag("UPackage.CoresReceived", modConfig.VariantCores.UnknownPackage.CoresReceived.ToString());
-            customLocales.RegisterTag("UPackage.Lootpool", descText);
+            customLocales.RegisterTag("UPackage.Lootpool", randomBoxesHelper.CreateUnknownPackageLootpool());
             var newId = itemGenerator.GenerateItem(
                 $"Unknown Variant Weapon Core Package",
                 "{CoreItem.UPackage.Name}",
@@ -404,24 +399,7 @@ public class OtherItemsGenerator(
             );
             if (newId is null) { return; }
             modDataStorage.AddCoreToStorage(newId, "Unknown", "other");
-        }
-    }
-    public void CreateLootpoolForUnknownPackage()
-    {
-        if (idDatabaseManager.DbIds.TryGetValue($"Unknown Variant Weapon Core Package:ID", out var idDatabaseId))
-        {
-            (bool find, TemplateItem? item) = itemHelper.GetItem(idDatabaseId);
-            if (find && item is not null)
-            {
-                inventoryConfig.RandomLootContainers.Add(idDatabaseId, new RewardDetails
-                {
-                    RewardCount = modConfig.VariantCores.UnknownPackage.CoresReceived,
-                    FoundInRaid = false,
-                    RewardTplPool = UnknownPackageLootpoolIds
-                });
-                // Fix found on MoxoPixel-Painter
-                item.Name = idDatabaseId;
-            }
+            randomBoxesHelper.UnknownPackageId = newId;
         }
     }
 }

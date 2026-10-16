@@ -22,7 +22,8 @@ public class DefinitiveWeaponVariants(
     CustomLogger logger,
     APBSIntegration apbsIntegration,
     CustomLocales customLocales,
-    CustomTraderCreator customTraderCreator
+    CustomTraderCreator customTraderCreator,
+    RandomBoxesHelper randomBoxesHelper
 ) : IOnLoad
 {
     public Task OnLoadAsync(CancellationToken cancellationToken)
@@ -37,6 +38,7 @@ public class DefinitiveWeaponVariants(
         itemGenerator.GenerateAllItems();
         weaponGenerator.GenerateWeaponsFromVariantConfig();
         customLootManager.EditLoot();
+        randomBoxesHelper.CreateLootpoolForBlindBoxes();
         idDatabaseManager.SaveDatabase();
 
         // Add 12.7x108mm B-32 to trader
