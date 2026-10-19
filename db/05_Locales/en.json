@@ -806,7 +806,7 @@
     "CoreItem.UPackage.AddDesc": "Package of {UPackage.CoresReceived} random Variant Weapon Cores",
 
     // UCores items
-    "UCore.Name": "UCore Codename",
+    "UCore.Name": "Universal Variant Core",
     "UCore.FullName": "Universal Variant Core",
     "UCore.Description": "A rare, highly adaptable chip used in Variant Weapons. Unlike other variant cores, it can interface with any variant regardless of quality",
     "UCore.Explanation": "Special attachment for Mod Core slot only available on Weapon Variants\nOnly obtainable from Unknown Variant Weapon Core Packages",

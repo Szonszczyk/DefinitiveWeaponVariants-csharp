@@ -1,4 +1,4 @@
-﻿using DefinitiveWeaponVariants.Helpers;
+using DefinitiveWeaponVariants.Helpers;
 using DefinitiveWeaponVariants.Loaders;
 using DefinitiveWeaponVariants.Models;
 using SPTarkov.DI.Annotations;
@@ -19,7 +19,7 @@ public class UCoresGenerator(
 {
     private TemplateItemProperties VariantCorePropertiesOverride { get; } = new()
     {
-        StackMaxSize = config.VariantCores.General.StackMaxSize,
+        StackMaxSize = 10,
         Prefab = new Prefab
         {
             Path = "assets/content/items/barter/cpu/item_cpu.bundle",
@@ -44,21 +44,22 @@ public class UCoresGenerator(
 
                 var newId = itemGenerator.GenerateItem(
                     $"UCore_{internalName}",
-                    $"<b><dwv-gradient={themeConfig.Theme.Color1},{themeConfig.Theme.Color2}>{{UCore.{themeName}Theme.Name}} {{UCore.Name}} \"{{UCore.{internalName}.Name}}\"</dwv-gradient></b>",
+                    $"<b><dwv-gradient={themeConfig.Theme.Color1},{themeConfig.Theme.Color2}>{{UCore.{internalName}.Name}} {{UCore.Name}}</dwv-gradient></b>",
                     new VariantConfiguration
                     {
                         Description = "{UCore.Description}",
                         ShortName = $"{{UCore.{internalName}.Name}}",
                         ItemTplToClone = "58d2912286f7744e27117493",
-                        HandbookPriceRoubles = config.VariantCores.General.Price["Unique"] * 5,
+                        HandbookPriceRoubles = config.VariantCoresPrice["Unique"] * 5,
                         Rarity = "Unknown",
                         VariantType = "Unknown"
                     },
-                    $"<b><dwv-gradient={themeConfig.Theme.Color1},{themeConfig.Theme.Color2}>{{UCore.FullName}} | {{UCore.{themeName}Theme.Name}} - \"{{UCore.{internalName}.Name}}\"</dwv-gradient></b>",
+                    $"<b><dwv-gradient={themeConfig.Theme.Color1},{themeConfig.Theme.Color2}>{{UCore.{themeName}Theme.Name}} {{UCore.FullName}}: {{UCore.{internalName}.Name}}</dwv-gradient></b>",
                     "{UCore.Explanation}",
                     coreProperties
                 );
                 if (newId is null) { continue; }
+                modDataStorage.CoreHandbookPrices[newId] = config.VariantCoresPrice["Unique"] * 5;
 
                 modDataStorage.AddCoreToStorage(newId, "Unknown", "universal");
                 randomBoxesHelper.UnknownPackageItems.Add(newId, new() { Probability = 1, Quality = "universal" });

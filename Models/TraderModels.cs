@@ -25,6 +25,7 @@ public sealed class TraderPoolState
     public required List<WeightedOfferGroup> DynamicOffers { get; init; }
     public HashSet<MongoId> CurrentDynamicRootIds { get; set; } = [];
     public int? LastHandledExpiredTimestamp { get; set; }
+    public int? NextRotationTimestamp { get; set; }
 }
 
 /// <summary>
@@ -37,12 +38,6 @@ public sealed class WeightedOfferGroup
     public required List<Item> Items { get; init; }
     public required List<List<BarterScheme>> BarterSchemes { get; init; }
     public required int LoyaltyLevel { get; init; }
-}
-
-public sealed class TraderDynamicAssortConfig
-{
-    public bool Enabled { get; set; } = true;
-    public List<TraderRule> Traders { get; set; } = [];
 }
 
 public sealed class TraderRule

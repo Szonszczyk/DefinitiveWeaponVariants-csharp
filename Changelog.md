@@ -5,7 +5,7 @@
 - Merchant is available from the start
 - Static/Dynamic assort
     Almost all items added by this mod are available at any time
-    20 random variant weapons are available each trader refresh
+    15 random variant weapons are available each trader refresh
 - Loyalty Levels are only tied to the character level:
     LL2 => 15 character level
 	LL3 => 30 character level
@@ -18,20 +18,20 @@
 ## Blazor config
 - Added blazor web page for config changes
     Available in /definitive-weapon-variants/config or from launcher
-- defaultConfig.jsonc is no longer needed, config.jsonc is being created at the first start of the server
-- Old configs can still be used, but it's recommended to start a new one
-- All changes done to this config require a normal server restart
+- defaultConfig.jsonc is no longer used; config.jsonc is created from built-in defaults when missing
+- You need to config the mod after this update using Blazor page
+- All changes done to config page require a normal server restart
 
 ## Localization system
 - Added localization system, now DWV can be easely translatable
-- ALl items has their names and description checked and standardized
+- All items has their names and description checked and standardized
 
-## UCores system
-- Universal cores now have themes and are called "UCores"
-- Added 11 new UCores accross 2 themes: Order and Chaos
-- Order theme UCores are provided Ergonomics and decreasing recoil
-- Chao theme UCores are more for providing a lot of one stat with the price of the other
-- UCores drop rate from Unknown Packages are tied to Unique Cores and can be increased in the config
+## Universal Cores system refresh
+- Universal Cores now have themes
+- Added 11 new Universal Cores accross 2 themes: Order and Chaos
+- Order theme Universal Cores are provided increased Ergonomics and are decreasing recoil
+- Chaos theme Universal Cores are more for providing a lot of one stat with the price of the other
+- Universal Cores drop rate from Unknown Packages are tied to Unique Cores drop rate and can be increased in the config
 
 ## Extended APBS integration
 - Added automatic swapping of blacklist based on time
@@ -109,7 +109,6 @@ Available from Merchant LL2 for 5 Meme Variant Cores
     Just copy an existing variant or item, add "ReplaceExisting": true and you are good to go!
 - Added a mod check to variant types and weapons
     This should be used only for modded items shipped with this mod
-
 
 ### Bugfixes
 - Fixed disabling generation of any variant quality causing mod to stop working

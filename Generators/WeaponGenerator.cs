@@ -1,4 +1,4 @@
-﻿using DefinitiveWeaponVariants.Constants;
+using DefinitiveWeaponVariants.Constants;
 using DefinitiveWeaponVariants.CustomClasses;
 using DefinitiveWeaponVariants.Helpers;
 using DefinitiveWeaponVariants.Integrations;
@@ -46,7 +46,8 @@ public class WeaponGenerator(
         {
             if (config is { Description: not null, Explanation: not null, ShortName: not null, Rarity: not null } variant)
             {
-                foreach (var modGUID in variant.ModGUIDs ?? []) if (!modCheck.CheckInstalledMod(modGUID)) continue; // Mod check
+                // Skip the whole variant when any required mod is missing.
+                if (variant.ModGUIDs?.Any(modGUID => !modCheck.CheckInstalledMod(modGUID)) == true) continue;
 
                 var rarity = RaritySettings.GetByName(variant.Rarity);
                 var weaponsToGenerate = GetAllowedWeaponsToGenerate(variantName, variant);
@@ -266,14 +267,14 @@ public class WeaponGenerator(
                         }
                     }
                     // Add core slot
-                    if (modConfig.VariantCoresEnabled)
+                    if (modConfig.ModCoreSlotEnabled)
                     {
                         var newSlotsWithCore = customSlotsChanger.CoreSlotAdder(
                             newSlots,
                             copiedItem,
                             variant.Rarity,
                             newWeapon,
-                            modConfig.VariantCores.General.Required
+                            modConfig.VariantCoreSlotRequired
                         );
                         if (newSlotsWithCore != null)
                         {
@@ -488,7 +489,7 @@ public class WeaponGenerator(
             if (modConfig.Flea[rarity]) strings.Add("{Desc.Flea}");
             if (modConfig.Marked[rarity] && modConfig.MarkedRoomsProbability > 0) strings.Add("{Desc.Marked}");
             if (modConfig.StaticLoot[rarity] && modConfig.StaticLootProbability > 0) strings.Add("{Desc.StaticLoot}");
-            if (modConfig.BlindBoxesEnabled && modConfig.VariantCores.General.Price.TryGetValue(rarity, out _)) strings.Add("{Desc.BlindBox}"); // {Rarity} tag
+            if (modConfig.BlindBoxesEnabled && modConfig.VariantCoresPrice.TryGetValue(rarity, out _)) strings.Add("{Desc.BlindBox}"); // {Rarity} tag
             if (modConfig.EnableAPBSBlacklistGeneration && modConfig.APBSTierConfig[rarity] > 0)
             {
                 customLocales.RegisterTag($"APBSMinTier.{rarity}", modConfig.APBSTierConfig[rarity].ToString());

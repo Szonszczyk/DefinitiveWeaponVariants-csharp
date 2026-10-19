@@ -101,7 +101,9 @@
 
 @code {
     // Page fields belong to this browser circuit, never to a static/global config.
-    private readonly ConfigFileStore _store = new(ModEditorSettings.ConfigDirectory, ModEditorSettings.ConfigFile, ModEditorSettings.DefaultFile);
+    private readonly ConfigFileStore _store = new(ModEditorSettings.ConfigDirectory, ModEditorSettings.ConfigFile,
+        defaultValues: DefinitiveWeaponVariants.Loaders.ConfigRegistration.CreateDefaultValues,
+        headerComment: DefinitiveWeaponVariants.Loaders.ConfigRegistration.ConfigFileComment);
     private EditorSession? _session;
     private SchemaSection? _section;
     private bool _busy, _confirmReload, _navigationBlocked, _showEmptyUnknown, _advancedOptions;

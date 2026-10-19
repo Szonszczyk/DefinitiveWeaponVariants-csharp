@@ -11,15 +11,15 @@ No restart button or live-apply operation is included.
 ## Try it in Definitive Weapon Variants
 
 1. Build DWV and install the resulting DLL with its normal mod data.
-2. Put `configSchema.json` beside `defaultConfig.jsonc` and `config.jsonc` in the
-   mod's `config` directory. DWV normally creates `config.jsonc` at server startup.
+2. Put `configSchema.json` in the mod's `config` directory. DWV creates a missing
+   `config.jsonc` from its C# defaults at startup. No default config file is needed.
 3. Start SPT, sign in to its web interface with an administrator account, and open
    the DWV card. The page route is `/definitive-weapon-variants/config` on the
    **same host and port** as SPT. Do not add a second port or web host.
 4. Edit settings, press **Save configuration**, and restart SPT manually before
    expecting item generation or other startup behavior to use the changes.
 
-The build packages `config/configSchema.json` alongside `defaultConfig.jsonc`.
+The build packages `config/configSchema.json`. Runtime defaults come from `ConfigData`.
 It does not package a player's `config.jsonc`. Ship `wwwroot/` alongside the DLL
 as required by SPT's web-page hosting. The included `config-editor-theme.css`
 contains editable per-mod colors; the reusable layout styles remain in the DLL.
@@ -83,7 +83,9 @@ You do **not** need to rewrite the components or create one page per setting.
 2. Edit `ModEditorSettings.cs`:
    - Set a unique `Route`, for example `/my-mod/config`.
    - Change `Title` and `Description`.
-   - Match `ConfigFile` and `DefaultFile` to that mod's actual filenames.
+   - Match `ConfigFile` to the mod's filename and provide its defaults through the
+     `ConfigFileStore` `defaultValues` callback. Other mods may instead supply a
+     default filename through the store's `defaultFile` argument.
    - Keep the DLL-relative `config` folder unless your mod uses another layout.
    - Keep the `Administrator` policy when targeting the same SPT web host.
 3. Use `Microsoft.NET.Sdk.Web`, `net10.0`, and `OutputType` `Library` in the mod
@@ -225,7 +227,7 @@ implicit migrations/default insertion which may occur on Save.
   to overwriting the original in place.
 - No backup creation, retention, or cleanup system is included. Existing backups
   from earlier versions are left alone. To restore factory settings, stop SPT and
-  replace `config.jsonc` with a copy of the shipped `defaultConfig.jsonc` (adjust
+  remove `config.jsonc` so the next server start generates fresh C# defaults (adjust
   filenames for another mod). Defaults restore factory values, not personal edits.
 - Another editor tab's save or a detected external change to config/schema/defaults
   rejects a stale save. Reload before retrying. This is optimistic conflict

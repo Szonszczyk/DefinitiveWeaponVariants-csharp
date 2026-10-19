@@ -10,7 +10,8 @@ namespace ModConfigEditor.Core;
 /// File I/O is intentionally separate from both Razor and the running mod.
 /// Each tab gets its own session; only the short disk transaction is serialized.
 /// </summary>
-public sealed class ConfigFileStore(string directory, string configFile = "config.jsonc", string defaultFile = "defaultConfig.jsonc")
+public sealed class ConfigFileStore(string directory, string configFile = "config.jsonc", string defaultFile = "defaultConfig.jsonc",
+    Func<JsonObject>? defaultValues = null, string? headerComment = null)
 {
     private readonly string _configPath = Path.GetFullPath(Path.Combine(directory, configFile));
     private readonly string _defaultPath = Path.GetFullPath(Path.Combine(directory, defaultFile));
@@ -24,12 +25,12 @@ public sealed class ConfigFileStore(string directory, string configFile = "confi
         try
         {
             var schemaBytes = await File.ReadAllBytesAsync(_schemaPath);
-            var defaultBytes = await File.ReadAllBytesAsync(_defaultPath);
+            var defaultBytes = defaultValues is null ? await File.ReadAllBytesAsync(_defaultPath) : null;
             var configBytes = File.Exists(_configPath) ? await File.ReadAllBytesAsync(_configPath) : null;
             var schema = JsonSerializer.Deserialize<ConfigSchema>(Decode(schemaBytes), JsonValues.Options)
                 ?? throw new InvalidDataException("The schema is empty.");
             schema.Validate();
-            var defaults = JsonValues.ParseObject(Decode(defaultBytes));
+            var defaults = defaultValues is null ? JsonValues.ParseObject(Decode(defaultBytes!)) : defaultValues();
             var current = configBytes is null ? (JsonObject)defaults.DeepClone() : JsonValues.ParseObject(Decode(configBytes));
             return new EditorSession(schema, new ObjectDraft(schema.RootProperties, current, defaults), defaults,
                 Fingerprint(configBytes), Fingerprint(schemaBytes), Fingerprint(defaultBytes));
@@ -41,7 +42,8 @@ public sealed class ConfigFileStore(string directory, string configFile = "confi
     {
         // Validate before creating a temporary file or touching the original.
         var savedConfiguration = session.Draft.Build();
-        var output = Encoding.UTF8.GetBytes(savedConfiguration.ToJsonString(JsonValues.Options) + Environment.NewLine);
+        var header = string.IsNullOrWhiteSpace(headerComment) ? "" : headerComment + Environment.NewLine;
+        var output = Encoding.UTF8.GetBytes(header + savedConfiguration.ToJsonString(JsonValues.Options) + Environment.NewLine);
         var gate = Gates.GetOrAdd(_configPath, _ => new SemaphoreSlim(1, 1));
         await gate.WaitAsync();
         string? temporary = null;
@@ -50,7 +52,7 @@ public sealed class ConfigFileStore(string directory, string configFile = "confi
             var current = File.Exists(_configPath) ? await File.ReadAllBytesAsync(_configPath) : null;
             if (Fingerprint(current) != session.ConfigFingerprint
                 || Fingerprint(await File.ReadAllBytesAsync(_schemaPath)) != session.SchemaFingerprint
-                || Fingerprint(await File.ReadAllBytesAsync(_defaultPath)) != session.DefaultFingerprint)
+                || (defaultValues is null && Fingerprint(await File.ReadAllBytesAsync(_defaultPath)) != session.DefaultFingerprint))
                 throw new InvalidDataException("The config, defaults, or schema changed on disk. Reload the page's configuration before saving; your draft has not been written.");
 
             var folder = Path.GetDirectoryName(_configPath)!;

@@ -83,14 +83,14 @@ public class RandomBoxesHelper(
         // Refresh probability
         foreach (var (id, itemToAdd) in UnknownPackageItems)
         {
-            var multiplier = itemToAdd.Quality == "universal" ? universalMultiplier /* * configMultiplier */ : otherMultiplier;
+            var multiplier = itemToAdd.Quality == "universal" ? universalMultiplier * modConfig.VCUniversalToUniqueRatio : 1;
             if (itemToAdd.Probability == 0) continue;
             UnknownPackageLootpool.Add(id, itemToAdd.Probability * multiplier);
         }
         var unknownPackageLootpoolDisplay = new Dictionary<string, double>();
         foreach (var (id, itemToAdd) in UnknownPackageDisplayItems)
         {
-            var multiplier = itemToAdd.Quality == "universal" ? universalMultiplier /* * configMultiplier */ : otherMultiplier;
+            var multiplier = itemToAdd.Quality == "universal" ? universalMultiplier * modConfig.VCUniversalToUniqueRatio : 1;
             if (itemToAdd.Probability == 0) continue;
             unknownPackageLootpoolDisplay.Add(itemToAdd.Description, itemToAdd.Probability * multiplier);
         }
@@ -119,7 +119,7 @@ public class RandomBoxesHelper(
         {
             inventoryConfig.RandomLootContainers.Add(UnknownPackageId, new RewardDetails
             {
-                RewardCount = modConfig.VariantCores.UnknownPackage.CoresReceived,
+                RewardCount = modConfig.UnknownPackageCoresReceived,
                 FoundInRaid = false,
                 RewardTplPool = UnknownPackageLootpool
             });

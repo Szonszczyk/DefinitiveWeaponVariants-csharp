@@ -11,7 +11,6 @@ public static class ModEditorSettings
     public const string Title = "Definitive Weapon Variants";
     public const string Description = "Configure weapon variants, loot, variant cores, and integrations.";
     public const string ConfigFile = "config.jsonc";
-    public const string DefaultFile = "defaultConfig.jsonc";
     public const string AuthorizationPolicy = "Administrator";
 
     // Matches SPT's default static-asset prefix when WWWRootUrl is null. If your

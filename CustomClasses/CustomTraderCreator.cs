@@ -1,5 +1,6 @@
 ﻿using DefinitiveWeaponVariants.Helpers;
 using DefinitiveWeaponVariants.Loaders;
+using DefinitiveWeaponVariants.Models;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.Helpers.Server;
 using SPTarkov.Server.Core.Models.Common;
@@ -7,7 +8,6 @@ using SPTarkov.Server.Core.Models.Eft.Common.Tables;
 using SPTarkov.Server.Core.Models.Spt.Config;
 using SPTarkov.Server.Core.Models.Spt.Tables;
 using SPTarkov.Server.Core.Routers;
-using SPTarkov.Server.Core.Utils;
 using SPTarkov.Server.Core.Utils.Cloners;
 using System.Reflection;
 using Path = System.IO.Path;
@@ -21,11 +21,11 @@ public class CustomTraderCreator(
     ImageRouter imageRouter,
     ModHelper modHelper,
     ModDatabaseLoader modDatabaseLoader,
-    TimeUtil timeUtil,
     RagfairConfig ragfairConfig,
     TraderConfig traderConfig,
     TradersTable tradersTable,
-    CustomLocales customLocales
+    CustomLocales customLocales,
+    ConfigData config
 )
 {
     public List<string> questImages { get; set; } = [];
@@ -49,14 +49,12 @@ public class CustomTraderCreator(
     }
     private void SetTraderUpdateTime()
     {
-        var refreshTimeSecondsMin = timeUtil.GetMinutesAsSeconds(1);
-        var refreshTimeSecondsMax = timeUtil.GetMinutesAsSeconds(2);
         var baseJson = modDatabaseLoader.TraderBase;
         // Add refresh time in seconds to config
         var traderRefreshRecord = new UpdateTime
         {
             TraderId = baseJson.Id,
-            Seconds = new MinMax<int>((int)refreshTimeSecondsMin, (int)refreshTimeSecondsMax)
+            Seconds = new MinMax<int>(config.TraderRefreshSeconds.Min, config.TraderRefreshSeconds.Max)
         };
 
         traderConfig.UpdateTime.Add(traderRefreshRecord);

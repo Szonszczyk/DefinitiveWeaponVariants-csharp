@@ -1,4 +1,4 @@
-﻿using DefinitiveWeaponVariants.Constants;
+using DefinitiveWeaponVariants.Constants;
 using DefinitiveWeaponVariants.CustomClasses;
 using DefinitiveWeaponVariants.Helpers;
 using DefinitiveWeaponVariants.Models;
@@ -25,7 +25,7 @@ public class OtherItemsGenerator(
 {
     private TemplateItemProperties VariantCorePropertiesOverride { get; } = new()
     {
-        StackMaxSize = modConfig.VariantCores.General.StackMaxSize,
+        StackMaxSize = 10,
         Prefab = new Prefab
         {
             Path = "assets/content/items/barter/cpu/item_cpu.bundle",
@@ -55,7 +55,7 @@ public class OtherItemsGenerator(
     {
         var corePropertiesOverride = cloner.Clone(VariantCorePropertiesOverride);
         if (corePropertiesOverride is null) return;
-        corePropertiesOverride.Ergonomics = modConfig.VariantCores.Normal.Properties.Ergonomics;
+        corePropertiesOverride.Ergonomics = modConfig.VCNormalErgonomics;
         foreach (var (quality, enabled) in modConfig.Generate)
         {
             // Generate normal core
@@ -64,25 +64,25 @@ public class OtherItemsGenerator(
                 Description = "{CoreItem.Normal.Description}",
                 ShortName = $"{{Quality.{quality}.ShortName}} {{CoreItem.Normal.ShortName}}",
                 ItemTplToClone = "58d2912286f7744e27117493",
-                HandbookPriceRoubles = modConfig.VariantCores.General.Price[quality] * modConfig.VariantCores.Normal.PriceMultiplier,
+                HandbookPriceRoubles = modConfig.VariantCoresPrice[quality] * modConfig.VCNormalPriceMultiplier,
                 Rarity = quality,
                 VariantType = quality
             };
-            if (enabled && modConfig.VariantCoresEnabled && modConfig.VariantCores.Normal.Buyable)
+            if (enabled && modConfig.VCNormalBuyable)
             {
-                variant.Barter = modConfig.VariantCores.Normal.Barter;
-                variant.Barter.BarterPrice = [];
-                variant.Barter.BarterPrice.Add("5449016a4bdc2d6f028b456f", modConfig.VariantCores.General.Price[quality] * modConfig.VariantCores.Normal.PriceMultiplier);
+                variant.Barter = cloner.Clone(modConfig.VCNormalBarter);
+                variant.Barter!.BarterPrice = new() { ["MONEY_ROUBLES"] = modConfig.VariantCoresPrice[quality] * modConfig.VCNormalPriceMultiplier };
             }
             var newId = itemGenerator.GenerateItem(
                 $"{quality} Quality Variant Core",
                 $"{{Quality.{quality}.Name}} {{CoreItem.Normal.Name}}",
                 variant,
                 $"<color={{rarity.Color}}><b>{{Quality.{quality}.Name}} {{CoreItem.Normal.Name}}</b></color>",
-                $"{{CoreItem.Normal.Explanation}}.{(modConfig.VariantCores.Normal.FoundOnEnemies.TryGetValue("assault", out _) ? "\n{CoreItem.Normal.AddDesc}" : "")}",
+                $"{{CoreItem.Normal.Explanation}}.{(modConfig.VCNormalFoundOnEnemies.TryGetValue("assault", out _) ? "\n{CoreItem.Normal.AddDesc}" : "")}",
                 corePropertiesOverride
             );
             if (newId is null) { continue; }
+            modDataStorage.CoreHandbookPrices[newId] = variant.HandbookPriceRoubles!.Value;
             modDataStorage.CoreIDsByQuality.Add(quality, newId);
             modDataStorage.AddCoreToStorage(newId, quality, "normal");
             RarityData rarity = RaritySettings.GetByName(variant.Rarity);
@@ -105,22 +105,23 @@ public class OtherItemsGenerator(
                 }
             );
         }
-        if (modConfig.VariantCores.Normal.Upgradable && modConfig.VariantCoresEnabled)
+        if (modConfig.VCNormalUpgradable)
         {
-            for (var i = 1; i < RaritySettings.RarityList().Count; i++)
+            var qualities = RaritySettings.RarityList();
+            var maximumQuality = qualities.IndexOf(modConfig.VCNormalUpgradeUpToQuality);
+            for (var i = 1; i <= maximumQuality; i++)
             {
-                var qualityNow = RaritySettings.RarityList()[i];
-                var qualityPrev = RaritySettings.RarityList()[i - 1];
+                var qualityNow = qualities[i];
+                var qualityPrev = qualities[i - 1];
                 modConfig.Generate.TryGetValue(qualityNow, out var qualityNowEnabled);
                 modConfig.Generate.TryGetValue(qualityPrev, out var qualityPrevEnabled);
                 if (!qualityNowEnabled || !qualityPrevEnabled) { continue; }
                 modDataStorage.CoreIDsByQuality.TryGetValue(qualityNow, out var nowCore);
                 modDataStorage.CoreIDsByQuality.TryGetValue(qualityPrev, out var prevCore);
-                var barterConfig = cloner.Clone(modConfig.VariantCores.Normal.UpgradableOptions.Barter);
+                var barterConfig = cloner.Clone(modConfig.VCNormalUpgradeBarter);
                 if (barterConfig == null || nowCore == null || prevCore == null) continue;
-                barterConfig.BarterPrice.Add(prevCore, modConfig.VariantCores.Normal.UpgradableOptions.Ratio);
+                barterConfig.BarterPrice.Add(prevCore, modConfig.VCNormalUpgradeRatio);
                 customItemCreator.AddItemToTrader(nowCore, barterConfig);
-                if (qualityNow == modConfig.VariantCores.Normal.UpgradableOptions.UpToQuality) break;
             }
         }
     }
@@ -129,8 +130,8 @@ public class OtherItemsGenerator(
     {
         var corePropertiesOverride = cloner.Clone(VariantCorePropertiesOverride);
         if (corePropertiesOverride is null) return;
-        corePropertiesOverride.Ergonomics = modConfig.VariantCores.Locked.Properties.Ergonomics;
-        corePropertiesOverride.Accuracy = modConfig.VariantCores.Locked.Properties.Accuracy;
+        corePropertiesOverride.Ergonomics = modConfig.VCLockedErgonomics;
+        corePropertiesOverride.Accuracy = modConfig.VCLockedAccuracy;
         foreach (var (quality, enabled) in modConfig.Generate)
         {
             var variant = new VariantConfiguration
@@ -138,16 +139,15 @@ public class OtherItemsGenerator(
                 Description = "{CoreItem.Locked.Description}",
                 ShortName = $"{{Quality.{quality}.ShortName}} {{CoreItem.Locked.ShortName}}",
                 ItemTplToClone = "58d2912286f7744e27117493",
-                HandbookPriceRoubles = modConfig.VariantCores.General.Price[quality] * modConfig.VariantCores.Locked.PriceMultiplier,
+                HandbookPriceRoubles = modConfig.VariantCoresPrice[quality] * modConfig.VCLockedPriceMultiplier,
                 Rarity = quality,
                 VariantType = quality
             };
             var normalCoreId = idDatabaseManager.GetCustomId($"{quality} Quality Variant Core:ID");
-            if (enabled && modConfig.VariantCores.Locked.Upgradable && modConfig.VariantCoresEnabled)
+            if (enabled && modConfig.VCLockedUpgradeBarter.LoyalLevel > 0)
             {
-                variant.Barter = modConfig.VariantCores.Locked.UpgradableOptions.Barter;
-                variant.Barter.BarterPrice = [];
-                variant.Barter.BarterPrice.Add(normalCoreId, modConfig.VariantCores.Locked.UpgradableOptions.Ratio);
+                variant.Barter = cloner.Clone(modConfig.VCLockedUpgradeBarter);
+                variant.Barter!.BarterPrice = new() { [normalCoreId] = modConfig.VCLockedUpgradeRatio };
             }
             var newId = itemGenerator.GenerateItem(
                 $"{quality} Quality Variant Core (Locked)",
@@ -158,6 +158,7 @@ public class OtherItemsGenerator(
                 corePropertiesOverride
             );
             if (newId is null) { continue; }
+            modDataStorage.CoreHandbookPrices[newId] = variant.HandbookPriceRoubles!.Value;
             modDataStorage.AddCoreToStorage(newId, quality, "normal");
 
             randomBoxesHelper.UnknownPackageItems.Add(
@@ -187,19 +188,16 @@ public class OtherItemsGenerator(
                 Description = "{CoreItem.BBox.Description}",
                 ShortName = $"{{Quality.{quality}.Name}} {{CoreItem.BBox.ShortName}}",
                 ItemTplToClone = "6489b2b131a2135f0d7d0fcb",
-                HandbookPriceRoubles = modConfig.VariantCores.General.Price[quality] * modConfig.VariantCores.BlindBoxes.PriceMultiplier,
+                HandbookPriceRoubles = modConfig.VariantCoresPrice[quality] * modConfig.BlindBoxesPriceMultiplier,
                 Rarity = quality,
                 VariantType = quality
             };
             var coreId = customSlotsChanger.GetItemFromString($"{quality} Quality Variant Core")?.Id ?? "5449016a4bdc2d6f028b456f";
             if (enabled && modConfig.BlindBoxesEnabled)
             {
-                var barter = cloner.Clone(modConfig.VariantCores.BlindBoxes.Barter);
+                var barter = cloner.Clone(modConfig.BlindBoxesBarter);
                 barter ??= new CustomBarterConfig();
-                if (modConfig.VariantCoresEnabled)
-                    barter.BarterPrice.Add(coreId, modConfig.VariantCores.BlindBoxes.CoresPrice);
-                else
-                    barter.BarterPrice.Add("MONEY_ROUBLES", modConfig.VariantCores.General.Price[quality] * modConfig.VariantCores.BlindBoxes.PriceMultiplier);
+                barter.BarterPrice = new() { [coreId] = modConfig.BlindBoxesCoresPrice };
                 variant.Barter = barter;
             }
             var newId = itemGenerator.GenerateItem(
@@ -210,8 +208,9 @@ public class OtherItemsGenerator(
                 "{CoreItem.BBox.Explanation}",
                 new TemplateItemProperties
                 {
-                    Width = modConfig.VariantCores.BlindBoxes.Properties.Width,
-                    Height = modConfig.VariantCores.BlindBoxes.Properties.Height
+                    Width = modConfig.BlindBoxesProperties.Width,
+                    Height = modConfig.BlindBoxesProperties.Height,
+                    Weight = modConfig.BlindBoxesProperties.Weight
                 }
             );
             if (newId is null) { continue; }
@@ -221,8 +220,7 @@ public class OtherItemsGenerator(
     }
     private void GenerateCoreHolder()
     {
-        var priceCoreId = customSlotsChanger.GetItemFromString($"{modConfig.VariantCores.ExpeditionaryCase.PriceCoreQuality} Quality Variant Core");
-        var handbookPrice = priceCoreId == null ? modConfig.VariantCores.General.Price["Baseline"] * modConfig.VariantCores.ExpeditionaryCase.PriceCoreAmount : modConfig.VariantCores.General.Price[modConfig.VariantCores.ExpeditionaryCase.PriceCoreQuality] * modConfig.VariantCores.ExpeditionaryCase.PriceCoreAmount;
+        var handbookPrice = GetHandbookPrice(modConfig.ExpCaseBarter, modConfig.ExpCaseHandbookPriceRoubles);
         var variant = new VariantConfiguration
         {
             Description = "{CoreItem.ExpCase.Description}",
@@ -231,21 +229,8 @@ public class OtherItemsGenerator(
             HandbookPriceRoubles = handbookPrice,
             Rarity = "Unknown",
             VariantType = "Unknown",
-            Barter = modConfig.VariantCores.ExpeditionaryCase.Barter
+            Barter = cloner.Clone(modConfig.ExpCaseBarter)
         };
-
-        if (priceCoreId is not null)
-        {
-            variant.Barter.BarterPrice.Add(priceCoreId.Id, 12);
-        }
-        else
-        {
-            variant.Barter.BarterPrice.Add("MONEY_ROUBLES", handbookPrice);
-        }
-        if (!modConfig.VariantCoresEnabled)
-        {
-            variant.Barter.LoyalLevel = 0;
-        }
 
         var newGrids = new List<Grid>();
         foreach (var (quality, idList) in modDataStorage.CoresByQuality)
@@ -258,8 +243,8 @@ public class OtherItemsGenerator(
                 Prototype = "55d329c24bdc2d892f8b4567",
                 Properties = new()
                 {
-                    CellsH = modConfig.VariantCores.ExpeditionaryCase.GridProperties.CellsH,
-                    CellsV = modConfig.VariantCores.ExpeditionaryCase.GridProperties.CellsV,
+                    CellsH = modConfig.ExpCaseGridProperties.CellsH,
+                    CellsV = modConfig.ExpCaseGridProperties.CellsV,
                     Filters = [new GridFilter { Filter = [.. idList] }],
                     IsSortingTable = false,
                     MaxCount = 0,
@@ -277,10 +262,10 @@ public class OtherItemsGenerator(
             "{CoreItem.ExpCase.Explanation}",
             new TemplateItemProperties
             {
-                Width = modConfig.VariantCores.ExpeditionaryCase.Properties.Width,
-                Height = modConfig.VariantCores.ExpeditionaryCase.Properties.Height,
+                Width = modConfig.ExpCaseProperties.Width,
+                Height = modConfig.ExpCaseProperties.Height,
                 Grids = newGrids,
-                Weight = modConfig.VariantCores.ExpeditionaryCase.Properties.Weight
+                Weight = modConfig.ExpCaseProperties.Weight
             }
         );
         if (newId is not null)
@@ -291,8 +276,7 @@ public class OtherItemsGenerator(
 
     private void GenerateCoreCase()
     {
-        var priceCoreId = customSlotsChanger.GetItemFromString($"{modConfig.VariantCores.CarryCase.PriceCoreQuality} Quality Variant Core");
-        var handbookPrice = priceCoreId == null ? modConfig.VariantCores.General.Price["Baseline"] * modConfig.VariantCores.CarryCase.PriceCoreAmount : modConfig.VariantCores.General.Price[modConfig.VariantCores.CarryCase.PriceCoreQuality] * modConfig.VariantCores.CarryCase.PriceCoreAmount;
+        var handbookPrice = GetHandbookPrice(modConfig.CarryCaseBarter, modConfig.CarryCaseHandbookPriceRoubles);
         var variant = new VariantConfiguration
         {
             Description = "{CoreItem.CarryCase.Description}",
@@ -301,23 +285,11 @@ public class OtherItemsGenerator(
             HandbookPriceRoubles = handbookPrice,
             Rarity = "Unknown",
             VariantType = "Unknown",
-            Barter = modConfig.VariantCores.CarryCase.Barter
+            Barter = cloner.Clone(modConfig.CarryCaseBarter)
         };
-        if (priceCoreId is not null)
-        {
-            variant.Barter.BarterPrice.Add(priceCoreId.Id, 30);
-        }
-        else
-        {
-            variant.Barter.BarterPrice.Add("MONEY_ROUBLES", handbookPrice);
-        }
-        if (!modConfig.VariantCoresEnabled)
-        {
-            variant.Barter.LoyalLevel = 0;
-        }
 
         var newGrids = new List<Grid>();
-        var storageSizes = modConfig.VariantCores.CarryCase.GridTypesWidth;
+        var storageSizes = modConfig.CarryCaseGridTypesWidth;
         foreach (var (type, idList) in modDataStorage.CoresByType)
         {
             Grid columnCaseGrid = new()
@@ -329,7 +301,7 @@ public class OtherItemsGenerator(
                 Properties = new()
                 {
                     CellsH = storageSizes[type],
-                    CellsV = modConfig.VariantCores.CarryCase.GridHeight,
+                    CellsV = modConfig.CarryCaseGridHeight,
                     Filters = [new GridFilter { Filter = [.. idList] }],
                     IsSortingTable = false,
                     MaxCount = 0,
@@ -351,8 +323,8 @@ public class OtherItemsGenerator(
             "{CoreItem.CarryCase.Explanation}",
             new TemplateItemProperties
             {
-                Width = modConfig.VariantCores.CarryCase.Properties.Width,
-                Height = modConfig.VariantCores.CarryCase.Properties.Height,
+                Width = modConfig.CarryCaseProperties.Width,
+                Height = modConfig.CarryCaseProperties.Height,
                 Grids = newGrids
             }
         );
@@ -364,21 +336,14 @@ public class OtherItemsGenerator(
         if (unknownPackageOverride is not null)
         {
             unknownPackageOverride.Ergonomics = 0;
-            unknownPackageOverride.Width = modConfig.VariantCores.UnknownPackage.Properties.Width;
-            unknownPackageOverride.Height = modConfig.VariantCores.UnknownPackage.Properties.Height;
+            unknownPackageOverride.Width = modConfig.UnknownPackageProperties.Width;
+            unknownPackageOverride.Height = modConfig.UnknownPackageProperties.Height;
             unknownPackageOverride.StackMaxSize = 1;
-            unknownPackageOverride.Weight = modConfig.VariantCores.UnknownPackage.Properties.Weight;
+            unknownPackageOverride.Weight = modConfig.UnknownPackageProperties.Weight;
 
-            var barter = modConfig.VariantCores.UnknownPackage.Barter;
-            if (modConfig.VariantCoresEnabled)
-            {
-                barter.BarterPrice.Add("MONEY_ROUBLES", modConfig.VariantCores.UnknownPackage.PriceInRoubles);
-            }
-            else
-            {
-                barter.LoyalLevel = 0;
-            }
-            customLocales.RegisterTag("UPackage.CoresReceived", modConfig.VariantCores.UnknownPackage.CoresReceived.ToString());
+            var barter = cloner.Clone(modConfig.UnknownPackageBarter)!;
+            if (!modConfig.UnknownPackageEnabled) barter.LoyalLevel = 0;
+            customLocales.RegisterTag("UPackage.CoresReceived", modConfig.UnknownPackageCoresReceived.ToString());
             customLocales.RegisterTag("UPackage.Lootpool", randomBoxesHelper.CreateUnknownPackageLootpool());
             var newId = itemGenerator.GenerateItem(
                 $"Unknown Variant Weapon Core Package",
@@ -388,7 +353,7 @@ public class OtherItemsGenerator(
                     Description = "{CoreItem.UPackage.Description}",
                     ShortName = "{CoreItem.UPackage.ShortName}",
                     ItemTplToClone = "6489b2b131a2135f0d7d0fcb",
-                    HandbookPriceRoubles = modConfig.VariantCores.UnknownPackage.PriceInRoubles,
+                    HandbookPriceRoubles = GetHandbookPrice(barter, 250000),
                     Barter = barter,
                     Rarity = "Unknown",
                     VariantType = "Unknown"
@@ -402,4 +367,12 @@ public class OtherItemsGenerator(
             randomBoxesHelper.UnknownPackageId = newId;
         }
     }
+
+    private double GetHandbookPrice(CustomBarterConfig barter, int fallback)
+        => HandbookPriceCalculator.Calculate(barter.BarterPrice, fallback, key =>
+        {
+            var id = customSlotsChanger.GetItemFromString(key)?.Id;
+            return id is not null && modDataStorage.CoreHandbookPrices.TryGetValue(id, out var price)
+                ? price : null;
+        });
 }

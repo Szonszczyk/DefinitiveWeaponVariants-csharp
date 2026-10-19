@@ -32,32 +32,29 @@ public sealed class WeightedAssortService(
     private const string Hideout = "hideout";
     private readonly Dictionary<MongoId, TraderPoolState> poolStates = [];
 
-    public void InitializeConfiguredTraders()
+    public void InitializeConfiguredTraders(MongoId merchantId)
     {
-        if (!config.Trader.Enabled)
+        var rule = new TraderRule
         {
-            logger.Info("Random assort mod is disabled by configuration.");
-            return;
+            TraderId = merchantId,
+            DynamicOfferCount = config.TraderDynamicOfferCount,
+            RefreshSeconds = config.TraderRefreshSeconds
+        };
+        try
+        {
+            InitializeTrader(rule);
         }
-
-        foreach (var rule in config.Trader.Traders.Where(rule => rule.Enabled))
+        catch (Exception exception)
         {
-            try
-            {
-                InitializeTrader(rule);
-            }
-            catch (Exception exception)
-            {
-                logger.Error($"Random assort rule for trader '{rule.TraderId}' was disabled: {exception.Message}");
-                if (rule.StrictValidation) throw;
-            }
+            logger.Error($"Random assort rule for trader '{rule.TraderId}' was disabled: {exception.Message}");
         }
     }
 
     public void RefreshExpiredTraders()
-    {
-        var now = timeUtil.GetTimeStamp();
+        => RefreshExpiredTraders(timeUtil.GetTimeStamp());
 
+    private void RefreshExpiredTraders(long now)
+    {
         foreach (var (traderId, state) in poolStates.ToArray())
         {
             try
@@ -69,12 +66,20 @@ public sealed class WeightedAssortService(
                     continue;
                 }
 
-                var expiredTimestamp = trader.Base.NextResupply;
-                if (expiredTimestamp is null || expiredTimestamp > now || state.LastHandledExpiredTimestamp == expiredTimestamp) continue;
+                // SPT may have advanced Base.NextResupply before this callback.
+                // Keep our previous deadline until that rotation has been installed.
+                var expiredTimestamp = state.NextRotationTimestamp;
+                if (expiredTimestamp is not null && expiredTimestamp <= now
+                    && state.LastHandledExpiredTimestamp != expiredTimestamp)
+                {
+                    InstallRotation(trader, state, isRefresh: true);
+                    state.LastHandledExpiredTimestamp = expiredTimestamp;
+                }
 
-                InstallRotation(trader, state, isRefresh: true);
-                state.LastHandledExpiredTimestamp = expiredTimestamp;
-                trader.Base.RefreshTraderRagfairOffers = true;
+                // When called before SPT, leave its expired timestamp untouched so
+                // the normal restock and per-profile purchase-limit reset still run.
+                if (trader.Base.NextResupply is { } next && next > now)
+                    state.NextRotationTimestamp = next;
             }
             catch (Exception exception)
             {
@@ -119,6 +124,7 @@ public sealed class WeightedAssortService(
         var state = CapturePool(rule, trader);
         EnsureRefreshInterval(rule, traderId);
         trader.Base.NextResupply = (int)traderHelper.GetNextUpdateTimestamp(traderId);
+        state.NextRotationTimestamp = trader.Base.NextResupply;
         InstallRotation(trader, state, isRefresh: false);
         poolStates.Add(traderId, state);
 

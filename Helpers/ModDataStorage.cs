@@ -36,6 +36,7 @@ public class ModDataStorage(
 
     // Database Quality <> Core ID
     public Dictionary<string, string> CoreIDsByQuality { get; private set; } = [];
+    public Dictionary<string, double> CoreHandbookPrices { get; } = [];
 
     // Database of items in preset 
     public Dictionary<string, List<List<Item>>> VariantPresets { get; private set; } = [];

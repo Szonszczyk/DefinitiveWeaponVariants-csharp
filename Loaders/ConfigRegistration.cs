@@ -1,92 +1,99 @@
 using DefinitiveWeaponVariants.Models;
 using SPTarkov.Server.Core.DI;
 using System.Reflection;
+using System.Text;
 using System.Text.Json;
+using System.Text.Json.Nodes;
+using System.Text.Json.Serialization.Metadata;
 
 namespace DefinitiveWeaponVariants.Loaders;
 
-/// <summary>
-/// Loads the mod configuration before SPT builds its dependency-injection container.
-/// </summary>
+/// <summary>Loads configuration before SPT builds its dependency-injection container.</summary>
 public class ConfigRegistration : IOnDIConstruct
 {
+    public const string ConfigFileComment = "// You can edit this config when server is running in your browser at: https://127.0.0.1:6969/definitive-weapon-variants/config";
+
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
         AllowTrailingCommas = true,
-        // TemplateItemProperties contains JSON members that differ only by casing.
         PropertyNameCaseInsensitive = false,
-        ReadCommentHandling = JsonCommentHandling.Skip
+        ReadCommentHandling = JsonCommentHandling.Skip,
+        WriteIndented = true
     };
+
+    private static readonly JsonSerializerOptions DefaultWriteOptions = new(JsonOptions)
+    {
+        TypeInfoResolver = new DefaultJsonTypeInfoResolver
+        {
+            Modifiers = { HideInternalTradeSettings }
+        }
+    };
+
+    public static JsonObject CreateDefaultValues() => JsonSerializer.SerializeToNode(new ConfigData(), DefaultWriteOptions)!.AsObject();
+
+    private static void HideInternalTradeSettings(JsonTypeInfo type)
+    {
+        if (type.Type != typeof(CustomBarterConfig)) return;
+        for (int i = type.Properties.Count - 1; i >= 0; i--)
+        {
+            var property = type.Properties[i];
+            if (property.Name is nameof(CustomBarterConfig.TraderId) or nameof(CustomBarterConfig.RandomAssortWeight))
+                type.Properties.RemoveAt(i);
+            else if (property.Name == nameof(CustomBarterConfig.BarterPrice))
+                property.ShouldSerialize = (_, value) => value is Dictionary<string, int> { Count: > 0 };
+            else if (property.Name == nameof(CustomBarterConfig.UnlimitedCount))
+                property.ShouldSerialize = (_, value) => value is false;
+            else if (property.Name == nameof(CustomBarterConfig.StackObjectsCount))
+                property.ShouldSerialize = (_, value) => value is double count && count != 99;
+        }
+    }
 
     public static async Task OnDIConstructAsync(IServiceCollection serviceCollection, CancellationToken cancellationToken)
     {
-        ConfigData config = await LoadConfigFromDiskAsync(cancellationToken);
+        string modFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
+            ?? throw new InvalidOperationException("Could not determine the mod folder.");
+        var config = await LoadConfigAsync(Path.Combine(modFolder, "config"), cancellationToken);
         serviceCollection.AddSingleton(config);
     }
 
-    private static async Task<ConfigData> LoadConfigFromDiskAsync(CancellationToken cancellationToken)
+    private static async Task<ConfigData> LoadConfigAsync(string configDirectory, CancellationToken cancellationToken)
     {
-        string modFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
-            ?? throw new InvalidOperationException("Could not determine the mod folder.");
-        string configDirectory = Path.Combine(modFolder, "config");
-        string configPath = Path.Combine(configDirectory, "config.jsonc");
-        string defaultConfigPath = Path.Combine(configDirectory, "defaultConfig.jsonc");
-
+        var configPath = Path.Combine(configDirectory, "config.jsonc");
         try
         {
+            cancellationToken.ThrowIfCancellationRequested();
             if (!File.Exists(configPath))
             {
-                if (!File.Exists(defaultConfigPath))
+                Directory.CreateDirectory(configDirectory);
+                var temporary = Path.Combine(configDirectory, $".config.{Guid.NewGuid():N}.tmp");
+                try
                 {
-                    Console.WriteLine($"[DefinitiveWeaponVariants] Neither config.jsonc nor defaultConfig.jsonc was found in {configDirectory}. Using built-in defaults.");
-                    return new ConfigData();
+                    var text = ConfigFileComment + Environment.NewLine
+                        + CreateDefaultValues().ToJsonString(JsonOptions) + Environment.NewLine;
+                    await File.WriteAllTextAsync(temporary, text, new UTF8Encoding(false), cancellationToken);
+                    cancellationToken.ThrowIfCancellationRequested();
+                    try { File.Move(temporary, configPath); }
+                    catch (IOException) when (File.Exists(configPath)) { /* Another writer created the config first. */ }
                 }
-
-                Console.WriteLine("[DefinitiveWeaponVariants] Config file not found. Copying defaultConfig.jsonc to config.jsonc...");
-                File.Copy(defaultConfigPath, configPath);
+                finally { if (File.Exists(temporary)) File.Delete(temporary); }
+                Console.WriteLine("[DefinitiveWeaponVariants] Created config.jsonc from built-in defaults.");
             }
 
-            ConfigData? config = await DeserializeConfigAsync(configPath, cancellationToken);
-            if (config is not null)
-                return config;
-
-            Console.WriteLine("[DefinitiveWeaponVariants] Config file is empty. Using built-in defaults.");
-            return new ConfigData();
+            var config = await DeserializeConfigAsync(configPath, cancellationToken);
+            if (config is not null) return config;
+            Console.WriteLine("[DefinitiveWeaponVariants] Config is null. Using built-in defaults.");
         }
-        catch (OperationCanceledException)
+        catch (OperationCanceledException) { throw; }
+        catch (Exception exception)
         {
-            throw;
+            Console.WriteLine($"[DefinitiveWeaponVariants] Failed to load config: {exception.Message}. Using built-in defaults; the existing file was kept.");
         }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"[DefinitiveWeaponVariants] Failed to load config: {ex.Message}");
-
-            try
-            {
-                ConfigData? defaultConfig = await DeserializeConfigAsync(defaultConfigPath, cancellationToken);
-                if (defaultConfig is not null)
-                {
-                    Console.WriteLine("[DefinitiveWeaponVariants] Default config loaded successfully.");
-                    return defaultConfig;
-                }
-            }
-            catch (OperationCanceledException)
-            {
-                throw;
-            }
-            catch (Exception defaultConfigException)
-            {
-                Console.WriteLine($"[DefinitiveWeaponVariants] Failed to load default config: {defaultConfigException.Message}");
-            }
-
-            Console.WriteLine("[DefinitiveWeaponVariants] Using built-in config defaults. Consider reinstalling the mod.");
-            return new ConfigData();
-        }
+        return new ConfigData();
     }
 
     private static async Task<ConfigData?> DeserializeConfigAsync(string path, CancellationToken cancellationToken)
     {
-        await using FileStream stream = File.OpenRead(path);
+        await using var stream = File.OpenRead(path);
         return await JsonSerializer.DeserializeAsync<ConfigData>(stream, JsonOptions, cancellationToken);
     }
 }
