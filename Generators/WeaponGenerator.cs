@@ -37,7 +37,8 @@ public class WeaponGenerator(
 {
     private readonly ConfigData modConfig = config;
     private readonly Dictionary<string, string> weaponDescriptions = [];
-    private readonly Dictionary<string, List<string>> weaponListForKillQuests = [];
+    private readonly Dictionary<string, HashSet<string>> weaponListForKillQuests = [];
+    private readonly HashSet<string> wildcardWeaponListForKillQuests = [];
 
     public void GenerateWeaponsFromVariantConfig()
     {
@@ -58,14 +59,22 @@ public class WeaponGenerator(
                     var internalShortname = modDatabaseLoader.DbShortnames.FirstOrDefault(x => x.Value == copiedWeaponId).Key;
                     if (internalShortname == null) LocaleEn.TryGetValue($"{copiedWeaponId} ShortName", out internalShortname);
                     internalShortname ??= copiedWeaponId;
-
+                    var newWeaponId = idDatabaseManager.GetCustomId($"{internalShortname}{variant.ShortName}:ID");
                     templateTable.Items.TryGetValue(copiedWeaponId, out var copiedItem);
                     if (copiedItem is null) continue;
                     HandbookItem? copiedItemHandbook = templateTable.Handbook.Items.Find(t => t.Id == copiedWeaponId);
                     var weaponCountsToward = $"{{{copiedWeaponId} Name}}";
-                    if (variant.WeaponIdToUseAs != null && customSlotsChanger.GetItemFromString(variant.WeaponIdToUseAs) != null)
+                    if (variant.WeaponIdToUseAs != null)
                     {
-                        weaponCountsToward = $"{{{customSlotsChanger.GetItemFromString(variant.WeaponIdToUseAs)?.Id} Name}}";
+                        if (variant.WeaponIdToUseAs == "ALL")
+                        {
+                            weaponCountsToward = "{Desc.WeaponIdToUseAs.Wildcard}";
+                            wildcardWeaponListForKillQuests.Add(newWeaponId);
+                        } else {
+                            var weaponTplCountsToward = customSlotsChanger.GetItemFromString(variant.WeaponIdToUseAs);
+                            if (weaponTplCountsToward != null) weaponCountsToward = $"{{{weaponTplCountsToward.Id} Name}}";
+                            else logger.Error($"WeaponIdToUseAs '{variant.WeaponIdToUseAs}' in {internalShortname} is incorrect. Only valid weapon IDs and wildcard 'ALL' can be used here");
+                        }
                     }
                     double? price = copiedItemHandbook!.Price;
                     var newWeapon = new NewItemFromCloneDetails
@@ -74,7 +83,7 @@ public class WeaponGenerator(
                         ItemTplToClone = copiedWeaponId,
                         ParentId = variant.Changes?.Parent != null ? variant.Changes.Parent : copiedItem.Parent,
                         HandbookParentId = copiedItemHandbook!.ParentId,
-                        NewId = idDatabaseManager.GetCustomId($"{internalShortname}{variant.ShortName}:ID"),
+                        NewId = newWeaponId,
                         FleaPriceRoubles = Math.Ceiling((double)price! * rarity.PriceMultiplier * 2),
                         HandbookPriceRoubles = Math.Ceiling((double)price * rarity.PriceMultiplier),
                         OverrideProperties = new TemplateItemProperties
@@ -519,15 +528,16 @@ public class WeaponGenerator(
                 foreach (var affCondition in affConditions)
                 {
                     var weaponsInQuest = affCondition.Weapon;
-                    if (weaponsInQuest is null) continue;
-                    List<string> mongoIds = [.. weaponsInQuest];
+                    if (weaponsInQuest is null || weaponsInQuest.Count == 0) continue;
+                    HashSet<string> mongoIds = [.. weaponsInQuest];
                     foreach (var weaponId in weaponsInQuest)
                     {
                         if (weaponListForKillQuests.TryGetValue(weaponId, out var weaponList))
                         {
-                            mongoIds.AddRange(weaponList);
+                            mongoIds.UnionWith(weaponList);
                         }
                     }
+                    mongoIds.UnionWith(wildcardWeaponListForKillQuests);
                     affCondition.Weapon = [.. mongoIds.Distinct()];
                 }
             }

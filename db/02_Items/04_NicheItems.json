@@ -51,5 +51,18 @@
     "HandbookPriceRoubles": 11234,
     "VariantType": "Railgun",
     "Rarity": "Niche"
+  },
+  "Tiny_PistolGrip": {
+    "ItemTplToClone": "5d025cc1d7ad1a53845279ef",
+    "Properties": {
+      "ExtraSizeDown": -1,
+      "ExtraSizeLeft": -1,
+      "ExtraSizeRight": 0,
+      "ExtraSizeUp": 0,
+      "ExtraSizeForceAdd": true
+    },
+    "HandbookPriceRoubles": 22334,
+    "VariantType": "Tiny",
+    "Rarity": "Niche"
   }
 }

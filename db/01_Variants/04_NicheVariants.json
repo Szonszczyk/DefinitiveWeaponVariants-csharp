@@ -144,5 +144,89 @@
       "TRG M10"
     ],
     "Rarity": "Niche"
+  },
+  "Universal Adapter": {
+    "ShortName": "Uni. Adapter",
+    "Changes": {
+      "Slots": {
+        "mod_pistol_grip": { "Filter": [ "55818a684bdc2ddd698b456d" ] },
+        "mod_muzzle": { "Filter": [ "550aa4cd4bdc2dd8348b456c", "550aa4bf4bdc2dd6348b456b" ] },
+        "mod_stock": { "Filter": [ "55818a594bdc2db9688b456a" ] }
+      }
+    },
+    "IndividualChanges": {
+      "M4A1": {
+        "Slots": {
+          "mod_pistol_grip": { "Filter": [ "5c0e2ff6d174af02a1659d4a", "55818a684bdc2ddd698b456d" ] }
+        }
+      },
+      "Mk47": {
+        "Slots": {
+          "mod_pistol_grip": { "Filter": [ "55d4b9964bdc2d1d4e8b456e", "55818a684bdc2ddd698b456d" ] }
+        }
+      },
+      "AK-12": {
+        "Slots": {
+          "mod_pistol_grip": { "Filter": [ "5f6341043ada5942720e2dc5", "55818a684bdc2ddd698b456d" ] },
+          "mod_muzzle": { "Filter": [ "649ec2af961514b22506b10f", "550aa4cd4bdc2dd8348b456c", "550aa4bf4bdc2dd6348b456b" ] }
+        }
+      },
+      "UZI PRO SMG": {
+        "Slots": {
+          "mod_stock": { "Filter": [ "668032ba74b8f2050c0b917d", "55818a594bdc2db9688b456a" ] }
+        }
+      },
+      "OP-SKS": {
+        "Slots": {
+          "mod_stock": { "Filter": [ "587e0531245977466077a0f7", "55818a594bdc2db9688b456a" ] }
+        }
+      },
+      "SR-3M": {
+        "Slots": {
+          "mod_pistol_grip": { "Filter": [ "57c44fa82459772d2d75e415", "55818a684bdc2ddd698b456d" ] },
+          "mod_muzzle": { "Filter": [ "65144ff50e00edc79406836f", "550aa4cd4bdc2dd8348b456c", "550aa4bf4bdc2dd6348b456b" ] },
+          "mod_stock": { "Filter": [ "57c450252459772d28133253", "55818a594bdc2db9688b456a" ] }
+        }
+      }
+    },
+    "WeaponIdToUseAs": "ALL",
+    "Weapons": [
+      "M4A1",
+      "Mk47",
+      "AK-12",
+      "UZI PRO SMG",
+      "OP-SKS",
+      "SR-3M"
+    ],
+    "Rarity": "Niche"
+  },
+  "Tiny": {
+    "ShortName": "Tiny",
+    "Properties": {
+      "Width": 1,
+      "Height": 1
+    },
+    "Changes": {
+      "Slots": {
+        "mod_pistol_grip": { "Filter": [ "Tiny_PistolGrip" ] }
+      }
+    },
+    "IndividualChanges": {
+      "M3 Super 90": {
+        "Properties": {
+          "Height": 2
+        }
+      }
+    },
+    "Weapons": [
+      "TX-15 DML",
+      "M3 Super 90",
+      "MP-133",
+      "MDR 7.62x51",
+      "SPEAR 6.8",
+      "X-17",
+      "AK-74"
+    ],
+    "Rarity": "Niche"
   }
 }

@@ -88,7 +88,7 @@
 			},
 			"Slots": {
 				"mod_magazine": {
-					"Filter": [ "Blicky_SMUM" ]
+					"Filter": [ "Blicky_SMUM", "Blicky_SMUM_v2" ]
 				}
 			}
 		},

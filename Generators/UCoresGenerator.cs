@@ -52,7 +52,8 @@ public class UCoresGenerator(
                         ItemTplToClone = "58d2912286f7744e27117493",
                         HandbookPriceRoubles = config.VariantCoresPrice["Unique"] * 5,
                         Rarity = "Unknown",
-                        VariantType = "Unknown"
+                        VariantType = "Unknown",
+                        Changes = new() { Parent = "5448fe124bdc2da5018b4567" }
                     },
                     $"<b><dwv-gradient={themeConfig.Theme.Color1},{themeConfig.Theme.Color2}>{{UCore.{themeName}Theme.Name}} {{UCore.FullName}}: {{UCore.{internalName}.Name}}</dwv-gradient></b>",
                     "{UCore.Explanation}",

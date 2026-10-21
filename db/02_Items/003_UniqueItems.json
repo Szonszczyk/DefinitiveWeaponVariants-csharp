@@ -10,5 +10,50 @@
     "HandbookPriceRoubles": 99999,
     "VariantType": "Blicky >Neverending< Unique",
     "Rarity": "Unique"
+  },
+  "RPDN_Unique_Stock": {
+    "ItemTplToClone": "6513f1798cb24472490ee331",
+    "Properties": {
+      "ExtraSizeDown": -1,
+      "ExtraSizeLeft": 0,
+      "ExtraSizeRight": 0,
+      "ExtraSizeUp": 0,
+      "Width": 1,
+      "Height": 1,
+      "Weight": "-99%"
+    },
+    "HandbookPriceRoubles": 1000,
+    "VariantType": "RPDN >Cute< Unique",
+    "Rarity": "Unique"
+  },
+  "RPDN_Unique_Barrel": {
+    "ItemTplToClone": "6513eff1e06849f06c0957d4",
+    "Properties": {
+      "ExtraSizeDown": 0,
+      "ExtraSizeLeft": 0,
+      "ExtraSizeRight": 0,
+      "ExtraSizeUp": 0,
+      "Width": 1,
+      "Height": 1,
+      "Weight": "-99%"
+    },
+    "HandbookPriceRoubles": 1000,
+    "VariantType": "RPDN >Cute< Unique",
+    "Rarity": "Unique"
+  },
+  "RPDN_Unique_Handguard": {
+    "ItemTplToClone": "6513f05a94c72326990a3866",
+    "Properties": {
+      "ExtraSizeDown": 0,
+      "ExtraSizeLeft": 0,
+      "ExtraSizeRight": 0,
+      "ExtraSizeUp": 0,
+      "Width": 1,
+      "Height": 1,
+      "Weight": "-99%"
+    },
+    "HandbookPriceRoubles": 1000,
+    "VariantType": "RPDN >Cute< Unique",
+    "Rarity": "Unique"
   }
 }

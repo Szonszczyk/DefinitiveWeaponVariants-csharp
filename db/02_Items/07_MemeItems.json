@@ -63,5 +63,24 @@
     "HandbookPriceRoubles": 13000,
     "VariantType": "Desert",
     "Rarity": "Meme"
+  },
+  "DoubleBarrel_Barrel": {
+    "ItemTplToClone": "673cb551093e0ea7fd0b874a",
+    "Properties": {
+      "ConflictingItems": [],
+      "ExtraSizeLeft": 0,
+      "Ergonomics": -9
+    },
+    "Changes": {
+      "Slots": {
+        "mod_muzzle": {
+          "Filter": [ "555ef6e44bdc2de9068b457e" ],
+          "Required": true
+        }
+      }
+    },
+    "HandbookPriceRoubles": 6000,
+    "VariantType": "Double Barrel",
+    "Rarity": "Meme"
   }
 }

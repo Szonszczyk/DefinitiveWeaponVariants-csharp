@@ -66,7 +66,8 @@ public class OtherItemsGenerator(
                 ItemTplToClone = "58d2912286f7744e27117493",
                 HandbookPriceRoubles = modConfig.VariantCoresPrice[quality] * modConfig.VCNormalPriceMultiplier,
                 Rarity = quality,
-                VariantType = quality
+                VariantType = quality,
+                Changes = new() { Parent = "5448fe124bdc2da5018b4567" }
             };
             if (enabled && modConfig.VCNormalBuyable)
             {
@@ -141,7 +142,8 @@ public class OtherItemsGenerator(
                 ItemTplToClone = "58d2912286f7744e27117493",
                 HandbookPriceRoubles = modConfig.VariantCoresPrice[quality] * modConfig.VCLockedPriceMultiplier,
                 Rarity = quality,
-                VariantType = quality
+                VariantType = quality,
+                Changes = new() { Parent = "5448fe124bdc2da5018b4567" }
             };
             var normalCoreId = idDatabaseManager.GetCustomId($"{quality} Quality Variant Core:ID");
             if (enabled && modConfig.VCLockedUpgradeBarter.LoyalLevel > 0)

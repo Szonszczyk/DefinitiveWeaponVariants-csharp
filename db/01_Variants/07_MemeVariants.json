@@ -321,5 +321,33 @@
       "PKP"
     ],
     "Rarity": "Meme"
+  },
+  "Double Barrel": {
+    "ShortName": "DB",
+    "Changes": {
+      "Slots": {
+        "mod_barrel": {
+          "Filter": [ "DoubleBarrel_Barrel" ],
+          "Required": true
+        },
+        "mod_muzzle": {
+          "Filter": [ "555ef6e44bdc2de9068b457e" ],
+          "Required": true
+        }
+      }
+    },
+    "Weapons": [
+      "RSASS",
+      "AKMS",
+      "AK-545",
+      "VPO-136 Vepr-KM",
+      "Mosin Infantry",
+      "SV-98",
+      "M700",
+      "AK-50",
+      "M870",
+      "P90"
+    ],
+    "Rarity": "Meme"
   }
 }
