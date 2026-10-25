@@ -32,6 +32,7 @@
 			"Saiga-12K FA",
 			"AK-50"
 		],
+		"ModWeapons": { "NL545 GP": "com.wtt.contentbackport" },
 		"Rarity": "Ultimate"
 	},
 	"Overclocked & Automatic": {
@@ -81,6 +82,7 @@
 			"PKP",
 			"RPD"
 		],
+		"ModWeapons": { "QBZ-191": "com.wtt.contentbackport" },
 		"Rarity": "Ultimate"
 	},
 	"Anti-materiel rifle": {
@@ -251,6 +253,7 @@
 			"HK 416A5",
 			"SPEAR 6.8"
 		],
+		"ModWeapons": { "NL545 DI": "com.wtt.contentbackport" },
 		"Rarity": "Ultimate"
 	},
 	"The Unheard Edition": {
@@ -289,6 +292,7 @@
 			"VSS Vintorez",
 			"AK-50"
 		],
+		"ModWeapons": { "TKPD": "com.wtt.contentbackport" },
 		"Rarity": "Ultimate"
 	},
 	"50Cal": {
@@ -319,6 +323,7 @@
 			"Sawed-off",
 			"FN40GL"
 		],
+		"ModWeapons": { "MXLR": "com.wtt.contentbackport" },
 		"Rarity": "Ultimate"
 	}
 }

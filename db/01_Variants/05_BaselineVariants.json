@@ -28,6 +28,7 @@
 			"RPDN",
 			"UZI PRO Pistol"
 		],
+		"ModWeapons": { "M16A2": "com.wtt.contentbackport" },
 		"Rarity": "Baseline"
 	},
 	"Modified": {
@@ -54,6 +55,7 @@
 			"RD-704",
 			"MP7A2"
 		],
+		"ModWeapons": { "NL545 DI": "com.wtt.contentbackport" },
 		"Rarity": "Baseline"
 	},
 	"SMG": {
@@ -100,6 +102,7 @@
 			"VPO-209",
 			"G36"
 		],
+		"ModWeapons": { "AS VAL MOD.4": "com.wtt.contentbackport" },
 		"Rarity": "Baseline"
 	},
 	"Close Quarters": {
@@ -299,6 +302,7 @@
 			"AK-101",
 			"Blicky"
 		],
+		"ModWeapons": { "NL545 DI": "com.wtt.contentbackport" },
 		"Rarity": "Baseline"
 	},
 	"Slav \"Thing\"": {
@@ -373,6 +377,7 @@
 			"AKM",
 			"VSS Vintorez"
 		],
+		"ModWeapons": { "AS VAL MOD.4": "com.wtt.contentbackport" },
 		"Rarity": "Baseline"
 	},
 	"Smoothbore": {
@@ -470,5 +475,30 @@
 			"USP .45"
 		],
 		"Rarity": "Baseline"
+	},
+	"Dragunov": {
+		"ShortName": "Dragunov",
+		"Changes": {
+			"Slots": {
+				"mod_magazine": {
+					"FromWeapons": [ "TKPD" ]
+				}
+			},
+			"Chambers": {
+				"FromWeapons": [ "TKPD" ]
+			}
+		},
+		"Weapons": [
+			"T-5000M",
+			"SV-98",
+			"DVL-10",
+			"M700",
+			"VPO-215",
+			"TRG M10",
+			"Mosin Infantry",
+			"Mosin Sniper"
+		],
+		"Rarity": "Baseline",
+		"ModGUIDs": [ "com.wtt.contentbackport" ]
 	}
 }

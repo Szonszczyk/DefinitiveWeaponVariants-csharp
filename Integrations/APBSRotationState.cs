@@ -103,7 +103,7 @@ internal static class APBSRotationPolicy
             baseline[tier].ExceptWith(committed.OwnedCompatibility[tier]);
             baseline[tier].ExceptWith(committed.OwnedTemporary[tier]);
             // Disabling the old generation option retains its existing restrictions.
-            desiredCompatibility[tier] = options.CompatibilityEnabled
+            desiredCompatibility[tier] = options.CompatibilityEnabled || options.RotationEnabled
                 ? new(compatibility[tier])
                 : committed.OwnedCompatibility[tier].Intersect(Tier(root, tier)).ToHashSet();
         }
@@ -166,6 +166,23 @@ internal static class APBSRotationPolicy
         return new(changed ? root.ToJsonString(APBSRotationStore.JsonOptions) + Environment.NewLine : currentJson,
             APBSRotationStore.Hash(currentJson), candidate, added, removed, changed, eligible.Count, temporary.Count);
     }
+
+    public static APBSRotationPlan Cleanup(string currentJson, HashSet<string> variantIds)
+    {
+        var root = Parse(currentJson);
+        var removed = APBSRotationState.EmptyTiers();
+        for (int tier = 1; tier <= 7; tier++)
+        {
+            removed[tier] = Tier(root, tier).Intersect(variantIds).ToHashSet(StringComparer.Ordinal);
+            if (removed[tier].Count == 0) continue;
+            var retained = ((JsonArray)root["weaponBlacklist"]![$"tier{tier}Blacklist"]!)
+                .Select(node => node!.GetValue<string>()).Where(id => !variantIds.Contains(id));
+            root["weaponBlacklist"]![$"tier{tier}Blacklist"] = new JsonArray(retained.Select(id => (JsonNode?)JsonValue.Create(id)).ToArray());
+        }
+        bool changed = removed.Values.Any(ids => ids.Count > 0);
+        return new(changed ? root.ToJsonString(APBSRotationStore.JsonOptions) + Environment.NewLine : currentJson,
+            APBSRotationStore.Hash(currentJson), new(), APBSRotationState.EmptyTiers(), removed, changed, 0, 0);
+    }
 }
 
 internal sealed class APBSRotationStore(string statePath, string blacklistPath, Func<DateTimeOffset>? completedClock = null)
@@ -175,6 +192,36 @@ internal sealed class APBSRotationStore(string statePath, string blacklistPath, 
     public bool Pending => Journal.Pending is not null;
     public static T Clone<T>(T value) => JsonSerializer.Deserialize<T>(JsonSerializer.Serialize(value, JsonOptions), JsonOptions)!;
     public static string Hash(string value) => Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(value)));
+
+    public async Task<int> CleanupAsync(HashSet<string> registry, Func<CancellationToken, Task<string>> refresh, CancellationToken token)
+    {
+        var ids = new HashSet<string>(registry, StringComparer.Ordinal);
+        void Remember(APBSRotationState state)
+        {
+            ids.UnionWith(state.Selected);
+            ids.UnionWith(state.LastSelected.Keys);
+            foreach (var tiers in new[] { state.OwnedPermanent, state.OwnedCompatibility, state.OwnedTemporary })
+                foreach (var entries in tiers.Values) ids.UnionWith(entries);
+        }
+        Remember(Journal.Committed);
+        if (Journal.Pending is { } pending)
+        {
+            Remember(pending.Candidate);
+            foreach (var tiers in new[] { pending.Added, pending.Removed })
+                foreach (var entries in tiers.Values) ids.UnionWith(entries);
+        }
+        var beforeRecovery = APBSRotationPolicy.Cleanup(await File.ReadAllTextAsync(blacklistPath, token), ids);
+        bool recover = Pending;
+        if (recover) await RecoverAsync(refresh, [], token);
+        var plan = recover
+            ? APBSRotationPolicy.Cleanup(await File.ReadAllTextAsync(blacklistPath, token), ids)
+            : beforeRecovery;
+        await ApplyAsync(plan, refresh, [], token);
+        // Keep the journal until cleanup and any required runtime reload are confirmed.
+        File.Delete(statePath);
+        Journal = new() { BlacklistPath = Journal.BlacklistPath };
+        return Enumerable.Range(1, 7).Sum(tier => beforeRecovery.Removed[tier].Union(plan.Removed[tier]).Count());
+    }
 
     public void Load()
     {
@@ -275,12 +322,12 @@ internal sealed class APBSRotationStore(string statePath, string blacklistPath, 
         finally { if (File.Exists(temporary)) File.Delete(temporary); }
     }
 
-    public async Task ApplyAsync(APBSRotationPlan plan, bool forceRefresh,
+    public async Task ApplyAsync(APBSRotationPlan plan,
         Func<CancellationToken, Task<string>> refresh, HashSet<string> permanentIds, CancellationToken token)
     {
         token.ThrowIfCancellationRequested();
         if (Pending) throw new InvalidOperationException("APBS pending recovery must finish before a new update.");
-        if (!plan.Changed && !forceRefresh)
+        if (!plan.Changed)
         {
             // No runtime mutation needed; the previous successfully applied pool is still valid.
             if (Hash(File.ReadAllText(blacklistPath)) != plan.BeforeHash)
@@ -348,7 +395,10 @@ internal sealed class APBSRotationStore(string statePath, string blacklistPath, 
                 // Newly written configured bans survive rollback. Keep ownership
                 // so changing the corresponding settings can remove them later.
                 restored.OwnedPermanent[tier].UnionWith(pending.Added[tier].Intersect(permanentIds));
-                root["weaponBlacklist"]![$"tier{tier}Blacklist"] = new JsonArray(current.Order(StringComparer.Ordinal)
+                var retained = ((JsonArray)root["weaponBlacklist"]![$"tier{tier}Blacklist"]!)
+                    .Select(node => node!.GetValue<string>()).Where(current.Contains).ToList();
+                retained.AddRange(current.Except(retained).Order(StringComparer.Ordinal));
+                root["weaponBlacklist"]![$"tier{tier}Blacklist"] = new JsonArray(retained
                     .Select(id => (JsonNode?)JsonValue.Create(id)).ToArray());
             }
             await AtomicWriteAsync(blacklistPath, root.ToJsonString(JsonOptions) + Environment.NewLine, hash, token);

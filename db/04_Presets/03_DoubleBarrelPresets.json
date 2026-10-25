@@ -1,0 +1,314 @@
+{
+  "RSASS DB": {
+    "_items": [
+      {
+        "_id": "6add399780b6efda50912034",
+        "_tpl": "6ad821099ff9f1d07447a444",
+        "upd": {
+          "Repairable": {
+            "Durability": 100,
+            "MaxDurability": 100
+          }
+        }
+      },
+      {
+        "_id": "6add399780b6efda50912035",
+        "_tpl": "5a339805c4a2826c6e06d73d",
+        "parentId": "6add399780b6efda50912034",
+        "slotId": "mod_pistol_grip"
+      },
+      {
+        "_id": "6add399780b6efda50912036",
+        "_tpl": "5a3501acc4a282000d72293a",
+        "parentId": "6add399780b6efda50912034",
+        "slotId": "mod_magazine"
+      },
+      {
+        "_id": "6add399780b6efda50912037",
+        "_tpl": "5a33ca0fc4a282000d72292f",
+        "parentId": "6add399780b6efda50912034",
+        "slotId": "mod_stock"
+      },
+      {
+        "_id": "6add399780b6efda50912038",
+        "_tpl": "5a329052c4a28200741e22d3",
+        "parentId": "6add399780b6efda50912034",
+        "slotId": "mod_handguard"
+      },
+      {
+        "_id": "6add399780b6efda50912039",
+        "_tpl": "6ad821089ff9f1d0744755dc",
+        "parentId": "6add399780b6efda50912034",
+        "slotId": "mod_barrel",
+        "desc": "DoubleBarrel_Barrel"
+      },
+      {
+        "_id": "6add399780b6efda5091203b",
+        "_tpl": "5a33cae9c4a28232980eb086",
+        "parentId": "6add399780b6efda50912037",
+        "slotId": "mod_stock"
+      },
+      {
+        "_id": "6add399780b6efda5091203c",
+        "_tpl": "630764fea987397c0816d219",
+        "parentId": "6add399780b6efda50912039",
+        "slotId": "mod_muzzle"
+      }
+    ]
+  },
+  "P90 DB": {
+    "_items": [
+      {
+        "_id": "6add39a780b6efda50912e7b",
+        "_tpl": "6ad821099ff9f1d07447a527",
+        "upd": {
+          "Repairable": {
+            "Durability": 100,
+            "MaxDurability": 100
+          }
+        }
+      },
+      {
+        "_id": "6add39a780b6efda50912e7c",
+        "_tpl": "5cc70093e4a949033c734312",
+        "parentId": "6add39a780b6efda50912e7b",
+        "slotId": "mod_magazine"
+      },
+      {
+        "_id": "6add39a780b6efda50912e7d",
+        "_tpl": "5cc700b9e4a949000f0f0f25",
+        "parentId": "6add39a780b6efda50912e7b",
+        "slotId": "mod_stock"
+      },
+      {
+        "_id": "6add39a780b6efda50912e7e",
+        "_tpl": "5cc70102e4a949035e43ba74",
+        "parentId": "6add39a780b6efda50912e7b",
+        "slotId": "mod_reciever"
+      },
+      {
+        "_id": "6add39a780b6efda50912e7f",
+        "_tpl": "6ad821089ff9f1d0744755dc",
+        "parentId": "6add39a780b6efda50912e7b",
+        "slotId": "mod_barrel",
+        "desc": "DoubleBarrel_Barrel"
+      },
+      {
+        "_id": "6add39a780b6efda50912e80",
+        "_tpl": "5cc6ea78e4a949000e1ea3c1",
+        "parentId": "6add39a780b6efda50912e7b",
+        "slotId": "mod_charge"
+      },
+      {
+        "_id": "6add39a780b6efda50912e82",
+        "_tpl": "5cc700cae4a949035e43ba72",
+        "parentId": "6add39a780b6efda50912e7d",
+        "slotId": "mod_stock_000"
+      },
+      {
+        "_id": "6add39a780b6efda50912e83",
+        "_tpl": "5cebec38d7f00c00110a652a",
+        "parentId": "6add39a780b6efda50912e7e",
+        "slotId": "mod_mount_000"
+      },
+      {
+        "_id": "6add39a780b6efda50912e84",
+        "_tpl": "5cc70146e4a949000d73bf6b",
+        "parentId": "6add39a780b6efda50912e7e",
+        "slotId": "mod_mount_001"
+      },
+      {
+        "_id": "6add39a780b6efda50912e85",
+        "_tpl": "5cc70146e4a949000d73bf6b",
+        "parentId": "6add39a780b6efda50912e7e",
+        "slotId": "mod_mount_002"
+      },
+      {
+        "_id": "6add39a780b6efda50912e86",
+        "_tpl": "630764fea987397c0816d219",
+        "parentId": "6add39a780b6efda50912e7f",
+        "slotId": "mod_muzzle"
+      }
+    ]
+  },
+  "M870 DB": {
+    "_items": [
+      {
+        "_id": "6add39b580b6efda50912e87",
+        "_tpl": "6ad821099ff9f1d07447a514",
+        "upd": {
+          "Repairable": {
+            "Durability": 100,
+            "MaxDurability": 100
+          }
+        }
+      },
+      {
+        "_id": "6add39b580b6efda50912e88",
+        "_tpl": "6ad821089ff9f1d0744755dc",
+        "parentId": "6add39b580b6efda50912e87",
+        "slotId": "mod_barrel",
+        "desc": "DoubleBarrel_Barrel"
+      },
+      {
+        "_id": "6add39b580b6efda50912e89",
+        "_tpl": "5a788089c5856700142fdd9c",
+        "parentId": "6add39b580b6efda50912e87",
+        "slotId": "mod_handguard"
+      },
+      {
+        "_id": "6add39b580b6efda50912e8a",
+        "_tpl": "5a7882dcc5856700177af662",
+        "parentId": "6add39b580b6efda50912e87",
+        "slotId": "mod_magazine"
+      },
+      {
+        "_id": "6add39b580b6efda50912e8b",
+        "_tpl": "5a7880d0c5856700142fdd9d",
+        "parentId": "6add39b580b6efda50912e87",
+        "slotId": "mod_stock"
+      },
+      {
+        "_id": "6add39b580b6efda50912e8d",
+        "_tpl": "630764fea987397c0816d219",
+        "parentId": "6add39b580b6efda50912e88",
+        "slotId": "mod_muzzle"
+      }
+    ]
+  },
+  "M700 DB": {
+    "_items": [
+      {
+        "_id": "6add39c380b6efda50912e8e",
+        "_tpl": "6ad821099ff9f1d07447a4e9",
+        "upd": {
+          "Repairable": {
+            "Durability": 100,
+            "MaxDurability": 100
+          }
+        }
+      },
+      {
+        "_id": "6add39c380b6efda50912e8f",
+        "_tpl": "5bfea7ad0db834001c38f1ee",
+        "parentId": "6add39c380b6efda50912e8e",
+        "slotId": "mod_magazine"
+      },
+      {
+        "_id": "6add39c380b6efda50912e90",
+        "_tpl": "5bfeb32b0db834001a6694d9",
+        "parentId": "6add39c380b6efda50912e8e",
+        "slotId": "mod_stock"
+      },
+      {
+        "_id": "6add39c380b6efda50912e91",
+        "_tpl": "6ad821089ff9f1d0744755dc",
+        "parentId": "6add39c380b6efda50912e8e",
+        "slotId": "mod_barrel",
+        "desc": "DoubleBarrel_Barrel"
+      },
+      {
+        "_id": "6add39c380b6efda50912e93",
+        "_tpl": "630764fea987397c0816d219",
+        "parentId": "6add39c380b6efda50912e91",
+        "slotId": "mod_muzzle"
+      }
+    ]
+  },
+  "Mosin Infantry DB": {
+    "_items": [
+      {
+        "_id": "6add39d680b6efda50913113",
+        "_tpl": "6ad821099ff9f1d07447a4be",
+        "upd": {
+          "Repairable": {
+            "Durability": 100,
+            "MaxDurability": 100
+          }
+        }
+      },
+      {
+        "_id": "6add39d680b6efda50913114",
+        "_tpl": "5ae0973a5acfc4001562206c",
+        "parentId": "6add39d680b6efda50913113",
+        "slotId": "mod_magazine"
+      },
+      {
+        "_id": "6add39d680b6efda50913115",
+        "_tpl": "5bfd35380db83400232fe5cc",
+        "parentId": "6add39d680b6efda50913113",
+        "slotId": "mod_stock"
+      },
+      {
+        "_id": "6add39d680b6efda50913116",
+        "_tpl": "6ad821089ff9f1d0744755dc",
+        "parentId": "6add39d680b6efda50913113",
+        "slotId": "mod_barrel",
+        "desc": "DoubleBarrel_Barrel"
+      },
+      {
+        "_id": "6add39d680b6efda50913118",
+        "_tpl": "630764fea987397c0816d219",
+        "parentId": "6add39d680b6efda50913116",
+        "slotId": "mod_muzzle"
+      }
+    ]
+  },
+  "AK-50 DB": {
+    "_items": [
+      {
+        "_id": "6add39e180b6efda50913119",
+        "_tpl": "6ad821099ff9f1d07447a4fa",
+        "upd": {
+          "Repairable": {
+            "Durability": 100,
+            "MaxDurability": 100
+          }
+        }
+      },
+      {
+        "_id": "6add39e180b6efda5091311a",
+        "_tpl": "6087e663132d4d12c81fd96b",
+        "parentId": "6add39e180b6efda50913119",
+        "slotId": "mod_pistol_grip"
+      },
+      {
+        "_id": "6add39e180b6efda5091311b",
+        "_tpl": "67d418d0ffb910d21f04720e",
+        "parentId": "6add39e180b6efda50913119",
+        "slotId": "mod_magazine"
+      },
+      {
+        "_id": "6add39e180b6efda5091311c",
+        "_tpl": "67d416e19bd76ef20f0e743b",
+        "parentId": "6add39e180b6efda50913119",
+        "slotId": "mod_reciever"
+      },
+      {
+        "_id": "6add39e180b6efda5091311d",
+        "_tpl": "6ad821089ff9f1d0744755dc",
+        "parentId": "6add39e180b6efda50913119",
+        "slotId": "mod_barrel",
+        "desc": "DoubleBarrel_Barrel"
+      },
+      {
+        "_id": "6add39e180b6efda5091311f",
+        "_tpl": "5aa66a9be5b5b0214e506e89",
+        "parentId": "6add39e180b6efda5091311c",
+        "slotId": "mod_scope"
+      },
+      {
+        "_id": "6add39e180b6efda50913120",
+        "_tpl": "630764fea987397c0816d219",
+        "parentId": "6add39e180b6efda5091311d",
+        "slotId": "mod_muzzle"
+      },
+      {
+        "_id": "6add39e180b6efda50913121",
+        "_tpl": "5aa66be6e5b5b0214e506e97",
+        "parentId": "6add39e180b6efda5091311f",
+        "slotId": "mod_scope"
+      }
+    ]
+  }
+}

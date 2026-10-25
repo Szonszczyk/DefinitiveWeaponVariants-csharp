@@ -58,6 +58,7 @@
       "TRG M10",
       "AK-50"
     ],
+    "ModWeapons": { "M16A2": "com.wtt.contentbackport" },
     "Rarity": "Niche"
   },
   "Bombardier": {
@@ -147,17 +148,10 @@
   },
   "Universal Adapter": {
     "ShortName": "Uni. Adapter",
-    "Changes": {
-      "Slots": {
-        "mod_pistol_grip": { "Filter": [ "55818a684bdc2ddd698b456d" ] },
-        "mod_muzzle": { "Filter": [ "550aa4cd4bdc2dd8348b456c", "550aa4bf4bdc2dd6348b456b" ] },
-        "mod_stock": { "Filter": [ "55818a594bdc2db9688b456a" ] }
-      }
-    },
     "IndividualChanges": {
       "M4A1": {
         "Slots": {
-          "mod_pistol_grip": { "Filter": [ "5c0e2ff6d174af02a1659d4a", "55818a684bdc2ddd698b456d" ] }
+          "mod_pistol_grip": { "Filter": [ "55d4b9964bdc2d1d4e8b456e", "55818a684bdc2ddd698b456d" ] }
         }
       },
       "Mk47": {

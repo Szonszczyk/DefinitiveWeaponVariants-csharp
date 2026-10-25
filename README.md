@@ -19,7 +19,7 @@ Whether you want an automatic version of your favorite weapon, click scavs to de
 
 ## Compatibility with SPT versions
 
-~4.1.2 - current version  
+~4.1.6 - current version  
 
 ## Variant Qualities
 
@@ -82,6 +82,17 @@ In short:
 - Normal Cores are mainly used for buying Blind Boxes
 - Locked Cores are designed for players who want to keep cores installed in their weapons
 - Universal Cores are intended to make your favourite variant weapons stronger
+
+## Custom slot pictures
+
+Place PNG or JPEG images in `db/10_Slots`, naming each file after the slot's `Name`.
+For example, `db/10_Slots/mod_core.png` supplies the picture for the `mod_core` slot.
+Match the slot name's case and use one image per slot. Restart the server and game after changing images.
+
+The DWV client plugin loads these pictures from `/definitiveweaponvariants/slot-images`
+and registers them with the game's slot sprite cache. Both the DWV server and client
+are required; WTT-CommonLib is not required for this feature. Existing registered
+sprites are kept if another mod has already supplied a picture for that slot.
 
 ## Thanks
 

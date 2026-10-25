@@ -12,7 +12,7 @@
 			},
 			"Slots": {
 				"mod_magazine": {
-					"Filter": [ "MXLR_Unique_mag" ]
+					"Filter": [ "MXLR_Unique_Mag" ]
 				},
 				"mod_mount": {
 					"Filter": []
@@ -22,9 +22,6 @@
 		"Weapons": [ "MXLR" ],
 		"Rarity": "Unique",
 		"ModGUIDs": [ "com.wtt.contentbackport" ]
-	},
-	"AS VAL Unique": {
-		"ModWeapons": { "AS VAL MOD.4": "com.wtt.contentbackport" }
 	},
 	"AK-308 Unique": {
 		"ShortName": ">Meta HMG<",

@@ -1,8 +1,9 @@
 using DefinitiveWeaponVariants.Constants;
 using DefinitiveWeaponVariants.CustomClasses;
 using DefinitiveWeaponVariants.Helpers;
-using DefinitiveWeaponVariants.Models;
 using DefinitiveWeaponVariants.Loaders;
+using DefinitiveWeaponVariants.Models;
+using MudBlazor;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
 using SPTarkov.Server.Core.Utils.Cloners;
@@ -86,8 +87,8 @@ public class OtherItemsGenerator(
             modDataStorage.CoreHandbookPrices[newId] = variant.HandbookPriceRoubles!.Value;
             modDataStorage.CoreIDsByQuality.Add(quality, newId);
             modDataStorage.AddCoreToStorage(newId, quality, "normal");
-            RarityData rarity = RaritySettings.GetByName(variant.Rarity);
-
+            var rarity = RaritySettings.GetByName(variant.Rarity);
+            modDataStorage.ColorsByItems.Add(newId, [rarity.Color, "#FFFFFF"]);
             randomBoxesHelper.UnknownPackageDisplayItems.Add(
                 newId,
                 new()
@@ -162,7 +163,8 @@ public class OtherItemsGenerator(
             if (newId is null) { continue; }
             modDataStorage.CoreHandbookPrices[newId] = variant.HandbookPriceRoubles!.Value;
             modDataStorage.AddCoreToStorage(newId, quality, "normal");
-
+            var rarity = RaritySettings.GetByName(variant.Rarity);
+            modDataStorage.ColorsByItems.Add(newId, [rarity.Color, "#000000"]);
             randomBoxesHelper.UnknownPackageItems.Add(
                 newId,
                 new()
@@ -218,6 +220,8 @@ public class OtherItemsGenerator(
             if (newId is null) { continue; }
             modDataStorage.AddCoreToStorage(newId, quality, "other");
             randomBoxesHelper.BlindBoxPerQuality.Add(quality, newId);
+            var rarity = RaritySettings.GetByName(variant.Rarity);
+            modDataStorage.ColorsByItems.Add(newId, [rarity.Color]);
         }
     }
     private void GenerateCoreHolder()
@@ -273,6 +277,8 @@ public class OtherItemsGenerator(
         if (newId is not null)
         {
             customItemCreator.AddItemToSecureContainer(newId);
+            var rarity = RaritySettings.GetByName(variant.Rarity);
+            modDataStorage.ColorsByItems.Add(newId, [rarity.Color]);
         }
     }
 
@@ -331,6 +337,8 @@ public class OtherItemsGenerator(
             }
         );
         if (newId is null) { return; }
+        var rarity = RaritySettings.GetByName(variant.Rarity);
+        modDataStorage.ColorsByItems.Add(newId, [rarity.Color]);
     }
     private void GenerateUnknownPackage()
     {
@@ -367,6 +375,8 @@ public class OtherItemsGenerator(
             if (newId is null) { return; }
             modDataStorage.AddCoreToStorage(newId, "Unknown", "other");
             randomBoxesHelper.UnknownPackageId = newId;
+            var rarity = RaritySettings.GetByName("Unknown");
+            modDataStorage.ColorsByItems.Add(newId, [rarity.Color]);
         }
     }
 

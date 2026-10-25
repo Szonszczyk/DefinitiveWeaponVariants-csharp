@@ -81,6 +81,7 @@
       "AK-545",
       "VPO-101 Vepr-Hunter"
     ],
+    "ModWeapons": { "TKPD": "com.wtt.contentbackport" },
     "Rarity": "Flawed"
   },
   "Slowed": {
@@ -118,6 +119,7 @@
       "MP7A1",
       "SR-3M"
     ],
+    "ModWeapons": { "NL545 GP": "com.wtt.contentbackport" },
     "Rarity": "Flawed"
   },
   "Quick-scope": {
@@ -146,7 +148,8 @@
       "TOZ-106": { "Slots": { "mod_mount_000": { "Filter": [ "Quick_TOZ_Dovetail" ] } } },
       "Mosin Infantry": { "Slots": { "mod_barrel": { "Filter": [ "Quick_MosinInf_Barrel" ] } } },
       "Mosin Sniper": { "Slots": { "mod_barrel": { "Filter": [ "Quick_MosinSniper_Barrel" ] } } },
-      "AK-50": { "Slots": { "mod_reciever": { "Filter": [ "Quick_AK50_Cover" ] } } }
+      "AK-50": { "Slots": { "mod_reciever": { "Filter": [ "Quick_AK50_Cover" ] } } },
+      "MXLR": { "Slots": { "mod_mount": { "Filter": [ "Quick_MXLR_Rail" ] } } }
     },
     "Weapons": [
       "Mosin Sniper",
@@ -159,6 +162,7 @@
       "TOZ-106",
       "AK-50"
     ],
+    "ModWeapons": { "MXLR": "com.wtt.contentbackport" },
     "Rarity": "Flawed"
   },
   "Converted": {
@@ -203,6 +207,7 @@
       "M45A1",
       "Desert Eagle L5 .50 AE"
     ],
+    "ModWeapons": { "M16A1": "com.wtt.contentbackport" },
     "Rarity": "Flawed"
   },
   "BFG-50": {

@@ -224,6 +224,7 @@
 			"AllowSlide": false
 		},
 		"Weapons": [ "AS VAL" ],
+		"ModWeapons": { "AS VAL MOD.4": "com.wtt.contentbackport" },
 		"Rarity": "Unique"
 	}
 }

@@ -148,6 +148,7 @@
 			"ASh-12",
 			"M60E6"
 		],
+		"ModWeapons": { "AK-308": "com.wtt.contentbackport", "QBZ-191": "com.wtt.contentbackport" },
 		"Rarity": "Superior"
 	},
 	"Handy": {
@@ -177,6 +178,7 @@
 			"TRG M10",
 			"AK-50"
 		],
+		"ModWeapons": { "MXLR": "com.wtt.contentbackport" },
 		"Rarity": "Superior"
 	},
 	"Karabin Spetsialniy": {
@@ -199,7 +201,7 @@
 		"IndividualChanges": {
 			"M3 Super 90": {
 				"Properties": {
-					"WeapFireType": [ "semiauto" ]
+					"WeapFireType": [ "semiauto", "single" ]
 				}
 			}
 		},
@@ -278,6 +280,7 @@
 			"M700",
 			"TRG M10"
 		],
+		"ModWeapons": { "M16A1": "com.wtt.contentbackport" },
 		"Rarity": "Superior"
 	},
 	"Anti-materiel revolver": {
@@ -341,6 +344,7 @@
 			"AK-101",
 			"AK-102"
 		],
+		"ModWeapons": { "Model 1": "com.wtt.contentbackport" },
 		"Rarity": "Superior"
 	},
 	"Off-Meta": {

@@ -1,6 +1,5 @@
 namespace DefinitiveWeaponVariants.Models;
 
-// Serialized property names and defaults follow config/configSchema.json.
 public class ConfigData
 {
     // Weapon Generation
@@ -119,7 +118,7 @@ public class ConfigData
         ["Flawed"] = 3000,
         ["Meme"] = 2000,
     };
-    public bool VariantCoreSlotRequired { get; set; } = false;
+    public bool VariantCoreSlotRequired { get; set; } = true;
 
     // Variant Cores - Normal
     public int VCNormalErgonomics { get; set; } = 5;
@@ -182,8 +181,8 @@ public class ConfigData
     public bool BlindBoxesEnabled { get; set; } = true;
     public InventoryItemProperties BlindBoxesProperties { get; set; } = new()
     {
-        Width = 2,
-        Height = 1,
+        Width = 3,
+        Height = 2,
         Weight = 1.2,
     };
     public int BlindBoxesCoresPrice { get; set; } = 3;
@@ -240,6 +239,7 @@ public class ConfigData
 
     // Integrations - APBS
     public bool EnableAPBSBlacklistGeneration { get; set; } = false;
+    public bool CleanupAPBSBlacklist { get; set; } = false;
     public string APBSFolderName { get; set; } = "acidphantasm-progressivebotsystem";
     public Dictionary<string, int> APBSTierConfig { get; set; } = new()
     {
@@ -252,7 +252,7 @@ public class ConfigData
         ["Flawed"] = 2,
         ["Meme"] = 1,
     };
-    public List<string> APBSBlacklistedVariantTypes { get; set; } = ["Rifle Grenade Launcher"];
+    public List<string> APBSBlacklistedVariantTypes { get; set; } = ["Rifle Grenade Launcher", "BFG-50"];
     public bool EnableAPBSWeaponRotation { get; set; } = false;
     public int APBSWeaponsAvailable { get; set; } = 75;
     public int APBSWeaponRotationIntervalMinutes { get; set; } = 60;

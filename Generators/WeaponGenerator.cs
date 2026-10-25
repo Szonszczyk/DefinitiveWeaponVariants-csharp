@@ -247,7 +247,8 @@ public class WeaponGenerator(
                                 }
                                 foreach (var preset in newWeaponConfig.Presets.Values)
                                 {
-                                    var item = preset.Items.FirstOrDefault(i => i.SlotId == slotName);
+                                    var rootId = preset.Items.First().Id.ToString();
+                                    var item = preset.Items.FirstOrDefault(i => i.ParentId == rootId && i.SlotId == slotName);
                                     if (item == null) continue;
                                     if (newFilter?.Count > 0)
                                     {

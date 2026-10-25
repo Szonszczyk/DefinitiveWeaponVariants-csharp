@@ -14,7 +14,6 @@
 
 	<ItemGroup>
 		<Content Update="wwwroot\**\*" CopyToOutputDirectory="PreserveNewest" />
-		<Compile Remove="Checks\**\*.cs" />
 	</ItemGroup>
 
   <ItemGroup>
@@ -63,6 +62,9 @@
 			</PackageDbFiles>
 			<PackageDbFiles Include="$(ProjectDir)db\07_Trader\**\*">
 				<PackageDirectory>07_Trader</PackageDirectory>
+			</PackageDbFiles>
+			<PackageDbFiles Include="$(ProjectDir)db\10_Slots\**\*">
+				<PackageDirectory>10_Slots</PackageDirectory>
 			</PackageDbFiles>
 			<PackageDbFiles Include="$(ProjectDir)db\99_Ids\**\*">
 				<PackageDirectory>99_Ids</PackageDirectory>

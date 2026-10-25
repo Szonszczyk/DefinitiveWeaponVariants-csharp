@@ -622,7 +622,7 @@
           "DisplayName": "Require an Installed Variant Core",
           "Description": "Require an installed Variant Core for a weapon variant to function. When enabled, cores cannot normally be removed during a raid. The UI Fixes mod can allow removal with \"Modify Weapons In Raid\" set to \"Always\" or \"With Multitool\". This setting also addresses missing cores on weapon variants equipped by APBS bots. Applies only when ModCoreSlotEnabled is enabled.",
           "Type": "bool",
-          "Default": false
+          "Default": true
         }
       ]
     },
@@ -985,7 +985,7 @@
               "DisplayName": "Inventory Width (Cells)",
               "Description": "Item width in inventory cells.",
               "Type": "int",
-              "Default": 2,
+              "Default": 3,
               "Minimum": 1,
               "Maximum": 10
             },
@@ -994,7 +994,7 @@
               "DisplayName": "Inventory Height (Cells)",
               "Description": "Item height in inventory cells.",
               "Type": "int",
-              "Default": 1,
+              "Default": 2,
               "Minimum": 1,
               "Maximum": 10
             },
@@ -1312,7 +1312,7 @@
         {
           "Property": "EnableAPBSBlacklistGeneration",
           "DisplayName": "Update APBS Quality-Tier Blacklists",
-          "Description": "Automatically create and update APBS blacklists to apply the minimum quality tiers configured below.",
+          "Description": "Automatically create and update APBS blacklists to apply the minimum quality tiers configured below. Weapon rotation always includes these rules, regardless of this toggle. When both generation and rotation are disabled, DWV cleans its weapon entries and removes an existing rotation state file.",
           "Type": "bool",
           "Default": false
         },
@@ -1326,7 +1326,7 @@
         {
           "Property": "APBSTierConfig",
           "DisplayName": "Minimum APBS Tier by Quality",
-          "Description": "Minimum APBS bot tier at which each variant quality can appear (1-7); 0 excludes that quality entirely. Minimum tiers 1-7 are applied when APBS blacklist generation is enabled. Quality exclusions set to 0 also apply during weapon rotation.",
+          "Description": "Minimum APBS bot tier at which each variant quality can appear (1-7); 0 excludes that quality entirely. These rules apply when either normal blacklist generation or weapon rotation is enabled.",
           "Type": "object",
           "Properties": [
             {
@@ -1398,10 +1398,11 @@
         {
           "Property": "APBSBlacklistedVariantTypes",
           "DisplayName": "Variant Types Excluded from APBS",
-          "Description": "Variant type names to exclude from APBS bots. Keep \"Rifle Grenade Launcher\" excluded because these variants can cause bot issues. These exclusions also apply during weapon rotation.",
+          "Description": "Variant type names to exclude from APBS bots. Keep variants already here always excluded because these variants can cause bot issues.",
           "Type": "list",
           "Default": [
-            "Rifle Grenade Launcher"
+            "Rifle Grenade Launcher",
+            "BFG-50"
           ],
           "ItemType": "string",
           "AllowMultiple": true
@@ -1409,7 +1410,7 @@
         {
           "Property": "EnableAPBSWeaponRotation",
           "DisplayName": "Enable Timed Weapon Rotation",
-          "Description": "Rotate the weapon variants available to APBS bots by temporarily blacklisting variants outside the selected pool. Reducing the number of available variants gives other weapons more opportunity to appear. Type exclusions and quality exclusions set to 0 still apply.",
+          "Description": "Rotate the weapon variants available to APBS bots by temporarily blacklisting variants outside the selected pool. Includes all normal quality-tier and type rules regardless of the normal-generation toggle. The first synchronization waits for a raid-start or bot-generation request instead of reloading APBS during server startup.",
           "Type": "bool",
           "Default": false
         },
@@ -1425,11 +1426,18 @@
         {
           "Property": "APBSWeaponRotationIntervalMinutes",
           "DisplayName": "Rotation Interval (Minutes)",
-          "Description": "Minimum time between rotations, in minutes. After this interval expires, rotation occurs on the next APBS bot generation or game start request.",
+          "Description": "Minimum time between rotations, in minutes. After this interval expires, rotation occurs on the next raid-start or bot-generation request, including player-scav generation. Time while the server is offline counts toward this interval.",
           "Type": "int",
           "Default": 60,
           "Minimum": 5,
           "Maximum": 120
+        },
+        {
+          "Property": "CleanupAPBSBlacklist",
+          "DisplayName": "Clean DWV Weapons from APBS Blacklists",
+          "Description": "Remove all known DWV weapon variant IDs from every APBS weapon blacklist tier, including manual DWV bans; preserve other mods' IDs and unrelated blacklist categories. Cleanup overrides normal generation and rotation for this server session and deletes the rotation state after success. Disable this option manually and restart to resume generation or rotation. If nothing is removed, DWV warns you to disable it; it cannot reset this option automatically.",
+          "Type": "bool",
+          "Default": false
         }
       ]
     },

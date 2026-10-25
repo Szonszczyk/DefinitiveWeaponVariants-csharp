@@ -1,4 +1,5 @@
 ﻿using DefinitiveWeaponVariants.Constants;
+using MudBlazor;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
@@ -46,6 +47,11 @@ public class ModDataStorage(
     public Dictionary<string, HashSet<string>> VariantIdsByQuality { get; private set; } = [];
     // Dictionary of variant id <=> variant type name
     public Dictionary<string, string> VariantTypes { get; private set; } = [];
+    // Dictionary of variant id <=> quality color
+    public Dictionary<string, string> ColorByVariant { get; private set; } = [];
+
+    // Dictionary of item id <=> List of colors 1-2
+    public Dictionary<string, List<string>> ColorsByItems { get; private set; } = [];
 
     public void AddVariantToStorage(string id, string quality, string variantType, Dictionary<MongoId, Preset> presets)
     {
@@ -53,16 +59,18 @@ public class ModDataStorage(
         {
             var presetItems = presets.First().Value.Items;
             var items = cloner.Clone(presetItems);
-            if (items?.Count == 0 || items is null) return;
-
-            if (VariantPresets.TryGetValue(quality, out var qualityWeapons))
-                qualityWeapons.Add(items);
-            else
-                VariantPresets.Add(quality, [items]);
+            if (items?.Count > 0 && items != null)
+            {
+                if (VariantPresets.TryGetValue(quality, out var qualityWeapons))
+                    qualityWeapons.Add(items);
+                else
+                    VariantPresets.Add(quality, [items]);
+            }
         }
-
         AllVariantIds.Add(id);
         VariantTypes.Add(id, variantType);
+        var rarity = RaritySettings.GetByName(quality);
+        ColorByVariant.Add(id, rarity.Color);
         if (VariantIdsByQuality.TryGetValue(quality, out var variantList))
             variantList.Add(id);
         else

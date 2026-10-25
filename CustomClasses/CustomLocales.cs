@@ -32,6 +32,7 @@ namespace DefinitiveWeaponVariants.CustomClasses
                 OriginalLocale.Add(lang, localeService.GetLocaleDb(lang));
                 newLocale.Add(lang, []);
             }
+            AddLocale("MOD_CORE", "MOD_CORE");
         }
 
         public void RegisterTag(string key, string value)

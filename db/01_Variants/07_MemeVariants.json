@@ -68,6 +68,7 @@
       "Saiga-12K FA",
       "X-17"
     ],
+    "ModWeapons": { "M16A2": "com.wtt.contentbackport" },
     "Rarity": "Meme"
   },
   "Experimental": {
@@ -99,6 +100,7 @@
       "Desert Eagle L6",
       "Velociraptor .300 BLK"
     ],
+    "ModWeapons": { "AK-308": "com.wtt.contentbackport" },
     "Rarity": "Meme"
   },
   "Lawn Mower": {
@@ -132,6 +134,7 @@
       "AA-12 Gen 2",
       "UZI PRO Pistol"
     ],
+    "ModWeapons": { "NL545 GP": "com.wtt.contentbackport" },
     "Rarity": "Meme"
   },
   "Pistol": {
@@ -261,6 +264,7 @@
       "AK-50",
       "Blicky"
     ],
+    "ModWeapons": { "Model 1": "com.wtt.contentbackport" },
     "Rarity": "Meme"
   },
   "Glass Cannon": {
@@ -331,7 +335,7 @@
           "Required": true
         },
         "mod_muzzle": {
-          "Filter": [ "555ef6e44bdc2de9068b457e" ],
+          "Filter": [ "630764fea987397c0816d219", "555ef6e44bdc2de9068b457e" ],
           "Required": true
         }
       }

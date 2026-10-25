@@ -83,6 +83,7 @@
 			"MP7A1",
 			"SR-3M"
 		],
+		"ModWeapons": { "M16A1": "com.wtt.contentbackport" },
 		"Rarity": "Advanced"
 	},
 	"Light Machine Gun": {
@@ -142,6 +143,7 @@
 			"RPK-16",
 			"Blicky"
 		],
+		"ModWeapons": { "AK-308": "com.wtt.contentbackport", "QBZ-191": "com.wtt.contentbackport" },
 		"Rarity": "Advanced"
 	},
 	"Shotgun": {
@@ -209,6 +211,7 @@
 			"MP5",
 			"VPO-101 Vepr-Hunter"
 		],
+		"ModWeapons": { "AS VAL MOD.4": "com.wtt.contentbackport" },
 		"Rarity": "Advanced"
 	},
 	"Hypersonic": {
@@ -232,6 +235,7 @@
 			"Mk 17",
 			"G36"
 		],
+		"ModWeapons": { "TKPD": "com.wtt.contentbackport" },
 		"Rarity": "Advanced"
 	},
 	"Sniper": {
@@ -285,6 +289,7 @@
 			"UZI",
 			"X-17"
 		],
+		"ModWeapons": { "Model 1": "com.wtt.contentbackport" },
 		"Rarity": "Advanced"
 	},
 	"No-Bolt": {
@@ -306,6 +311,7 @@
 			"VPO-215",
 			"TRG M10"
 		],
+		"ModWeapons": { "MXLR": "com.wtt.contentbackport" },
 		"Rarity": "Advanced"
 	},
 	"FURY": {

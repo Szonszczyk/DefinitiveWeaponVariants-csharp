@@ -17,7 +17,8 @@ public sealed class APBSHttpListener(SptHttpListener normal, APBSIntegration int
     {
         var path = context.Request.Path.Value;
         bool trigger = path is "/client/game/bot/generate" or "/client/match/local/start"
-            or "/client/game/profile/savage/regenerate";
+            or "/client/game/profile/savage/regenerate" or "/client/game/profile/create"
+            or "/client/match/local/end";
         return integration.HandleRequestAsync(() => normal.HandleAsync(sessionId, context, cancellationToken), trigger, cancellationToken);
     }
 }

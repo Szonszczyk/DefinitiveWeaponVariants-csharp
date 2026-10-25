@@ -53,7 +53,6 @@
     "VariantType": "Quick-scope",
     "Rarity": "Flawed"
   },
-
   "Quick_T5000M_mount": {
     "ItemTplToClone": "5df35e970b92095fd441e4d2",
     "Properties": {
@@ -253,6 +252,23 @@
     "HandbookPriceRoubles": 7643,
     "VariantType": "Quick-scope",
     "Rarity": "Flawed"
+  },
+  "Quick_MXLR_Rail": {
+    "ItemTplToClone": "67c541fcb032bbdb530201be",
+    "Properties": {
+      "Weight": 0
+    },
+    "Changes": {
+      "Slots": {
+        "mod_scope": {
+          "Filter": [ "Quick_Sight_1" ]
+        }
+      }
+    },
+    "HandbookPriceRoubles": 7260,
+    "VariantType": "Quick-scope",
+    "Rarity": "Flawed",
+    "ModGUIDs": [ "com.wtt.contentbackport" ]
   },
   "Converted_Mag_Shotgun": {
     "ItemTplToClone": "57838f0b2459774a256959b2",

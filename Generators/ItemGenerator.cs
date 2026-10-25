@@ -2,8 +2,8 @@
 using DefinitiveWeaponVariants.CustomClasses;
 using DefinitiveWeaponVariants.Helpers;
 using DefinitiveWeaponVariants.Integrations;
-using DefinitiveWeaponVariants.Models;
 using DefinitiveWeaponVariants.Loaders;
+using DefinitiveWeaponVariants.Models;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
@@ -29,19 +29,25 @@ public class ItemGenerator(
     public void GenerateAllItems()
     {
         // Generate all items from jsons
-        foreach (var (internalItemName, config) in modDatabaseLoader.DbItems)
+        foreach (var (internalItemName, itemConfig) in modDatabaseLoader.DbItems)
         {
-            config.ShortName = $"{{{internalItemName}.ShortName}}";
-            config.Description = $"{{{internalItemName}.Description}}";
-            GenerateItem(
-                internalItemName,
-                $"{{{internalItemName}.Name}}",
-                config,
-                $"{{Desc.PartOf}} <color={{rarity.Color}}><b>{{{internalItemName}.VariantType}} {{Other.Word.Variant}}</b></color>",
-                "{Desc.Item}",
-                new TemplateItemProperties(),
-                false
-            );
+            if (itemConfig is { ItemTplToClone: not null, HandbookPriceRoubles: not null, VariantType: not null, Rarity: not null } variant)
+            {
+                variant.ShortName = $"{{{internalItemName}.ShortName}}";
+                variant.Description = $"{{{internalItemName}.Description}}";
+                GenerateItem(
+                    internalItemName,
+                    $"{{{internalItemName}.Name}}",
+                    variant,
+                    $"{{Desc.PartOf}} <color={{rarity.Color}}><b>{{{internalItemName}.VariantType}} {{Other.Word.Variant}}</b></color>",
+                    "{Desc.Item}",
+                    new TemplateItemProperties(),
+                    false
+                );
+            } else
+            {
+                logger.Error($"One or more properties are missing for item '{internalItemName}'! Required are: ItemTplToClone, HandbookPriceRoubles, VariantType, Rarity");
+            }
         }
     }
 

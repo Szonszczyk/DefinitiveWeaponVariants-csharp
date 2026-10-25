@@ -1,3 +1,4 @@
+using DefinitiveWeaponVariants.Constants;
 using DefinitiveWeaponVariants.Helpers;
 using DefinitiveWeaponVariants.Loaders;
 using DefinitiveWeaponVariants.Models;
@@ -61,7 +62,7 @@ public class UCoresGenerator(
                 );
                 if (newId is null) { continue; }
                 modDataStorage.CoreHandbookPrices[newId] = config.VariantCoresPrice["Unique"] * 5;
-
+                modDataStorage.ColorsByItems.Add(newId, [themeConfig.Theme.Color2, themeConfig.Theme.Color1]);
                 modDataStorage.AddCoreToStorage(newId, "Unknown", "universal");
                 randomBoxesHelper.UnknownPackageItems.Add(newId, new() { Probability = 1, Quality = "universal" });
             }
