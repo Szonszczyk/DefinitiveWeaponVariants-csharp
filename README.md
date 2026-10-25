@@ -7,9 +7,9 @@ Whether you want an automatic version of your favorite weapon, click scavs to de
 
 ## Features
 
-- **687** new weapons
-- **58** different variant types, each including their own flavour text and description
-- **36** special Unique weapons with their own presets
+- **729** new weapons
+- **63** different variant types, each including their own flavour text and description
+- **43** special Unique weapons with their own presets
 - **8** different qualities, each identified by color-coded names and backgrounds
 - **22** special currency of 4 types that can improve your weapon or/and be used to buy Blind Boxes containing random variants
 - Easily manipulate each variant as you see fit and add new weapons to variant types, even from mods
