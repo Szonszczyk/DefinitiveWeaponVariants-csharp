@@ -94,6 +94,21 @@ and registers them with the game's slot sprite cache. Both the DWV server and cl
 are required; WTT-CommonLib is not required for this feature. Existing registered
 sprites are kept if another mod has already supplied a picture for that slot.
 
+## Building the distribution ZIP
+
+Building the server project also builds the DWV client in the same configuration
+and creates `DefinitiveWeaponVariants.zip` containing both mods:
+
+- `SPT_Runtime/user/mods/DefinitiveWeaponVariants/` contains the server mod.
+- `BepInEx/plugins/DefinitiveWeaponVariants.Client.dll` contains the client plugin.
+
+The client project defaults to
+`../../SPT 4.1 Mods/DefinitiveWeaponVariants-client/DefinitiveWeaponVariants.Client.csproj`.
+For a different checkout location, pass `-p:ClientProjectPath="path/to/DefinitiveWeaponVariants.Client.csproj"`
+to `dotnet build`. The client uses its configured `SptRoot` for game references;
+packaging does not deploy the client to the game. Use `-p:SkipModPackaging=true`
+to build only the server without creating the ZIP or building the client.
+
 ## Thanks
 
 Special thanks to Amidorak, as about half of overall Variant Weapon were suggested by him.\

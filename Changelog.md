@@ -1,68 +1,68 @@
 # Version 5.0.0 for SPT ~4.1.6
 
-The biggest update in the history of this mod. I sit down and just tried to resolve every little issue I have collected, add every feature that I wanted and make changes I dreamed of adding for a long time.
-This includes: new trader, web config, localization system, client mod and APBS blacklist rotation.
+The biggest update in the history of this mod. I sat down and tried to resolve every little issue I had collected, add every feature I wanted and make the changes I had dreamed of for a long time
+This includes a new trader, a web config, a localization system, a client mod and APBS blacklist rotation
 
-New trader is resolving the issue where all the items from this mod were scattered between all other traders.
-Web config is resolving the config issue, where json config was easily being broken by simply loosing one ",".
-Localization system allows for better item naming scheme and adding new languages for this mod.
-Client mod is resolving the issues with a new slot added for Variant Cores as well as adding an distinction cue for Variant Weapons and Variant Core items.
-APBS blacklist rotation allows APBS users to sometimes see other modded weapons, despite having Definitive Weapon Variants installed.
+The new trader brings together all the items from this mod that were previously scattered across other traders
+The web config makes configuration easier, avoiding JSON syntax errors caused by something as simple as a missing comma
+The localization system provides a better item naming scheme and makes it easier to add new languages to the mod
+The client mod fixes issues with the new Variant Core slot and adds visual cues to distinguish Variant Weapons and Variant Core items
+APBS blacklist rotation allows APBS users to encounter other modded weapons more often while using Definitive Weapon Variants
 
 ## New Feature: Variant Trader - Merchant
 - "An Italian mafioso who started out smuggling unusual weapons across borders but ended up collecting them"
 - You no longer need to check all the traders for an item that fits your Variant Weapon
-- Merchant trader is available from the start
-- Static/Dynamic assort\
+- Merchant is available from the start
+- Static and dynamic assortments\
     Almost all items added by this mod are available at any time\
-    15 random variant weapons are available each trader refresh
-- Loyalty Levels are only tied to the character level:\
-    LL2 => 15 character level\
-	LL3 => 30 character level\
-	LL4 => 45 character level
+    15 random variant weapons are available after each trader refresh
+- Loyalty Levels depend only on your character level:\
+    LL2 => character level 15\
+	LL3 => character level 30\
+	LL4 => character level 45
 - Moved all items to Merchant
-- Moved 12.7x108 barter to new trader
-- Removed AmonyaTraderMode
+- Moved the 12.7x108 barter to Merchant
+- Removed the AmonyaTraderMode config option
 - Removed TraderId from all config options
 
 ## New Feature: Blazor config
-- Added blazor web page for config changes\
-    Available in /definitive-weapon-variants/config or from launcher
+- Added a Blazor web page for configuring the mod\
+    Available at /definitive-weapon-variants/config or through the launcher
 - defaultConfig.jsonc is no longer used; config.jsonc is created from built-in defaults when missing
-- You need to config the mod after this update using Blazor page
-- All changes done to config page require a normal server restart
+- You need to configure the mod using the Blazor page after this update
+- All changes made on the config page require a server restart
 
 ## New Feature: Localization system
-- Added localization system, now DWV can be easely translatable\
-    If you can manage 800+ lines of text, it is!
-- All items has their names and description checked and standardized
+- Added a localization system, making DWV easier to translate\
+    As long as you can manage 800+ lines of text!
+- Reviewed and standardized all item names and descriptions
 
 ## New Feature: Client mod
 - All Variant Weapons now have special effects:\
-    On firing\
-    Idle animation
-- Variant Cores are easier to remove and put back into slot, even when operating on equiped weapon
-- Errors from Variant Cores special mod_slot slot are now properly silenced
-- mod_core slot is now a "required" slot by default with it's functionality still available
-- mod_core slot picture addon is now included in main mod
+    Firing effects\
+    Idle animations
+- Variant Cores are easier to remove and put back into their slots, even on an equipped weapon
+- Errors from the special mod_slot slot for Variant Cores are now properly silenced
+- The mod_core slot is now a "required" slot by default while retaining its functionality
+- The mod_core slot image add-on is now included in the main mod
 
 ## New Feature: APBS blacklist rotation
-- Added automatic swapping of APBS blacklist based on time
-- Allows for less variants in the overall pool of the APBS modded weapons, at the same time, providing the same randomness
-- System is replacing a set of Weapon Variants every hour\
-    Both can be changed in config
-- Blacklist refresh is also automatic and does not require restarting the server\
-    You don't need a restart on top of restarting the server!
+- Added automatic, timed rotation of the APBS blacklist
+- Reduces the number of variants in the APBS modded weapon pool while maintaining the same randomness
+- The system changes which Weapon Variants are blacklisted every hour\
+    Both the set size and the rotation interval can be changed in the config
+- The blacklist also refreshes automatically without requiring a server restart\
+    Updates take effect while the server is running!
 
 ## Major change: Universal Cores system refresh
-- Universal Cores now have themes instead of generic number
+- Universal Cores now have themes instead of generic numbers
 - Renamed 9 and added 11 new Universal Cores across 2 themes: Order and Chaos
-- Order theme Universal Cores are providing increased Ergonomics and are decreasing recoil
-- Chaos theme Universal Cores are providing a lot of one stat with the price of the other
-- Universal Cores drop rate from Unknown Packages are now tied 1:1 to Unique Cores drop rate\
+- Order-themed Universal Cores increase ergonomics and reduce recoil
+- Chaos-themed Universal Cores greatly increase one stat at the expense of another
+- The drop rate for Universal Cores from Unknown Packages now matches the drop rate for Unique Cores\
     Can be increased in the config
-- You can add your own themes and Universal Cores properties in db/06_Cores folder\
-    Don't forget about locales or you will be missing names for them!
+- You can add your own themes and Universal Core properties in the db/06_Cores folder\
+    Don't forget to add localization entries, or your cores will have no names!
 
 ### Content Update
 - Added 4 new Unique Weapon Variants:\
@@ -70,21 +70,21 @@ APBS blacklist rotation allows APBS users to sometimes see other modded weapons,
     RPDN >Cute<\
     HK 416A5 >One Raid Only<\
     9A-91 >Balanced<
-- Added new Niche Variant Weapon Type -  Universal Adapter\
+- Added a new Niche Variant Weapon Type - Universal Adapter\
     A weapon variant whose kills count as kills with any weapon. To make it even more universal, its pistol grip, muzzle and stock slots also support a wider selection of attachments\
     6 weapons
-- Added new Niche Variant Weapon Type -  Tiny\
+- Added a new Niche Variant Weapon Type - Tiny\
     A Weapon Variant Type that takes up very little space in your stash. So little, in fact, that it can end up taking up no space at all!\
     7 weapons
-- Added new Baseline Variant Weapon Type -  Stendo\
+- Added a new Baseline Variant Weapon Type - Stendo\
     A pistol variant that supports a wider variety of magazines in its caliber, as well as three extended magazines: 40-round, 50-round or even 70-round\
     15 weapons and 3 new magazines
-- Added new Meme Variant Weapon Type -  Double Barrel\
+- Added a new Meme Variant Weapon Type - Double Barrel\
     A weapon variant with a special barrel that allows another barrel to be mounted on top, with all the advantages and disadvantages that entails\
     10 weapons
 - Added 21 new items\
     Blicky Special Magical Unbelievable Magazine v2 for Blicky weapon variants\
-    => Available from Merchant LL4 for 1 Unique, Ultimate and Superior Variant Cores\
+    => Available from Merchant LL4 for 1 Unique, 1 Ultimate and 1 Superior Variant Core\
     Anti-materiel rifle 12.7x108mm 2-round extended internal magazine\
     => Available from Merchant LL3 for 1 Ultimate Variant Core\
     50Cal .50 BMG 10-round extended internal magazine\
@@ -95,7 +95,7 @@ APBS blacklist rotation allows APBS users to sometimes see other modded weapons,
     => Available from Merchant LL2 for 1 Superior Variant Core\
     Black Market 5.56x45mm/.300 55-round ergonomic magazine\
     => Available from Merchant LL3 for 59000 roubles and 1 Superior Variant Core\
-    Assault Rifle 5.56x45mm 20-round pistol-sized magazinee\
+    Assault Rifle 5.56x45mm 20-round pistol-sized magazine\
     => Available from Merchant LL1 for 1 Advanced Variant Core\
     Assault Rifle 5.56x45mm 30-round pistol-sized magazine\
     => Available from Merchant LL3 for 18000 roubles and 1 Advanced Variant Core\
@@ -127,37 +127,37 @@ APBS blacklist rotation allows APBS users to sometimes see other modded weapons,
     => Available from Merchant LL3 for 5 Meme Variant Cores\
     Desert .50AE 84-round drum magazine\
     => Available from Merchant LL2 for 5 Meme Variant Cores
-- Added Blicky to the Lapua Variant Type\
-    SMUM magazines can now hold .338 Lapua Magnum caliber
-- Added items from Backport AddOn to the main mod
-- Added QBZ-191 to Heavy Machine Gun, Light Machine Gun and Marksman Variant Types
+- Added the Blicky to the Lapua Variant Type\
+    SMUM magazines can now hold .338 Lapua Magnum ammunition
+- Added items from the Backport AddOn to the main mod
+- Added the QBZ-191 to the Heavy Machine Gun, Light Machine Gun and Marksman Variant Types
 
 ### Balance Patch
-- Moved Lapua .338 20-round magazine to Merchant LL2
-- Moved Lapua .338 30-round magazine to Merchant LL3
+- Moved the Lapua .338 20-round magazine to Merchant LL2
+- Moved the Lapua .338 30-round magazine to Merchant LL3
 - PPSh-41 >Actually Endless< 7.62x25 4999-round drum magazine\
     Weight increased: -21 => -10
 - \>Stormtrooper< Nightforce ATACR 7-35x56 34mm riflescope\
     Weight increased: -20 => -10
 
 ### Other changes
-- Changed minimum SPT requirements to 4.1.6
+- Raised the minimum supported SPT version to 4.1.6
 - User-added changes to Variant Types are now supported\
-    Added "ReplaceExisting" key to use when you want to change something in Variant Type, it tells the loader to load your copy instead of original\
+    Added the "ReplaceExisting" key for modifying a Variant Type; it tells the loader to use your copy instead of the original\
     Just copy an existing variant or item, add "ReplaceExisting": true and you are good to go!
 - Added a mod check to variant types and weapons\
     This should be used only for modded items shipped with this mod
-- Added BFG-50 to APBS exclusion list
-- Slot for Variant Cores is now required be default
-- Removed variants from Fence and Flea market as default
-- Option to disable Variant Cores is now only removing Slot for Variant Cores
+- Added the BFG-50 to the APBS exclusion list
+- The Variant Core slot is now required by default
+- Variants no longer appear at Fence or on the Flea Market by default
+- The option to disable Variant Cores now only removes the Variant Core slot
 
 ### Bugfixes
-- Fixed disabling generation of any variant quality causing mod to stop working
-- Fixed M3 Super 90 Karabin Spetsialniy stack on reload when chamber is empty
-- Fixed missing Close Quarters description
-- Variant Cores no longer has green icon indicating a stock item
-- SMUM magazines (for variants of Blicky) can now accept 20x1mm caliber, yes this was a bug, and yes special magazine for Blicky was not accepting Blicky ammunition
+- Fixed an issue where disabling generation for any variant quality caused the mod to stop working
+- Fixed the M3 Super 90 Karabin Spetsialniy getting stuck when reloading with an empty chamber
+- Fixed the missing Close Quarters description
+- Variant Cores no longer have the green icon indicating a stock item
+- SMUM magazines (for Blicky variants) can now accept 20x1mm ammunition; yes, this was a bug, and yes, the special magazine for the Blicky did not accept Blicky ammunition
 
 ----------
 # Version 4.3.2 for SPT ~4.1.2
