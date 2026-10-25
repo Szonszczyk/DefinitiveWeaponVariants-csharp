@@ -1,3 +1,7 @@
+# Version 5.0.0-beta.1
+
+- Initial deploy of v5.0.0
+
 # Version 5.0.0 for SPT ~4.1.6
 
 The biggest update in the history of this mod. I sat down and tried to resolve every little issue I had collected, add every feature I wanted and make the changes I had dreamed of for a long time

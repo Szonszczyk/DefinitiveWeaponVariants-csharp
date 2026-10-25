@@ -13,7 +13,7 @@ public record ModMetadata : IModMetadata, IModBlazorMetadata
     public string Name { get; init; } = "DefinitiveWeaponVariants";
     public string Author { get; init; } = "Szonszczyk";
     public List<string>? Contributors { get; init; }
-    public SemanticVersioning.Version Version { get; init; } = new("5.0.0");
+    public SemanticVersioning.Version Version { get; init; } = new("5.0.0-beta.1");
     public SemanticVersioning.Range SptVersion { get; init; } = new("~4.1.6");
     public List<string>? Incompatibilities { get; init; } = [];
     public Dictionary<string, SemanticVersioning.Range>? ModDependencies { get; init; } = [];
