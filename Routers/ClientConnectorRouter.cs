@@ -26,5 +26,13 @@ public class ClientConnectorRouter(
                 jsonUtil.Serialize(connector.PrepareRouterModelItemColors())
                     ?? throw new InvalidOperationException("Could not serialize DWV item colors")
             )
+    ),
+    new RouteAction(
+        "/definitiveweaponvariants/firerate-audio-sync",
+        (url, info, sessionId, output, cancellationToken) =>
+            new ValueTask<object>(
+                jsonUtil.Serialize(connector.PrepareRouterModelAudioSync())
+                    ?? throw new InvalidOperationException("Could not serialize DWV firerate audio sync")
+            )
     )
 ]);

@@ -224,12 +224,12 @@
     "Changes": {
       "Slots": {
         "mod_magazine": {
-          "FromWeapon": [
+          "FromWeapons": [
             "AS VAL",
             "9A-91"
           ]
         },
-        "mod_pistol_grip": { "FromWeapon": [ "M4A1" ] },
+        "mod_pistol_grip": { "FromWeapons": [ "M4A1" ] },
         "mod_stock_000": { // M4A1 does not have this slot :/
           "Filter": [
             "5a33ca0fc4a282000d72292f",

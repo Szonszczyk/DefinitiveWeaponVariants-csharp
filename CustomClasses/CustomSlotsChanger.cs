@@ -1,6 +1,6 @@
 ﻿using DefinitiveWeaponVariants.Helpers;
-using DefinitiveWeaponVariants.Models;
 using DefinitiveWeaponVariants.Loaders;
+using DefinitiveWeaponVariants.Models;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
@@ -157,6 +157,15 @@ public class CustomSlotsChanger(
         return null;
     }
 
+    private readonly Dictionary<MongoId, HashSet<MongoId>> ItemCategoriesCache = [];
+    private HashSet<MongoId> GetItemsInCategory(string category)
+    {
+        if (ItemCategoriesCache.TryGetValue(category, out var list)) return list;
+        var newList = templateTable.Items.Values.Where(item => item.Parent == category).Select(item => item.Id).ToHashSet();
+        ItemCategoriesCache.Add(category, newList);
+        return newList;
+    }
+
     public List<MongoId> CreateFilterFromConfiguration(FilterSlotConfiguration filterSlotConfig, string slotName, string type, TemplateItem? copiedItem)
     {
         var newFilter = new List<MongoId>();
@@ -231,6 +240,15 @@ public class CustomSlotsChanger(
             {
                 var item = GetItemFromString(filter);
                 if (item != null) newFilter.Add(item.Id);
+            }
+        }
+        // Replace categories if found in slot
+        var allCategories = GetItemsInCategory("55802f4a4bdc2ddb688b4569"); // MasterMod ID
+        foreach (var itemId in newFilter.ToList()) {
+            if (allCategories.Contains(itemId))
+            {
+                newFilter.Remove(itemId);
+                newFilter.AddRange(GetItemsInCategory(itemId));
             }
         }
 

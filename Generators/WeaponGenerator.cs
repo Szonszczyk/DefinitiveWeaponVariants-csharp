@@ -153,6 +153,18 @@ public class WeaponGenerator(
                         newWeapon.OverrideProperties = customPropertiesChanger.ChangeItemProperties(newProperties, newWeapon.OverrideProperties, copiedItem, config, newWeapon.NewItemName);
                     }
 
+                    // Validate the resolved value after percentages, minimums and overrides,
+                    // before creating presets, registering audio metadata or inserting the item.
+                    var originalFirerate = copiedItem.Properties?.BFirerate ?? 0;
+                    var newFirerate = newWeapon.OverrideProperties?.BFirerate ?? originalFirerate;
+                    if (!WeaponFirerateRules.IsValid(newFirerate))
+                    {
+                        logger.Warning($"Skipping '{newWeapon.NewItemName}': resolved BFirerate {newFirerate} is invalid. Allowed range is 1-10000 RPM, finite values only.");
+                        continue;
+                    }
+                    if (!WeaponFirerateRules.IsValid(originalFirerate))
+                        logger.Warning($"'{newWeapon.NewItemName}': original BFirerate {originalFirerate} is outside 1-10000 RPM. The valid variant will be created without firerate audio metadata.");
+
                     // Add preset
                     Preset? originalPreset =
                         modDatabaseLoader.DbPresets.TryGetValue(newWeapon.NewItemName, out var value) ? value :
@@ -371,7 +383,6 @@ public class WeaponGenerator(
                     if (weaponIdToUseAs is not null && weaponListForKillQuests.TryGetValue(weaponIdToUseAs, out var list))
                     {
                         list.Add(newWeapon.NewId);
-
                     }
                     else
                     {
@@ -380,10 +391,14 @@ public class WeaponGenerator(
                             weaponListForKillQuests.Add(weaponIdToUseAs, [newWeapon.NewId]);
                         }
                     }
-                    modDataStorage.AddVariantToStorage(newWeapon.NewId, variant.Rarity, variantName, newWeaponConfig.Presets);
+                    // Publish all valid BFirerate changes, including burst-only weapons.
+                    // The client detects loop versus per-shot audio from the actual prefab.
+                    var firerateChanged = WeaponFirerateRules.HasChanged(originalFirerate, newFirerate);
+                    var firerateBefore = firerateChanged ? originalFirerate : 0;
+                    var firerateAfter = firerateChanged ? newFirerate : 0;
+                    modDataStorage.AddVariantToStorage(newWeapon.NewId, variant.Rarity, variantName, newWeaponConfig.Presets, copiedWeaponId, firerateBefore, firerateAfter);
 
                     modDataStorage.CoreIDsByQuality.TryGetValue(variant.Rarity, out var coreID);
-
                     if (modConfig.QualityWeights.TryGetValue(variant.Rarity, out var qualityWeight))
                     {
                         var barter = coreID == null ? null : new CustomBarterConfig()
@@ -398,17 +413,9 @@ public class WeaponGenerator(
                     }
                     customItemCreator.AddItemToDatabase(newWeapon, newWeaponConfig, new CustomBarterConfig());
                     modDataStorage.AddItemToQuality(newWeapon.NewId, variant.Rarity);
-                    //if (variant.Rarity == "Unique")
-                    //    customItemCreator.CreateCultistCircleCraft(
-                    //        [newWeapon.NewId],
-                    //        [copiedWeaponId, idDatabaseManager.GetCustomId($"{variant.Rarity} Quality Variant Core (Locked):ID")],
-                    //        10,
-                    //        true
-                    //    );
                 }
             }
         }
-        AddVariantsToKillQuests();
     }
     private static Dictionary<string, FilterSlotExtendedConfiguration>? GetCombinedSlotConfig(
         VariantConfiguration variant,
@@ -515,10 +522,11 @@ public class WeaponGenerator(
         return weaponDescriptions[rarity];
     }
 
-    private void AddVariantsToKillQuests()
+    public void AddVariantsToKillQuests()
     {
         foreach (var (_, quest) in templateTable.Quests)
         {
+            if (quest.TraderId == "ee840a5ba014e9c5478d5ccd") { continue; }
             var affs = quest.Conditions.AvailableForFinish;
             if (affs is null) continue;
             foreach (var aff in affs)

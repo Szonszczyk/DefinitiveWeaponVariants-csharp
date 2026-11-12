@@ -2,7 +2,7 @@
 
 Better description, download count and comments can be found on: [SPT Forge Link](https://sp-mod.com/mod/2010/definitive-weapon-variants)
 
-Server mod for Single Player Tarkov featuring over **600 weapon variants** based on existing guns.  
+Server mod for Single Player Tarkov featuring over **700 weapon variants** based on existing guns.  
 Whether you want an automatic version of your favorite weapon, click scavs to death, tap bosses with anti-materiel rifles, troll friends with meme guns, or simply collect unique variants, this mod has it all!
 
 ## Features
@@ -41,9 +41,9 @@ There are 8 different qualities of Variant Weapons available:
 - **Meme**  
     We are not speaking about this Variant quality, as Variant Types of this quality trades everything to be good at one thing only
 
-## The Vision™ System
+## The Visionâ„¢ System
 
-The main purpose of the Vision™ system is to make each of your Tarkov playthroughs unique.  
+The main purpose of the Visionâ„¢ system is to make each of your Tarkov playthroughs unique.  
 This means getting very different variant weapons each time you play.  
 Instead of buying variants or unlocking them through gameplay, you can obtain them at random from a few different sources:
 - Fence
@@ -52,7 +52,7 @@ Instead of buying variants or unlocking them through gameplay, you can obtain th
 - Loot containers
 - Variant Blind Boxes
 
-Only variants on the Flea Market are available deterministically, but the Vision™ system considers the Flea Market to be a form of cheating.
+Only variants on the Flea Market are available deterministically, but the Visionâ„¢ system considers the Flea Market to be a form of cheating.
 
 If you feel that you are getting too many or not enough variants, you can always change the config file!
 
@@ -100,7 +100,10 @@ Building the server project also builds the DWV client in the same configuration
 and creates `DefinitiveWeaponVariants.zip` containing both mods:
 
 - `SPT_Runtime/user/mods/DefinitiveWeaponVariants/` contains the server mod.
-- `BepInEx/plugins/DefinitiveWeaponVariants.Client.dll` contains the client plugin.
+- `BepInEx/plugins/DefinitiveWeaponVariants/` contains the client plugin, its dependencies and their licenses.
+
+For a Release ZIP without deploying files to the local game installation, run
+`dotnet build -c Release -p:SkipModDeploy=true`.
 
 The client project defaults to
 `../../SPT 4.1 Mods/DefinitiveWeaponVariants-client/DefinitiveWeaponVariants.Client.csproj`.

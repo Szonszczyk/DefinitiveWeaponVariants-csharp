@@ -31,12 +31,16 @@ public class APBSIntegration(
     private long _retryAfterUtcTicks;
     private volatile bool _startupSynchronization;
     private volatile bool _cleanupPending;
+    private volatile bool _initializationCompleted;
+    private Exception? _initializationError;
+    private int _externalUpdates;
 
     private bool RotationEnabled => config.EnableAPBSWeaponRotation && !config.CleanupAPBSBlacklist;
 
     // Normal requests can run concurrently. File updates, rebuilds and recovery
     // have an exclusive lease spanning actual APBS task completion.
-    public bool CoordinateRequests => _ready && (RotationEnabled || _startupSynchronization || _cleanupPending || _store?.Pending == true);
+    public bool CoordinateRequests => (_ready && (RotationEnabled || _startupSynchronization || _cleanupPending || _store?.Pending == true))
+        || Volatile.Read(ref _externalUpdates) > 0;
 
     public void CheckModInstall()
     {
@@ -47,9 +51,10 @@ public class APBSIntegration(
 
     public async Task InitializeAsync(CancellationToken token)
     {
-        if (!_installed) return;
+        AmonyaIntegration.Initialize(this);
         try
         {
+            if (!_installed) return;
             var folder = modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
             var parent = Directory.GetParent(folder)?.FullName ?? throw new IOException("DWV parent folder not found.");
             if (string.IsNullOrWhiteSpace(config.APBSFolderName) || Path.GetFileName(config.APBSFolderName) != config.APBSFolderName
@@ -74,8 +79,40 @@ public class APBSIntegration(
         catch (OperationCanceledException) when (token.IsCancellationRequested) { throw; }
         catch (Exception ex)
         {
+            _initializationError = ex;
             logger.Warning($"APBS integration unavailable: {ex.Message} Normal DWV item import continues; files with uncertain ownership are left untouched.");
         }
+        finally { _initializationCompleted = true; }
+    }
+
+    internal async Task RunExternalBlacklistUpdateAsync(string blacklistPath,
+        Func<CancellationToken, Task> update, CancellationToken token)
+    {
+        ArgumentNullException.ThrowIfNull(update);
+        if (!_initializationCompleted || !_installed || _blacklistPath is null)
+            throw new InvalidOperationException("DWV APBS coordination has not initialized. Check DWV's APBSFolderName setting.");
+        if (_initializationError is not null)
+            throw new InvalidOperationException("DWV APBS initialization failed; external blacklist updates are deferred.", _initializationError);
+        if (!string.Equals(Path.GetFullPath(blacklistPath), Path.GetFullPath(_blacklistPath), StringComparison.OrdinalIgnoreCase))
+            throw new InvalidOperationException("Amonya and DWV resolved different APBS blacklist files. Check DWV's APBSFolderName setting.");
+
+        // Also activate request coordination when DWV's own generation modes are off.
+        Interlocked.Increment(ref _externalUpdates);
+        try
+        {
+            using (await _requests.WriteAsync(token))
+            {
+                if (_store?.Pending == true)
+                {
+                    var permanent = _cleanupPending ? new HashSet<string>() : Options().PermanentIds;
+                    await _store.RecoverAsync(RefreshAsync, permanent, token);
+                }
+                // The caller owns its transaction, including refresh and rollback.
+                // Do not synchronize or rotate DWV weapons just to update ammo.
+                await update(token);
+            }
+        }
+        finally { Interlocked.Decrement(ref _externalUpdates); }
     }
 
     private void ResolveRefreshApi()
@@ -88,16 +125,18 @@ public class APBSIntegration(
 
     private APBSRotationOptions Options()
     {
-        var permanent = APBSRotationPolicy.PermanentExclusions(modDataStorage.AllVariantIds,
-            modDataStorage.VariantIdsByQuality, modDataStorage.VariantTypes,
-            config.APBSTierConfig, config.APBSBlacklistedVariantTypes);
+        var permanent = APBSRotationPolicy.PermanentExclusions(
+            modDataStorage.WeaponVariantsInfo,
+            config.APBSTierConfig,
+            config.APBSBlacklistedVariantTypes
+        );
         return new(config.EnableAPBSBlacklistGeneration || RotationEnabled, RotationEnabled,
             config.APBSWeaponsAvailable, config.APBSWeaponRotationIntervalMinutes, permanent);
     }
 
     private HashSet<string> CleanupRegistry()
     {
-        var ids = new HashSet<string>(modDataStorage.AllVariantIds, StringComparer.Ordinal);
+        var ids = new HashSet<string>(modDataStorage.WeaponVariantsInfo.Keys.ToHashSet(), StringComparer.Ordinal);
         // Include saved IDs for variants disabled in the current generation config.
         // Look up existing IDs only; cleanup must never create new IDs or remove cores/items.
         foreach (var variant in modDatabaseLoader.DbVariants.Values)
@@ -114,12 +153,12 @@ public class APBSIntegration(
     private Dictionary<int, HashSet<string>> CompatibilityExclusions()
     {
         var tiers = APBSRotationState.EmptyTiers();
-        foreach (var (quality, weapons) in modDataStorage.VariantIdsByQuality)
+        foreach (var (quality, weapons) in modDataStorage.WeaponVariantsInfo.GetWeaponsByQuality())
         {
             int minimum = config.APBSTierConfig.GetValueOrDefault(quality);
             foreach (var id in weapons)
             {
-                bool typeBanned = modDataStorage.VariantTypes.TryGetValue(id, out var type)
+                bool typeBanned = modDataStorage.WeaponVariantsInfo.GetVariantTypes().TryGetValue(id, out var type)
                     && config.APBSBlacklistedVariantTypes.Contains(type);
                 for (int tier = 1; tier <= 7; tier++)
                     if (minimum <= 0 || tier < minimum || typeBanned) tiers[tier].Add(id);
@@ -175,7 +214,7 @@ public class APBSIntegration(
                 logger.Info("APBS interrupted update restored with a confirmed full reload.");
             }
             var plan = APBSRotationPolicy.Build(await File.ReadAllTextAsync(_blacklistPath, token), _store.Journal.Committed,
-                modDataStorage.AllVariantIds, CompatibilityExclusions(), options, DateTimeOffset.UtcNow, Random.Shared);
+                modDataStorage.WeaponVariantsInfo.Keys.ToHashSet(), CompatibilityExclusions(), options, DateTimeOffset.UtcNow, Random.Shared);
             // APBS has already imported items and applied the persisted blacklist
             // during its normal startup. Rebuild only when our policy changes it.
             await _store.ApplyAsync(plan, RefreshAsync, options.PermanentIds, token);

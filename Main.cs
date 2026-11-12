@@ -6,6 +6,7 @@ using DefinitiveWeaponVariants.Models;
 using DefinitiveWeaponVariants.Loaders;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.DI;
+using System.Collections.Frozen;
 
 namespace DefinitiveWeaponVariants;
 
@@ -23,7 +24,8 @@ public class DefinitiveWeaponVariants(
     APBSIntegration apbsIntegration,
     CustomLocales customLocales,
     CustomTraderCreator customTraderCreator,
-    RandomBoxesHelper randomBoxesHelper
+    RandomBoxesHelper randomBoxesHelper,
+    ModDataStorage modDataStorage
 ) : IOnLoad
 {
     public Task OnLoadAsync(CancellationToken cancellationToken)
@@ -37,6 +39,7 @@ public class DefinitiveWeaponVariants(
         otherItemsGenerator.GenerateOtherItems();
         itemGenerator.GenerateAllItems();
         weaponGenerator.GenerateWeaponsFromVariantConfig();
+        AmonyaIntegration.WeaponVariantIds = modDataStorage.WeaponVariantsInfo.Keys.ToFrozenSet(StringComparer.Ordinal);
         customLootManager.EditLoot();
         randomBoxesHelper.CreateLootpoolForBlindBoxes();
         idDatabaseManager.SaveDatabase();
@@ -52,14 +55,16 @@ public class DefinitiveWeaponVariants(
     }
 }
 
-[Injectable(TypePriority = OnLoadOrder.PostLoad + 102)]
+[Injectable(TypePriority = OnLoadOrder.PostLoad + 1002)]
 public class DefinitiveWeaponVariantsFixBackgrounds(
     ModDataStorage modDataStorage,
-    APBSIntegration apbsIntegration
+    APBSIntegration apbsIntegration,
+    WeaponGenerator weaponGenerator
 ) : IOnLoad
 {
     public async Task OnLoadAsync(CancellationToken cancellationToken)
     {
+        weaponGenerator.AddVariantsToKillQuests();
         modDataStorage.FixBackgroundColors();
         await apbsIntegration.InitializeAsync(cancellationToken);
     }

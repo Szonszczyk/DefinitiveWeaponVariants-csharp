@@ -53,10 +53,11 @@ public class CustomLootManager(
             var data = new WeightDataForLoot { Probability = probability };
             foreach (var (q, enabled) in source.Where(x => x.Value))
             {
-                if (!modDataStorage.VariantPresets.TryGetValue(q, out var variantItems) || variantItems.Count == 0) continue;
+                var qualityPresets = modDataStorage.WeaponVariantsInfo.GetPresetsByQuality(q);
+                if (qualityPresets.Count == 0) continue;
                 data.TotalWeight += modConfig.QualityWeights[q];
                 data.Qualities.Add(q);
-                data.TotalWeapons += variantItems.Count;
+                data.TotalWeapons += qualityPresets.Count;
             }
             return data;
         }
@@ -69,7 +70,7 @@ public class CustomLootManager(
 
     private (string key, List<SptLootItem> weapon) GetRandomWeaponByQuality(string quality, Location location)
     {
-        var allPossibleWeapons = modDataStorage.VariantPresets[quality];
+        var allPossibleWeapons = modDataStorage.WeaponVariantsInfo.GetPresetsByQuality(quality);
         var random = new Random();
         var variant = allPossibleWeapons.ElementAt(random.Next(allPossibleWeapons.Count));
 
@@ -216,7 +217,7 @@ public class CustomLootManager(
                                 var probabilityOfAddedItems = weights["StaticLoot"].Probability / (1 - weights["StaticLoot"].Probability) * totalProbability;
                                 foreach (var quality in weights["StaticLoot"].Qualities)
                                 {
-                                    var allPossibleWeapons = modDataStorage.VariantIdsByQuality[quality];
+                                    if (modDataStorage.WeaponVariantsInfo.GetWeaponsByQuality().TryGetValue(quality, out var allPossibleWeapons) || allPossibleWeapons == null) { continue; }
                                     foreach (var weaponId in allPossibleWeapons)
                                     {
                                         itemDistribution.Add(new ItemDistribution

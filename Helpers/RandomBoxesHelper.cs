@@ -20,9 +20,10 @@ public class RandomBoxesHelper(
     {
         foreach (var (quality, boxId) in BlindBoxPerQuality)
         {
-            if (!modDataStorage.VariantPresets.TryGetValue(quality, out var allWeaponsInData)) continue;
+            var qualityPresets = modDataStorage.WeaponVariantsInfo.GetPresetsByQuality(quality);
+            if (qualityPresets.Count == 0) { continue; }
             Dictionary<MongoId, double> weapons = [];
-            foreach (var weapon in allWeaponsInData)
+            foreach (var weapon in qualityPresets)
             {
                 var rootItem = weapon.First();
                 weapons.Add(rootItem.Template, 1);

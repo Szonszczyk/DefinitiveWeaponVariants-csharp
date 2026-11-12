@@ -1,9 +1,11 @@
-using System.Security.Cryptography;
+using DefinitiveWeaponVariants.Helpers;
+using SPTarkov.Server.Core.Models.Common;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
-using SPTarkov.Server.Core.Models.Common;
+using static DefinitiveWeaponVariants.Helpers.ModDataStorage;
 
 namespace DefinitiveWeaponVariants.Integrations;
 
@@ -51,10 +53,16 @@ internal sealed record APBSRotationPlan(string Json, string BeforeHash, APBSRota
 
 internal static class APBSRotationPolicy
 {
-    public static HashSet<string> PermanentExclusions(HashSet<string> registry,
-        Dictionary<string, HashSet<string>> qualityIds, Dictionary<string, string> variantTypes,
-        Dictionary<string, int> tierConfig, IEnumerable<string> blacklistedTypes)
+    public static HashSet<string> PermanentExclusions(
+        DWVWeaponInfoCollection weaponVariantsInfo,
+        Dictionary<string, int> tierConfig,
+        IEnumerable<string> blacklistedTypes
+    )
     {
+        var registry = weaponVariantsInfo.Keys.ToHashSet();
+        var qualityIds = weaponVariantsInfo.GetWeaponsByQuality();
+        var variantTypes = weaponVariantsInfo.GetVariantTypes();
+
         var types = new HashSet<string>(blacklistedTypes, StringComparer.Ordinal);
         var excluded = variantTypes.Where(entry => types.Contains(entry.Value))
             .Select(entry => entry.Key).ToHashSet(StringComparer.Ordinal);

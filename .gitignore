@@ -363,3 +363,14 @@ MigrationBackup/
 FodyWeavers.xsd
 /DefinitiveWeaponVariants.zip
 /DWV 5.0 Description.md
+
+# Local checks, validation notes, and machine-specific workspace files
+/Tests/
+/BlazorConfig/Checks/
+/BlazorConfig/VALIDATION.md
+/BlazorConfig/README.md
+/Properties/launchSettings.json
+/.agents/
+/.codex/
+/AGENTS.md
+/config/config.jsonc

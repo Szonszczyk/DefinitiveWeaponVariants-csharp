@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <OutputType>Library</OutputType>
-    <Version>5.0.0-beta.1</Version>
+    <Version>5.0.0</Version>
     <OutputPath>bin\$(Configuration)\$(ProjectName)\$(AssemblyName)\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <Authors>Szonszczyk</Authors>
@@ -17,6 +17,12 @@
 	</ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Tests\**\*.cs" />
+    <Content Remove="Tests\**" />
+    <None Remove="Tests\**" />
+    <Compile Remove="BlazorConfig\Checks\**\*.cs" />
+    <Content Remove="BlazorConfig\Checks\**" />
+    <None Remove="BlazorConfig\Checks\**" />
     <PackageReference Include="SPTushonka.Common" Version="4.1.6" />
     <PackageReference Include="SPTushonka.DI" Version="4.1.6" />
     <PackageReference Include="SPTushonka.Server.Core" Version="4.1.6" />
@@ -33,15 +39,16 @@
 		</PropertyGroup>
 		<Message Text="--- Starting Mod packaging for distribution ---" Importance="high" />
 		<Error Condition="!Exists('$(ClientProjectPath)')" Text="DWV client project not found at '$(ClientProjectPath)'. Set ClientProjectPath to DefinitiveWeaponVariants.Client.csproj." />
-		<MSBuild Projects="$(ClientProjectPath)" Targets="Restore;Build" Properties="Configuration=$(Configuration);DeployToSpt=false" RemoveProperties="TargetFramework;RuntimeIdentifier;SelfContained;OutputPath">
-			<Output TaskParameter="TargetOutputs" ItemName="ClientModAssembly" />
+		<MSBuild Projects="$(ClientProjectPath)" Targets="Restore;GetClientDistributionFiles" Properties="Configuration=$(Configuration);DeployToSpt=false" RemoveProperties="TargetFramework;RuntimeIdentifier;SelfContained;OutputPath">
+			<Output TaskParameter="TargetOutputs" ItemName="ClientDistributionFiles" />
 		</MSBuild>
-		<Error Condition="'@(ClientModAssembly)' == ''" Text="The DWV client build did not return its plugin DLL." />
+		<Error Condition="'@(ClientDistributionFiles)' == ''" Text="The DWV client build did not return its distribution files." />
 		<RemoveDir Directories="$(TempPackageDir)" />
-		<MakeDir Directories="$(ModPackageDir);$(TempPackageDir)\BepInEx\plugins" />
-		<Copy SourceFiles="@(ClientModAssembly)" DestinationFolder="$(TempPackageDir)\BepInEx\plugins" />
+		<MakeDir Directories="$(ModPackageDir);$(TempPackageDir)\BepInEx\plugins\DefinitiveWeaponVariants" />
+		<Copy SourceFiles="@(ClientDistributionFiles)" DestinationFolder="$(TempPackageDir)\BepInEx\plugins\DefinitiveWeaponVariants" />
 		<MakeDir Directories="$(ModPackageDir)\config;$(ModPackageDir)\db\01_Variants;$(ModPackageDir)\db\02_Items;$(ModPackageDir)\db\03_Shortnames;$(ModPackageDir)\db\04_Presets;$(ModPackageDir)\db\05_Locales;$(ModPackageDir)\db\06_Cores;$(ModPackageDir)\db\07_Trader;$(ModPackageDir)\db\99_Ids" />
 		<Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ModPackageDir)" />
+		<Copy SourceFiles="$(ProjectDir)LICENSE.txt" DestinationFolder="$(ModPackageDir)" />
 		<Copy SourceFiles="$(ProjectDir)config\configSchema.json" DestinationFolder="$(ModPackageDir)\config" />
 		<MakeDir Directories="$(ModPackageDir)\res" />
 		<Copy SourceFiles="$(ProjectDir)res\Trader.png" DestinationFolder="$(ModPackageDir)\res" />

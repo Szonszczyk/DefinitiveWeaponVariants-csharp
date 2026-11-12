@@ -1,7 +1,3 @@
-# Version 5.0.0-beta.1
-
-- Initial deploy of v5.0.0
-
 # Version 5.0.0 for SPT ~4.1.6
 
 The biggest update in the history of this mod. I sat down and tried to resolve every little issue I had collected, add every feature I wanted and make the changes I had dreamed of for a long time
@@ -24,7 +20,7 @@ APBS blacklist rotation allows APBS users to encounter other modded weapons more
     LL2 => character level 15\
 	LL3 => character level 30\
 	LL4 => character level 45
-- Moved all items to Merchant
+- Moved all items from vanilla traders to Merchant
 - Moved the 12.7x108 barter to Merchant
 - Removed the AmonyaTraderMode config option
 - Removed TraderId from all config options
@@ -45,6 +41,7 @@ APBS blacklist rotation allows APBS users to encounter other modded weapons more
 - All Variant Weapons now have special effects:\
     Firing effects\
     Idle animations
+- Weapons with changed fire rate have their audio synced with the new fire rate
 - Variant Cores are easier to remove and put back into their slots, even on an equipped weapon
 - Errors from the special mod_slot slot for Variant Cores are now properly silenced
 - The mod_core slot is now a "required" slot by default while retaining its functionality
@@ -60,7 +57,7 @@ APBS blacklist rotation allows APBS users to encounter other modded weapons more
 
 ## Major change: Universal Cores system refresh
 - Universal Cores now have themes instead of generic numbers
-- Renamed 9 and added 11 new Universal Cores across 2 themes: Order and Chaos
+- Renamed 8 and added 10 new Universal Cores across 2 themes: Order and Chaos
 - Order-themed Universal Cores increase ergonomics and reduce recoil
 - Chaos-themed Universal Cores greatly increase one stat at the expense of another
 - The drop rate for Universal Cores from Unknown Packages now matches the drop rate for Unique Cores\
@@ -86,7 +83,7 @@ APBS blacklist rotation allows APBS users to encounter other modded weapons more
 - Added a new Meme Variant Weapon Type - Double Barrel\
     A weapon variant with a special barrel that allows another barrel to be mounted on top, with all the advantages and disadvantages that entails\
     10 weapons
-- Added 21 new items\
+- Added 22 new items\
     Blicky Special Magical Unbelievable Magazine v2 for Blicky weapon variants\
     => Available from Merchant LL4 for 1 Unique, 1 Ultimate and 1 Superior Variant Core\
     Anti-materiel rifle 12.7x108mm 2-round extended internal magazine\
@@ -160,6 +157,7 @@ APBS blacklist rotation allows APBS users to encounter other modded weapons more
 - Fixed an issue where disabling generation for any variant quality caused the mod to stop working
 - Fixed the M3 Super 90 Karabin Spetsialniy getting stuck when reloading with an empty chamber
 - Fixed the missing Close Quarters description
+- Fixed compatibility conflict with Quests Backport mod and other mods that are adding quests
 - Variant Cores no longer have the green icon indicating a stock item
 - SMUM magazines (for Blicky variants) can now accept 20x1mm ammunition; yes, this was a bug, and yes, the special magazine for the Blicky did not accept Blicky ammunition
 
