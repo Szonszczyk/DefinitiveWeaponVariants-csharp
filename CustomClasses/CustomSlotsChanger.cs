@@ -1,11 +1,12 @@
 ﻿using DefinitiveWeaponVariants.Helpers;
-using DefinitiveWeaponVariants.Interfaces;
 using DefinitiveWeaponVariants.Loaders;
+using DefinitiveWeaponVariants.Models;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
 using SPTarkov.Server.Core.Models.Enums;
 using SPTarkov.Server.Core.Models.Spt.Mod;
+using SPTarkov.Server.Core.Models.Spt.Tables;
 using SPTarkov.Server.Core.Utils.Cloners;
 using System.Reflection;
 
@@ -17,6 +18,7 @@ public class CustomSlotsChanger(
     ModDatabaseLoader modDatabaseLoader,
     ICloner cloner,
     IdDatabaseManager idDatabaseManager,
+    TemplateTable templateTable,
     ModDataStorage modDataStorage
 )
 {
@@ -87,7 +89,7 @@ public class CustomSlotsChanger(
                 }
             }
         }
-        foreach(var slot in slotsToRemove)
+        foreach (var slot in slotsToRemove)
         {
             slots.Remove(slot);
         }
@@ -121,7 +123,7 @@ public class CustomSlotsChanger(
         }
         return null;
     }
-    
+
     public List<Slot>? CartridgesChanger(
         FilterSlotExtendedConfiguration? cartridgesConfig,
         TemplateItem? copiedItem,
@@ -136,7 +138,8 @@ public class CustomSlotsChanger(
             return null;
         }
         var newFilter = CreateFilterFromConfiguration(cartridgesConfig, "N/A", "Cartridges", copiedItem);
-        if (newFilter.Count == 0) {
+        if (newFilter.Count == 0)
+        {
             logger.Error($"Item '{newItemName}' have no valid ammo!");
             return null;
         }
@@ -152,6 +155,15 @@ public class CustomSlotsChanger(
             return cartridges;
         }
         return null;
+    }
+
+    private readonly Dictionary<MongoId, HashSet<MongoId>> ItemCategoriesCache = [];
+    private HashSet<MongoId> GetItemsInCategory(string category)
+    {
+        if (ItemCategoriesCache.TryGetValue(category, out var list)) return list;
+        var newList = templateTable.Items.Values.Where(item => item.Parent == category).Select(item => item.Id).ToHashSet();
+        ItemCategoriesCache.Add(category, newList);
+        return newList;
     }
 
     public List<MongoId> CreateFilterFromConfiguration(FilterSlotConfiguration filterSlotConfig, string slotName, string type, TemplateItem? copiedItem)
@@ -230,6 +242,15 @@ public class CustomSlotsChanger(
                 if (item != null) newFilter.Add(item.Id);
             }
         }
+        // Replace categories if found in slot
+        var allCategories = GetItemsInCategory("55802f4a4bdc2ddb688b4569"); // MasterMod ID
+        foreach (var itemId in newFilter.ToList()) {
+            if (allCategories.Contains(itemId))
+            {
+                newFilter.Remove(itemId);
+                newFilter.AddRange(GetItemsInCategory(itemId));
+            }
+        }
 
         return newFilter;
     }
@@ -238,22 +259,22 @@ public class CustomSlotsChanger(
     {
         if (MongoId.IsValidMongoId(text))
         {
-            if (modDataStorage.Items.TryGetValue(text, out var mongoIdItem)) return mongoIdItem;
+            if (templateTable.Items.TryGetValue(text, out var mongoIdItem)) return mongoIdItem;
         }
         else
         {
             if (modDatabaseLoader.DbShortnames.TryGetValue(text, out var weaponId))
             {
-                if (modDataStorage.Items.TryGetValue(weaponId, out var weaponItem)) return weaponItem;
+                if (templateTable.Items.TryGetValue(weaponId, out var weaponItem)) return weaponItem;
             }
             if (idDatabaseManager.DbIds.TryGetValue($"{text}:ID", out var idDatabaseId))
             {
-                if (modDataStorage.Items.TryGetValue(idDatabaseId, out var idDatabaseItem)) return idDatabaseItem;
+                if (templateTable.Items.TryGetValue(idDatabaseId, out var idDatabaseItem)) return idDatabaseItem;
             }
             var field = typeof(ItemTpl).GetField(text, BindingFlags.Public | BindingFlags.Static);
             if (field != null && field.GetValue(null) is MongoId id)
             {
-                if (modDataStorage.Items.TryGetValue(id, out var idFromTemplate)) return idFromTemplate;
+                if (templateTable.Items.TryGetValue(id, out var idFromTemplate)) return idFromTemplate;
             }
         }
         logger.Error($"Item '{text}' not found");

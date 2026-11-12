@@ -1,0 +1,37 @@
+@namespace ModConfigEditor.Components
+
+@* Unknown keys belong to their owning object, including nested objects. Razor
+   renders their text safely; raw JSON is never inserted as executable markup. *@
+@if (Draft.Unknown.Count > 0 || ShowEmpty)
+{
+<details class="mc-unknown" open>
+    <summary>Unknown properties (@Draft.Unknown.Count)</summary>
+    <p>Settings absent from the schema are preserved. Advanced users can edit their JSON here.</p>
+    @foreach (var entry in Draft.Unknown)
+    {
+        <div class="mc-row mc-raw" @key="entry">
+            <label>Property name <input @bind="entry.Name" @bind:event="oninput" @bind:after="Changed" /></label>
+            <label>JSON value <textarea rows="4" spellcheck="false" @bind="entry.Text" @bind:event="oninput" @bind:after="Changed"></textarea></label>
+            <button type="button" @onclick="() => Remove(entry)">Remove</button>
+        </div>
+    }
+    <button type="button" @onclick="Add">Add unknown property</button>
+</details>
+}
+
+@code {
+    [Parameter, EditorRequired] public ObjectDraft Draft { get; set; } = null!;
+    [Parameter] public EventCallback OnChanged { get; set; }
+    [Parameter] public bool ShowEmpty { get; set; }
+    private Task Changed() => OnChanged.InvokeAsync();
+    private async Task Add()
+    {
+        Draft.Unknown.Add(new RawEntry("", "null"));
+        await Changed();
+    }
+    private async Task Remove(RawEntry entry)
+    {
+        Draft.Unknown.Remove(entry);
+        await Changed();
+    }
+}

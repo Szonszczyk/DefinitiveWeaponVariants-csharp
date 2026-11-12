@@ -1,0 +1,68 @@
+{
+	"MXLR Unique": {
+		"ShortName": ">Endless Quick-scope<",
+		"Properties": {
+			"HeatFactorByShot": "-33%",
+			"BaseMalfunctionChance": "-33%",
+			"Velocity": 250
+		},
+		"Changes": {
+			"Minimum": {
+				"Ergonomics": 200
+			},
+			"Slots": {
+				"mod_magazine": {
+					"Filter": [ "MXLR_Unique_Mag" ]
+				},
+				"mod_mount": {
+					"Filter": []
+				}
+			}
+		},
+		"Weapons": [ "MXLR" ],
+		"Rarity": "Unique",
+		"ModGUIDs": [ "com.wtt.contentbackport" ]
+	},
+	"AK-308 Unique": {
+		"ShortName": ">Meta HMG<",
+		"Properties": {
+			"WeapFireType": [ "fullauto" ],
+			"RecoilForceUp": "-80%",
+			"RecoilForceBack": "+100%",
+			"RecoilReturnSpeedHandRotation": "+10%",
+			"RecoilCamera": "-10%",
+			"RecoilDampingHandRotation": "-10%",
+			"RecoilReturnPathDampingHandRotation": "-10%",
+			"Ergonomics": "+25",
+			"RecoilStableIndexShot": 4,
+			"HeatFactorByShot": "-25%",
+			"BFirerate": "+20%"
+		},
+		"Weapons": [ "AK-308" ],
+		"Rarity": "Unique",
+		"ModGUIDs": [ "com.wtt.contentbackport" ]
+	},
+	"NL545 GP Unique": {
+		"ShortName": ">Larger Laser Rifle<",
+		"Properties": {
+			"WeapFireType": [ "burst" ],
+			"BFirerate": 5450,
+			"BurstShotsCount": 3,
+			"RecoilStableIndexShot": 1,
+			"Velocity": "+100"
+		},
+		"Changes": {
+			"Slots": {
+				"mod_magazine": {
+					"FromWeapons": [ "AKM" ]
+				}
+			},
+			"Chambers": {
+				"FromWeapons": [ "AKM" ]
+			}
+		},
+		"Weapons": [ "NL545 GP" ],
+		"Rarity": "Unique",
+		"ModGUIDs": [ "com.wtt.contentbackport" ]
+	}
+}

@@ -25,7 +25,7 @@
                 "_tpl": "693f960d75b755765835158b",
                 "parentId": "6965c33e29bd8366d0a532f3",
                 "slotId": "mod_magazine",
-                "desc": "PK .50 BMG 100-round box"
+                "desc": "PKM_Unique_Mag"
             },
             {
                 "_id": "6965c33e29bd8366d0a532f6",
@@ -970,7 +970,7 @@
                 "_tpl": "6963fb4edfe0e592fc72adde",
                 "parentId": "6965c36a29bd8366d0a5364a",
                 "slotId": "mod_sight_front",
-                "desc": "Nightforce Magmount 34mm ring scope mount for Stormtrooper Use Only"
+                "desc": "APB_Unique_RingScopeMount"
             },
             {
                 "_id": "6965c36a29bd8366d0a5364f",
@@ -989,7 +989,7 @@
                 "_tpl": "6963f092ff56393340cc920b",
                 "parentId": "6965c36a29bd8366d0a5364e",
                 "slotId": "mod_scope",
-                "desc": "Nightforce ATACR 7-35x56 34mm riflescope for Stormtrooper Use Only"
+                "desc": "APB_Unique_Scope"
             }
         ]
     },

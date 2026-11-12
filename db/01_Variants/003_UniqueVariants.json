@@ -1,7 +1,5 @@
 {
   "AA-12 Gen 2 Unique": {
-    "Description": "The most versatile shotgun imaginable. It can fire almost any type of ammunition - provided you can find the right Endless Variant magazine, of course!",
-    "Explanation": "AA-12 Gen 2 >Endless Launcher<\nThis unique variant can use ALL magazines from the Endless Variant and has stats similar to the Buckshot Launcher Variant type - massive fire rate and extremely low recoil",
     "ShortName": ">Endless Launcher<",
     "Properties": {
       "BFirerate": 3600,
@@ -13,10 +11,10 @@
       "Slots": {
         "mod_magazine": {
           "Filter": [
-            "M60 100-round \"Endless\" ammo box",
-            "M60 500-round \"Endless\" ammo box",
-            "M60 800-round \"Endless\" ammo box",
-            "M60 40-round \"Endless\" ammo box"
+            "Endless_Mag_Shotgun",
+            "Endless_Mag_Assault",
+            "Endless_Mag_SMG",
+            "Endless_Mag_Sniper"
           ]
         }
       }
@@ -25,8 +23,6 @@
     "Rarity": "Unique"
   },
   "RFB Unique": {
-    "Description": "Please don't confuse the \"Automatic\" and \"No-Scope\" parts of the name. It doesn't perform <i>automatic no-scopes</i>... whatever that would even mean",
-    "Explanation": "RFB >Automatic No-Scope<\nThis unique variant is missing scope slot, but has full auto fire mode with full ergonomics and can use a variety of 7.62x51mm magazines",
     "ShortName": ">Automatic No-Scope<",
     "Properties": {
       "WeapFireType": [ "fullauto" ],
@@ -35,7 +31,7 @@
     },
     "Changes": {
       "Slots": {
-        "mod_mount": { "Filter": [ "RFB No-scope rail mount" ] },
+        "mod_mount": { "Filter": [ "NoScope_RailMount" ] },
         "mod_magazine": {
           "FromWeapons": [
             "RFB",
@@ -55,8 +51,6 @@
     "Rarity": "Unique"
   },
   "VPO-215 Unique": {
-    "Description": "Watch your bullet strike the target without recoil throwing your aim into the clouds",
-    "Explanation": "VPO-215 >Recoiless Lapua<\nThis unique variant has minimal recoil and is chambered in .338 Lapua Magnum rounds",
     "ShortName": ">Recoiless Lapua<",
     "Properties": {
       "RecoilForceUp": 0,
@@ -75,8 +69,8 @@
             "AXMC"
           ],
           "Add": [
-            "Lapua Variant 20-round magazine",
-            "Lapua Variant 30-round magazine"
+            "Lapua_Mag",
+            "Lapua_Mag_Extended"
           ]
         }
       },
@@ -88,8 +82,6 @@
     "Rarity": "Unique"
   },
   "AK-103 Unique": {
-    "Description": "Turns out switching calibers is easier than switching identities...",
-    "Explanation": "AK-103 >Russian Market<\nThis unique variant can be chambered in both .366 TKM and 7.62x39mm, with decreased recoil and increased ergonomics",
     "ShortName": ">Russian Market<",
     "Properties": {
       "RecoilForceUp": "-18%",
@@ -113,8 +105,6 @@
     "Rarity": "Unique"
   },
   "MP5K-N Unique": {
-    "Description": "A perfectly disguised M4A1, now with authentic German aesthetics!",
-    "Explanation": "MP5K-N >Handy Assault Rifle<\nThis unique variant is chambered in 5.56x45mm and has massively increased ergonomics",
     "ShortName": ">Handy AR<",
     "Properties": {
       "Ergonomics": "+50"
@@ -133,8 +123,6 @@
     "Rarity": "Unique"
   },
   "Blicky Unique": {
-    "Description": "\"When you don't have damage, you need a lot of ammo\"\n~Sun Tzu - The Art of War",
-    "Explanation": "Blicky >Neverending<\nThis unique variant has enormous magazines, fires bullets at four times their normal muzzle velocity, has a fire rate of 9000 RPM and absolutely no recoil. Clearly this makes it a perfectly practical combat weapon. The tactical advantages are obvious. The enemy will surrender immediately. NATO probably banned it. Actually... maybe they didn't. Look, it's a toy gun, alright? Just have fun",
     "ShortName": ">Neverending<",
     "Properties": {
       "WeapFireType": [ "fullauto" ],
@@ -147,11 +135,123 @@
     "Changes": {
       "Slots": {
         "mod_magazine": {
-          "Filter": [ "Blicky >Neverending< 20x1mm 20k-round magazine" ]
+          "Filter": [ "Blicky_Unique_Mag" ]
         }
       }
     },
     "Weapons": [ "Blicky" ],
+    "Rarity": "Unique"
+  },
+  "Glock 18C Unique": {
+    "ShortName": ">Glock 90P<",
+    "Properties": {
+      "RecoilForceUp": "-50%",
+      "RecoilForceBack": "-50%",
+      "AllowJam": false,
+      "AllowFeed": false,
+      "AllowMisfire": false,
+      "AllowSlide": false
+    },
+    "Changes": {
+      "Slots": {
+        "mod_magazine": {
+          "FromWeapons": [ "P90" ]
+        }
+      },
+      "Chambers": {
+        "FromWeapons": [ "P90" ]
+      }
+    },
+    "Weapons": [ "Glock 18C" ],
+    "Rarity": "Unique"
+  },
+  "RPDN Unique": {
+    "ShortName": ">Cute<",
+    "Properties": {
+      "Ergonomics": "+50",
+      "Width": 1,
+      "Height": 1,
+      "Weight": "-99%"
+    },
+    "Changes": {
+      "Slots": {
+        "mod_magazine": {
+          "Filter": [
+            "Endless_Mag_Assault",
+            "Endless_Mag_Shotgun",
+            "Endless_Mag_SMG",
+            "Endless_Mag_Sniper"
+          ]
+        },
+        "mod_stock": { "Filter": [ "RPDN_Unique_Stock" ] },
+        "mod_barrel": { "Filter": [ "RPDN_Unique_Barrel" ] },
+        "mod_handguard": { "Filter": [ "RPDN_Unique_Handguard" ] }
+      }
+    },
+    "Weapons": [ "RPDN" ],
+    "Rarity": "Unique"
+  },
+  "HK 416A5 Unique": {
+    "ShortName": ">One Raid Only<",
+    "Properties": {
+      "RecoilForceUp": "-30%",
+      "RecoilForceBack": "-15%",
+      "RecoilReturnSpeedHandRotation": "+15%",
+      "RecoilCamera": "-15%",
+      "RecoilDampingHandRotation": "-15%",
+      "RecoilReturnPathDampingHandRotation": "-15%",
+      "Ergonomics": "+15",
+      "DurabilityBurnRatio": "+1150%",
+      "HeatFactorByShot": 0,
+      "AllowJam": false,
+      "AllowFeed": false,
+      "AllowMisfire": false,
+      "AllowSlide": false,
+      "MaxRepairKitDegradation": 0,
+      "MaxRepairDegradation": 0
+    },
+    "Weapons": [ "HK 416A5" ],
+    "Rarity": "Unique"
+  },
+  "9A-91 Unique": {
+    "ShortName": ">Balanced<",
+    "Properties": {
+      "BFirerate": 1200,
+      "DurabilityBurnRatio": "-45%",
+      "RecoilForceUp": "-20%",
+      "RecoilForceBack": "-20%"
+    },
+    "Changes": {
+      "Slots": {
+        "mod_magazine": {
+          "FromWeapons": [
+            "AS VAL",
+            "9A-91"
+          ]
+        },
+        "mod_pistol_grip": { "FromWeapons": [ "M4A1" ] },
+        "mod_stock_000": { // M4A1 does not have this slot :/
+          "Filter": [
+            "5a33ca0fc4a282000d72292f",
+            "5c0faeddd174af02a962601f",
+            "5649be884bdc2d79388b4577",
+            "5d120a10d7ad1a4e1026ba85",
+            "5b0800175acfc400153aebd4",
+            "5947e98b86f774778f1448bc",
+            "5947eab886f77475961d96c5",
+            "602e3f1254072b51b239f713",
+            "5c793fb92e221644f31bfb64",
+            "5c793fc42e221600114ca25d",
+            "591aef7986f774139d495f03",
+            "591af10186f774139d495f0e",
+            "627254cc9c563e6e442c398f",
+            "638de3603a1a4031d8260b8c",
+            "6761777a1f08ed5e8800b7ac"
+          ]
+        }
+      }
+    },
+    "Weapons": [ "9A-91" ],
     "Rarity": "Unique"
   }
 }

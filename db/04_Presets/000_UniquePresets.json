@@ -180,7 +180,7 @@
                 "_tpl": "6914864a716ec6313466f83d",
                 "parentId": "691fa8159a796c46882e13db",
                 "slotId": "mod_barrel",
-                "desc": "Sniper Variant 28 inch barrel"
+                "desc": "Sniper_Barrel_AXMC"
             },
             {
                 "_id": "691fa8159a796c46882e13dd",
@@ -193,7 +193,7 @@
                 "_tpl": "691e04aaaac243129c377c53",
                 "parentId": "691fa8159a796c46882e13db",
                 "slotId": "mod_magazine",
-                "desc": "MP-155 12.7x108mm 6-shell magazine"
+                "desc": "MP155_Unique_Mag"
             },
             {
                 "_id": "691fa8159a796c46882e13df",
@@ -667,7 +667,7 @@
                 "_tpl": "6914864a716ec6313466f82b",
                 "parentId": "691faedbc81efa7cecfd2de4",
                 "slotId": "mod_magazine",
-                "desc": "The Unheard Edition Variant 20-round magazine"
+                "desc": "Unheard_Mag_Big"
             },
             {
                 "_id": "691faedbc81efa7cecfd2de6",

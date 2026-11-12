@@ -1,0 +1,69 @@
+{
+  "Chaos": {
+    "Theme": {
+      "Color1": "#912727",
+      "Color2": "#917827"
+    },
+    "Items": {
+      "Chaos_01": {
+        "Properties": {
+          "Ergonomics": 16,
+          "Recoil": 8
+        }
+      },
+      "Chaos_02": {
+        "Properties": {
+          "Ergonomics": 15,
+          "Recoil": 7
+        }
+      },
+      "Chaos_03": {
+        "Properties": {
+          "Ergonomics": -5,
+          "Recoil": -10
+        }
+      },
+      "Chaos_04": {
+        "Properties": {
+          "Ergonomics": -6,
+          "Recoil": -11
+        }
+      },
+      "Chaos_05": {
+        "Properties": {
+          "ExtraSizeDown": 1,
+          "ExtraSizeForceAdd": true,
+          "Recoil": -12
+        }
+      },
+      "Chaos_06": {
+        "Properties": {
+          "ExtraSizeUp": 1,
+          "ExtraSizeForceAdd": true,
+          "Ergonomics": 14
+        }
+      },
+      "Chaos_07": {
+        "Properties": {
+          "ExtraSizeRight": 1,
+          "ExtraSizeDown": 1,
+          "ExtraSizeForceAdd": true,
+          "Ergonomics": 9,
+          "Recoil": -9
+        }
+      },
+      "Chaos_08": {
+        "Properties": {
+          "Weight": 9,
+          "Recoil": -15
+        }
+      },
+      "Chaos_09": {
+        "Properties": {
+          "Velocity": 0.7,
+          "Ergonomics": 21
+        }
+      }
+    }
+  }
+}

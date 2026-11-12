@@ -1,6 +1,6 @@
-﻿using DefinitiveWeaponVariants.Constants;
+using DefinitiveWeaponVariants.Constants;
 using DefinitiveWeaponVariants.Helpers;
-using DefinitiveWeaponVariants.Interfaces;
+using DefinitiveWeaponVariants.Models;
 using DefinitiveWeaponVariants.Loaders;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.Helpers.Items;
@@ -8,6 +8,7 @@ using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Eft.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
 using SPTarkov.Server.Core.Models.Spt.Config;
+using SPTarkov.Server.Core.Models.Spt.Tables;
 using SPTarkov.Server.Core.Utils;
 using SPTarkov.Server.Core.Utils.Cloners;
 
@@ -21,10 +22,19 @@ public class CustomLootManager(
     ItemHelper itemHelper,
     RandomUtil randomUtil,
     IdDatabaseManager idDatabaseManager,
-    ModDataStorage modDataStorage
+    ModDataStorage modDataStorage,
+    LocationTable locationTable,
+    BotTable botTable,
+    RandomBoxesHelper randomBoxesHelper
 )
 {
     private readonly ConfigData modConfig = config;
+
+    public void EditLoot()
+    {
+        AddVariantsToLooseLoot();
+        AddCoresToBotPockets();
+    }
 
     private class WeightDataForLoot
     {
@@ -43,10 +53,11 @@ public class CustomLootManager(
             var data = new WeightDataForLoot { Probability = probability };
             foreach (var (q, enabled) in source.Where(x => x.Value))
             {
-                if (!modDataStorage.VariantPresets.TryGetValue(q, out var variantItems) || variantItems.Count == 0) continue;
+                var qualityPresets = modDataStorage.WeaponVariantsInfo.GetPresetsByQuality(q);
+                if (qualityPresets.Count == 0) continue;
                 data.TotalWeight += modConfig.QualityWeights[q];
                 data.Qualities.Add(q);
-                data.TotalWeapons += variantItems.Count;
+                data.TotalWeapons += qualityPresets.Count;
             }
             return data;
         }
@@ -59,7 +70,7 @@ public class CustomLootManager(
 
     private (string key, List<SptLootItem> weapon) GetRandomWeaponByQuality(string quality, Location location)
     {
-        var allPossibleWeapons = modDataStorage.VariantPresets[quality];
+        var allPossibleWeapons = modDataStorage.WeaponVariantsInfo.GetPresetsByQuality(quality);
         var random = new Random();
         var variant = allPossibleWeapons.ElementAt(random.Next(allPossibleWeapons.Count));
 
@@ -107,16 +118,17 @@ public class CustomLootManager(
             logger.Error($"Config option of MarkedRoomsProbability is incorrect, is: {weights["Marked"].Probability}, should be between 0 and 1. Disabling adding variants to Marked rooms!");
             weights["Marked"].Probability = 0;
         }
-        var locations = modDataStorage.LocationsData.GetDictionary();
+        var locations = locationTable.GetDictionary();
 
-        
+
         logger.Ok($"There are {weights["Marked"].TotalWeapons} possible weapons in Marked Rooms");
         foreach ((string locationId, Location location) in locations)
         {
+            if (location is null) continue;
             // Add info about 12.7x108 caliber
             location.StaticAmmo?.TryAdd("Caliber127x108", caliber127x108details);
 
-            if (!((weights["Marked"].Probability == 0 && weights["LooseLoot"].Probability == 0) || (weights["Marked"].TotalWeapons == 0 && weights["LooseLoot"].TotalWeapons == 0)))
+            if (weights["Marked"].Probability > 0 && weights["Marked"].TotalWeapons > 0 && weights["Marked"].TotalWeight > 0)
             {
                 location.LooseLoot?.AddTransformer(looseLoot =>
                 {
@@ -150,9 +162,6 @@ public class CustomLootManager(
                             });
                             logger.Debug($"Added {composedKey}/{quality} with {Math.Floor(probabilityOfAddedItems * ((double)modConfig.QualityWeights[quality] / (double)weights["Marked"].TotalWeight))}(QWEIGHT:{modConfig.QualityWeights[quality]}/TOTALWEIGHT:{weights["Marked"].TotalWeight})(MAX:{totalProbability},ADDED:{probabilityOfAddedItems}) to {spawnpointId}");
                         }
-
-                        // TODO: Add variants to loose loot
-                        //      We need to get spawn point IDs of only weapon vanilla spawns - hardcoded to not replace other modded weapons
                         spawnpoint.Template.Items = spawnpointTemplateItems;
                         spawnpoint.ItemDistribution = itemDistribution;
                     }
@@ -180,8 +189,11 @@ public class CustomLootManager(
                 "5c052cea86f7746b2101e8d8", // "LOOTCONTAINER_PLASTIC_SUITCASE"
                 "578f8782245977354405a1e3"  // "LOOTCONTAINER_SAFE"
             ];
-            var unknownPackageId = idDatabaseManager.GetCustomId($"Unknown Variant Weapon Core Package:ID");
-            if (weights["StaticLoot"].Probability != 0 && weights["StaticLoot"].TotalWeapons != 0)
+            var unknownPackageId = randomBoxesHelper.UnknownPackageId;
+            var weaponLootEnabled = weights["StaticLoot"].Probability > 0 && weights["StaticLoot"].TotalWeapons > 0 && weights["StaticLoot"].TotalWeight > 0;
+            var packageLootEnabled = modConfig.UnknownPackageEnabled && modConfig.UnknownPackageProbability > 0
+                && !string.IsNullOrEmpty(unknownPackageId);
+            if (weaponLootEnabled || packageLootEnabled)
             {
                 location.StaticLoot?.AddTransformer(StaticLoot =>
                 {
@@ -189,7 +201,9 @@ public class CustomLootManager(
                     foreach ((MongoId containerId, StaticLootDetails container) in StaticLoot)
                     {
                         if (container is null) continue;
-                        if (containersForWeapons.Contains(containerId) || containersForPackage.Contains(containerId))
+                        var addWeapons = weaponLootEnabled && containersForWeapons.Contains(containerId);
+                        var addPackages = packageLootEnabled && containersForPackage.Contains(containerId);
+                        if (addWeapons || addPackages)
                         {
                             container.ItemCountDistribution.ToList().ForEach(e => e.Count += 1);
                             var totalWeightOfItemsCount = container.ItemCountDistribution.Sum(x => x.RelativeProbability);
@@ -198,12 +212,12 @@ public class CustomLootManager(
                             var itemDistribution = container.ItemDistribution.ToList();
                             double totalProbability = itemDistribution.Sum(item => item.RelativeProbability ?? 0);
                             if (totalProbability == 0) continue;
-                            if (containersForWeapons.Contains(containerId))
+                            if (addWeapons)
                             {
                                 var probabilityOfAddedItems = weights["StaticLoot"].Probability / (1 - weights["StaticLoot"].Probability) * totalProbability;
                                 foreach (var quality in weights["StaticLoot"].Qualities)
                                 {
-                                    var allPossibleWeapons = modDataStorage.VariantIdsByQuality[quality];
+                                    if (modDataStorage.WeaponVariantsInfo.GetWeaponsByQuality().TryGetValue(quality, out var allPossibleWeapons) || allPossibleWeapons == null) { continue; }
                                     foreach (var weaponId in allPossibleWeapons)
                                     {
                                         itemDistribution.Add(new ItemDistribution
@@ -214,10 +228,10 @@ public class CustomLootManager(
                                     }
                                 }
                             }
-                            if (containersForPackage.Contains(containerId) && modConfig.VariantCoresEnabled)
+                            if (addPackages)
                             {
-                                var probabilityOfAddedItems = modConfig.VariantCores.UnknownPackage.Probability / (1 - modConfig.VariantCores.UnknownPackage.Probability) * totalProbability;
-                                
+                                var probabilityOfAddedItems = modConfig.UnknownPackageProbability / (1 - modConfig.UnknownPackageProbability) * totalProbability;
+
                                 itemDistribution.Add(new ItemDistribution
                                 {
                                     Tpl = unknownPackageId,
@@ -254,7 +268,8 @@ public class CustomLootManager(
             caliberList = (from x in (defaultWeapon?.Properties?.Chambers?.First().Properties?.Filters?.First().Filter)?.Where((x) => itemHelper.GetItem(x).Key) select itemHelper.GetItem(x).Value?.Properties?.Caliber).ToList();
         }
 
-        try {
+        try
+        {
             itemHelper.FillMagazineWithRandomCartridge(
                 magazineWithCartridges,
                 magTemplate,
@@ -264,7 +279,9 @@ public class CustomLootManager(
                 defaultWeapon?.Properties?.DefAmmo,
                 defaultWeapon
             );
-        } catch {
+        }
+        catch
+        {
             return items;
         }
 
@@ -273,45 +290,13 @@ public class CustomLootManager(
         items.InsertRange(magIndex, magazineWithCartridges);
         return items;
     }
-
-    public void CreateLootpoolForBlindBoxes()
-    {
-        foreach (var (quality, enabled) in modConfig.Generate)
-        {
-            if (!enabled) continue;
-            var allWeaponsInData = modDataStorage.VariantPresets[quality];
-            Dictionary<MongoId, double> weapons = [];
-            foreach (var weapon in allWeaponsInData)
-            {
-                var rootItem = weapon.First();
-                weapons.Add(rootItem.Template, 1);
-            }
-            if (idDatabaseManager.DbIds.TryGetValue($"{quality} Quality Variant Weapon Blind Box:ID", out var idDatabaseId))
-            {
-                (bool find, TemplateItem? item) = itemHelper.GetItem(idDatabaseId);
-                if (find && item is not null)
-                {
-                    modDataStorage.InventoryConfigData.RandomLootContainers.Add(idDatabaseId, new RewardDetails
-                    {
-                        RewardCount = 1,
-                        FoundInRaid = false,
-                        RewardTplPool = weapons
-                    });
-                    // Fix found on MoxoPixel-Painter
-                    item.Name = idDatabaseId;
-                }
-            }
-        }
-    }
     public void AddCoresToBotPockets()
     {
-        if (!modConfig.VariantCoresEnabled) return;
-        var bots = modDataStorage.Bots;
-        foreach (var (botName, prob) in modConfig.VariantCores.Normal.FoundOnEnemies)
+        foreach (var (botName, prob) in modConfig.VCNormalFoundOnEnemies)
         {
             if (prob <= 0) continue;
 
-            bots.Types.TryGetValue(botName, out var bot);
+            botTable.Types.TryGetValue(botName, out var bot);
             if (bot is null)
             {
                 logger.Warning($"Bot name '{botName}' is incorrect. Bot names can be found in SPT_Data\\database\\bots\\types");
@@ -321,6 +306,7 @@ public class CustomLootManager(
             var totalProbability = pockets.Sum(item => item.Value);
             var probabilityOfAddedItems = prob / (1 - prob) * totalProbability;
             var qualityTotal = modConfig.QualityWeights.Sum(item => item.Value);
+            if (qualityTotal <= 0) continue;
 
             foreach (var (quality, enabled) in modConfig.Generate)
             {
@@ -328,10 +314,10 @@ public class CustomLootManager(
                 if (idDatabaseManager.DbIds.TryGetValue($"{quality} Quality Variant Core:ID", out var idDatabaseId))
                 {
                     (bool find, TemplateItem? item) = itemHelper.GetItem(idDatabaseId);
-                    
+
                     if (find && item is not null)
                     {
-                        pockets.Add(idDatabaseId, Math.Ceiling(((float)modConfig.QualityWeights[quality] / (float)qualityTotal) * probabilityOfAddedItems)); 
+                        pockets.Add(idDatabaseId, Math.Ceiling(((float)modConfig.QualityWeights[quality] / (float)qualityTotal) * probabilityOfAddedItems));
                         logger.Debug($"Added {quality} Quality Variant Core with {Math.Ceiling(((float)modConfig.QualityWeights[quality] / (float)qualityTotal) * probabilityOfAddedItems)}(QWEIGHT:{modConfig.QualityWeights[quality]}/TOTALWEIGHT:{qualityTotal})(MAX:{totalProbability},ADDED:{probabilityOfAddedItems}) to Scav pockets");
                     }
                 }

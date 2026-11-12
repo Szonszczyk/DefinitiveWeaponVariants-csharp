@@ -1,7 +1,5 @@
 {
-  "RFB No-scope rail mount": {
-    "Description": "A universal rail for mounting various front and back sights on to the RFB rifle, manufactured by >REDACTED<",
-    "ShortName": "Quick-sight",
+  "NoScope_RailMount": {
     "ItemTplToClone": "5f2aa49f9b44de6b1b4e68d4",
     "Changes": {
       "Slots": {
@@ -14,9 +12,7 @@
     "VariantType": "No-Scope",
     "Rarity": "Meme"
   },
-  "Glass Cannon .50BMG 1-shell magazine": {
-    "Description": "A non-standard 1-round magazine for the Glass Cannon Variant shotguns",
-    "ShortName": "GC .50",
+  "GlassCannon_Mag": {
     "ItemTplToClone": "55d485804bdc2d8c2f8b456b",
     "Changes": {
       "Cartridges": {
@@ -26,6 +22,65 @@
     },
     "HandbookPriceRoubles": 5555,
     "VariantType": "Glass Cannon",
+    "Rarity": "Meme"
+  },
+  "EarlyPrototype_LateGame_Mag": {
+    "ItemTplToClone": "5c88f24b2e22160bc12c69a6",
+    "Changes": {
+      "Cartridges": {
+        "Count": 30,
+        "FromWeapons": [ "AVT-40" ]
+      }
+    },
+    "Barter": {
+      "LoyalLevel": 3,
+      "UnlimitedCount": true,
+      "StackObjectsCount": 99,
+      "BarterPrice": {
+        "Meme Quality Variant Core": 5
+      }
+    },
+    "HandbookPriceRoubles": 30000,
+    "VariantType": "Early Prototype",
+    "Rarity": "Meme"
+  },
+  "Desert_Mag_Drum": {
+    "ItemTplToClone": "55d485be4bdc2d962f8b456f",
+    "Changes": {
+      "Cartridges": {
+        "Count": 84,
+        "FromWeapons": [ "Desert Eagle Mk XIX" ]
+      }
+    },
+    "Barter": {
+      "LoyalLevel": 2,
+      "UnlimitedCount": true,
+      "StackObjectsCount": 99,
+      "BarterPrice": {
+        "Meme Quality Variant Core": 3
+      }
+    },
+    "HandbookPriceRoubles": 13000,
+    "VariantType": "Desert",
+    "Rarity": "Meme"
+  },
+  "DoubleBarrel_Barrel": {
+    "ItemTplToClone": "673cb551093e0ea7fd0b874a",
+    "Properties": {
+      "ConflictingItems": [],
+      "ExtraSizeLeft": 0,
+      "Ergonomics": -9
+    },
+    "Changes": {
+      "Slots": {
+        "mod_muzzle": {
+          "Filter": [ "555ef6e44bdc2de9068b457e" ],
+          "Required": true
+        }
+      }
+    },
+    "HandbookPriceRoubles": 6000,
+    "VariantType": "Double Barrel",
     "Rarity": "Meme"
   }
 }

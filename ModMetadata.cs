@@ -1,15 +1,20 @@
 using SPTarkov.Server.Core.Models.Spt.Mod;
+using SPTarkov.Server.Web;
+using ModConfigEditor;
 
 namespace DefinitiveWeaponVariants;
 
-public record ModMetadata : IModMetadata
+public record ModMetadata : IModMetadata, IModBlazorMetadata
 {
+    public string? WWWRootUrl { get; init; }
+    public string? HomePage { get; init; } = ModEditorSettings.Route;
+    public string? HomePageDescription { get; init; } = ModEditorSettings.Description;
     public string ModGuid { get; init; } = "com.szonszczyk.definitiveweaponvariants";
     public string Name { get; init; } = "DefinitiveWeaponVariants";
     public string Author { get; init; } = "Szonszczyk";
     public List<string>? Contributors { get; init; }
-    public SemanticVersioning.Version Version { get; init; } = new("4.3.3");
-    public SemanticVersioning.Range SptVersion { get; init; } = new("~4.1.2");
+    public SemanticVersioning.Version Version { get; init; } = new("5.0.0");
+    public SemanticVersioning.Range SptVersion { get; init; } = new("~4.1.6");
     public List<string>? Incompatibilities { get; init; } = [];
     public Dictionary<string, SemanticVersioning.Range>? ModDependencies { get; init; } = [];
     public string? Url { get; init; } = "https://github.com/Szonszczyk/DefinitiveWeaponVariants-csharp";

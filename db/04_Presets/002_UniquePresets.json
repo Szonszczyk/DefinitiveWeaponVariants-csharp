@@ -25,7 +25,7 @@
                 "_tpl": "69eac8884c27c08d5c318574",
                 "parentId": "69efb6a01edb901468d7e29f",
                 "slotId": "mod_magazine",
-                "desc": "Shotgun Variant 35-round drum magazine"
+                "desc": "Shotgun_Mag_Large"
             },
             {
                 "_id": "69efb6a01edb901468d7e2a2",
@@ -344,7 +344,7 @@
                 "_tpl": "692066c72a67c15014e82128",
                 "parentId": "69efb6ba1edb901468d7f57f",
                 "slotId": "mod_magazine",
-                "desc": "M60 100-round \"Endless\" ammo box"
+                "desc": "Endless_Mag_Shotgun"
             },
             {
                 "_id": "69efb6ba1edb901468d7f583",
@@ -768,7 +768,7 @@
                 "_tpl": "692066c72a67c15014e82116",
                 "parentId": "69efb68f1edb901468d7e297",
                 "slotId": "mod_magazine",
-                "desc": "Pay to Win Variant 50-round magazine"
+                "desc": "P2W_Mag_Huge"
             },
             {
                 "_id": "69efb68f1edb901468d7e29b",

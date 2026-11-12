@@ -1,38 +1,32 @@
-﻿using DefinitiveWeaponVariants.Constants;
+using DefinitiveWeaponVariants.Constants;
 using DefinitiveWeaponVariants.CustomClasses;
 using DefinitiveWeaponVariants.Helpers;
-using DefinitiveWeaponVariants.Interfaces;
 using DefinitiveWeaponVariants.Loaders;
+using DefinitiveWeaponVariants.Models;
+using MudBlazor;
 using SPTarkov.DI.Annotations;
-using SPTarkov.Server.Core.Helpers.Items;
-using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
-using SPTarkov.Server.Core.Models.Spt.Config;
 using SPTarkov.Server.Core.Utils.Cloners;
 
 namespace DefinitiveWeaponVariants.Generators;
 
 [Injectable(InjectionType.Singleton)]
 public class OtherItemsGenerator(
-    CustomLogger logger,
     IdDatabaseManager idDatabaseManager,
     CustomSlotsChanger customSlotsChanger,
-    ConfigData config,
+    ConfigData modConfig,
     ICloner cloner,
     ModDataStorage modDataStorage,
     ItemGenerator itemGenerator,
-    ItemHelper itemHelper,
-    CustomItemCreator customItemCreator
+    CustomItemCreator customItemCreator,
+    CustomLocales customLocales,
+    UCoresGenerator uCoresGenerator,
+    RandomBoxesHelper randomBoxesHelper
 )
 {
-    private readonly ConfigData modConfig = config;
-    private Dictionary<string, int> UnknownPackageLootpool { get; set; } = [];
-
-    private Dictionary<MongoId, double> UnknownPackageLootpoolIds { get; set; } = [];
-
     private TemplateItemProperties VariantCorePropertiesOverride { get; } = new()
     {
-        StackMaxSize = config.VariantCores.General.StackMaxSize,
+        StackMaxSize = 10,
         Prefab = new Prefab
         {
             Path = "assets/content/items/barter/cpu/item_cpu.bundle",
@@ -50,109 +44,135 @@ public class OtherItemsGenerator(
         GenerateNormalCores();
         GenerateLockedCores();
         GenerateBlindBoxes();
-        GenerateUniversalCores();
-
+        uCoresGenerator.GenerateUniversalCores();
         GenerateUnknownPackage();
-
         GenerateCoreHolder();
         GenerateCoreCase();
 
-        CreateLootpoolForUnknownPackage();
+        randomBoxesHelper.AddUnknownPackageLootpool();
     }
 
     private void GenerateNormalCores()
     {
         var corePropertiesOverride = cloner.Clone(VariantCorePropertiesOverride);
         if (corePropertiesOverride is null) return;
-        corePropertiesOverride.Ergonomics = modConfig.VariantCores.Normal.Properties.Ergonomics;
+        corePropertiesOverride.Ergonomics = modConfig.VCNormalErgonomics;
         foreach (var (quality, enabled) in modConfig.Generate)
         {
             // Generate normal core
             var variant = new VariantConfiguration
             {
-                Description = "A small, flat chip installed in Variant Weapons. It provides minor ergonomic benefits and serves as a standard internal component",
-                ShortName = $"{RaritySettings.GetByName(quality).ShortName} Core",
+                Description = "{CoreItem.Normal.Description}",
+                ShortName = $"{{Quality.{quality}.ShortName}} {{CoreItem.Normal.ShortName}}",
                 ItemTplToClone = "58d2912286f7744e27117493",
-                HandbookPriceRoubles = modConfig.VariantCores.General.Price[quality] * modConfig.VariantCores.Normal.PriceMultiplier, 
+                HandbookPriceRoubles = modConfig.VariantCoresPrice[quality] * modConfig.VCNormalPriceMultiplier,
                 Rarity = quality,
-                VariantType = quality
+                VariantType = quality,
+                Changes = new() { Parent = "5448fe124bdc2da5018b4567" }
             };
-            if (enabled && modConfig.VariantCoresEnabled && modConfig.VariantCores.Normal.Buyable)
+            if (enabled && modConfig.VCNormalBuyable)
             {
-                variant.Barter = modConfig.VariantCores.Normal.Barter;
-                variant.Barter.BarterPrice = [];
-                variant.Barter.BarterPrice.Add("5449016a4bdc2d6f028b456f", modConfig.VariantCores.General.Price[quality] * modConfig.VariantCores.Normal.PriceMultiplier);
+                variant.Barter = cloner.Clone(modConfig.VCNormalBarter);
+                variant.Barter!.BarterPrice = new() { ["MONEY_ROUBLES"] = modConfig.VariantCoresPrice[quality] * modConfig.VCNormalPriceMultiplier };
             }
             var newId = itemGenerator.GenerateItem(
                 $"{quality} Quality Variant Core",
+                $"{{Quality.{quality}.Name}} {{CoreItem.Normal.Name}}",
                 variant,
-                "<color={rarity.Color}><b>{quality} Quality Variant Core</b></color>",
-                $"A core component used in Variant Weapons. Provides a small ergonomics boost and can be used to purchase Variant Blind Boxes. Can be inserted into a compatible slot in a weapon variant of the same quality.{(modConfig.VariantCores.Normal.FoundOnEnemies.TryGetValue("assault", out _) ? $"\nCan be found in Scav pockets" : "")}",
+                $"<color={{rarity.Color}}><b>{{Quality.{quality}.Name}} {{CoreItem.Normal.Name}}</b></color>",
+                $"{{CoreItem.Normal.Explanation}}.{(modConfig.VCNormalFoundOnEnemies.TryGetValue("assault", out _) ? "\n{CoreItem.Normal.AddDesc}" : "")}",
                 corePropertiesOverride
             );
             if (newId is null) { continue; }
+            modDataStorage.CoreHandbookPrices[newId] = variant.HandbookPriceRoubles!.Value;
+            modDataStorage.CoreIDsByQuality.Add(quality, newId);
             modDataStorage.AddCoreToStorage(newId, quality, "normal");
-            RarityData rarity = RaritySettings.GetByName(variant.Rarity);
-            UnknownPackageLootpool.Add($"<color={rarity.Color}><b>{quality} Quality Variant Core (90%/10% Locked)</b></color>", modConfig.QualityWeights[quality] * 9);
-            UnknownPackageLootpoolIds.Add(newId, modConfig.QualityWeights[quality] * 9);
+            var rarity = RaritySettings.GetByName(variant.Rarity);
+            modDataStorage.ColorsByItems.Add(newId, [rarity.Color, "#FFFFFF"]);
+            randomBoxesHelper.UnknownPackageDisplayItems.Add(
+                newId,
+                new()
+                {
+                    Description = $"<color={rarity.Color}><b>{{Quality.{quality}.Name}} {{CoreItem.Normal.Name}} (90%/10% {{CoreItem.Locked.ShortName}})</b></color>",
+                    Probability = modConfig.QualityWeights[quality] * 10,
+                    Quality = quality
+                }
+            );
+            randomBoxesHelper.UnknownPackageItems.Add(
+                newId,
+                new()
+                {
+                    Probability = modConfig.QualityWeights[quality] * 9,
+                    Quality = quality
+                }
+            );
         }
-        if (modConfig.VariantCores.Normal.Upgradable && modConfig.VariantCoresEnabled)
+        if (modConfig.VCNormalUpgradable)
         {
-            for (var i = 1; i < RaritySettings.RarityList().Count; i++)
+            var qualities = RaritySettings.RarityList();
+            var maximumQuality = qualities.IndexOf(modConfig.VCNormalUpgradeUpToQuality);
+            for (var i = 1; i <= maximumQuality; i++)
             {
-                var qualityNow = RaritySettings.RarityList()[i];
-                var qualityPrev = RaritySettings.RarityList()[i - 1];
+                var qualityNow = qualities[i];
+                var qualityPrev = qualities[i - 1];
                 modConfig.Generate.TryGetValue(qualityNow, out var qualityNowEnabled);
                 modConfig.Generate.TryGetValue(qualityPrev, out var qualityPrevEnabled);
                 if (!qualityNowEnabled || !qualityPrevEnabled) { continue; }
-                var nowCore = customSlotsChanger.GetItemFromString($"{qualityNow} Quality Variant Core")!;
-                var prevCore = customSlotsChanger.GetItemFromString($"{qualityPrev} Quality Variant Core")!;
-                var barterConfig = cloner.Clone(modConfig.VariantCores.Normal.UpgradableOptions.Barter);
-                if (barterConfig is null) continue;
-                barterConfig.BarterPrice.Add((string)prevCore.Id, modConfig.VariantCores.Normal.UpgradableOptions.Ratio);
-                if (modConfig.AmonyaTraderMode) barterConfig.TraderId = "ee840a5ba014e9c5478d5ccd";
-                customItemCreator.AddItemToTrader(nowCore.Id, barterConfig);
-                if (qualityNow == modConfig.VariantCores.Normal.UpgradableOptions.UpToQuality) break;
+                modDataStorage.CoreIDsByQuality.TryGetValue(qualityNow, out var nowCore);
+                modDataStorage.CoreIDsByQuality.TryGetValue(qualityPrev, out var prevCore);
+                var barterConfig = cloner.Clone(modConfig.VCNormalUpgradeBarter);
+                if (barterConfig == null || nowCore == null || prevCore == null) continue;
+                barterConfig.BarterPrice.Add(prevCore, modConfig.VCNormalUpgradeRatio);
+                customItemCreator.AddItemToTrader(nowCore, barterConfig);
             }
-        }    
+        }
     }
 
     private void GenerateLockedCores()
     {
         var corePropertiesOverride = cloner.Clone(VariantCorePropertiesOverride);
         if (corePropertiesOverride is null) return;
-        corePropertiesOverride.Ergonomics = modConfig.VariantCores.Locked.Properties.Ergonomics;
-        corePropertiesOverride.Accuracy = modConfig.VariantCores.Locked.Properties.Accuracy;
+        corePropertiesOverride.Ergonomics = modConfig.VCLockedErgonomics;
+        corePropertiesOverride.Accuracy = modConfig.VCLockedAccuracy;
         foreach (var (quality, enabled) in modConfig.Generate)
         {
             var variant = new VariantConfiguration
             {
-                Description = "A small, flat chip installed in Variant Weapons. This locked version offers improved ergonomics boost, but is no longer suitable for exchange",
-                ShortName = $"{RaritySettings.GetByName(quality).ShortName} C.(L)",
+                Description = "{CoreItem.Locked.Description}",
+                ShortName = $"{{Quality.{quality}.ShortName}} {{CoreItem.Locked.ShortName}}",
                 ItemTplToClone = "58d2912286f7744e27117493",
-                HandbookPriceRoubles = modConfig.VariantCores.General.Price[quality] * modConfig.VariantCores.Locked.PriceMultiplier,
+                HandbookPriceRoubles = modConfig.VariantCoresPrice[quality] * modConfig.VCLockedPriceMultiplier,
                 Rarity = quality,
-                VariantType = quality
+                VariantType = quality,
+                Changes = new() { Parent = "5448fe124bdc2da5018b4567" }
             };
             var normalCoreId = idDatabaseManager.GetCustomId($"{quality} Quality Variant Core:ID");
-            if (enabled && modConfig.VariantCores.Locked.Upgradable && modConfig.VariantCoresEnabled)
+            if (enabled && modConfig.VCLockedUpgradeBarter.LoyalLevel > 0)
             {
-                variant.Barter = modConfig.VariantCores.Locked.UpgradableOptions.Barter;
-                variant.Barter.BarterPrice = [];
-                variant.Barter.BarterPrice.Add(normalCoreId, modConfig.VariantCores.Locked.UpgradableOptions.Ratio);
+                variant.Barter = cloner.Clone(modConfig.VCLockedUpgradeBarter);
+                variant.Barter!.BarterPrice = new() { [normalCoreId] = modConfig.VCLockedUpgradeRatio };
             }
             var newId = itemGenerator.GenerateItem(
                 $"{quality} Quality Variant Core (Locked)",
+                $"{{Quality.{quality}.Name}} {{CoreItem.Locked.Name}}", 
                 variant,
-                "<color={rarity.Color}><b>{quality} Quality Variant Core (Locked)</b></color>",
-                $"An upgraded core component for Variant Weapons. Provides higher ergonomics than the standard version and can be inserted into a compatible slot in a weapon variant of the same quality\nCannot be used to purchase Variant Blind Boxes, but will not be consumed when buying them while installed in a weapon. Can be broken to normal Variant Cores when sacrificed in the Cultist Circle",
+                $"<color={{rarity.Color}}><b>{{Quality.{quality}.Name}} {{CoreItem.Locked.Name}}</b></color>",
+                "{CoreItem.Locked.Explanation}",
                 corePropertiesOverride
             );
             if (newId is null) { continue; }
+            modDataStorage.CoreHandbookPrices[newId] = variant.HandbookPriceRoubles!.Value;
             modDataStorage.AddCoreToStorage(newId, quality, "normal");
-            //RarityData rarity = RaritySettings.GetByName(variant.Rarity);
-            //UnknownPackageLootpool.Add($"<color={rarity.Color}><b>{quality} Quality Variant Core (Locked)</b></color>", modConfig.QualityWeights[quality] * 1);
-            UnknownPackageLootpoolIds.Add(newId, modConfig.QualityWeights[quality] * 1);
+            var rarity = RaritySettings.GetByName(variant.Rarity);
+            modDataStorage.ColorsByItems.Add(newId, [rarity.Color, "#000000"]);
+            randomBoxesHelper.UnknownPackageItems.Add(
+                newId,
+                new()
+                {
+                    Probability = modConfig.QualityWeights[quality] * 1,
+                    Quality = quality
+                }
+            );
             customItemCreator.CreateCultistCircleCraft(
                 [normalCoreId, normalCoreId, normalCoreId],
                 [newId],
@@ -166,104 +186,57 @@ public class OtherItemsGenerator(
     {
         foreach (var (quality, enabled) in modConfig.Generate)
         {
+            customLocales.RegisterTag("Quality", $"{{Quality.{quality}.Name}}");
             var variant = new VariantConfiguration
             {
-                Description = $"Open to receive one random Weapon Variant of <b>{quality}</b> Quality",
-                ShortName = $"{quality} Variant Weapon Blind Box",
+                Description = "{CoreItem.BBox.Description}",
+                ShortName = $"{{Quality.{quality}.Name}} {{CoreItem.BBox.ShortName}}",
                 ItemTplToClone = "6489b2b131a2135f0d7d0fcb",
-                HandbookPriceRoubles = modConfig.VariantCores.General.Price[quality] * modConfig.VariantCores.BlindBoxes.PriceMultiplier,
+                HandbookPriceRoubles = modConfig.VariantCoresPrice[quality] * modConfig.BlindBoxesPriceMultiplier,
                 Rarity = quality,
                 VariantType = quality
             };
             var coreId = customSlotsChanger.GetItemFromString($"{quality} Quality Variant Core")?.Id ?? "5449016a4bdc2d6f028b456f";
             if (enabled && modConfig.BlindBoxesEnabled)
             {
-                var barter = cloner.Clone(modConfig.VariantCores.BlindBoxes.Barter);
+                var barter = cloner.Clone(modConfig.BlindBoxesBarter);
                 barter ??= new CustomBarterConfig();
-                if (modConfig.VariantCoresEnabled)
-                    barter.BarterPrice.Add(coreId, modConfig.VariantCores.BlindBoxes.CoresPrice);
-                else
-                    barter.BarterPrice.Add("MONEY_ROUBLES", modConfig.VariantCores.General.Price[quality] * modConfig.VariantCores.BlindBoxes.PriceMultiplier);
+                barter.BarterPrice = new() { [coreId] = modConfig.BlindBoxesCoresPrice };
                 variant.Barter = barter;
             }
             var newId = itemGenerator.GenerateItem(
                 $"{quality} Quality Variant Weapon Blind Box",
+                $"{{Quality.{quality}.Name}} {{CoreItem.BBox.Name}}", 
                 variant,
-                "Contains one weapon of <color={rarity.Color}><b>{quality} Quality Variant</b></color>",
-                $"This item can be opened to receive one random Weapon Variant of <b>{quality}</b> Quality",
+                "{CoreItem.BBox.AddDesc} <color={rarity.Color}><b>{Quality} {Other.Word.Quality} {Other.Word.Variant}</b></color>",
+                "{CoreItem.BBox.Explanation}",
                 new TemplateItemProperties
                 {
-                    Width = modConfig.VariantCores.BlindBoxes.Properties.Width,
-                    Height = modConfig.VariantCores.BlindBoxes.Properties.Height
+                    Width = modConfig.BlindBoxesProperties.Width,
+                    Height = modConfig.BlindBoxesProperties.Height,
+                    Weight = modConfig.BlindBoxesProperties.Weight
                 }
             );
             if (newId is null) { continue; }
             modDataStorage.AddCoreToStorage(newId, quality, "other");
-        }
-    }
-
-    private void GenerateUniversalCores()
-    {
-        var corePropertiesOverride = cloner.Clone(VariantCorePropertiesOverride);
-        if (corePropertiesOverride is null) return;
-        corePropertiesOverride.Ergonomics = modConfig.VariantCores.Universal.Properties.Ergonomics;
-        corePropertiesOverride.Recoil = modConfig.VariantCores.Universal.Properties.Recoil;
-        for (int i = 0; i < 8; i++)
-        {
-            var universalCorePropertiesOverride = cloner.Clone(corePropertiesOverride);
-            if (universalCorePropertiesOverride is null) { continue; }
-
-            universalCorePropertiesOverride.Ergonomics += (i - 3);
-            universalCorePropertiesOverride.Recoil -= (8 - i);
-
-            var newId = itemGenerator.GenerateItem(
-                $"Universal Variant Weapon Core v1.{i}",
-                new VariantConfiguration
-                {
-                    Description = "A rare, highly adaptable chip used in Variant Weapons. Unlike other variant cores, it can interface with any variant regardless of quality",
-                    ShortName = $"Univ C.v1.{i}",
-                    ItemTplToClone = "58d2912286f7744e27117493",
-                    HandbookPriceRoubles = modConfig.VariantCores.General.Price["Unique"] * 5,
-                    Rarity = "Unknown",
-                    VariantType = "Unknown"
-                },
-                "<color={rarity.Color}><b>Special attachment for Mod Core slot only available on Weapon Variants</b></color>",
-                "A rare core component compatible with all Variant Weapons, regardless of quality. Provides increased ergonomics and reduces recoil when installed\nOnly obtainable from Unknown Variant Weapon Core Packages",
-                universalCorePropertiesOverride
-            );
-            if (newId is null) { continue; }
-            modDataStorage.AddCoreToStorage(newId, "Unknown", "universal");
-            RarityData rarity = RaritySettings.GetByName("Unknown");
-            UnknownPackageLootpool.Add($"<color={rarity.Color}><b>Universal Variant Weapon Core v1.{i} (Ergonomics +{universalCorePropertiesOverride.Ergonomics}, Recoil {universalCorePropertiesOverride.Recoil}%)</b></color>", 3);
-            UnknownPackageLootpoolIds.Add(newId, 3);
+            randomBoxesHelper.BlindBoxPerQuality.Add(quality, newId);
+            var rarity = RaritySettings.GetByName(variant.Rarity);
+            modDataStorage.ColorsByItems.Add(newId, [rarity.Color]);
         }
     }
     private void GenerateCoreHolder()
     {
-        var priceCoreId = customSlotsChanger.GetItemFromString($"{modConfig.VariantCores.ExpeditionaryCase.PriceCoreQuality} Quality Variant Core");
-        var handbookPrice = priceCoreId == null ? modConfig.VariantCores.General.Price["Baseline"] * modConfig.VariantCores.ExpeditionaryCase.PriceCoreAmount : modConfig.VariantCores.General.Price[modConfig.VariantCores.ExpeditionaryCase.PriceCoreQuality] * modConfig.VariantCores.ExpeditionaryCase.PriceCoreAmount;
+        var handbookPrice = GetHandbookPrice(modConfig.ExpCaseBarter, modConfig.ExpCaseHandbookPriceRoubles);
         var variant = new VariantConfiguration
         {
-            Description = $"I see a small case...\nI see you...\n... alone...\nand a lot of Variant Cores\nJESUS, THAT'S A LOT OF VARIANT CORES!",
-            ShortName = $"Exp.VCCC", 
+            Description = "{CoreItem.ExpCase.Description}",
+            ShortName = "{CoreItem.ExpCase.ShortName}",
             ItemTplToClone = "5e2af55f86f7746d4159f07c",
             HandbookPriceRoubles = handbookPrice,
             Rarity = "Unknown",
             VariantType = "Unknown",
-            Barter = modConfig.VariantCores.ExpeditionaryCase.Barter
+            Barter = cloner.Clone(modConfig.ExpCaseBarter)
         };
-
-        if (priceCoreId is not null)
-        {
-            variant.Barter.BarterPrice.Add(priceCoreId.Id, 12);
-        } else
-        {
-            variant.Barter.BarterPrice.Add("MONEY_ROUBLES", handbookPrice);
-        }
-        if (!modConfig.VariantCoresEnabled)
-        {
-            variant.Barter.LoyalLevel = 0;
-        }
 
         var newGrids = new List<Grid>();
         foreach (var (quality, idList) in modDataStorage.CoresByQuality)
@@ -276,9 +249,9 @@ public class OtherItemsGenerator(
                 Prototype = "55d329c24bdc2d892f8b4567",
                 Properties = new()
                 {
-                    CellsH = modConfig.VariantCores.ExpeditionaryCase.GridProperties.CellsH,
-                    CellsV = modConfig.VariantCores.ExpeditionaryCase.GridProperties.CellsV,
-                    Filters = [ new GridFilter { Filter = [.. idList] } ],
+                    CellsH = modConfig.ExpCaseGridProperties.CellsH,
+                    CellsV = modConfig.ExpCaseGridProperties.CellsV,
+                    Filters = [new GridFilter { Filter = [.. idList] }],
                     IsSortingTable = false,
                     MaxCount = 0,
                     MaxWeight = 0,
@@ -289,50 +262,42 @@ public class OtherItemsGenerator(
         }
         var newId = itemGenerator.GenerateItem(
             $"Expeditionary Variant Core Case",
+            "{CoreItem.ExpCase.Name}",
             variant,
-            "<color={rarity.Color}><b>Expeditionary Variant Core Case</b></color>",
-            $"This case can store all your Variant Cores found in raid!",
+            "<color={rarity.Color}><b>{CoreItem.ExpCase.Name}</b></color>",
+            "{CoreItem.ExpCase.Explanation}",
             new TemplateItemProperties
             {
-                Width = modConfig.VariantCores.ExpeditionaryCase.Properties.Width,
-                Height = modConfig.VariantCores.ExpeditionaryCase.Properties.Height,
+                Width = modConfig.ExpCaseProperties.Width,
+                Height = modConfig.ExpCaseProperties.Height,
                 Grids = newGrids,
-                Weight = modConfig.VariantCores.ExpeditionaryCase.Properties.Weight
+                Weight = modConfig.ExpCaseProperties.Weight
             }
         );
-        if (newId is not null) {
+        if (newId is not null)
+        {
             customItemCreator.AddItemToSecureContainer(newId);
+            var rarity = RaritySettings.GetByName(variant.Rarity);
+            modDataStorage.ColorsByItems.Add(newId, [rarity.Color]);
         }
     }
 
     private void GenerateCoreCase()
     {
-        var priceCoreId = customSlotsChanger.GetItemFromString($"{modConfig.VariantCores.CarryCase.PriceCoreQuality} Quality Variant Core");
-        var handbookPrice = priceCoreId == null ? modConfig.VariantCores.General.Price["Baseline"] * modConfig.VariantCores.CarryCase.PriceCoreAmount : modConfig.VariantCores.General.Price[modConfig.VariantCores.CarryCase.PriceCoreQuality] * modConfig.VariantCores.CarryCase.PriceCoreAmount;
+        var handbookPrice = GetHandbookPrice(modConfig.CarryCaseBarter, modConfig.CarryCaseHandbookPriceRoubles);
         var variant = new VariantConfiguration
         {
-            Description = $"I see a large case...\nI see you...\n... alone...\nand a lot of Variant Cores\nJESUS, THAT'S A LOT OF VARIANT CORES!",
-            ShortName = $"Variant Core Carry Case",
+            Description = "{CoreItem.CarryCase.Description}",
+            ShortName = "{CoreItem.CarryCase.ShortName}",
             ItemTplToClone = "5e2af55f86f7746d4159f07c",
             HandbookPriceRoubles = handbookPrice,
             Rarity = "Unknown",
             VariantType = "Unknown",
-            Barter = modConfig.VariantCores.CarryCase.Barter
+            Barter = cloner.Clone(modConfig.CarryCaseBarter)
         };
-        if (priceCoreId is not null)
-        {
-            variant.Barter.BarterPrice.Add(priceCoreId.Id, 30);
-        } else
-        {
-            variant.Barter.BarterPrice.Add("MONEY_ROUBLES", handbookPrice);
-        }
-        if (!modConfig.VariantCoresEnabled)
-        {
-            variant.Barter.LoyalLevel = 0;
-        }
 
         var newGrids = new List<Grid>();
-        var storageSizes = modConfig.VariantCores.CarryCase.GridTypesWidth;
+        var storageSizes = modConfig.CarryCaseGridTypesWidth;
         foreach (var (type, idList) in modDataStorage.CoresByType)
         {
             Grid columnCaseGrid = new()
@@ -344,7 +309,7 @@ public class OtherItemsGenerator(
                 Properties = new()
                 {
                     CellsH = storageSizes[type],
-                    CellsV = modConfig.VariantCores.CarryCase.GridHeight,
+                    CellsV = modConfig.CarryCaseGridHeight,
                     Filters = [new GridFilter { Filter = [.. idList] }],
                     IsSortingTable = false,
                     MaxCount = 0,
@@ -355,22 +320,25 @@ public class OtherItemsGenerator(
             newGrids.Add(columnCaseGrid);
         }
 
+        customLocales.RegisterTag("CarryCase.Grid.1", storageSizes["normal"].ToString());
+        customLocales.RegisterTag("CarryCase.Grid.2", storageSizes["universal"].ToString());
+        customLocales.RegisterTag("CarryCase.Grid.3", storageSizes["other"].ToString());
         var newId = itemGenerator.GenerateItem(
             $"Variant Core Carry Case",
+            "{CoreItem.CarryCase.Name}",
             variant,
-            "<color={rarity.Color}><b>Variant Core Carry Case</b></color>",
-            $"This case can store all your Variant Cores in {storageSizes["normal"]}x10 space, Universal Variant Cores in {storageSizes["universal"]}x10 space, Unknown Packages and Blind Boxes in {storageSizes["other"]}x10 space!",
+            "<color={rarity.Color}><b>{CoreItem.CarryCase.Name}</b></color>",
+            "{CoreItem.CarryCase.Explanation}",
             new TemplateItemProperties
             {
-                Width = modConfig.VariantCores.CarryCase.Properties.Width,
-                Height = modConfig.VariantCores.CarryCase.Properties.Height,
+                Width = modConfig.CarryCaseProperties.Width,
+                Height = modConfig.CarryCaseProperties.Height,
                 Grids = newGrids
             }
         );
         if (newId is null) { return; }
-        //RarityData rarity = RaritySettings.GetByName("Unknown");
-        //UnknownPackageLootpool.Add($"<color={rarity.Color}><b>Variant Core Carry Case</b></color>", 2);
-        //UnknownPackageLootpoolIds.Add(newId, 2);
+        var rarity = RaritySettings.GetByName(variant.Rarity);
+        modDataStorage.ColorsByItems.Add(newId, [rarity.Color]);
     }
     private void GenerateUnknownPackage()
     {
@@ -378,69 +346,45 @@ public class OtherItemsGenerator(
         if (unknownPackageOverride is not null)
         {
             unknownPackageOverride.Ergonomics = 0;
-            unknownPackageOverride.Width = modConfig.VariantCores.UnknownPackage.Properties.Width;
-            unknownPackageOverride.Height = modConfig.VariantCores.UnknownPackage.Properties.Height;
+            unknownPackageOverride.Width = modConfig.UnknownPackageProperties.Width;
+            unknownPackageOverride.Height = modConfig.UnknownPackageProperties.Height;
             unknownPackageOverride.StackMaxSize = 1;
-            unknownPackageOverride.Weight = modConfig.VariantCores.UnknownPackage.Properties.Weight;
+            unknownPackageOverride.Weight = modConfig.UnknownPackageProperties.Weight;
 
-            var totalWeight = UnknownPackageLootpool.Values.Sum();
-            var formatted = UnknownPackageLootpool
-                .Select(kvp => new
-                {
-                    Name = kvp.Key,
-                    Percentage = (double)kvp.Value / totalWeight * 100
-                })
-                .OrderBy(x => x.Percentage);
-            var descText = "";
-            foreach (var item in formatted)
-            {
-                descText += $"{item.Percentage:F2}% - {item.Name}\n";
-            }
-            var barter = modConfig.VariantCores.UnknownPackage.Barter;
-            if (modConfig.VariantCoresEnabled)
-            {
-                barter.BarterPrice.Add("MONEY_ROUBLES", modConfig.VariantCores.UnknownPackage.PriceInRoubles);
-            } else
-            {
-                barter.LoyalLevel = 0;
-            }
-
+            var barter = cloner.Clone(modConfig.UnknownPackageBarter)!;
+            if (!modConfig.UnknownPackageEnabled) barter.LoyalLevel = 0;
+            customLocales.RegisterTag("UPackage.CoresReceived", modConfig.UnknownPackageCoresReceived.ToString());
+            customLocales.RegisterTag("UPackage.Lootpool", randomBoxesHelper.CreateUnknownPackageLootpool());
             var newId = itemGenerator.GenerateItem(
                 $"Unknown Variant Weapon Core Package",
+                "{CoreItem.UPackage.Name}",
                 new VariantConfiguration
                 {
-                    Description = "A sealed bundle of Variant Weapon Cores of unknown quality. Only one is visible from the outside-open it to reveal the rest",
-                    ShortName = $"Unknown Package",
+                    Description = "{CoreItem.UPackage.Description}",
+                    ShortName = "{CoreItem.UPackage.ShortName}",
                     ItemTplToClone = "6489b2b131a2135f0d7d0fcb",
-                    HandbookPriceRoubles = modConfig.VariantCores.UnknownPackage.PriceInRoubles,
+                    HandbookPriceRoubles = GetHandbookPrice(barter, 250000),
                     Barter = barter,
                     Rarity = "Unknown",
                     VariantType = "Unknown"
                 },
-                $"<color={{rarity.Color}}><b>Package of {modConfig.VariantCores.UnknownPackage.CoresReceived} random Variant Weapon Cores</b></color>",
-                $"Open it to receive {modConfig.VariantCores.UnknownPackage.CoresReceived} random Variant Weapon Cores\nThis is the only way to obtain rare Universal Variant Weapon Cores\n\n>>> Lootpool <<<\n{descText}\nCan be found in Jackets/Dead scavs/PC Blocks/Plastic Suitcases and Safes on all maps",
+                "<color={rarity.Color}><b>{CoreItem.UPackage.AddDesc}</b></color>",
+                "{CoreItem.UPackage.Explanation}",
                 unknownPackageOverride
             );
             if (newId is null) { return; }
             modDataStorage.AddCoreToStorage(newId, "Unknown", "other");
+            randomBoxesHelper.UnknownPackageId = newId;
+            var rarity = RaritySettings.GetByName("Unknown");
+            modDataStorage.ColorsByItems.Add(newId, [rarity.Color]);
         }
     }
-    public void CreateLootpoolForUnknownPackage()
-    {
-        if (idDatabaseManager.DbIds.TryGetValue($"Unknown Variant Weapon Core Package:ID", out var idDatabaseId))
+
+    private double GetHandbookPrice(CustomBarterConfig barter, int fallback)
+        => HandbookPriceCalculator.Calculate(barter.BarterPrice, fallback, key =>
         {
-            (bool find, TemplateItem? item) = itemHelper.GetItem(idDatabaseId);
-            if (find && item is not null)
-            {
-                modDataStorage.InventoryConfigData.RandomLootContainers.Add(idDatabaseId, new RewardDetails
-                {
-                    RewardCount = modConfig.VariantCores.UnknownPackage.CoresReceived,
-                    FoundInRaid = false,
-                    RewardTplPool = UnknownPackageLootpoolIds
-                });
-                // Fix found on MoxoPixel-Painter
-                item.Name = idDatabaseId;
-            }
-        }
-    }
+            var id = customSlotsChanger.GetItemFromString(key)?.Id;
+            return id is not null && modDataStorage.CoreHandbookPrices.TryGetValue(id, out var price)
+                ? price : null;
+        });
 }

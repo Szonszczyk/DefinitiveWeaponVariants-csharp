@@ -1,12 +1,14 @@
 ﻿using DefinitiveWeaponVariants.Constants;
 using DefinitiveWeaponVariants.CustomClasses;
 using DefinitiveWeaponVariants.Helpers;
-using DefinitiveWeaponVariants.Interfaces;
+using DefinitiveWeaponVariants.Integrations;
 using DefinitiveWeaponVariants.Loaders;
+using DefinitiveWeaponVariants.Models;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
 using SPTarkov.Server.Core.Models.Spt.Mod;
+using SPTarkov.Server.Core.Models.Spt.Tables;
 
 namespace DefinitiveWeaponVariants.Generators;
 
@@ -18,80 +20,93 @@ public class ItemGenerator(
     CustomItemCreator customItemCreator,
     CustomPropertiesChanger customPropertiesChanger,
     CustomSlotsChanger customSlotsChanger,
-    ConfigData config,
-    ModDataStorage modDataStorage
+    ModDataStorage modDataStorage,
+    TemplateTable templateTable,
+    CustomLocales customLocales,
+    ModCheck modCheck
 )
 {
-    private readonly ConfigData modConfig = config;
-
     public void GenerateAllItems()
     {
         // Generate all items from jsons
-        foreach (var (variantName, config) in modDatabaseLoader.DbItems)
+        foreach (var (internalItemName, itemConfig) in modDatabaseLoader.DbItems)
         {
-            GenerateItem(
-                variantName,
-                config,
-                "Part of <color={rarity.Color}><b>{variant.VariantType} Variant</b></color>",
-                "This item is designed for weapons from the Definitive Weapon Variants mod and cannot be used without a compatible variant weapon",
-                new TemplateItemProperties()
-            );
+            if (itemConfig is { ItemTplToClone: not null, HandbookPriceRoubles: not null, VariantType: not null, Rarity: not null } variant)
+            {
+                variant.ShortName = $"{{{internalItemName}.ShortName}}";
+                variant.Description = $"{{{internalItemName}.Description}}";
+                GenerateItem(
+                    internalItemName,
+                    $"{{{internalItemName}.Name}}",
+                    variant,
+                    $"{{Desc.PartOf}} <color={{rarity.Color}}><b>{{{internalItemName}.VariantType}} {{Other.Word.Variant}}</b></color>",
+                    "{Desc.Item}",
+                    new TemplateItemProperties(),
+                    false
+                );
+            } else
+            {
+                logger.Error($"One or more properties are missing for item '{internalItemName}'! Required are: ItemTplToClone, HandbookPriceRoubles, VariantType, Rarity");
+            }
         }
     }
 
-    public string? GenerateItem(string variantName, VariantConfiguration config, string additionalDescription, string explanation, TemplateItemProperties newOverride)
+    public string? GenerateItem(string internalName, string variantName, VariantConfiguration config, string additionalDescription, string explanation, TemplateItemProperties newOverride, bool coreItem = true)
     {
-        
         if (config is { Description: not null, ShortName: not null, ItemTplToClone: not null, Rarity: not null, HandbookPriceRoubles: not null, VariantType: not null } variant)
         {
-            if (!MongoId.IsValidMongoId(variant.ItemTplToClone)) {
-                logger.Error($"ItemTplToClone {variant.ItemTplToClone} is incorrect ({variantName})!");
+            foreach (var modGUID in variant.ModGUIDs ?? []) if (!modCheck.CheckInstalledMod(modGUID)) return null; // Mod check
+            if (!MongoId.IsValidMongoId(variant.ItemTplToClone))
+            {
+                logger.Error($"ItemTplToClone {variant.ItemTplToClone} is incorrect ({internalName})!");
                 return null;
             }
             MongoId itemTplToClone = (MongoId)variant.ItemTplToClone;
-            modDataStorage.Items.TryGetValue(itemTplToClone, out var copiedItem);
+            templateTable.Items.TryGetValue(itemTplToClone, out var copiedItem);
             if (copiedItem is null)
             {
-                logger.Warning($"ItemTplToClone {variant.ItemTplToClone} is not found (or you are missing some mod) ({variantName})! Skipping");
+                logger.Warning($"ItemTplToClone {variant.ItemTplToClone} is not found (or you are missing some mod) ({internalName})! Skipping");
                 return null;
             }
 
-            HandbookItem? copiedItemHandbook = modDataStorage.Handbook.Items.Find(t => t.Id == itemTplToClone);
+            HandbookItem? copiedItemHandbook = templateTable.Handbook.Items.Find(t => t.Id == itemTplToClone);
             RarityData rarity = RaritySettings.GetByName(variant.Rarity);
-            if (variant.Barter is not null && modConfig.AmonyaTraderMode) variant.Barter.TraderId = "ee840a5ba014e9c5478d5ccd";
-            var traderName = (variant.Barter == null || customItemCreator.GetTraderIdByName(variant.Barter.TraderId) == null) ? "N/A" : modDataStorage.Traders[(MongoId)customItemCreator.GetTraderIdByName(variant.Barter.TraderId)!].Base.Nickname;
-            var text = variant.Barter == null ? "Can't be bought from traders" : $"Can be bought in {traderName} LL{variant.Barter.LoyalLevel}";
-            if (variant.HandbookPriceRoubles == 0) variant.HandbookPriceRoubles = 1;
+            var traderName = (variant.Barter == null || customItemCreator.GetTraderIdByName(variant.Barter.TraderId) == null) ? customItemCreator.GetTraderIdByName("PEACEKEEPER") : customItemCreator.GetTraderIdByName(variant.Barter.TraderId);
+            var text = variant.Barter is not { LoyalLevel: > 0, BarterPrice.Count: > 0 }
+                ? "{Desc.NoBarter}" : $"{{Desc.Barter}} {{{traderName} Nickname}} LL{variant.Barter.LoyalLevel}";
             var newItem = new NewItemFromCloneDetails
             {
-                NewItemName = variantName,
+                NewItemName = internalName,
                 ItemTplToClone = itemTplToClone,
                 ParentId = variant.Changes?.Parent != null ? variant.Changes.Parent : copiedItem.Parent,
                 HandbookParentId = copiedItemHandbook != null ? copiedItemHandbook.ParentId : "5b5f6fa186f77409407a7eb7",
-                NewId = idDatabaseManager.GetCustomId($"{variantName}:ID"),
+                NewId = idDatabaseManager.GetCustomId($"{internalName}:ID"),
                 FleaPriceRoubles = variant.HandbookPriceRoubles * 2,
                 HandbookPriceRoubles = variant.HandbookPriceRoubles,
                 OverrideProperties = newOverride,
-                Locales = new Dictionary<string, LocaleDetails>
-                {
-                    {
-                        "en", new LocaleDetails
-                        {
-                            Name = GenerateVariantName(variant.Rarity, rarity, variantName), 
-                            ShortName = variant.ShortName,
-                            Description = string.Join("\n", new[] {
-                                $"<align=\"center\">{variant.Description}",
-                                $"",
-                                additionalDescription.Replace("{rarity.Color}", rarity.Color).Replace("{variant.VariantType}", variant.VariantType).Replace("{quality}", variant.VariantType),
-                                $"",
-                                explanation,
-                                $"{text}</align>"
-                            })
-                        }
-                    }
-                }
+                Locales = []
             };
             newItem.OverrideProperties.BackgroundColor = ModDataStorage.IsPluginLoaded() ? $"{rarity.Color}ff" : rarity.BgColor;
+            string localizedName = variantName;
+            if (!localizedName.Contains("<dwv-gradient="))
+            {
+                localizedName = variant.Rarity == "Unique"
+                    ? $"<b><dwv-rainbow>{localizedName}</dwv-rainbow></b>"
+                    : $"<b><color={rarity.Color}>{localizedName}</color></b>";
+            }
+            newItem.Locales = customLocales.CreateItemLocale(
+                localizedName,
+                config.ShortName,
+                string.Join("\n", new[] {
+                    $"<align=\"center\">{variant.Description}",
+                    $"",
+                    additionalDescription.Replace("{rarity.Color}", rarity.Color),
+                    $"",
+                    explanation,
+                    $"{text}</align>"
+                }),
+                newItem.NewId
+            );
 
             if (variant.Properties != null)
                 newItem.OverrideProperties = customPropertiesChanger.ChangeItemProperties(variant.Properties, newItem.OverrideProperties, copiedItem, config, variantName);
@@ -131,7 +146,7 @@ public class ItemGenerator(
                         var firstId = newChamberFilter.First();
                         newItem.OverrideProperties.DefAmmo = firstId;
 
-                        if (modDataStorage.Items.TryGetValue(firstId, out var item) && item?.Properties?.Caliber != null)
+                        if (templateTable.Items.TryGetValue(firstId, out var item) && item?.Properties?.Caliber != null)
                         {
                             newItem.OverrideProperties.AmmoCaliber = item.Properties.Caliber;
                         }
@@ -169,18 +184,11 @@ public class ItemGenerator(
             customItemCreator.AddItemToDatabase(newItem, new CustomItemConfig(), variant?.Barter ?? new CustomBarterConfig());
             modDataStorage.AddItemToQuality(newItem.NewId, variant.Rarity);
             return newItem.NewId;
-        } else
+        }
+        else
         {
             logger.Error($"Item '{variantName}' is missing one or more required properties!");
             return null;
         }
-    }
-    private static string GenerateVariantName(string? rarityName, RarityData rarity, string variantName)
-    {
-        if (rarityName == "Unique")
-        {
-            return $"<b>{RainbowText.RainbowUnityRichText(variantName)}</b>";
-        }
-        return $"<b><color={rarity.Color}>{variantName}</color></b>";
     }
 }

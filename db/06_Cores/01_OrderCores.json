@@ -1,0 +1,64 @@
+{
+  "Order": {
+    "Theme": {
+      "Color1": "#FFFFFF",
+      "Color2": "#1E67BA"
+    },
+    "Items": {
+      "Order_01": {
+        "Properties": {
+          "Ergonomics": 4,
+          "Recoil": -8
+        }
+      },
+      "Order_02": {
+        "Properties": {
+          "Ergonomics": 5,
+          "Recoil": -7
+        }
+      },
+      "Order_03": {
+        "Properties": {
+          "Ergonomics": 6,
+          "Recoil": -6
+        }
+      },
+      "Order_04": {
+        "Properties": {
+          "Ergonomics": 7,
+          "Recoil": -5
+        }
+      },
+      "Order_05": {
+        "Properties": {
+          "Ergonomics": 8,
+          "Recoil": -4
+        }
+      },
+      "Order_06": {
+        "Properties": {
+          "Ergonomics": 9,
+          "Recoil": -3
+        }
+      },
+      "Order_07": {
+        "Properties": {
+          "Ergonomics": 10,
+          "Recoil": -2
+        }
+      },
+      "Order_08": {
+        "Properties": {
+          "Ergonomics": 11,
+          "Recoil": -1
+        }
+      },
+      "Order_09": {
+        "Properties": {
+          "Ergonomics": 12,
+          "Recoil": 0
+        }
+      }
+    }
+  }
+}
