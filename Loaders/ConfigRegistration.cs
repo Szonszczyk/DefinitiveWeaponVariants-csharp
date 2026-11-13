@@ -11,7 +11,7 @@ namespace DefinitiveWeaponVariants.Loaders;
 /// <summary>Loads configuration before SPT builds its dependency-injection container.</summary>
 public class ConfigRegistration : IOnDIConstruct
 {
-    public const string ConfigFileComment = "// You can edit this config when server is running in your browser at: https://127.0.0.1:6969/definitive-weapon-variants/config";
+    public const string ConfigFileComment = "// You can edit this config when server is running in your browser at SIC: /definitive-weapon-variants/config";
 
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
