@@ -1,3 +1,9 @@
+# Version 5.0.1 for SPT ~4.1.6
+
+- Fixed compatibility issues with questing bots and some other mods
+- Updated APBS weapon rotation logic
+
+---------------------
 # Version 5.0.0 for SPT ~4.1.6
 
 The biggest update in the history of this mod. I sat down and tried to resolve every little issue I had collected, add every feature I wanted and make the changes I had dreamed of for a long time

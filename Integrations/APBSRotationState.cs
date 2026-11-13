@@ -110,6 +110,13 @@ internal static class APBSRotationPolicy
             baseline[tier].ExceptWith(committed.OwnedPermanent[tier]);
             baseline[tier].ExceptWith(committed.OwnedCompatibility[tier]);
             baseline[tier].ExceptWith(committed.OwnedTemporary[tier]);
+            // These settings define the restrictions for generated DWV weapons.
+            // Rebuild that scope even if the journal is missing or has lost its
+            // ownership entries; otherwise an old rotation's temporary bans
+            // become baseline bans and permanently shrink the eligible pool.
+            // Keep other weapon IDs and every unrelated blacklist category.
+            if (options.CompatibilityEnabled || options.RotationEnabled)
+                baseline[tier].ExceptWith(registry);
             // Disabling the old generation option retains its existing restrictions.
             desiredCompatibility[tier] = options.CompatibilityEnabled || options.RotationEnabled
                 ? new(compatibility[tier])

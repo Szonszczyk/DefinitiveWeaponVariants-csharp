@@ -1312,7 +1312,7 @@
         {
           "Property": "EnableAPBSBlacklistGeneration",
           "DisplayName": "Update APBS Quality-Tier Blacklists",
-          "Description": "Automatically create and update APBS blacklists to apply the minimum quality tiers configured below. Weapon rotation always includes these rules, regardless of this toggle. When both generation and rotation are disabled, DWV cleans its weapon entries and removes an existing rotation state file.",
+          "Description": "Automatically create and update APBS blacklists to apply the minimum quality tiers configured below. DWV rebuilds restrictions for its generated weapons from these settings, replacing existing manual bans on those weapons while preserving other weapon IDs and blacklist categories. Weapon rotation always includes these rules, regardless of this toggle. When both generation and rotation are disabled, DWV cleans its weapon entries and removes an existing rotation state file.",
           "Type": "bool",
           "Default": false
         },
@@ -1410,7 +1410,7 @@
         {
           "Property": "EnableAPBSWeaponRotation",
           "DisplayName": "Enable Timed Weapon Rotation",
-          "Description": "Rotate the weapon variants available to APBS bots by temporarily blacklisting variants outside the selected pool. Includes all normal quality-tier and type rules regardless of the normal-generation toggle. The first synchronization waits for a raid-start or bot-generation request instead of reloading APBS during server startup.",
+          "Description": "Rotate the weapon variants available to APBS bots by temporarily blacklisting variants outside the selected pool. Rebuilds restrictions for generated DWV weapons from the quality-tier and type settings regardless of the normal-generation toggle, replacing manual bans on those weapons. Other weapon IDs and blacklist categories are preserved.",
           "Type": "bool",
           "Default": false
         },
